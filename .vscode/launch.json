@@ -1,0 +1,42 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Debug Chrome against localhost",
+			"url": "http://localhost:3000", // Change the port as needed
+			"webRoot": "${workspaceFolder}",
+			"sourceMaps": true,
+			"trace": true,
+			"userDataDir": "${workspaceFolder}/.vscode/chrome",
+			"pathMapping": {
+				"/": "${workspaceFolder}/src"
+			},
+			"sourceMapPathOverrides": {
+				"webpack:///./*": "${webRoot}/*"
+			},
+			"breakOnLoad": true,
+			"reloadOnSave": true,
+			"diagnosticLogging": true,
+			"showAsyncStacks": true,
+			"skipFiles": ["node_modules/**/*.js", "bower_components/**/*.js", "<node_internals>/**/*.js"],
+			"smartStep": true,
+			"internalConsoleOptions": "openOnSessionStart",
+			"sourceMapRegex": "\\/src\\/(.*)\\.ts", // Adjust as needed
+
+			// Additional Node.js and Next.js settings
+			"runtimeExecutable": "node",
+			"runtimeArgs": ["--inspect"],
+			"program": "${workspaceFolder}/path/to/your/server.js", // Path to your Node.js server file
+			"outFiles": ["${workspaceFolder}/dist/**/*.js"], // Adjust as needed
+
+			// TypeScript-specific settings
+			"preLaunchTask": "tsc: build - tsconfig.json",
+			"tsBuildInfoFile": "${workspaceFolder}/.vscode/buildInfo",
+
+			"restart": true,
+			"autoAttachChildProcesses": true
+		}
+	]
+}

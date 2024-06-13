@@ -1,0 +1,94 @@
+.bell svg {
+  color: #0055ba;
+  font-size: 28px;
+}
+
+.belldown svg {
+  color: #0055ba;
+  font-size: 28px;
+}
+
+.bell {
+  position: relative;
+  cursor: pointer;
+}
+
+.belldown {
+  position: relative;
+  cursor: pointer;
+}
+
+.bell::after {
+  content: '';
+  background: #fdca40;
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: -3px;
+  left: 14px;
+  border-radius: 100px;
+  border: solid #fff 2px;
+}
+
+.drop svg {
+  color: #0055ba;
+  font-size: 28px;
+}
+
+.topBar {
+  background: var(--Grayscale-White, #fff);
+  box-shadow: 0px 4px 12px 0px rgba(21, 21, 21, 0.12);
+  padding: 16px 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  color: #fff;
+  z-index: 1;
+}
+
+.selectPropties {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 38px;
+  border-radius: 4px;
+}
+
+.selectPropties select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 5px;
+  background: transparent;
+  color: #999999;
+}
+
+@media (min-width: 1700px) {
+  .topBar {
+    background: var(--Grayscale-White, #fff);
+    box-shadow: 0px 4px 12px 0px rgba(21, 21, 21, 0.12);
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .topBar {
+    width: 100vw;
+    padding: 16px 15px;
+  }
+}
+
+@media (min-width: 1367px) {
+  .topBar {
+    width: 100vw;
+    padding: 16px 15px;
+  }
+}
+
+@media (min-width: 1700px) {
+  .topBar {
+    width: 100vw;
+    padding: 16px 15px;
+  }
+}

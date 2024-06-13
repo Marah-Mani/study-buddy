@@ -1,0 +1,15 @@
+.primaryOutlineButton button {
+  border-radius: 8px;
+  background: #0055ba14;
+  height: unset;
+  padding: 7px 20px;
+  border: none;
+  color: #0091f7;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  border: 2px solid #0091f7;
+}
+#w100 {
+  width: 100%;
+}

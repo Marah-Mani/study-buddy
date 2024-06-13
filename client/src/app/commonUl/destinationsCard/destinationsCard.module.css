@@ -1,0 +1,13 @@
+/* locationsCard css */
+.destinationsCard img {
+  width: 100%;
+  height: unset;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+.spacing {
+  width: 100px;
+}
+.spacing {
+  padding: 0 35px;
+}

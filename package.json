@@ -1,0 +1,93 @@
+{
+	"name": "nodenext",
+	"version": "1.0.0",
+	"description": "",
+	"proxy": "http://127.0.0.1:3001/api",
+	"scripts": {
+		"start": "npm run lint && concurrently \"npm run start:server\" \"npm run start:client\"",
+		"production": "npm run lint && concurrently \"npm run start:server\" \"npm run start:clientProd\"",
+		"start:client": "cd client && npm run dev",
+		"start:server": "cd server && npm run dev",
+		"install:server": "cd server && npm install",
+		"install:client": "cd client && npm install --f",
+		"build": "npm run lint && cd client && npm run build",
+		"start:clientProd": "cd client && npm start",
+		"setup": "npm install && npm run install:server && npm run install:client",
+		"format": "prettier --write . --ignore-path .prettierignore",
+		"commit": "cz",
+		"lint": "concurrently \"npm run lint:client\" \"npm run lint:server\"",
+		"lint:client": "cd client && npm run lint",
+		"lint:server": "cd server && npm run lint",
+		"debug": "cd server && ndb node index.js"
+	},
+	"keywords": [],
+	"author": "Binary Data <binarydata.sale@gmail.com>",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/react-credit-cards": "^0.8.4",
+		"@types/react-signature-canvas": "^1.0.5",
+		"commitizen": "^4.3.0",
+		"concurrently": "^8.2.2",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^8.54.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-prettier": "^5.0.1",
+		"eslint-plugin-sonarjs": "^1.0.3",
+		"husky": "^8.0.3",
+		"lint-staged": "^15.2.2",
+		"prettier": "^3.2.4"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"repository": "https://github.com/binarydata123/StudyBuddy.git",
+	"dependencies": {
+		"@ant-design/nextjs-registry": "^1.0.0",
+		"@dnd-kit/core": "^6.1.0",
+		"@fullcalendar/daygrid": "^6.1.14",
+		"@fullcalendar/react": "^6.1.14",
+		"@ntegral/react-owl-carousel": "^1.0.1",
+		"antd": "^5.13.1",
+		"archiver": "^7.0.1",
+		"dotenv": "^16.3.1",
+		"eslint-plugin-eslint-plugin": "^6.1.0",
+		"googleapis": "^137.1.0",
+		"html2canvas": "^1.4.1",
+		"ical.js": "^2.0.1",
+		"jquery": "^3.7.1",
+		"js-cookie": "^3.0.5",
+		"jspdf": "^2.5.1",
+		"knex": "^3.1.0",
+		"moment": "^2.30.1",
+		"next": "^14.0.4",
+		"owl.carousel": "^2.3.4",
+		"rate-limit": "^0.1.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-flags-select": "^2.2.3",
+		"react-icons": "^5.0.1",
+		"react-owl-carousel": "^2.3.3",
+		"react-responsive": "^9.0.2",
+		"react-select": "^5.8.0",
+		"react-slick": "^0.29.0",
+		"react-timeago": "^7.2.0",
+		"rrule": "^2.8.1",
+		"sharp": "^0.33.3",
+		"slick-carousel": "^1.8.1",
+		"swiper": "^11.0.5"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx,html}": [
+			"prettier --write",
+			"eslint",
+			"git add"
+		]
+	}
+}

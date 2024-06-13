@@ -1,0 +1,77 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "forceConsistentCasingInFileNames": true, // Enforces consistent casing in file names
+    "noFallthroughCasesInSwitch": true, // Flags fallthrough cases in switch statements as errors
+    "noUnusedLocals": false, // Reports unused local variables
+    "noUnusedParameters": false, // Reports unused parameters
+    "strictPropertyInitialization": true, // Checks for strict initialization of class properties
+    "noImplicitReturns": true, // Reports an error when not all code path  s in a function return a value
+    "noImplicitThis": true, // Warns on expressions and declarations with an implied 'any' type
+    "noImplicitAny": true, // Warns on expressions and declarations with an implied 'any' type
+    "strictNullChecks": true, // Enables strict null checks
+    "strictFunctionTypes": true, // Enables strict checking of function types
+    "strictBindCallApply": true, // Enables stricter 'bind', 'call', and 'apply' methods on functions
+    // More options for better code quality
+    "noEmitOnError": true, // Do not emit outputs if any type checking errors are reported
+    "declaration": true, // Generates corresponding '.d.ts' files for TypeScript modules
+    "declarationDir": "./types", // Output directory for generated declaration files
+    "sourceMap": true, // Generates source map files
+    // "outDir": "./dist", // Redirects output structure to the directory
+    // "rootDir": "./src", // Sets the root directory of input files
+    // Advanced options
+    //"noImplicitUseStrict": true, // Do not emit 'use strict' directives in module files
+    "preserveConstEnums": true, // Preserve const enums in generated code
+    "removeComments": true, // Do not emit comments to output
+    "declarationMap": true, // Generates a source map for each corresponding '.d.ts' file
+    "noEmitHelpers": true, // Do not generate custom helper functions like '__extends', '__rest', etc.
+    "downlevelIteration": true, // Emit 'for...of' loops to ES3/ES5 targets
+    "importHelpers": true, // Use '__importDefault', '__importStar', and '__createBinding' helpers instead of runtime methods
+    // Experimental options (use cautiously)
+    "useDefineForClassFields": true, // Emit ECMAScript-standard property 'define' for class fields initialization
+    // Additional strict checks
+    "noImplicitOverride": true, // Checks that an overridden method has the same or more permissive accessibility than the original method
+    // "noPropertyAccessFromIndexSignature": true, // Disallows property access through an index signature with an 'any' key type
+    "noUncheckedIndexedAccess": true, // Disallows unchecked indexing into objects via an index signature
+    // Advanced options
+    "exactOptionalPropertyTypes": true, // Enforces exact optional property types
+    "composite": true, // Enable constraints between project references
+    "skipDefaultLibCheck": true, // Skip type checking of declaration files in the TypeScript standard library
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo" // Specify the file that will store incremental compilation information
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

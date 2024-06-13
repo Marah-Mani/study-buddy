@@ -1,0 +1,95 @@
+.imageSection {
+  position: relative;
+}
+
+.imageSectionText {
+  border-radius: 3.379px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5.067857265472412px);
+  color: #fff;
+  font-size: 16.893px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 10px 15px;
+}
+
+.imageSection img {
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.imageSectionText.reverse {
+  position: absolute;
+  top: 10px;
+  left: 40%;
+}
+
+.joannaWellick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px auto;
+}
+
+.date,
+.shares {
+  color: #6c757d;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  padding-left: 20px;
+}
+
+.userName {
+  color: #121416;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  padding-left: 10px;
+}
+
+.marginNone {
+  margin: 0px !important;
+}
+
+.imageSection a {
+  color: #121416;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 991px) {
+  .bannerPart {
+    padding: 150px 0 0 0;
+  }
+
+  .joannaWellick {
+    display: block;
+  }
+
+  .date {
+    padding-left: 0px;
+  }
+
+  .shares {
+    padding-left: 10px;
+    float: right;
+  }
+
+  .imageSectionText.reverse {
+    left: 64%;
+  }
+}

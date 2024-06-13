@@ -1,0 +1,29 @@
+/* styles/skeleton-loader.css */
+.skeleton-loading {
+  background-color: #b4c0c3;
+  border-radius: 4px;
+  animation: skeleton-loading 1s ease-in-out infinite;
+  width: 100%;
+  height: 180px;
+  margin-bottom: 10px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@media(max-width:991px) {
+  .skeleton-loading {
+    height: auto;
+  }
+}

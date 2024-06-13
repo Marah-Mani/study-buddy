@@ -1,0 +1,12 @@
+.smallFont {
+  font-size: 12px;
+}
+
+.tablePart tr th {
+  background: #001a38 !important;
+  color: #fff !important;
+}
+
+.tablePart tr th:before {
+  display: none !important;
+}

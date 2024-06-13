@@ -1,0 +1,17 @@
+.success {
+  border-radius: 4px !important;
+  background: #b6e9d1 !important;
+  padding: 2px 8px !important;
+  color: #0d824b !important;
+}
+.BadgeButton span.ant-badge-status-dot {
+  display: none !important;
+}
+.BadgeButton .ant-badge.ant-badge-status .ant-badge-status-text {
+  margin: 0 !important;
+  color: #0d824b !important;
+  font-weight: 500 !important;
+}
+.BadgeButton span.ant-badge-status-dot.ant-badge-status-success {
+  display: none !important;
+}

@@ -1,0 +1,10 @@
+.dashBody {
+  padding: 20px;
+  padding-top: 4%;
+}
+
+@media (max-width: 991px) {
+  .dashBody {
+    padding: 0px 0px;
+  }
+}

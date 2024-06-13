@@ -1,0 +1,23 @@
+.primaryWrapper button {
+  border-radius: 10px;
+  background: #ffe70f !important;
+  height: 40px !important;
+  border: none !important;
+  color: #012a59 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .primaryWrapper button {
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 565px) {
+  .primaryWrapper button {
+    width: 100% !important;
+  }
+}

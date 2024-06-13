@@ -1,0 +1,8 @@
+#rightSectionForm .categoriesMenu ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.css-dev-only-do-not-override-t8jlqa {
+    border: 0px;
+}
+
+#rightSectionForm .ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline,
+#rightSectionForm .ant-menu-light>.ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+    background: transparent !important;
+}

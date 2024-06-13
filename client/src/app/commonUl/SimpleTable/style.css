@@ -1,0 +1,10 @@
+thead.ant-table-thead tr th,
+thead.ant-table-thead tr td.ant-table-cell.ant-table-row-expand-icon-cell {
+   background: #001a38 !important;
+   color: #fff !important;
+}
+
+thead.ant-table-thead tr th::before,
+:where(.css-dev-only-do-not-override-16gsnuo).ant-table-wrapper .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+   background-color: #001a38 !important;
+}

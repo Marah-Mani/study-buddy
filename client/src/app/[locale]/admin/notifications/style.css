@@ -1,0 +1,41 @@
+/* .headerPart {
+  display: none !important;
+}
+
+#footerPart {
+  display: none !important;
+} */
+
+/* cardRooms css */
+.cardRooms {
+  border-radius: 16px;
+  background: var(--Grayscale-White, #fff);
+  gap: 16px;
+  padding: 16px;
+}
+
+.align {
+  align-items: center;
+}
+
+.leftGap {
+  margin-left: 15px;
+}
+
+.todayBookings {
+  background: #0070f5;
+  padding: 12px 18px;
+  border-radius: 8px;
+}
+
+.roomStatus {
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+@media (max-width: 1200px) {
+  .menuDash {
+    display: none;
+  }
+}

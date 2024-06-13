@@ -1,0 +1,12 @@
+#customContainer {
+  padding: 28px 0px;
+}
+.listItems li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+.logoMain h2 {
+  font-size: var(--fontSizeExtraSmall);
+  font-weight: var(--fontWeightBold);
+  color: var(--primary-color);
+}

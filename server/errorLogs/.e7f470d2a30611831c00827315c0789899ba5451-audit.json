@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 90
+    },
+    "auditLog": "/opt/lampp/htdocs/boiler-plate-mern-stack/server/errorLogs/.e7f470d2a30611831c00827315c0789899ba5451-audit.json",
+    "files": [
+        {
+            "date": 1718192111671,
+            "name": "/opt/lampp/htdocs/boiler-plate-mern-stack/server/errorLogs/error-2024-06-12.log",
+            "hash": "fafe0c7166ad6899ba6a3cb5ef28743b9a51890af5661d9e5bf25925a159bae4"
+        }
+    ],
+    "hashType": "sha256"
+}

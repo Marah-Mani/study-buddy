@@ -1,0 +1,29 @@
+@media(min-width:1200px) {
+    .headerMobile {
+        display: none;
+    }
+}
+
+@media(max-width:1200px) {
+    .hideSHow {
+        display: none;
+    }
+
+    .badgeStyle svg {
+        color: #fff;
+        font-size: 25px;
+    }
+
+    .headerMobile {
+        background-color: #0F43E6;
+        padding: 18px 0px;
+    }
+
+    button.toggleButton {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 30px;
+        height: 20px;
+    }
+}

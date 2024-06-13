@@ -1,0 +1,240 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ant-layout-sider {
+  position: sticky;
+  top: 0;
+}
+
+.ant-layout-sider-trigger {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.siteLayoutBackground {
+  background: #fff;
+  padding-top: 100px;
+  padding: 0px 10px 0px;
+  height: calc(86vh);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.paddingCoverAll {
+  padding: 0px 0px 0px;
+}
+
+.sidebarMenuLeft {
+  /* padding-top: 100px; */
+  margin: 30px 0px;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fixedFile {
+  position: fixed;
+  top: 60px;
+  width: 48.5vw;
+  padding: 10px 10px;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom: 1px solid #f2f4f5;
+}
+
+.fixedFileSearch {
+  position: fixed;
+  top: 64px;
+  width: 18.2vw;
+  padding: 10px 10px;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom: 1px solid #f2f4f5;
+  left: 16%;
+}
+
+.fixedFileSearchThree {
+  position: fixed;
+  top: 64px;
+  width: 17vw;
+  padding: 10px 10px;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom: 1px solid #f2f4f5;
+}
+
+.cardCommn {
+  padding: 15px 10px;
+  border-radius: 6px;
+  border: 1px solid #f2f4f5;
+}
+
+.cardCommn.active {
+  background-color: rgba(243 246 248);
+}
+
+.flexButton {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5px;
+}
+
+.flexButton button.ant-btn.ant-btn-primary {
+  height: auto;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+.upgradeBox1 {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(243 246 248);
+  max-width: 220px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.marClass {
+  padding-top: 90px;
+}
+
+.sameColorSvg {
+  color: #845eda;
+}
+
+.leftBarSection {
+  height: calc(100vh - 4rem);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.marClass {
+  padding-bottom: 60px;
+  height: calc(100vh - 4rem);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.tableCommn {
+  border: 1px solid #f2f4f5;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.flexBar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.75em;
+  background-color: #eaf9f4;
+  font-weight: 600;
+  color: #3ac399;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  font-size: 12px;
+  background-color: #f2eefb;
+  font-weight: 600;
+  color: #845eda;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.eyes {
+  height: 2.313rem !important;
+  width: 2.313rem !important;
+  font-size: 0.95rem !important;
+  color: rgb(73 182 245);
+  background-color: #edf8fe;
+  border-radius: 2.313rem;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.delete {
+  height: 2.313rem !important;
+  width: 2.313rem !important;
+  font-size: 0.95rem !important;
+  color: #e44e4d;
+  background-color: #fcecec;
+  border-radius: 2.313rem;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.favorite {
+  height: 2.313rem !important;
+  width: 2.313rem !important;
+  font-size: 0.95rem !important;
+  color: #07483e;
+  background-color: #e6f0f3;
+  border-radius: 2.313rem;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .fixedFile {
+    position: unset;
+    width: 100%;
+  }
+
+  .marClass {
+    padding-top: 10px;
+  }
+
+  .fixedFileSearch {
+    position: unset;
+    width: 100%;
+  }
+
+  .paddingCoverAll {
+    padding: 10px 0px 0px;
+  }
+
+  .leftBarSection {
+    height: auto;
+  }
+
+  .fixedFileSearchThree {
+    position: unset;
+    width: 100%;
+  }
+
+  .sidebarMenuLeft {
+    padding-top: 0px;
+    margin: 0px 0px;
+  }
+
+  .upgradeBox1 {
+    margin: 30px auto;
+    width: 100%;
+  }
+}

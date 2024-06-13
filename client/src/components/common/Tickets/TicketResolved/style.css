@@ -1,0 +1,28 @@
+.boxInbox {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.tabsInbox {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.messages {
+  border-radius: 8px;
+  border: 1px solid #d8d8d8;
+  background: #eef0f2;
+  padding: 10px;
+}
+
+.messagesWhite {
+  border-radius: 8px;
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  padding: 10px;
+}
+.marginLeft {
+  margin-left: 10px;
+}

@@ -1,0 +1,103 @@
+.ticketreplychat {
+  position: relative;
+  margin-top: 10px;
+}
+
+.centerSideButtonBottom {
+  background: #f5f5f5;
+  padding: 15px;
+}
+
+.fixedBottom {
+  left: 15%;
+  position: fixed;
+  bottom: 0px;
+  width: 85vw;
+  z-index: 999;
+}
+.topBarFixed {
+  left: 15%;
+  position: fixed;
+  top: 9%;
+  width: 85vw;
+  z-index: 1;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+}
+.boxInbox {
+  height: 74vh;
+  background: #fff;
+  padding: 30px 30px;
+  overflow-y: scroll;
+}
+.massageFiled {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+.marLeftChat {
+  padding-left: 27px;
+}
+.centerAndMobile {
+  text-align: center;
+}
+@media (max-width: 1199px) {
+  .topBarFixed {
+    left: 0px;
+    position: fixed;
+    top: 9%;
+    width: 100vw;
+    z-index: 1;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+  }
+  .centerAndMobile {
+    text-align: left;
+  }
+  .marLeftChat {
+    padding-left: 0px;
+  }
+  .fixedBottom {
+    width: 100vw;
+    left: 0;
+    background-color: #f5f5f5;
+  }
+
+  .centerSideButtonBottom {
+    background: #fff;
+    border-radius: 0px;
+    padding: 15px;
+  }
+}
+
+.massageFiled {
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.chat-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.chatImage {
+  border: 1px solid #d8d8d8;
+  padding: 4px;
+}
+.dFlex {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
+}

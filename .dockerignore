@@ -1,0 +1,12 @@
+
+.github
+.git/
+.gitignore
+
+node_modules
+client/node_modules
+server/node_modules
+
+# IDEs and editors
+.vscode
+

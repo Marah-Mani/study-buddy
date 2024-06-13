@@ -1,0 +1,13 @@
+.dashCardUpdate {
+  border-radius: 8px;
+  background: linear-gradient(93deg, #0eb1d2 0%, #0055ba 100%);
+  padding: 24px 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media(max-width:1200px) {
+  .dashCardUpdate {
+    margin-bottom: 10px;
+  }
+}

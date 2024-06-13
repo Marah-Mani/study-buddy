@@ -1,0 +1,15 @@
+.rateStar svg {
+  color: unset;
+  font-size: 17px;
+}
+
+.rateStar ul li {
+  margin: 0 5px 0 0 !important;
+}
+
+@media(max-width:767px) {
+  .rateStar svg {
+    color: unset;
+    font-size: 10px;
+  }
+}

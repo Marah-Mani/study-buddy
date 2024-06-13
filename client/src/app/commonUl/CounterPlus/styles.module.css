@@ -1,0 +1,28 @@
+.counter span {
+  cursor: pointer;
+}
+
+.minus,
+.plus {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-radius: 4px;
+  padding: 8px 5px 8px 5px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.counter input {
+  height: 34px;
+  color: #012a59;
+  width: 40px;
+  text-align: center;
+  font-size: 26px;
+  background-color: transparent;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+}

@@ -1,0 +1,159 @@
+{
+	"BUTTONS": {
+		"LOGIN": "Anmelden",
+		"LOGOUT": "Abmelden",
+		"REGISTER": "Registrieren"
+	},
+	"FORM": {
+		"USERNAME": "Benutzername",
+		"PASSWORD": "Passwort",
+		"CONFIRM": "Bestätigen",
+		"FILTER": "Filter",
+		"EMAIL": "E-Mail",
+		"LABELS": {
+			"NAME": "Name",
+			"PHONE_NUMBER": "Telefonnummer",
+			"WEBSITE": "Website",
+			"FIRST_NAME": "Vorname (optional)",
+			"LAST_NAME": "Nachname (optional)",
+			"COUNTRY": "Land",
+			"CITY": "Stadt",
+			"ADDRESS": "Adresse",
+			"ADDRESS_2": "Adresse 2",
+			"TITLE": "Titel",
+			"DATE": "Datum",
+			"TIME": "Uhrzeit",
+			"LOCATION": "Ort",
+			"LINKEDIN": "LinkedIn",
+			"FACEBOOK": "Facebook",
+			"INSTAGRAM": "Instagram",
+			"TWITTER": "Twitter"
+		},
+		"PLACEHOLDERS": {
+			"NAME": "Name",
+			"PHONE_NUMBER": "Telefonnummer",
+			"FIRST_NAME": "Vorname",
+			"LAST_NAME": "Nachname",
+			"CONTACTS": "Kontakte",
+			"COUNTRY": "Land",
+			"CITY": "Stadt",
+			"ADDRESS": "Adresse",
+			"ADDRESS_2": "Adresse 2",
+			"POSTCODE": "Postleitzahl",
+			"LINKEDIN": "LinkedIn",
+			"FACEBOOK": "Facebook",
+			"INSTAGRAM": "Instagram",
+			"TWITTER": "Twitter",
+			"GITHUB": "GitHub"
+		},
+		"CANDIDATE_ACTION_CONFIRMATION": {
+			"SURE": "Sind Sie sicher, dass Sie"
+		},
+		"DELETE_CONFIRMATION": {
+			"REMOVE_ALL_DATA": "Sind Sie sicher, dass Sie alle Daten entfernen möchten?",
+			"DELETE_ACCOUNT": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+			"REMOVE_USER": "aus Ihrer Organisation entfernen",
+			"SURE": "Sind Sie sicher, dass Sie",
+			"USER": "Benutzer",
+			"INVITATION": "Einladung",
+			"DELETE_USER": "aus der Datenbank löschen möchten, da es nur mit der aktuellen Organisation verknüpft ist",
+			"EVENT_TYPE": "Veranstaltungsart"
+		},
+		"ERROR": {
+			"FIRST_NAME": "Vorname ist erforderlich.",
+			"LAST_NAME": "Nachname ist erforderlich.",
+			"PASSWORD": "Das Passwort ist ungültig."
+		}
+	},
+	"TOASTR": {
+		"TITLE": {
+			"SUCCESS": "Erfolg",
+			"ERROR": "Fehler",
+			"INFO": "Info",
+			"WARNING": "Warnung",
+			"MAX_LIMIT_REACHED": "Maximalgrenze erreicht"
+		},
+		"MESSAGE": {
+			"ERRORS": "Bitte überprüfen Sie das Formular auf Fehler",
+			"CONFIRM": "Bestätigen",
+			"ARE_YOU_SURE_YOU_WANT_TO_RESEND_THE_INVITE_TO": "Sind Sie sicher, dass Sie die Einladung erneut senden möchten an",
+			"OK": "OK",
+			"CANCEL": "Abbrechen",
+			"ARE_YOU_SURE_YOU_WANT_TO_CHANGE_THE": "Sind Sie sicher, dass Sie die",
+			"NAME_REQUIRED": "Name ist erforderlich!",
+			"EMAIL_REQUIRED": "E-Mail ist erforderlich!",
+			"EMAIL_SHOULD_BE_REAL": "Die E-Mail sollte echt sein!",
+			"PHONE_REQUIRED": "Telefon ist erforderlich!",
+			"PHONE_CONTAINS_ONLY_NUMBERS": "Telefon sollte nur Zahlen enthalten!",
+			"SOMETHING_BAD_HAPPENED": "Etwas ist schief gelaufen!",
+			"EMAIL_TEMPLATE_SAVED": "E-Mail-Vorlage '{{ templateName }}' wurde gespeichert",
+			"DELETED": "Erfolgreich gelöscht",
+			"CREATED": "Erfolgreich erstellt",
+			"UPDATED": "Erfolgreich aktualisiert"
+		}
+	},
+	"VALIDATION": {
+		"FIELD_REQUIRED": "Dieses Feld ist erforderlich!",
+		"ENTER_POSITIVE_NUMBER": "Bitte geben Sie eine positive Zahl ein!"
+	},
+	"FORGOT_PASSWORD_PAGE": {
+		"TITLE": "Passwort vergessen",
+		"SUB_TITLE": "Geben Sie Ihre E-Mail-Adresse ein, und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+		"ALERT_TITLE": "Oh oh!",
+		"ALERT_SUCCESS_TITLE": "Hurra!",
+		"REQUEST_PASSWORD_TEXT": "Passwort anfordern",
+		"BACK_TO_LOGIN": "Zurück zu?",
+		"FAQ_TITLE": "FAQ",
+		"FAQ_LEARN_MORE": "Erfahren Sie mehr",
+		"LABELS": {
+			"EMAIL": "Geben Sie Ihre E-Mail-Adresse ein:"
+		},
+		"PLACEHOLDERS": {
+			"EMAIL": "E-Mail-Adresse"
+		},
+		"VALIDATION": {
+			"EMAIL_REQUIRED": "E-Mail ist erforderlich!",
+			"EMAIL_REAL_REQUIRED": "Die E-Mail sollte echt sein!"
+		}
+	},
+	"PAGINATION": {
+		"ITEMS": "Artikel"
+	},
+	"NO_IMAGE": {
+		"ADD_DROP": "Bild hinzufügen oder ablegen",
+		"AVAILABLE": "Bild nicht verfügbar"
+	},
+	"INDEX_PAGE": {
+		"TITLE": "Fullstack-Webanwendung",
+		"DESCRIPTION": "Eine Grundstruktur für eine Fullstack-Webanwendung mit Next.js, Node.js und MongoDB"
+	},
+	"LOGIN_PAGE": {
+		"TITLE": "Anmeldeseite"
+	},
+	"REGISTER_PAGE": {
+		"TITLE": "Registrierungsseite"
+	},
+	"OTP_VERIFY_PAGE": {
+		"TITLE": "OTP-Überprüfungsseite"
+	},
+	"ERROR": {
+		"TITLE": "Etwas ist schief gelaufen!",
+		"DESCRIPTION": "<p>Es ist leider ein Problem aufgetreten.</p><p>Du kannst versuchen <retry>diese Seite neu zu laden</retry>.</p>"
+	},
+	"NOT_FOUND_PAGE": {
+		"TITLE": "Seite nicht gefunden",
+		"DESCRIPTION": "Bitte überprüfe die Addressleiste deines Browsers oder verwende die Navigation um zu einer bekannten Seite zu wechseln."
+	},
+	"LOCALE_LAYOUT": {
+		"TITLE": "Study buddy"
+	},
+	"LOCALE_SWITCHER": {
+		"LABEL": "Sprache ändern",
+		"LOCALE": "{locale, select, de {Deutsch} en {Englisch} other {Unbekannt}}"
+	},
+	"NAVIGATION": {
+		"HOME": "Start",
+		"LOGIN": "Anmelden",
+		"REGISTER": "Registrieren"
+	}
+}

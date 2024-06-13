@@ -1,0 +1,17 @@
+.uploadButton button {
+  background: #0091f7;
+  color: #ffffff;
+  font-size: 16px;
+  height: 45px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.uploadButton button:hover {
+  color: #fff !important;
+}
+
+.uploadButton svg {
+  color: #ffffff;
+  font-size: 16px;
+}

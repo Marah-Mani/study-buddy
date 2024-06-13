@@ -1,0 +1,116 @@
+.pleaseKeep {
+   padding: 12px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   width: 80%;
+   margin: auto;
+   background-color: aliceblue;
+}
+
+.backtobtn {
+   font-size: var(--font-small);
+   font-weight: var(--weight-semi-bold);
+   line-height: var(--line-height-small) !important;
+   letter-spacing: var(--letter-spacing-02);
+   text-align: left;
+   color: var(--button-1);
+   display: flex;
+   align-items: center;
+}
+
+.inputflex li {
+   display: inline-block;
+}
+
+.inputflex li input {
+   width: 40.83px;
+   height: 40px;
+   padding: 12px 16px 12px 16px;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+   margin: 0px 16px 0px 0px;
+   text-align: center;
+   font-size: 30px;
+}
+
+.inputflex li input:focus {
+   outline: 0;
+}
+
+.inputflex li:nth-child(4) {
+   width: 15px;
+   height: 2px;
+   background: #000;
+   height: 1px;
+   margin: 0px 25px 0px 10px;
+   text-align: left;
+   align-items: center;
+}
+
+.otp-virify h2 {
+   font-size: var(--font-xxx-large);
+   font-weight: var(--weight-bold);
+   line-height: var(--line-height-medium);
+   letter-spacing: 0em;
+   text-align: center;
+   color: #141414;
+   padding: 20px 0px;
+}
+
+.otp-virify p {
+   font-size: var(--font-medium);
+   font-weight: var(--weight-light);
+   line-height: var(--line-height-high-rise);
+   letter-spacing: var(--letter-spacing-02);
+   text-align: center;
+   color: var(--text-sonic-silver);
+   padding-bottom: 30px;
+}
+
+.otp-virify p span {
+   color: var(--green-medium-2);
+   cursor: pointer;
+}
+
+.mx-width-600 {
+   max-width: 600px;
+   margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+   .inputflex li input {
+      width: 30px;
+      height: 30px;
+      padding: 10px 0px 12px 0px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin: 0px 6px 0px 0px;
+      font-size: 16px;
+   }
+
+   .inputflex li:nth-child(4) {
+      width: 15px;
+      height: 2px;
+      background: #000;
+      height: 1px;
+      margin: 0px 10px 0px 5px;
+      text-align: left;
+      align-items: center;
+   }
+
+   .otp-virify p {
+      font-size: 15px;
+      padding-bottom: 10px;
+   }
+
+   .otp-virify h2 {
+      font-size: var(--font-x-large);
+      padding: 0px;
+   }
+}
+
+@media (min-width: 1366px) {
+   .otp-virify {
+      height: 87vh;
+   }
+}

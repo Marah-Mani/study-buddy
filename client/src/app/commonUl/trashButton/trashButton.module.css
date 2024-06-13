@@ -1,0 +1,14 @@
+.trashButton {
+  border-radius: 4px;
+  background: #ffc3c3;
+  color: #d04e4f;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+.trashButton svg {
+  color: #d04e4f;
+  font-size: 16px;
+}

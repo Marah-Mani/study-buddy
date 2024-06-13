@@ -1,0 +1,191 @@
+body {
+  overflow-x: hidden;
+}
+.customContainer,
+.customContainer-fluid,
+.customContainer-lg,
+.customContainer-md,
+.customContainer-sm,
+.customContainer-xl,
+.customContainer-xxl {
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.customContainer {
+  max-width: 1520px;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.textStart {
+  text-align: left;
+}
+.textEnd {
+  text-align: end !important;
+}
+.textCenter {
+  text-align: center;
+}
+.textLowercase {
+  text-transform: lowercase;
+}
+.textUppercase {
+  text-transform: uppercase;
+}
+.textCapitalize {
+  text-transform: capitalize;
+}
+.border {
+  border: 1px solid #dee2e6;
+}
+.border0 {
+  border: 0;
+}
+.borderTop {
+  border-top: 1px solid #dee2e6;
+}
+.borderTop0 {
+  border-top: 0;
+}
+.border-end {
+  border-right: 1px solid #dee2e6;
+}
+.border-end-0 {
+  border-right: 0;
+}
+.border-bottom {
+  border-bottom: 1px solid #dee2e6;
+}
+.border-bottom-0 {
+  border-bottom: 0;
+}
+.border-start {
+  border-left: 1px solid #dee2e6;
+}
+.border-start-0 {
+  border-left: 0;
+}
+.border-primary {
+  border-color: #0d6efd;
+}
+.border-secondary {
+  border-color: #6c757d;
+}
+.border-success {
+  border-color: #198754;
+}
+.border-info {
+  border-color: #0dcaf0;
+}
+.border-warning {
+  border-color: #ffc107;
+}
+.border-danger {
+  border-color: #dc3545;
+}
+.border-light {
+  border-color: #f8f9fa;
+}
+.border-dark {
+  border-color: #212529;
+}
+.border-white {
+  border-color: #fff;
+}
+.border-1 {
+  border-width: 1px;
+}
+.border-2 {
+  border-width: 2px;
+}
+.border-3 {
+  border-width: 3px;
+}
+.border-4 {
+  border-width: 4px;
+}
+.border-5 {
+  border-width: 5px;
+}
+
+.positionStatic {
+  position: static;
+}
+.positionRelative {
+  position: relative;
+}
+.positionAbsolute {
+  position: absolute;
+}
+.positionFixed {
+  position: fixed;
+}
+.positionSticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+.row {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.floatStart {
+  float: left;
+}
+.floatEnd {
+  float: right;
+}
+.floatNone {
+  float: none;
+}
+.overflowAuto {
+  overflow: auto;
+}
+.overflowHidden {
+  overflow: hidden;
+}
+.overflowVisible {
+  overflow: visible;
+}
+.overflowScroll {
+  overflow: scroll;
+}
+.dInline {
+  display: inline;
+}
+.dInlineBlock {
+  display: inline-block;
+}
+.dBlock {
+  display: block;
+}
+
+.gapMarginTop {
+  margin-top: 40px !important;
+}
+.gapMarginTopOne {
+  margin-top: 10px !important;
+}
+.gapMarginTopTwo {
+  margin-top: 20px !important;
+}
+.gapPaddingTopOne {
+  padding-top: 10px !important;
+}
+.gapPaddingTopOTwo {
+  padding-top: 20px !important;
+}
+.paddingBottomOne {
+  padding-bottom: 10px !important;
+}
+.paddingBottomTwo {
+  padding-bottom: 20px !important;
+}

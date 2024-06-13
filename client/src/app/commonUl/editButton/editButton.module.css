@@ -1,0 +1,13 @@
+.editButton {
+  border-radius: 4px;
+  background: #ebf4ff;
+  color: #0055ba;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+.editButton svg {
+  color: #0055ba;
+  font-size: 16px;
+}

@@ -1,0 +1,14 @@
+.inputUploadFile {
+  border-radius: 4px;
+  border: 1px solid var(--Grayscale-04, #bababa);
+  background: var(--Grayscale-White, #fff);
+  padding: 5px;
+  gap: 6px;
+}
+.inputUploadFile input {
+  background-color: #fff !important;
+}
+.inputUploadFile button {
+  background-color: #0055ba !important;
+  height: 55px !important;
+}
