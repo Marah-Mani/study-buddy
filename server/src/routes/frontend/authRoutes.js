@@ -14,5 +14,6 @@ router.post('/create-password', authController.createNewPassword);
 router.post('/email-verification', authController.sendEmailVerification);
 router.post('/verify-otp', authController.matchEmailOtp);
 router.get('/getUserById/:id', authController.getUserById);
+router.get('/getDepartments', authController.getDepartments);
 
 module.exports = router;
