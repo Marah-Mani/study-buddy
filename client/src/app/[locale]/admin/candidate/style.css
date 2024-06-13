@@ -1,0 +1,12 @@
+.menuStyle {
+  padding: 4px;
+  width: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.menuStyle .ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected::after,
+.menuStyle .ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-item-selected::after,
+.menuStyle .ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-selected::after,
+.menuStyle .ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-submenu-selected::after {
+  border-bottom-width: 2px;
+  border-bottom-color: none !important;
+}

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import styles from './topBar.module.css';
-import { Col, Divider, Drawer, Image, Row, Badge, Avatar } from 'antd';
+import { Col, Divider, Drawer, Image, Row, Badge, Avatar, Button } from 'antd';
 import { FaRegBell } from 'react-icons/fa6';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -14,6 +14,8 @@ import { getUserNotification, updateReadStatus } from '@/lib/commonApi';
 import UserAvatarForHeader from '../UserAvatarForHeader';
 import LastLoginDateTime from '@/components/frontend/LastLoginDateTime';
 import { getHeaderMenus } from '@/lib/frontendApi';
+import { CiDark } from 'react-icons/ci';
+import { MdDarkMode } from 'react-icons/md';
 
 export default function TopBar() {
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -138,6 +140,19 @@ export default function TopBar() {
 			ErrorHandler.showNotification(error);
 		}
 	};
+	const [darkMode, setDarkMode] = useState(false);
+
+	const handleToggle = () => {
+		setDarkMode(!darkMode);
+	};
+
+	useEffect(() => {
+		if (darkMode) {
+			document.body.classList.add('dark-mode');
+		} else {
+			document.body.classList.remove('dark-mode');
+		}
+	}, [darkMode]);
 
 	return (
 		<>
@@ -308,6 +323,7 @@ export default function TopBar() {
 							<div className="textCenter">
 								<UserAvatarForHeader />
 							</div>
+							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode size={20} /> : <CiDark size={20} />} /></div>
 						</div>
 					</Col>
 					<div>
