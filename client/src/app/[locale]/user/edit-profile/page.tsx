@@ -5,8 +5,6 @@ import { Tabs } from 'antd';
 import ParaText from '@/app/commonUl/ParaText';
 import EditProfile from '@/components/User/Profile/EditProfile';
 import ResetPassword from '@/components/User/Profile/ResetPassword';
-import IdentityUpload from '@/components/User/Profile/IdentityUpload';
-import DigitalSignature from '@/components/User/Profile/DigitalSignature';
 
 export default function Page() {
 	const [key, setKey] = useState('1')
@@ -19,12 +17,6 @@ export default function Page() {
 				break;
 			case 1:
 				label = 'Reset Password';
-				break;
-			case 2:
-				label = 'Identity Upload';
-				break;
-			case 3:
-				label = 'Digital Signature';
 				break;
 			default:
 				break;
@@ -39,8 +31,6 @@ export default function Page() {
 				<>
 					{i === 0 && <EditProfile activeKey={key} />}
 					{i === 1 && <ResetPassword activeKey={key} />}
-					{i === 2 && <IdentityUpload activeKey={key} />}
-					{i === 3 && <DigitalSignature activeKey={key} />}
 				</>
 			)
 		};
