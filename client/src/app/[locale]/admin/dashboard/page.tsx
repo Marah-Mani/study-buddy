@@ -9,6 +9,7 @@ import { CiSearch } from "react-icons/ci";
 import { TbArrowsRandom } from "react-icons/tb";
 import { Drawer } from 'antd';
 import FormType from './FormType';
+import TableData from './TableData';
 export default function Dashboard() {
 	const [open, setOpen] = useState(false);
 
@@ -27,7 +28,7 @@ export default function Dashboard() {
 					</ParaText>
 				</div>
 				<div className='gapMarginTopTwo'></div>
-				<Row align='middle' gutter={[16, 16]}>
+				{/* <Row align='middle' gutter={[16, 16]}>
 					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
 						<Segmented
 							options={['Men', 'Women', 'Today Deals', 'Home & Kitchen', 'Customer Service']}
@@ -52,7 +53,6 @@ export default function Dashboard() {
 							<div className="product-image">
 								<a href="#" className="image">
 									<Image className="pic-1" alt='' src="https://nextjs.spruko.com/ynex-js/preview/assets/images/ecommerce/png/1.png" />
-									{/* <Image className="pic-2" alt='' src="https://nextjs.spruko.com/ynex-js/preview/assets/images/ecommerce/png/4.png" /> */}
 								</a>
 								<ul className="social">
 									<li><a href="#" data-tip="Quick View"><CiSearch /></a></li>
@@ -87,10 +87,11 @@ export default function Dashboard() {
 							</Row>
 						</div>
 					</Col>
-				</Row>
+				</Row> */}
+				<TableData />
 			</div>
 
-			<Drawer title="Add Product" onClose={onClose} open={open} width={500}>
+			<Drawer title="Add Product" onClose={onClose} open={open} width={600}>
 				<FormType />
 			</Drawer>
 		</>

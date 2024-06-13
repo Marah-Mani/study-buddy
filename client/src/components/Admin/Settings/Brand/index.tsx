@@ -135,7 +135,7 @@ export default function Brands({ activeKey }: Props) {
 
     const handleLogoUpload = async (file: File): Promise<boolean> => {
         try {
-            const compressedFiles = await handleFileCompression(file);
+            const compressedFiles = await handleFileCompression(file, '');
             setLogoList(compressedFiles);
             return false;
         } catch (error) {
@@ -146,7 +146,7 @@ export default function Brands({ activeKey }: Props) {
 
     const handleIconUpload = async (file: File): Promise<boolean> => {
         try {
-            const compressedFiles = await handleFileCompression(file);
+            const compressedFiles = await handleFileCompression(file, '');
             setFavIconList(compressedFiles);
             return false;
         } catch (error) {
@@ -157,7 +157,7 @@ export default function Brands({ activeKey }: Props) {
 
     const handleWatermarkUpload = async (file: File): Promise<boolean> => {
         try {
-            const compressedFiles = await handleFileCompression(file);
+            const compressedFiles = await handleFileCompression(file, '');
             setWatermark(compressedFiles);
             return false;
         } catch (error) {

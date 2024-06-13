@@ -119,7 +119,7 @@ export default function Forums({ activeKey }: Props) {
 
     const handleImageUpload = async (file: File): Promise<boolean> => {
         try {
-            const compressedFiles = await handleFileCompression(file);
+            const compressedFiles = await handleFileCompression(file, '');
             setAttachment(compressedFiles);
             return false;
         } catch (error) {
