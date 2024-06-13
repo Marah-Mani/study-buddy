@@ -24,6 +24,17 @@ const profileController = {
 							country: req.body.country,
 							state: req.body.state
 						},
+						skills: req.body.skills ? req.body.skills.split(',').map((skill) => skill.trim()) : [],
+						languages: req.body.languages ? req.body.languages.split(',').map((lang) => lang.trim()) : [],
+						profileTitle: req.body.profileTitle,
+						profileDescription: req.body.profileDescription,
+						socialLinks: {
+							twitter: req.body.twitter || null,
+							facebook: req.body.facebook || null,
+							linkedin: req.body.linkedIn || null,
+							instagram: req.body.instagram || null,
+							website: req.body.website || null
+						},
 						image: req.file && req.file.filename ? req.file.filename : req.body.image || null
 					};
 

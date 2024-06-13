@@ -80,7 +80,7 @@ export default function MenuAUser() {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/edit-profile':
+			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('2');
 				break;
 			case pathname === '/en/user/tickets':
@@ -112,9 +112,9 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Profile',
+			'Menu User',
 			'2',
-			<Link href="/en/user/edit-profile">
+			<Link href="/en/user/candidate">
 				<AiOutlineProfile />
 			</Link>
 		),

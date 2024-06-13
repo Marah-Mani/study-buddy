@@ -1,6 +1,6 @@
 'use client'
 import ParaText from '@/app/commonUl/ParaText';
-import { Button, Col, Form, Input, message, Row, Spin, Upload, UploadFile } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Spin, Upload, UploadFile } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -12,6 +12,8 @@ import { updateProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
+import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { FaSquareXTwitter } from 'react-icons/fa6';
 
 interface Props {
     activeKey: string;
@@ -76,6 +78,14 @@ export default function Brands({ activeKey }: Props) {
             formData.append('country', values.country);
             formData.append('state', values.state);
             formData.append('userId', user?._id || '');
+            formData.append('skills', values.skills);
+            formData.append('languages', values.languages);
+            formData.append('profileTitle', values.profileTitle);
+            formData.append('profileDescription', values.profileDescription);
+            formData.append('instagram', values.instagram);
+            formData.append('linkedIn', values.linkedIn);
+            formData.append('facebook', values.facebook);
+            formData.append('twitter', values.twitter);
 
             const res = await updateProfileDetails(formData);
 
@@ -152,7 +162,7 @@ export default function Brands({ activeKey }: Props) {
                     </ParaText>
                     <div className="smallTopMargin"></div>
                     <Form layout='vertical' form={form} size='large' onFinish={onfinish} >
-                        <Row>
+                        <Row gutter={24}>
 
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
                                 <Row gutter={10}>
@@ -274,11 +284,145 @@ export default function Brands({ activeKey }: Props) {
                                             </Upload>
                                         </Form.Item>
                                     </Col>
-                                    <Col md={12} style={{ textAlign: 'end' }}>
+                                </Row>
+                            </Col>
+                            <Col xl={8} lg={8} md={8} sm={24} xs={24}>
+                                <Row gutter={24}>
+                                    <Col span={24}>
+                                        <Form.Item name={'profileTitle'} label={'Profile Title'}>
+                                            <Input placeholder='Enter profile title' />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item name={'skills'} label={'Skills'}>
+                                            <Select
+                                                mode="tags"
+                                                style={{ width: '100%' }}
+                                                onChange={handleChange}
+                                                tokenSeparators={[',']}
+                                                placeholder="Enter skills"
+                                            // options={options}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item name={'languages'} label={'Languages'}>
+                                            <Select
+                                                mode="tags"
+                                                style={{ width: '100%' }}
+                                                onChange={handleChange}
+                                                tokenSeparators={[',']}
+                                                placeholder="Enter Languages"
+                                            // options={options}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item name={'profileDescription'} label={'Profile Description'}>
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 5, maxRows: 6 }} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col xl={8} lg={8} md={8} sm={24} xs={24}>
+                                <Row gutter={24}>
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            name={'facebook'}
+                                            label={'Facebook'}
+                                            rules={[
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (!value || validationRules.facebookURL.pattern.test(value)) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject('Please enter a valid Facebook URL');
+                                                    },
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                placeholder='Enter Facebook link'
+                                                type='link'
+                                                maxLength={50}
+                                                suffix={<FaFacebook />}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            name={'twitter'}
+                                            label={'Twitter'}
+                                            rules={[
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (!value || validationRules.twitterURL.pattern.test(value)) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject('Please enter a valid Twitter URL');
+                                                    },
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                placeholder='Enter Twitter link'
+                                                type='link'
+                                                maxLength={50}
+                                                suffix={<FaSquareXTwitter />}
+                                            />
+                                        </Form.Item>
+
+                                    </Col>
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            name={'linkedIn'}
+                                            label={'LinkedIn'}
+                                            rules={[
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (!value || validationRules.linkedinURL.pattern.test(value)) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject('Please enter a valid LinkedIn URL');
+                                                    },
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                placeholder='Enter LinkedIn link'
+                                                type='link'
+                                                maxLength={50}
+                                                suffix={<FaLinkedinIn />}
+                                            />
+                                        </Form.Item>
+
+                                    </Col>
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            name={'instagram'}
+                                            label={'Instagram'}
+                                            rules={[
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (!value || validationRules.instagramURL.pattern.test(value)) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject('Please enter a valid Instagram URL');
+                                                    },
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                placeholder='Enter Instagram link'
+                                                type='link'
+                                                maxLength={50}
+                                                suffix={<FaInstagram />}
+                                            />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col md={24} style={{ textAlign: 'end' }}>
                                         <div className="largeTopMargin"></div>
-                                        <div style={{ paddingTop: '50px' }}>
-                                            <Button type='primary' htmlType='submit'>Submit</Button>
-                                        </div>
+                                        <Button type='primary' htmlType='submit'>Submit</Button>
                                     </Col>
                                 </Row>
                             </Col>
