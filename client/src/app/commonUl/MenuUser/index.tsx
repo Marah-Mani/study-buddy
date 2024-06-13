@@ -119,23 +119,15 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Calendar',
-			'5',
-			<Link href="/en/user/calendar">
-				<MdOutlineCalendarMonth />
-
-			</Link>
-		),
-		getItem(
 			'File Manager',
-			'6',
+			'3',
 			<Link href="/en/user/file-manager">
 				<BiSolidFileArchive />
 			</Link>
 		),
 		getItem(
 			'Q&A',
-			'7',
+			'4',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
 			</Link>

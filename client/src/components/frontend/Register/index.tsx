@@ -1,11 +1,11 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import { Form, Input, Button, message, Modal } from 'antd';
+import { Form, Input, Button, message, Modal, Select } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import AuthContext from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { register, sendEmailVerification } from '@/lib/ApiAdapter';
+import { getDepartments, register, sendEmailVerification } from '@/lib/ApiAdapter';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Cookies from 'js-cookie';
 import { socialLogin } from '@/lib/ApiAdapter';
@@ -25,6 +25,8 @@ const Register = () => {
 	const [verificationModal, setVerificationModal] = useState(false);
 	const [userEmail, setEmail] = useState('');
 	const [formData, setFormData] = useState<any>();
+	const [departments, setDepartments] = useState<any>([]);
+	const [selectedDepartment, setSelectedDepartment] = useState<any | null>(null);
 
 	const validateEmail = (rule: any, value: any, callback: any) => {
 		const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
@@ -54,6 +56,13 @@ const Register = () => {
 	};
 
 	useEffect(() => {
+
+		getDepartments().then((res) => {
+			if (res.status === true) {
+				setDepartments(res.data);
+			}
+		});
+
 		if (session) {
 			SocialData(session.user);
 		}
@@ -134,11 +143,19 @@ const Register = () => {
 			setLoading(false);
 		}
 	};
+	const handleDepartmentChange = (value: string) => {
+		setSelectedDepartment(value);
+		form.setFieldsValue({ subjects: [] }); // Reset subjects field in the form
+	};
 
+	const getSubjectsForDepartment = (departmentName: string): string[] => {
+		const selectedDept = departments.find((dept: any) => dept._id === departmentName); // Assuming _id is used as the unique identifier
+		return selectedDept ? selectedDept.subjects : [];
+	};
 
 	return (
 		<>
-			<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '300px' }}>
+			<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '100px' }}>
 				<h1 style={{ textAlign: 'center' }}>Register</h1>
 				<Form
 					name="normal_register"
@@ -173,6 +190,44 @@ const Register = () => {
 						<Input
 							prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
 					</Form.Item>
+
+					<Form.Item
+						name="interest"
+						rules={[{ required: true, message: 'Please select your interest!' }]}
+					>
+						<Select placeholder="Select interest">
+							<Select.Option value="tutor">Tutor</Select.Option>
+							<Select.Option value="student">Student</Select.Option>
+						</Select>
+					</Form.Item>
+
+					<Form.Item
+						name="departments"
+						rules={[{ required: true, message: 'Please select departments!' }]}
+					>
+						<Select placeholder="Select departments" onChange={handleDepartmentChange} >
+							{departments && departments.map((department: any) => (
+								<Select.Option key={department._id} value={department._id}>
+									{department.departmentName}
+								</Select.Option>
+							))}
+						</Select>
+					</Form.Item>
+
+					<Form.Item
+						name="subjects"
+						rules={[{ required: true, message: 'Please select subjects!' }]}
+					>
+						<Select mode="multiple" placeholder="Select subjects" maxTagCount="responsive" disabled={!selectedDepartment}>
+							{selectedDepartment &&
+								getSubjectsForDepartment(selectedDepartment).map((subject: string, index: number) => (
+									<Select.Option key={index} value={subject}>
+										{subject}
+									</Select.Option>
+								))}
+						</Select>
+					</Form.Item>
+
 					<Form.Item name="password" rules={[
 						{
 							required: true,
