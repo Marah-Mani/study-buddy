@@ -84,21 +84,20 @@ export default function MenuAUser() {
 				setDefaultSelectedKey('2');
 				break;
 			case pathname === '/en/user/candidate':
-				setDefaultSelectedKey('2');
+				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/user/tickets':
 				setDefaultSelectedKey('4');
 				break;
 			case pathname === '/en/user/file-manager':
-				setDefaultSelectedKey('6');
+				setDefaultSelectedKey('5');
 				break;
 			case pathname === '/en/user/forums':
-				setDefaultSelectedKey('7');
+				setDefaultSelectedKey('6');
 				break;
 			case pathname === '/en/user/notifications':
-				setDefaultSelectedKey('1'); // Redirect to Dashboard
+				setDefaultSelectedKey('7'); // Redirect to Dashboard
 				break;
-
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');
@@ -122,7 +121,7 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Menu User',
+			'Users',
 			'3',
 			<Link href="/en/user/candidate">
 				<AiOutlineProfile />

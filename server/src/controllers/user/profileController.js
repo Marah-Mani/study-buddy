@@ -27,6 +27,7 @@ const profileController = {
 						skills: req.body.skills ? req.body.skills.split(',').map((skill) => skill.trim()) : [],
 						languages: req.body.languages ? req.body.languages.split(',').map((lang) => lang.trim()) : [],
 						profileTitle: req.body.profileTitle,
+						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
 						socialLinks: {
 							twitter: req.body.twitter || null,
