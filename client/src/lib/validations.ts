@@ -9,11 +9,11 @@ export const validationRules = {
         minLength: 8,
         strongRegex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@!*#%&()^~{}])[A-Za-z\d@!*#%&()^~{}]{8,10}$/
     },
-    textLength: {
+    textLongLength: {
         maxLength: 500,
         minLength: 10,
     },
-    textLongLength: {
+    textLength: {
         maxLength: 150,
         minLength: 10,
     },

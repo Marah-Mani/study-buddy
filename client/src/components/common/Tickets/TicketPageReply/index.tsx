@@ -216,7 +216,7 @@ export default function TicketPageReply({ onClose, ticketData, onStatusUpdate, h
 
     const handleBeforeUpload = async (file: File): Promise<boolean> => {
         try {
-            const compressedFiles = await handleFileCompression(file);
+            const compressedFiles = await handleFileCompression(file, '');
             setFileList(compressedFiles);
             return false;
         } catch (error) {

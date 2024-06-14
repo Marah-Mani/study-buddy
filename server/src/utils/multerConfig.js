@@ -92,9 +92,8 @@ const processAndSaveImages = async (file, folderName) => {
 	const fileName = file.filename;
 	const originalFilePath = `src/storage/${folderName}/original/${fileName}`;
 	const watermarkIconFile = await Settings.findOne();
-	const watermarkPath = `src/storage/brandImage/original/${watermarkIconFile.waterMarkIcon}`;
-
-	if (watermarkIconFile.toggleEnabled) {
+	if (watermarkIconFile && watermarkIconFile.waterMarkIcon) {
+		const watermarkPath = `src/storage/brandImage/original/${watermarkIconFile.waterMarkIcon}`;
 		const originalImageBuffer = await sharp(imagePath).toBuffer();
 		const watermarkedOriginal = await addWatermark(originalImageBuffer, watermarkPath, 'southeast');
 		await fs.writeFile(originalFilePath, watermarkedOriginal);

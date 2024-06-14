@@ -37,6 +37,18 @@ const chatController = {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
+	},
+
+	getAllCandidate: async (req, res) => {
+		try {
+			const users = await User.find({ status: 'active', role: { $ne: 'admin' } })
+				.select('-password')
+				.populate('departmentId');
+			res.status(200).json({ status: true, data: users });
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
 	}
 };
 

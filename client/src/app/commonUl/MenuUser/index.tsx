@@ -9,7 +9,7 @@ import { FaAppStore } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getAllRoles } from '@/lib/commonApi';
-import { AiOutlineProfile } from "react-icons/ai";
+import { AiOutlineProfile, AiOutlineUser } from "react-icons/ai";
 import { LuListTodo } from "react-icons/lu";
 import { SlEnvolopeLetter } from 'react-icons/sl';
 import { MdOutlineCalendarMonth } from 'react-icons/md';
@@ -80,25 +80,24 @@ export default function MenuAUser() {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/candidate':
+			case pathname === '/en/user/edit-profile':
 				setDefaultSelectedKey('2');
 				break;
 			case pathname === '/en/user/candidate':
-				setDefaultSelectedKey('2');
+				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/user/tickets':
 				setDefaultSelectedKey('4');
 				break;
 			case pathname === '/en/user/file-manager':
-				setDefaultSelectedKey('6');
+				setDefaultSelectedKey('5');
 				break;
 			case pathname === '/en/user/forums':
-				setDefaultSelectedKey('7');
+				setDefaultSelectedKey('6');
 				break;
 			case pathname === '/en/user/notifications':
-				setDefaultSelectedKey('1'); // Redirect to Dashboard
+				setDefaultSelectedKey('7'); // Redirect to Dashboard
 				break;
-
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');
@@ -122,10 +121,10 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Menu User',
+			'Users',
 			'3',
 			<Link href="/en/user/candidate">
-				<AiOutlineProfile />
+				<AiOutlineUser />
 			</Link>
 		),
 		getItem(

@@ -111,7 +111,6 @@ export interface MetaTags {
 	metaTitle?: string | null;
 	metaDescription?: string | null;
 }
-
 export interface User {
 	find(arg0: (r: any) => boolean): unknown;
 	_id?: string | null;
@@ -119,7 +118,11 @@ export interface User {
 	fullName: string;
 	lastName: string;
 	email: string | null;
-	interestedIn: string | null;
+	profileTitle: string | null;
+	profileDescription: string | null;
+	skills: any | null;
+	languages: string | null;
+	higherEducation: string | null;
 	role: 'superadmin' | 'admin' | 'guest' | 'staff' | 'user';
 	roleId: any | null;
 	hotelId: string | null;

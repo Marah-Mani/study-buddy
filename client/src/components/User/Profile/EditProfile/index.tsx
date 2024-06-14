@@ -14,6 +14,7 @@ import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
+import { handleFileCompression } from '@/lib/commonServices';
 
 interface Props {
     activeKey: string;
@@ -48,6 +49,15 @@ export default function Brands({ activeKey }: Props) {
                 phoneNumber: user.phoneNumber,
                 country: user?.address?.country,
                 state: user?.address?.state,
+                profileTitle: user.profileTitle,
+                profileDescription: user.profileDescription,
+                skills: user.skills,
+                languages: user.languages,
+                instagram: user.socialLinks?.instagram,
+                linkedIn: user.socialLinks?.linkedin,
+                facebook: user.socialLinks?.facebook,
+                twitter: user.socialLinks?.twitter,
+                higherEducation: user.higherEducation,
             });
             setFileList([{
                 uid: '-1',
@@ -81,6 +91,7 @@ export default function Brands({ activeKey }: Props) {
             formData.append('skills', values.skills);
             formData.append('languages', values.languages);
             formData.append('profileTitle', values.profileTitle);
+            formData.append('higherEducation', values.higherEducation);
             formData.append('profileDescription', values.profileDescription);
             formData.append('instagram', values.instagram);
             formData.append('linkedIn', values.linkedIn);
@@ -105,51 +116,24 @@ export default function Brands({ activeKey }: Props) {
         setFileList([]);
     }
 
-    const handleChange = async ({ fileList: newFileList }: { fileList: UploadFile[] }) => {
-
-        const file = newFileList[newFileList.length - 1]?.originFileObj as File;
-        try {
-            if (file) {
-                // Check if file size is less than or equal to 5 MB
-                if (file.size / 1024 / 1024 <= 5) {
-                    const options = {
-                        maxSizeMB: 1, // Maximum size in MB
-                        maxWidthOrHeight: 1024, // Maximum width or height
-                        useWebWorker: true // Use web workers for faster compression
-                    };
-
-                    const compressedFile = await imageCompression(file, options);
-
-                    // Create a compatible object with the necessary properties
-                    const formattedFile: UploadFile<any> = {
-                        uid: Date.now().toString(),
-                        name: compressedFile.name,
-                        status: 'done',
-                        size: compressedFile.size,
-                        type: compressedFile.type,
-                        originFileObj: compressedFile as RcFile // Set the original file object with the proper type
-                    };
-
-                    // Set the new file list with the formatted compressed file
-                    setFileList([formattedFile]);
-                } else {
-                    // Show a notification message to the user
-                    message.error('Image size cannot exceed 5 MB!');
-                    setFileList([]); // Clear the file list to prevent upload
-                }
-            }
-        } catch (error) {
-            console.error('Error compressing image:', error);
-            // Handle the error without displaying any messages (optional)
-        }
-    };
-
     const uploadButton = (
         <div>
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
+
+    const handleBeforeUpload = async (file: File): Promise<boolean> => {
+        try {
+            const compressedFiles = await handleFileCompression(file, "");
+            setFileList(compressedFiles);
+            return false;
+        } catch (error) {
+            ErrorHandler.showNotification(error);
+            return true;
+        }
+    };
+
     return (
         <>
             {loading ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -217,16 +201,14 @@ export default function Brands({ activeKey }: Props) {
                                             {/* <NumericInput value={value} onChange={setValue} /> */}
 
                                             <PhoneInput
-                                                country={'us'}
+                                                country={'il'}
                                                 value={phone}
                                                 onChange={handlePhoneChange}
+                                                inputStyle={{ width: '100%' }}
                                             />
-
-
-
                                         </Form.Item>
                                     </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                    {/* <Col xl={24} lg={24} md={24} sm={24} xs={24}>
                                         <Form.Item name={'country'} label='Country'
                                             rules={
                                                 [
@@ -265,6 +247,11 @@ export default function Brands({ activeKey }: Props) {
                                                 type='text' maxLength={50}
                                             />
                                         </Form.Item>
+                                    </Col> */}
+                                    <Col span={24}>
+                                        <Form.Item name={'profileDescription'} label={'Profile Description'}>
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                        </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12} md={12} sm={12} xs={12}>
                                         <Form.Item name={'image'} label='Profile Image'>
@@ -272,8 +259,8 @@ export default function Brands({ activeKey }: Props) {
                                                 listType="picture-card"
                                                 fileList={fileList}
                                                 // onPreview={handlePreview}
-                                                onChange={handleChange}
-                                                // beforeUpload={handleBeforeUpload}
+                                                // onChange={handleChange}
+                                                beforeUpload={handleBeforeUpload}
                                                 onRemove={handleRemove}
                                                 accept=".jpg,.jpeg,.png"
                                                 headers={{ Authorization: `Bearer ${token}` }}
@@ -283,6 +270,10 @@ export default function Brands({ activeKey }: Props) {
                                                 {fileList.length >= 1 ? null : uploadButton}
                                             </Upload>
                                         </Form.Item>
+                                    </Col>
+                                    <Col md={24} style={{ textAlign: 'start' }}>
+                                        <div className="largeTopMargin" ></div>
+                                        <Button type='primary' htmlType='submit'>Update Profile</Button>
                                     </Col>
                                 </Row>
                             </Col>
@@ -298,7 +289,6 @@ export default function Brands({ activeKey }: Props) {
                                             <Select
                                                 mode="tags"
                                                 style={{ width: '100%' }}
-                                                onChange={handleChange}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter skills"
                                             // options={options}
@@ -310,16 +300,31 @@ export default function Brands({ activeKey }: Props) {
                                             <Select
                                                 mode="tags"
                                                 style={{ width: '100%' }}
-                                                onChange={handleChange}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter Languages"
                                             // options={options}
                                             />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={24}>
-                                        <Form.Item name={'profileDescription'} label={'Profile Description'}>
-                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 5, maxRows: 6 }} />
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            name='higherEducation'
+                                            label='Higher Education'
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please select your highest education level'
+                                                }
+                                            ]}
+                                        >
+                                            <Select placeholder='Select your highest education level'>
+                                                <Select.Option value='none'>None</Select.Option>
+                                                <Select.Option value='high school'>High School</Select.Option>
+                                                <Select.Option value='associate degree'>Associate Degree</Select.Option>
+                                                <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
+                                                <Select.Option value='master degree'>Master Degree</Select.Option>
+                                                <Select.Option value='doctorate'>Doctorate</Select.Option>
+                                            </Select>
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -419,10 +424,6 @@ export default function Brands({ activeKey }: Props) {
                                                 suffix={<FaInstagram />}
                                             />
                                         </Form.Item>
-                                    </Col>
-                                    <Col md={24} style={{ textAlign: 'end' }}>
-                                        <div className="largeTopMargin"></div>
-                                        <Button type='primary' htmlType='submit'>Submit</Button>
                                     </Col>
                                 </Row>
                             </Col>
