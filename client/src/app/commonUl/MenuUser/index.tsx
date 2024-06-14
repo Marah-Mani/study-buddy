@@ -83,6 +83,9 @@ export default function MenuAUser() {
 			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('2');
 				break;
+			case pathname === '/en/user/candidate':
+				setDefaultSelectedKey('2');
+				break;
 			case pathname === '/en/user/tickets':
 				setDefaultSelectedKey('4');
 				break;
@@ -112,22 +115,29 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Menu User',
+			'Profile',
 			'2',
+			<Link href="/en/user/edit-profile">
+				<AiOutlineProfile />
+			</Link>
+		),
+		getItem(
+			'Menu User',
+			'3',
 			<Link href="/en/user/candidate">
 				<AiOutlineProfile />
 			</Link>
 		),
 		getItem(
 			'File Manager',
-			'3',
+			'4',
 			<Link href="/en/user/file-manager">
 				<BiSolidFileArchive />
 			</Link>
 		),
 		getItem(
 			'Q&A',
-			'4',
+			'5',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
 			</Link>
