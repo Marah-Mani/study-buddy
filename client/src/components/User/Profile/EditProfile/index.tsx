@@ -14,6 +14,7 @@ import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
+import { handleFileCompression } from '@/lib/commonServices';
 
 interface Props {
     activeKey: string;
@@ -115,51 +116,24 @@ export default function Brands({ activeKey }: Props) {
         setFileList([]);
     }
 
-    const handleChange = async ({ fileList: newFileList }: { fileList: UploadFile[] }) => {
-
-        const file = newFileList[newFileList.length - 1]?.originFileObj as File;
-        try {
-            if (file) {
-                // Check if file size is less than or equal to 5 MB
-                if (file.size / 1024 / 1024 <= 5) {
-                    const options = {
-                        maxSizeMB: 1, // Maximum size in MB
-                        maxWidthOrHeight: 1024, // Maximum width or height
-                        useWebWorker: true // Use web workers for faster compression
-                    };
-
-                    const compressedFile = await imageCompression(file, options);
-
-                    // Create a compatible object with the necessary properties
-                    const formattedFile: UploadFile<any> = {
-                        uid: Date.now().toString(),
-                        name: compressedFile.name,
-                        status: 'done',
-                        size: compressedFile.size,
-                        type: compressedFile.type,
-                        originFileObj: compressedFile as RcFile // Set the original file object with the proper type
-                    };
-
-                    // Set the new file list with the formatted compressed file
-                    setFileList([formattedFile]);
-                } else {
-                    // Show a notification message to the user
-                    message.error('Image size cannot exceed 5 MB!');
-                    setFileList([]); // Clear the file list to prevent upload
-                }
-            }
-        } catch (error) {
-            console.error('Error compressing image:', error);
-            // Handle the error without displaying any messages (optional)
-        }
-    };
-
     const uploadButton = (
         <div>
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
         </div>
     );
+
+    const handleBeforeUpload = async (file: File): Promise<boolean> => {
+        try {
+            const compressedFiles = await handleFileCompression(file, "");
+            setFileList(compressedFiles);
+            return false;
+        } catch (error) {
+            ErrorHandler.showNotification(error);
+            return true;
+        }
+    };
+
     return (
         <>
             {loading ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -285,8 +259,8 @@ export default function Brands({ activeKey }: Props) {
                                                 listType="picture-card"
                                                 fileList={fileList}
                                                 // onPreview={handlePreview}
-                                                onChange={handleChange}
-                                                // beforeUpload={handleBeforeUpload}
+                                                // onChange={handleChange}
+                                                beforeUpload={handleBeforeUpload}
                                                 onRemove={handleRemove}
                                                 accept=".jpg,.jpeg,.png"
                                                 headers={{ Authorization: `Bearer ${token}` }}
@@ -315,7 +289,6 @@ export default function Brands({ activeKey }: Props) {
                                             <Select
                                                 mode="tags"
                                                 style={{ width: '100%' }}
-                                                onChange={handleChange}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter skills"
                                             // options={options}
@@ -327,7 +300,6 @@ export default function Brands({ activeKey }: Props) {
                                             <Select
                                                 mode="tags"
                                                 style={{ width: '100%' }}
-                                                onChange={handleChange}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter Languages"
                                             // options={options}

@@ -9,7 +9,7 @@ import { FaAppStore } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getAllRoles } from '@/lib/commonApi';
-import { AiOutlineProfile } from "react-icons/ai";
+import { AiOutlineProfile, AiOutlineUser } from "react-icons/ai";
 import { LuListTodo } from "react-icons/lu";
 import { SlEnvolopeLetter } from 'react-icons/sl';
 import { MdOutlineCalendarMonth } from 'react-icons/md';
@@ -80,7 +80,7 @@ export default function MenuAUser() {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/candidate':
+			case pathname === '/en/user/edit-profile':
 				setDefaultSelectedKey('2');
 				break;
 			case pathname === '/en/user/candidate':
@@ -124,7 +124,7 @@ export default function MenuAUser() {
 			'Users',
 			'3',
 			<Link href="/en/user/candidate">
-				<AiOutlineProfile />
+				<AiOutlineUser />
 			</Link>
 		),
 		getItem(

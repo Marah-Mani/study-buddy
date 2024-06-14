@@ -63,7 +63,11 @@ export const handleFileCompression = async (file: File, type: any): Promise<Uplo
                             maxWidthOrHeight: 1024,
                             useWebWorker: true
                         };
-                        const compressedFile = await imageCompression(file, options);
+                        let compressedFile: File = file;
+                        compressedFile = await imageCompression(file, options);
+                        const blob = new Blob([compressedFile], { type: compressedFile.type });
+                        compressedFile = new File([blob], file.name, { type: compressedFile.type });
+
                         const formattedFile: UploadFile<any> = {
                             uid: Date.now().toString(),
                             name: file.name,
