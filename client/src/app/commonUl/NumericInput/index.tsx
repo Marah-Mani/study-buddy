@@ -5,11 +5,12 @@ interface NumericInputProps {
     style?: React.CSSProperties;
     value: string;
     onChange: (value: string) => void;
+    placeholder?: string;
 }
 
 export default function NumericInput(props: NumericInputProps) {
 
-    const { value, onChange } = props;
+    const { value, onChange, placeholder } = props;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value: inputValue } = e.target;
@@ -33,7 +34,7 @@ export default function NumericInput(props: NumericInputProps) {
             {...props}
             onChange={handleChange}
             onBlur={handleBlur}
-            placeholder="Enter your phone number"
+            placeholder={placeholder}
             maxLength={12}
             type="number"
         />

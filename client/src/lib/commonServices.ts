@@ -3,51 +3,93 @@ import imageCompression from 'browser-image-compression';
 import { RcFile, UploadFile } from 'antd/lib/upload/interface';
 import { downloadZipFile } from './userApi';
 
-export const handleFileCompression = async (file: File): Promise<UploadFile<any>[]> => {
+const ALLOWED_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png'];
+const ALLOWED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
+const ALLOWED_FILE_EXTENSIONS = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+const ALLOWED_FILE_MIME_TYPES = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-powerpoint',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+];
+
+export const handleFileCompression = async (file: File, type: any): Promise<UploadFile<any>[]> => {
     try {
         const fileList: UploadFile<any>[] = [];
+
         if (file) {
-            // Check file extension
-            const extension = file.name.split('.').pop()?.toLowerCase();
-            if (extension && ['jpg', 'jpeg', 'png'].includes(extension)) {
-                // Check if file size is less than or equal to 10 MB
-                if (file.size / 1024 / 1024 <= 10) {
-                    const options = {
-                        maxSizeMB: 1, // Maximum size in MB
-                        maxWidthOrHeight: 1024, // Maximum width or height
-                        useWebWorker: true // Use web workers for faster compression
-                    };
+            let isValid;
 
-                    const compressedFile = await imageCompression(file, options);
+            if (type === 'fileManager') {
+                // Validate file type to prevent harmful files
+                const extension = file.name.split('.').pop()?.toLowerCase();
+                const mimeType = file.type.toLowerCase();
 
-                    // Create a compatible object with the necessary properties
+                isValid = extension && mimeType && (
+                    ALLOWED_IMAGE_EXTENSIONS.includes(extension) ||
+                    ALLOWED_FILE_EXTENSIONS.includes(extension) ||
+                    ALLOWED_IMAGE_MIME_TYPES.includes(mimeType) ||
+                    ALLOWED_FILE_MIME_TYPES.includes(mimeType)
+                );
+
+                if (isValid) {
                     const formattedFile: UploadFile<any> = {
-                        uid: Date.now().toString(), // Generate a unique UID
-                        name: file.name, // Preserve the original file name
-                        status: 'done', // Set the status as 'done' since the file is ready for upload
-                        size: compressedFile.size, // Set the size of the file
-                        type: compressedFile.type, // Set the type of the file
-                        originFileObj: new File([compressedFile], file.name, { type: compressedFile.type }) as RcFile // Set the original file object with the proper type
+                        uid: Date.now().toString(),
+                        name: file.name,
+                        status: 'done',
+                        size: file.size,
+                        type: file.type,
+                        originFileObj: file as RcFile
                     };
-
-                    // Add the formatted compressed file to the fileList array
                     fileList.push(formattedFile);
                 } else {
-                    // Show a notification message to the user
-                    message.error('Image size cannot exceed 10 MB!');
+                    message.error('Invalid file type. Uploading of harmful files is not allowed.');
+                    return [];
                 }
             } else {
-                // Show a notification message to the user for invalid file type
-                message.error('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
+                // Apply validation for other types
+                const extension = file.name.split('.').pop()?.toLowerCase();
+                const mimeType = file.type.toLowerCase();
+
+                isValid = extension && ALLOWED_IMAGE_EXTENSIONS.includes(extension) && ALLOWED_IMAGE_MIME_TYPES.includes(mimeType);
+
+                if (isValid) {
+                    if (file.size / 1024 / 1024 <= 10) {
+                        const options = {
+                            maxSizeMB: 1,
+                            maxWidthOrHeight: 1024,
+                            useWebWorker: true
+                        };
+                        const compressedFile = await imageCompression(file, options);
+                        const formattedFile: UploadFile<any> = {
+                            uid: Date.now().toString(),
+                            name: file.name,
+                            status: 'done',
+                            size: compressedFile.size,
+                            type: compressedFile.type,
+                            originFileObj: new File([compressedFile], file.name, { type: compressedFile.type }) as RcFile
+                        };
+                        fileList.push(formattedFile);
+                    } else {
+                        message.error('Image size cannot exceed 10 MB!');
+                        return [];
+                    }
+                } else {
+                    message.error('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
+                    return [];
+                }
             }
         }
         return fileList;
     } catch (error) {
         console.error('Error compressing image:', error);
-        // Handle the error without displaying any messages (optional)
         return [];
     }
 };
+
 
 export const downloadFolderInZipFile = async (folder: any) => {
     try {
