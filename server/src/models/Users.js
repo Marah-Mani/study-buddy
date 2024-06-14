@@ -9,6 +9,18 @@ const userSchema = new mongoose.Schema({
 	name: { type: String, default: null },
 	email: { type: String, unique: true, required: true, index: true },
 	roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'roles', default: null },
+	interestedIn: { type: String, enum: ['tutor', 'student'], default: null },
+	departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'department', default: null },
+	subjects: [{ type: String }],
+	profileTitle: { type: String, default: null },
+	profileDescription: { type: String, default: null },
+	higherEducation: {
+		type: String,
+		enum: ['none', 'high school', 'associate degree', 'bachelor degree', 'master degree', 'doctorate'],
+		default: 'none'
+	},
+	languages: [{ type: String }],
+	skills: [{ type: String }],
 	role: { type: String, default: 'user' },
 	slug: { type: String, default: null },
 	password: { type: String, default: null },

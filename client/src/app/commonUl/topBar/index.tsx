@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import styles from './topBar.module.css';
+import './style.css'
 import { Col, Divider, Drawer, Image, Row, Badge, Avatar, Button } from 'antd';
 import { FaRegBell } from 'react-icons/fa6';
 import AuthContext from '@/contexts/AuthContext';
@@ -156,16 +156,16 @@ export default function TopBar() {
 
 	return (
 		<>
-			<div className={styles['topBar']}>
+			<div className='topBar'>
 				<Row align="middle" gutter={[10, 10]}>
-					<Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
+					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
 							<ParaText size="small" color="SecondaryColor">
 								Study Buddy
 							</ParaText>
 						</Link>
 					</Col>
-					<Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
+					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
 						{headerMenu.length > 0 &&
 							headerMenu.map((menu: any, index: any) => {
 								return (
@@ -181,14 +181,14 @@ export default function TopBar() {
 
 						</div>
 					</Col>
-					<Col xs={10} sm={24} md={4} lg={4} xl={4} xxl={4} >
+					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} >
 						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
 							<div onClick={handleDivClickBell}>
 								{latestBell.isRead === '' ? (
 									<FaRegBell />
 								) : (
 									<div
-										className={styles['bell']}
+										className='bell'
 										onClick={(e) => {
 											handleDivClickBell(e);
 										}}
@@ -307,7 +307,7 @@ export default function TopBar() {
 										</>
 									) : (
 										<div className="textCenter marginTopThree">
-											<IoNotificationsOffOutline className={styles['notificationsNone']} />
+											<IoNotificationsOffOutline className='notificationsNone' />
 											<br />
 											<ParaText size="small" color="defaultColor" className="weight700">
 												No New Notifications

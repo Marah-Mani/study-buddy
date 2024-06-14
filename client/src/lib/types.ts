@@ -119,6 +119,7 @@ export interface User {
 	fullName: string;
 	lastName: string;
 	email: string | null;
+	interestedIn: string | null;
 	role: 'superadmin' | 'admin' | 'guest' | 'staff' | 'user';
 	roleId: any | null;
 	hotelId: string | null;

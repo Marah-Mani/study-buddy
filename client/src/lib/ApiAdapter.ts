@@ -2,7 +2,6 @@ import axios, { AxiosResponse, CancelTokenSource } from 'axios';
 import { User } from '@/lib/types';
 
 export const register = async (data: any): Promise<any> => {
-	console.log(data, "api")
 	return new Promise((resolve, reject) => {
 		const req = axios.request({
 			url: `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
@@ -85,6 +84,19 @@ export const getUserById = async (id: any): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		const req = axios.request({
 			url: `${process.env.NEXT_PUBLIC_API_URL}/auth/getUserById/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json'
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getDepartments = async (): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/auth/getDepartments`,
 			method: 'get',
 			headers: {
 				Accept: 'application/json'

@@ -80,7 +80,10 @@ export default function MenuAUser() {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/edit-profile':
+			case pathname === '/en/user/candidate':
+				setDefaultSelectedKey('2');
+				break;
+			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('2');
 				break;
 			case pathname === '/en/user/tickets':
@@ -119,23 +122,22 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Calendar',
-			'5',
-			<Link href="/en/user/calendar">
-				<MdOutlineCalendarMonth />
-
+			'Menu User',
+			'3',
+			<Link href="/en/user/candidate">
+				<AiOutlineProfile />
 			</Link>
 		),
 		getItem(
 			'File Manager',
-			'6',
+			'4',
 			<Link href="/en/user/file-manager">
 				<BiSolidFileArchive />
 			</Link>
 		),
 		getItem(
 			'Q&A',
-			'7',
+			'5',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
 			</Link>

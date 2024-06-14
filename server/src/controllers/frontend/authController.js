@@ -3,8 +3,9 @@
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
+// const fs = require('fs');
 const Users = require('../../models/Users');
+const Departments = require('../../models/departments');
 const StickyMessage = require('../../models/stickyMessage');
 const EmailOtp = require('../../models/emailOTP');
 const path = require('path');
@@ -61,7 +62,7 @@ const senOtpEmail = async (name, email, otp) => {
 const authController = {
 	register: async (req, res) => {
 		try {
-			const { email, name, phoneNumber, password } = req.body;
+			const { email, name, phoneNumber, password, interest, departments, subjects } = req.body;
 
 			const existingEmail = await Users.findOne({ email });
 			if (existingEmail) {
@@ -82,20 +83,23 @@ const authController = {
 				role: 'user',
 				stickyNote: null,
 				timeZone: data.timezone,
-				roleId: '664c64a47fd139f478b5de86'
+				roleId: '664c64a47fd139f478b5de86',
+				interestedIn: interest,
+				departmentId: departments,
+				subjects: subjects
 			});
 
 			await newUser.save();
 
-			const folderName = `${name}-${newUser._id.toString().slice(-6)}`.replace(/\s/g, '-');
-			const folderPath = path.join(__dirname, '..', '..', 'storage', 'fileManager', folderName);
+			// const folderName = `${name}-${newUser._id.toString().slice(-6)}`.replace(/\s/g, '-');
+			// const folderPath = path.join(__dirname, '..', '..', 'storage', 'fileManager', folderName);
 
-			if (!fs.existsSync(folderPath)) {
-				fs.mkdirSync(folderPath);
-			}
+			// if (!fs.existsSync(folderPath)) {
+			// 	fs.mkdirSync(folderPath);
+			// }
 
-			newUser.fileManagerDirectory = folderName;
-			await newUser.save();
+			// newUser.fileManagerDirectory = folderName;
+			// await newUser.save();
 
 			const newStickyMessage = new StickyMessage({
 				userId: newUser._id,
@@ -133,6 +137,7 @@ const authController = {
 			await newAccountEmail(newUser);
 			res.status(201).json({ message: 'Users registered successfully', status: true });
 		} catch (error) {
+			logError(error);
 			res.status(500).json({ message: 'Internal Server Error' });
 		}
 	},
@@ -571,6 +576,22 @@ const authController = {
 			return res.status(200).json({ status: true, data: user });
 		} catch (error) {
 			logError(error);
+			return res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
+	},
+
+	getDepartments: async (req, res) => {
+		try {
+			// Query all departments from the database
+			const departments = await Departments.find();
+
+			if (!departments) {
+				return res.status(404).json({ status: false, message: 'No departments found' });
+			}
+
+			return res.status(200).json({ status: true, data: departments });
+		} catch (error) {
+			console.error('Error fetching departments:', error);
 			return res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	}
