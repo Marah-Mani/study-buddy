@@ -60,13 +60,20 @@ const items: MenuItem[] = [
 			<IoDocumentText />
 		</Link>
 	),
-	// getItem(
-	// 	'File Manager',
-	// 	'4',
-	// 	<Link href="/en/admin/file-manager">
-	// 		<FaFileCircleCheck />
-	// 	</Link>
-	// ),
+	getItem(
+		'Products',
+		'4',
+		<Link href="/en/admin/products">
+			<IoDocumentText />
+		</Link>
+	),
+	getItem(
+		'Users',
+		'5',
+		<Link href="/en/admin/users">
+			<IoDocumentText />
+		</Link>
+	)
 ];
 
 export default function MenuAdmin() {
@@ -93,9 +100,11 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('3');
 				break;
-
-			case pathname === '/en/admin/notifications':
-				setDefaultSelectedKey('4'); // Redirect to Dashboard
+			case pathname === '/en/admin/products':
+				setDefaultSelectedKey('4');
+				break;
+			case pathname === '/en/admin/users':
+				setDefaultSelectedKey('5');
 				break;
 			default:
 				// if (!defaultSelectedKey) {

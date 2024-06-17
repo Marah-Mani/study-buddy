@@ -23,8 +23,8 @@ export default function NumericInput(props: NumericInputProps) {
     // '.' at the end or only '-' in the input box.
     const handleBlur = () => {
         let valueTemp = value;
-        if (value.charAt(value.length - 1) === '.' || value === '-') {
-            valueTemp = value.slice(0, -1);
+        if (value?.charAt(value?.length - 1) === '.' || value === '-') {
+            valueTemp = value?.slice(0, -1);
         }
         onChange(valueTemp.replace(/0*(\d+)/, '$1'));
     };
