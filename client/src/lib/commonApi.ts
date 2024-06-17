@@ -209,11 +209,28 @@ export const getAllUsers = async (): Promise<any> => {
 	});
 };
 
-export const getAllCandidate = async (): Promise<any> => {
+export const getAllCandidate = async (query: any = {}): Promise<any> => {
 	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
 		const req = axios.request({
 			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/user/getAllCandidate`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: query
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getAllDepartments = async (): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/user/getAllDepartments`,
 			method: 'get',
 			headers: {
 				Accept: 'application/json',

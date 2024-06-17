@@ -41,12 +41,12 @@ const items: MenuProps['items'] = [
 
 const menuProps = {
     items,
-    onClick: handleMenuClick,
+    // onClick: handleMenuClick,
 };
 export default function DropDownThree() {
     return (
         <div>
-            <Dropdown.Button menu={menuProps} onClick={handleButtonClick} icon={<IoMdArrowDropdown />} style={{ width: '200px' }}>
+            <Dropdown.Button menu={menuProps} icon={<IoMdArrowDropdown />} style={{ width: '200px' }}>
                 Student
             </Dropdown.Button>
         </div>
