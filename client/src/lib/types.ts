@@ -123,6 +123,7 @@ export interface User {
 	skills: any | null;
 	languages: string | null;
 	higherEducation: string | null;
+	interestedIn: string | null,
 	role: 'superadmin' | 'admin' | 'guest' | 'staff' | 'user';
 	roleId: any | null;
 	hotelId: string | null;
