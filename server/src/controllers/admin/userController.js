@@ -2,7 +2,6 @@
 const userActivity = require('../../models/userActivity');
 const Users = require('../../models/Users');
 const errorLogger = require('../../../logger');
-const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 
@@ -19,7 +18,12 @@ const userController = {
 
 	getAllUsers: async (req, res) => {
 		try {
-			const users = await Users.find({ status: { $in: ['active', 'inactive'] } }).sort({ _id: -1 });
+			const users = await Users.find({
+				status: { $in: ['active', 'inactive'] },
+				role: { $ne: 'admin' }
+			}).sort({ _id: -1 })
+				.populate('departmentId', 'departmentName');
+
 			res.status(200).json({ status: true, data: users });
 		} catch (error) {
 			errorLogger(error);
@@ -99,16 +103,28 @@ const userController = {
 
 	deleteUser: async (req, res) => {
 		try {
-			const ids = req.body.flat();
-			const objectIdArray = ids.map((id) => new mongoose.Types.ObjectId(id));
-			if (!objectIdArray) {
+			const { id } = req.params;
+			const deletedUser = await Users.deleteOne({ _id: id });
+			if (deletedUser.deletedCount === 0) {
 				return res.status(404).json({ message: 'User not found', status: false });
 			}
-			const data = await Users.deleteMany({ _id: { $in: objectIdArray } });
+			res.status(200).json({ message: 'User deleted successfully', status: true });
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ message: 'Internal Server Error' });
+		}
+	},
+
+	updateUserStatus: async (req, res) => {
+		try {
+			const { userId, status } = req.body;
+			if (!userId) {
+				return res.status(404).json({ message: 'User not found', status: false });
+			}
+			await Users.updateOne({ _id: userId }, { status });
 			res.status(200).json({
-				success: true,
-				message: 'User deleted successfully',
-				data
+				status: true,
+				message: 'User status updated successfully',
 			});
 		} catch (error) {
 			errorLogger(error);

@@ -284,22 +284,6 @@ export const deleteStickyNote = async (data: any): Promise<any> => {
 };
 
 
-export const getAllUsers = async (): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/users`,
-			method: 'get',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
-
 export const getAllRoles = async (search?: string): Promise<any> => {
 	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
@@ -369,17 +353,16 @@ export const addUpdateUser = async (data: any): Promise<any> => {
 	});
 };
 
-export const deleteUser = async (data: any): Promise<any> => {
+export const deleteUser = async (id: any): Promise<any> => {
 	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
 		const req = axios.request({
-			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/users/deleteUser`,
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/users/deleteUser/${id}`,
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`
 			},
-			data
 		});
 
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
@@ -694,7 +677,7 @@ export const getProductCategories = async (): Promise<any> => {
 	})
 }
 
-export const getAllProducts = async (): Promise<any> => {
+export const getAllProducts = async (search?: any): Promise<any> => {
 	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
 		const req = axios.request({
@@ -703,8 +686,93 @@ export const getAllProducts = async (): Promise<any> => {
 			headers: {
 				Accept: 'application/json',
 				Authorization: `Bearer ${token}`
+			},
+			params: {
+				search
 			}
 		});
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
 	})
 }
+
+export const getSingleProduct = async (id: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/products/getSingleProduct/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteProductImage = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/admin/products/deleteProductImage`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteProduct = async (id: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/products/deleteProduct/${id}`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getAllUsers = async (search?: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/admin/users`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: {
+				search
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}
+
+export const updateUserStatus = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/admin/users/updateUserStatus`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
