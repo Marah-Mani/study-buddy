@@ -160,7 +160,7 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<ParaText size="small" color="SecondaryColor">
+							<ParaText size="small" color="PrimaryColor" fontWeightBold={600}>
 								Study Buddy
 							</ParaText>
 						</Link>

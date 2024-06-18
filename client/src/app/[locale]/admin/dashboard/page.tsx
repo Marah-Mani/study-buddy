@@ -28,7 +28,7 @@ export default function Dashboard() {
 					</ParaText>
 				</div>
 				<div className='gapMarginTopTwo'></div>
-				{/* <Row align='middle' gutter={[16, 16]}>
+				<Row align='middle' gutter={[16, 16]}>
 					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
 						<Segmented
 							options={['Men', 'Women', 'Today Deals', 'Home & Kitchen', 'Customer Service']}
@@ -87,7 +87,7 @@ export default function Dashboard() {
 							</Row>
 						</div>
 					</Col>
-				</Row> */}
+				</Row>
 				<TableData />
 			</div>
 
