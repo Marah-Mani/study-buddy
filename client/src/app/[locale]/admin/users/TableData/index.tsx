@@ -150,7 +150,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
     return (
         <div>
             <Table
-                className='textCenter'
+                className='customResponsiveTable'
                 columns={columns}
                 bordered
                 dataSource={data}

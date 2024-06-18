@@ -1,0 +1,1 @@
+{"level":"error","message":"Error: Email template not found","stack":"at sendEmail (/home/sunil-des/Documents/study-buddy/server/src/services/auth.js:55:9)","timestamp":"2024-06-18T06:24:49.606Z"}

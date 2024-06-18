@@ -12,6 +12,8 @@ import ErrorHandler from '@/lib/ErrorHandler';
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook2 } from "react-icons/im";
 import ParaText from '@/app/commonUl/ParaText';
+import './style.css'
+import Titles from '@/app/commonUl/Titles';
 
 const Login = () => {
 	const [form] = Form.useForm();
@@ -85,8 +87,10 @@ const Login = () => {
 	};
 
 	return (
-		<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '300px' }}>
-			<h1 style={{ textAlign: 'center' }}>Login</h1>
+		<div className='login'>
+			<div className='heading'>
+				<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>
+			</div>
 			<Form
 				name="normal_login"
 				className="login-form"
@@ -105,19 +109,19 @@ const Login = () => {
 					}, { validator: validateEmail }
 				]}>
 					<Input
-						prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
+						prefix={<UserOutlined className="site-form-item-icon" />} style={{ height: "40px" }} type={'email'} placeholder="Email" maxLength={30} />
 				</Form.Item>
 				<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
 					<Input.Password
 						prefix={<LockOutlined className="site-form-item-icon" />}
 						type="password"
 						placeholder="Password"
-
+						style={{ height: "40px" }}
 						maxLength={15}
 					/>
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
 						{loading ? 'Please wait...' : 'Log in'}
 					</Button>
 
@@ -130,20 +134,19 @@ const Login = () => {
 				<Form.Item>
 					<div style={{ textAlign: 'center', marginBottom: '20px' }}>Or</div>
 
-					<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px' }}>
-
+					<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 						<Button
 							// type="primary"
-							style={{ width: '48%', height: "44px", alignItems: "center", }}
-							icon={<FcGoogle />}
+							style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+							icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 							onClick={handleGoogleLogin}
 						>
 							Google
 						</Button>
 						<Button
 							// type="primary"
-							style={{ width: '48%', height: "44px", alignItems: "center" }}
-							icon={<ImFacebook2 style={{ color: '#4064ac' }} />}
+							style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+							icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 							onClick={handleFacebookLogin}
 						>
 							Facebook

@@ -160,7 +160,7 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<ParaText size="small" color="SecondaryColor">
+							<ParaText size="small" color="PrimaryColor" fontWeightBold={600}>
 								Study Buddy
 							</ParaText>
 						</Link>
@@ -183,9 +183,10 @@ export default function TopBar() {
 					</Col>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} >
 						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
+							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode size={20} /> : <CiDark size={20} />} /></div>
 							<div onClick={handleDivClickBell}>
 								{latestBell.isRead === '' ? (
-									<FaRegBell />
+									<FaRegBell size={20} />
 								) : (
 									<div
 										className='bell'
@@ -193,7 +194,7 @@ export default function TopBar() {
 											handleDivClickBell(e);
 										}}
 									>
-										<FaRegBell />
+										<FaRegBell size={20} />
 									</div>
 								)}
 							</div>
@@ -323,7 +324,7 @@ export default function TopBar() {
 							<div className="textCenter">
 								<UserAvatarForHeader />
 							</div>
-							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode size={20} /> : <CiDark size={20} />} /></div>
+
 						</div>
 					</Col>
 					<div>

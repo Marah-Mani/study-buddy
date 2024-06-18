@@ -57,14 +57,16 @@ export default function Page() {
 
     return (
         <>
-            <div id='fileManagerPage'>
-                <div className="smallTopMargin"></div>
-                <div className='boxInbox'>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
-                        File Manager
-                    </ParaText>
-                    <div className="largeTopMargin"></div>
-                    <Tabs tabPosition='left' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
+            <div className='gapMarginTop'>
+                <div id='fileManagerPage'>
+                    <div className="smallTopMargin"></div>
+                    <div className='boxInbox'>
+                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                            File Manager
+                        </ParaText>
+                        <div className="largeTopMargin"></div>
+                        <Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
+                    </div>
                 </div>
             </div>
         </>

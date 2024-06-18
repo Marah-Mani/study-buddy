@@ -1,15 +1,15 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import AuthContext from '@/contexts/AuthContext';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import Cookies from 'js-cookie';
 import { forgetEmailPassword, socialLogin } from '@/lib/ApiAdapter';
 import { useRouter } from 'next/navigation';
 import ErrorHandler from '@/lib/ErrorHandler';
-
+import './style.css'
+import Titles from '@/app/commonUl/Titles';
 const ForgotPassword = () => {
 	const [form] = Form.useForm();
 	const router = useRouter();
@@ -32,8 +32,10 @@ const ForgotPassword = () => {
 	};
 
 	return (
-		<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '300px' }}>
-			<h1 style={{ textAlign: 'center' }}>Forgot Password</h1>
+		<div className='forgetPassword'>
+			<div className='heading'>
+				<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Forgot Password</Titles>
+			</div>
 			<Form
 				name="normal_login"
 				className="login-form"
@@ -43,15 +45,15 @@ const ForgotPassword = () => {
 				style={{ paddingTop: '20px' }}
 			>
 				<Form.Item name="email" rules={[{ required: true, message: 'Please input your Email!' }]} >
-					<Input prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
+					<Input style={{ height: '40px' }} prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
 						{loading ? 'Please wait...' : 'Send me the link'}
 					</Button>
 				</Form.Item>
 				<Link href="/en/login" passHref>
-					<Button type="primary" style={{ width: '100%' }}>
+					<Button type="primary" style={{ width: '100%', height: '40px' }}>
 						Back to login
 					</Button>
 				</Link>

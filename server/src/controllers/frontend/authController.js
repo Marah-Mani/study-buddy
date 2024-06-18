@@ -75,6 +75,16 @@ const authController = {
 			const response = await fetch('http://ip-api.com/json?fields=status,timezone');
 			const data = await response.json();
 
+			const profileTitle =
+				interest === 'tutor'
+					? `${name} - Expert in ${subjects.join(', ')}`
+					: `${name} - Aspiring ${subjects.join(', ')} Student`;
+
+			const profileDescription =
+				interest === 'tutor'
+					? `Hello, I'm ${name}, and I specialize in tutoring the following subjects: ${subjects.join(', ')}. I am passionate about teaching and helping students achieve their goals in these areas.`
+					: `Hi, I'm ${name}. I am interested in the following subjects: ${subjects.join(', ')}. As a student, I am eager to learn more and grow my skills in these areas.`;
+
 			const newUser = new Users({
 				email,
 				name,
@@ -86,7 +96,9 @@ const authController = {
 				roleId: '664c64a47fd139f478b5de86',
 				interestedIn: interest,
 				departmentId: departments,
-				subjects: subjects
+				subjects: subjects,
+				profileTitle: profileTitle,
+				profileDescription: profileDescription
 			});
 
 			await newUser.save();

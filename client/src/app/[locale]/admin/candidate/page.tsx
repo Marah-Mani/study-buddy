@@ -65,8 +65,9 @@ export default function Page() {
     };
     return (
         <div>
-            <div className='gapMarginTop'></div>
-            <div className='menuStyle'>  <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{ border: 'none' }} /></div>
+            <div className='gapMarginTop'>
+                <div className='menuStyle'>  <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{ border: 'none' }} /></div>
+            </div>
         </div>
     )
 }
