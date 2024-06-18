@@ -56,7 +56,6 @@ li.ant-menu-item.ant-menu-item-selected svg {
   max-width: 250px;
   text-align: center;
 }
-
 @media (max-width: 1200px) {
   .menuDash {
     height: auto !important;

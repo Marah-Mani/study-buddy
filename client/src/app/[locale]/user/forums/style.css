@@ -1,12 +1,11 @@
 .boxInbox {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    padding-top: 4%;
+  border-radius: 8px;
+  padding: 20px;
+  padding-top: 4%;
 }
 
 .likeCommentRadius {
-    border-radius: 20px;
-    background: #ccc;
-    padding: 9px;
+  border-radius: 20px;
+  background: #ccc;
+  padding: 9px;
 }

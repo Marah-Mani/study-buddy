@@ -1,9 +1,0 @@
-{"level":"error","message":"ValidationError: discountPrice: Cast to Number failed for value \"undefined\" (type string) at path \"discountPrice\"","stack":"at /opt/lampp/htdocs/study-buddy/server/src/controllers/common/productController.js:126:21","timestamp":"2024-06-18T09:24:50.016Z"}
-{"level":"error","message":"ReferenceError: createUpload is not defined","stack":"at updateUserDetails (/opt/lampp/htdocs/study-buddy/server/src/controllers/admin/userController.js:93:4)","timestamp":"2024-06-18T12:46:08.439Z"}
-{"level":"error","message":"Error updating brand:","stack":"at /opt/lampp/htdocs/study-buddy/server/src/controllers/admin/userController.js:83:7","timestamp":"2024-06-18T12:46:35.285Z"}
-{"level":"error","message":"Error updating user:","stack":"at /opt/lampp/htdocs/study-buddy/server/src/controllers/admin/userController.js:83:7","timestamp":"2024-06-18T12:48:02.010Z"}
-{"level":"error","message":"Error updating user:","stack":"at /opt/lampp/htdocs/study-buddy/server/src/controllers/admin/userController.js:84:7","timestamp":"2024-06-18T12:48:17.818Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/opt/lampp/htdocs/study-buddy/server/src/common/functions.js:39:3)","timestamp":"2024-06-18T12:48:41.489Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/opt/lampp/htdocs/study-buddy/server/src/common/functions.js:39:3)","timestamp":"2024-06-18T12:51:14.884Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/opt/lampp/htdocs/study-buddy/server/src/common/functions.js:39:3)","timestamp":"2024-06-18T12:52:44.320Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/opt/lampp/htdocs/study-buddy/server/src/common/functions.js:39:3)","timestamp":"2024-06-18T12:54:38.463Z"}

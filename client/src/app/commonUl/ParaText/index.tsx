@@ -88,7 +88,7 @@ const ParaText = ({
 					color: `${color == 'defaultColor'
 						? '#999999'
 						: color == 'PrimaryColor'
-							? '#0088cc'
+							? '#1967D2'
 							: color == 'SecondaryColor'
 								? '#f4f4f4'
 								: color == 'white'

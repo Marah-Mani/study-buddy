@@ -26,7 +26,7 @@
   display: block;
   margin-top: 5px;
   right: 0;
-  background: #0088cc;
+  background: #1967d2;
   transition: width 0.3s ease;
   -webkit-transition: width 0.3s ease;
 }
@@ -34,5 +34,5 @@
 .overEfact:hover::after {
   width: 100%;
   left: 0;
-  background: #0088cc;
+  background: #1967d2;
 }

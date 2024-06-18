@@ -1,8 +1,5 @@
 const Product = require('../../models/product');
-const ProductCategory = require('../../models/productCategory');
-const ProductSubCategory = require('../../models/productSubCategory');
 const errorLogger = require('../../../logger');
-const { createUpload } = require('../../utils/multerConfig');
 
 const productController = {
 
