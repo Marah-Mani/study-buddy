@@ -144,13 +144,13 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 				<Titles level={5} color="PrimaryColor">
 					Verify Your {userEmail ? 'Email Address' : 'Mobile Number'}
 				</Titles>
-				<div className="mediumTopMargin"></div>
+				<div className='gapMarginTopOne'></div>
 				<ParaText size="small" color="defaultColor">
 					We&apos;ve sent a four-digit verification code
 					<br /> to your <b>{userEmail ? userEmail : userPhone}</b> {userEmail ? 'address' : 'number'}. <br />
 					Please enter the code below to confirm your {userEmail ? 'email' : 'phone'}
 				</ParaText>
-				<div className="mediumTopMargin"></div>
+				<div className='gapMarginTopOne'></div>
 				<ul className="inputflex">
 					<li>
 						<OTPInput
@@ -193,17 +193,8 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 						/>
 					</li>
 				</ul>
-				<div className="mediumTopMargin"></div>
+				<div className='gapMarginTopTwo'></div>
 				<div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-					{/* <div className="mt-4">
-						<SecondaryButton
-							label={'Cancel'}
-							type="primary"
-							onClick={handleCancel}
-							disabled={isLoading}
-							width="40px"
-						/>
-					</div> */}
 					<div className="mt-4">
 						<SecondaryButton
 							label={isLoading ? 'Please wait verifying email address' : 'my email address'}

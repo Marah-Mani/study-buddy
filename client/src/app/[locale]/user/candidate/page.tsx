@@ -133,22 +133,18 @@ export default function Page() {
 
     return (
         <>
-            <div className='gapMarginTop'></div>
+            <div className='gapMarginTopOne'></div>
             <div style={{ padding: '15px' }}>
                 <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
                     <div className='gapMarginTop'></div>
                     <div className='menuStyle'>
                         <Row gutter={[16, 16]} align='middle'>
                             <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-                                <ParaText size='extraSmall'> <strong>{AllCandidates.length}</strong>{user?.interestedIn === "student" ? " Tutor" : " student"}</ParaText>
+                                <ParaText size='small' color='PrimaryColor' fontWeightBold={600}> <strong>{AllCandidates.length}</strong>{user?.interestedIn === "student" ? " Tutor" : " student"}</ParaText>
                             </Col>
                             <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                 <div className='floatRight'>
                                     <Space wrap>
-
-                                        {/* <DropDownOne />
-                                        <DropDownThree /> */}
-                                        {/* <DropDownTwo /> */}
                                         <Dropdown overlay={
                                             <Menu onClick={handleDepartmentChange}>
                                                 <Menu.Item key="all">All</Menu.Item>
@@ -193,7 +189,6 @@ export default function Page() {
                                                 <Button icon={<CiSearch />} type='primary'></Button>
                                             }
                                         />
-                                        {/* <Button icon={<CiSearch />} type='primary'></Button> */}
                                     </Space>
                                 </div>
                             </Col>
@@ -210,67 +205,61 @@ export default function Page() {
                         {AllCandidates.map((item: any) => (
                             <>
                                 <div style={{ padding: ' 15px 15px 25px 15px' }} className='candidates-details'>
-                                    <Row gutter={[16, 16]}>
+                                    <div className='imagevecter'></div>
+                                    <Row gutter={[16, 16]} align='middle'>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <Row>
-                                                <Col xs={24} sm={24} md={3} lg={3} xl={3} xxl={3} className=''>
+                                            <Row align='middle'>
+                                                <Col xs={24} sm={24} md={3} lg={3} xl={2} xxl={2} className=''>
                                                     <Image src={
                                                         item?.image
                                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item?.image}`
                                                             : `/images/avatar.png`
                                                     } width={50} height={50} alt='user' style={{ borderRadius: '50px' }} />
                                                 </Col>
-                                                <Col xs={24} sm={24} md={21} lg={21} xl={21} xxl={21}>
+                                                <Col xs={24} sm={24} md={21} lg={21} xl={22} xxl={22}>
                                                     <Flex align='center'>
-                                                        <ParaText size="medium" className="dBlock" fontWeightBold={600}>
+                                                        <ParaText size="small" color='PrimaryColor' className="dBlock" fontWeightBold={600}>
                                                             {`${item?.name} `}
                                                         </ParaText>
                                                         <Tag color='success' style={{ marginLeft: '8px' }}>
                                                             {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
                                                         </Tag>
-                                                        {/* <ParaText size="small" className="" fontWeightBold={400}>
-                                                    <span style={{ marginLeft: '8px' }}>
-                                                        {' ('}{item?.interestedIn}{')'}
-                                                    </span>
-                                                </ParaText> */}
                                                     </Flex>
-                                                    <ParaText size="textGraf" fontWeightBold={600}>
+                                                    <ParaText size="textGraf" fontWeightBold={600} color='black'>
                                                         {item?.profileTitle && capitalizeFirstLetterOfEachWord(item?.profileTitle)}
                                                     </ParaText>
                                                     &nbsp;
-                                                    {/* <ParaText size="textGraf">
-                                                <CiLocationOn />
-                                                Kondapur, Hyderabad
-                                            </ParaText> */}
                                                 </Col>
                                             </Row>
                                         </Col>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
                                             <div>
-                                                <span><FaRocketchat size={20} /></span> &nbsp;<span><CiHeart size={20} /></span>
+                                                <span><CiHeart size={20} /></span>
                                             </div>
                                             <br />
                                             <div>
-                                                {item.socialLinks.facebook !== "null" && item.socialLinks.facebook !== null &&
-                                                    <a href={item.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
-                                                        <span><FaFacebookSquare size={20} /></span>
-                                                    </a>
-                                                }
-                                                {item.socialLinks.instagram !== "null" && item.socialLinks.instagram !== null &&
-                                                    <a href={item.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                                                        <span><FaInstagramSquare size={20} /></span>
-                                                    </a>
-                                                }
-                                                {item.socialLinks.twitter !== "null" && item.socialLinks.twitter !== null &&
-                                                    <a href={item.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                                                        <span><FaTwitter size={20} /></span>
-                                                    </a>
-                                                }
-                                                {item.socialLinks.likedIn !== "null" && item.socialLinks.linkedin !== null &&
-                                                    <a href={item.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                                                        <span><IoLogoLinkedin size={20} /></span>
-                                                    </a>
-                                                }
+                                                <Space size={[8, 16]} wrap>
+                                                    {item.socialLinks.facebook !== "null" && item.socialLinks.facebook !== null &&
+                                                        <a href={item.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaFacebookSquare size={20} /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.instagram !== "null" && item.socialLinks.instagram !== null &&
+                                                        <a href={item.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaInstagramSquare size={20} /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.twitter !== "null" && item.socialLinks.twitter !== null &&
+                                                        <a href={item.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaTwitter size={20} /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.likedIn !== "null" && item.socialLinks.linkedin !== null &&
+                                                        <a href={item.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                                                            <span><IoLogoLinkedin size={20} /></span>
+                                                        </a>
+                                                    }
+                                                </Space>
                                             </div>
                                         </Col>
                                     </Row>
@@ -280,20 +269,11 @@ export default function Page() {
                                             &nbsp;
                                             {item?.higherEducation && capitalizeFirstLetterOfEachWord(item?.higherEducation)}
                                         </Tag>
-                                        {/* <Tag icon={<YoutubeOutlined />}>
-                                    flexible-shift
-                                </Tag>
-                                <Tag icon={<FacebookOutlined />}>
-                                    Immediate Joinee
-                                </Tag>
-                                <Tag icon={<LinkedinOutlined />} >
-                                    Good at English
-                                </Tag> */}
                                     </Flex>
                                     <br />
                                     <Row gutter={[16, 16]} align='middle'>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <ParaText size="textGraf">
+                                            <ParaText size="textGraf" color='PrimaryColor'>
                                                 <span>
                                                     <strong> Department :</strong> </span>
                                                 &nbsp;
@@ -302,7 +282,7 @@ export default function Page() {
                                                 </span>
                                             </ParaText>
                                             <br />
-                                            <ParaText size="textGraf">
+                                            <ParaText size="textGraf" color='PrimaryColor'>
                                                 <span>
                                                     <strong> Subjects :</strong> </span>
                                                 &nbsp;
@@ -319,17 +299,15 @@ export default function Page() {
                                                 </span>
                                             </ParaText>
                                             <br />
-                                            <ParaText size="textGraf" fontWeightBold={600} className='dBlock'>
-                                                <ParaText size="textGraf" fontWeightBold={600}>
+                                            <ParaText size="textGraf" color='black' fontWeightBold={600} className='dBlock'>
+                                                <ParaText size="textGraf" color='black' fontWeightBold={600}>
                                                     {item?.profileDescription}
-
-                                                    {/* In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is available. */}
                                                 </ParaText>
                                             </ParaText>
                                         </Col>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
                                             <ParaText size="textGraf" fontWeightBold={600} className='dBlock'>
-                                                <ParaText size="textGraf">
+                                                <ParaText size="textGraf" color='black'>
                                                     <span>
                                                         <strong> Languages :</strong> </span>
                                                     &nbsp;
@@ -352,7 +330,7 @@ export default function Page() {
                                     <Row gutter={[16, 16]} align='middle'>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                                             <Flex gap="4px 0" wrap='wrap'>
-                                                <ParaText size="textGraf">
+                                                <ParaText size="textGraf" color='black'>
                                                     <span>
                                                         <strong> Skills :</strong>   &nbsp;</span>
 
@@ -370,18 +348,8 @@ export default function Page() {
 
                                             </Flex>
                                         </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
-                                            {/* <div className='floatRight'>
-                                        <Flex gap="4px 0" wrap='wrap'>
-                                            <Tag icon={<TwitterOutlined />} color='cyan' >
-                                                2 year bond accepted
-
-                                            </Tag>
-                                            <Tag icon={<YoutubeOutlined />} color='success'>
-                                                Exp : 4 Years
-                                            </Tag>
-                                        </Flex>
-                                    </div> */}
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
+                                            <span><FaRocketchat size={22} color='#8BC34A' style={{ cursor: 'pointer' }} /></span> &nbsp;
                                         </Col>
                                     </Row>
                                 </div>

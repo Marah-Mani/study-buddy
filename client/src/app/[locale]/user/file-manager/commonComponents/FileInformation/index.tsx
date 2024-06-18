@@ -34,13 +34,12 @@ export default function FileInformation({ fileId }: Props) {
     return (
         <>
             <div id='fileInformation'>
-                <div style={{ background: '#fff' }} >
-                    <div className='fixedFileSearchThree'>
-                        <Row align='middle'>
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}><ParaText size='textGraf' color='black' fontWeightBold={600}> File Details  </ParaText></Col>
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'><DropdownMenu /></Col>
-                        </Row>
-                    </div>
+                <Row align='middle' Affix offsetTop={120} onChange={(affixed) => console.log(affixed)}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}><ParaText size='textGraf' color='black' fontWeightBold={600}> File Details  </ParaText></Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'><DropdownMenu /></Col>
+                </Row>
+                <br />
+                <div>
                     <div className='upgradeBox1'>
                         <GetFileTypeIcon fileType={fileDetails?.fileType} size={100} />
                         <br />
