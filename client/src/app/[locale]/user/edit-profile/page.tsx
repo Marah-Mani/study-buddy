@@ -29,7 +29,7 @@ export default function Page() {
 			tabPosition: 'top',
 			children: (
 				<>
-					{i === 0 && <EditProfile activeKey={key} />}
+					{i === 0 && <EditProfile />}
 					{i === 1 && <ResetPassword activeKey={key} />}
 				</>
 			)

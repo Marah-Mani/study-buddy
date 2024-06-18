@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoHome } from 'react-icons/io5';
+import { IoDocumentText, IoHome } from 'react-icons/io5';
 import { FaAppStore } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -86,13 +86,13 @@ export default function MenuAUser() {
 			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/user/tickets':
+			case pathname === '/en/user/file-manager':
 				setDefaultSelectedKey('4');
 				break;
-			case pathname === '/en/user/file-manager':
+			case pathname === '/en/user/forums':
 				setDefaultSelectedKey('5');
 				break;
-			case pathname === '/en/user/forums':
+			case pathname === '/en/user/market-place':
 				setDefaultSelectedKey('6');
 				break;
 			case pathname === '/en/user/notifications':
@@ -139,6 +139,13 @@ export default function MenuAUser() {
 			'5',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'6',
+			<Link href="/en/user/market-place">
+				<IoDocumentText />
 			</Link>
 		)
 	];
