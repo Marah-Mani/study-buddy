@@ -1,13 +1,10 @@
 'use client'
-import ParaText from '@/app/commonUl/ParaText';
 import { Button, Col, Form, Input, message, Row, Select, Spin, Upload, UploadFile } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
 import AuthContext from '@/contexts/AuthContext';
-import { RcFile } from 'antd/es/upload';
-import imageCompression from 'browser-image-compression';
 import { updateProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
@@ -16,11 +13,8 @@ import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
 
-interface Props {
-    activeKey: string;
-}
 
-export default function Brands({ activeKey }: Props) {
+export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
@@ -28,7 +22,6 @@ export default function Brands({ activeKey }: Props) {
     const [form] = Form.useForm();
     const [isEmailDisabled, setIsEmailDisabled] = useState(false);
     const [phone, setPhone] = useState('');
-    const [country, setCountry] = useState('');
     const token = Cookies.get('session_token');
 
 
@@ -36,7 +29,6 @@ export default function Brands({ activeKey }: Props) {
 
     const handlePhoneChange = (value: any, countryData: any) => {
         setPhone(value);
-        setCountry(countryData.name);
         form.setFieldsValue({ country: countryData.name });
     };
 
@@ -140,9 +132,6 @@ export default function Brands({ activeKey }: Props) {
             </div>
                 :
                 <div>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
-                        Profile Details
-                    </ParaText>
                     <div className="smallTopMargin"></div>
                     <Form layout='vertical' form={form} size='large' onFinish={onfinish} >
                         <Row gutter={24}>

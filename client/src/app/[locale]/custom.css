@@ -169,7 +169,7 @@ body {
 }
 
 .gapMarginTop {
-  margin-top: 50px !important;
+  margin-top: 60px !important;
 }
 .gapMarginTopOne {
   margin-top: 10px !important;
@@ -188,4 +188,18 @@ body {
 }
 .paddingBottomTwo {
   padding-bottom: 20px !important;
+}
+.smallTopMargin {
+  margin-top: 10px;
+}
+/* Custom responsive table CSS */
+.customResponsiveTable {
+  width: 100%;
+}
+
+.customResponsiveTable .ant-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }

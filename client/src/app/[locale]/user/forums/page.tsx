@@ -129,16 +129,16 @@ export default function Page() {
 
     return (
         <>
+            <div className='gapMarginTopTwo'></div>
             <div className='boxInbox'>
                 <Row>
-                    <Col md={1}></Col>
-                    <Col md={15}>
+                    <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
                         {forums.length > 0 ?
                             <Row>
                                 {forums.map((forum: any) => {
                                     return (
                                         <>
-                                            <Col md={23}>
+                                            <Col xs={24} sm={24} md={1248} lg={24} xl={24} xxl={24}>
                                                 <div style={{ display: 'flex', gap: '8px' }}>
                                                     <div>
                                                         {forum.userId.attachment ? (
@@ -221,7 +221,6 @@ export default function Page() {
                                                 </div>
                                                 <Divider />
                                             </Col>
-                                            <Col md={1}></Col>
                                         </>
                                     )
                                 })}
@@ -240,7 +239,7 @@ export default function Page() {
                             </div>
                         }
                     </Col>
-                    <Col md={6}>
+                    <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
                         <RightSection categoryId={''} onCallBack={(data: any) => { handleCallback(data) }} onSearch={(data: any) => handleSearch(data)} />
                     </Col>
                 </Row>

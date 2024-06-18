@@ -1,0 +1,38 @@
+.forgetPassword {
+  max-width: 350px;
+  margin: 0 auto;
+  padding-top: 40%;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.heading {
+  text-align: center;
+}
+.overEfact {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.overEfact::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #1967d2;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+.overEfact:hover::after {
+  width: 100%;
+  left: 0;
+  background: #1967d2;
+}

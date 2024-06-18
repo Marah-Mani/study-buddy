@@ -6,18 +6,7 @@ import { Menu } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
-import { FaAppStore, FaUsers, FaUserEdit } from 'react-icons/fa';
-import { AiOutlineProfile } from "react-icons/ai";
-import { SlEnvolopeLetter } from 'react-icons/sl';
-import { SiBloglovin } from 'react-icons/si';
 import AuthContext from '@/contexts/AuthContext';
-import { LuListTodo } from "react-icons/lu";
-import { MdManageAccounts } from "react-icons/md";
-import { PiPhoneCall } from "react-icons/pi";
-import { HiLightBulb } from "react-icons/hi";
-import { FaFileInvoice } from "react-icons/fa";
-import { MdOutlineCalendarMonth } from 'react-icons/md';
-import { FaFileCircleCheck } from 'react-icons/fa6';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -61,9 +50,9 @@ const items: MenuItem[] = [
 		</Link>
 	),
 	getItem(
-		'Products',
+		'Market Place',
 		'4',
-		<Link href="/en/admin/products">
+		<Link href="/en/admin/market-place">
 			<IoDocumentText />
 		</Link>
 	),
@@ -100,7 +89,7 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/admin/products':
+			case pathname === '/en/admin/market-place':
 				setDefaultSelectedKey('4');
 				break;
 			case pathname === '/en/admin/users':

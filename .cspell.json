@@ -82,6 +82,7 @@
 		"hendrerit",
 		"heroicons",
 		"IGST",
+		"imagevecter",
 		"Imperdiet",
 		"incididunt",
 		"interdum",
@@ -198,5 +199,9 @@
 		".prettierrc",
 		"package.json"
 	],
-	"ignoreWords": ["Numscroller", "comman", "superadmin"]
+	"ignoreWords": [
+		"Numscroller",
+		"comman",
+		"superadmin"
+	]
 }

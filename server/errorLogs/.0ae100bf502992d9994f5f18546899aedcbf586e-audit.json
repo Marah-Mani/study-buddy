@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 90
+    },
+    "auditLog": "/home/sunil-des/Documents/study-buddy/server/errorLogs/.0ae100bf502992d9994f5f18546899aedcbf586e-audit.json",
+    "files": [
+        {
+            "date": 1718599780589,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-17.log",
+            "hash": "2ee94a8f669730842bbc8914829e591a00dec86001da243f92015af68a59b05f"
+        },
+        {
+            "date": 1718682178095,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-18.log",
+            "hash": "35e805133ab7f859cc8d90b110aca7b5cb3d0b2b29817529465e446632d34c7a"
+        }
+    ],
+    "hashType": "sha256"
+}

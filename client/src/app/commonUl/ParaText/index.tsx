@@ -86,18 +86,16 @@ const ParaText = ({
 					fontSize,
 					fontWeight,
 					color: `${color == 'defaultColor'
-						? '#4F4F4F'
+						? '#999999'
 						: color == 'PrimaryColor'
-							? '#012A59'
-							: color == 'blueLight'
-								? '#0091F7'
-								: color == 'SecondaryColor'
-									? '#1877F2'
-									: color == 'white'
-										? '#fff'
-										: color == 'black'
-											? '#000'
-											: color
+							? '#1967D2'
+							: color == 'SecondaryColor'
+								? '#f4f4f4'
+								: color == 'white'
+									? '#fff'
+									: color == 'black'
+										? '#222529'
+										: color
 						}`
 				}}
 			>

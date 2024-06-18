@@ -1,14 +1,17 @@
 .menuStyle {
   padding: 15px;
   width: 100%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .menuStyle .ant-btn.ant-btn-default.ant-btn-compact-item.ant-btn-compact-first-item {
   width: 220px;
   text-align: left;
 }
 .menuStyle .ant-btn-default {
-  border-color: transparent !important;
+  border-color: #f1f1f1 !important;
+  box-shadow: none;
+}
+body.dark-mode .menuStyle .ant-btn-default {
+  border-color: #2a2828 !important;
   box-shadow: none;
 }
 .menuStyle .ant-btn {
@@ -20,8 +23,15 @@
 }
 .candidates-details {
   padding: 4px;
+  border-radius: 8px;
   width: 100%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid #f1f1f1;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+body.dark-mode .candidates-details {
+  border: 1px solid #2a2828;
 }
 .candidates-details .ant-typography ul li,
 .candidates-details .ant-typography ol li {
@@ -29,4 +39,28 @@
 }
 .floatRight {
   float: right;
+}
+
+@media (min-width: 1200px) {
+  .imagevecter {
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    transform: translateX(-5%);
+    width: 100%;
+    height: 100%;
+    background-image: url(https://apusthemes.com/wp-demo/superio/wp-content/uploads/2023/07/h21-icon3.jpg);
+    background-repeat: no-repeat;
+    animation: moveUpDown 3s ease-in-out infinite;
+  }
+
+  @keyframes moveUpDown {
+    0%,
+    100% {
+      top: 0;
+    }
+    50% {
+      top: 10px; /* Adjust this value to control the distance of the movement */
+    }
+  }
 }
