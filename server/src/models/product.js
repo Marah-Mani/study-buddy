@@ -5,8 +5,8 @@ const productSchema = new mongoose.Schema({
     description: { type: String, default: null, required: true },
     price: { type: Number, default: null },
     discountPrice: { type: Number, default: null },
-    categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'categories', required: true },
-    subCategoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'subCategories', required: true },
+    categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'productCategory', required: true },
+    subCategoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'productSubcategory', required: true },
     images: [
         {
             name: { type: String, default: null }

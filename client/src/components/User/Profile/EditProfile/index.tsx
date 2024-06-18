@@ -23,7 +23,7 @@ interface Props {
 export default function Brands({ activeKey }: Props) {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [value, setValue] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const { user, setUser } = useContext(AuthContext);
     const [form] = Form.useForm();
     const [isEmailDisabled, setIsEmailDisabled] = useState(false);
@@ -42,7 +42,6 @@ export default function Brands({ activeKey }: Props) {
 
     useEffect(() => {
         if (user) {
-            setLoading(false)
             form.setFieldsValue({
                 name: user.name,
                 email: user.email,
@@ -101,7 +100,7 @@ export default function Brands({ activeKey }: Props) {
             const res = await updateProfileDetails(formData);
 
 
-            if (res.status) {
+            if (res.status == true) {
                 setUser(res.brand);
                 message.success(res.message);
             } else {

@@ -1,5 +1,6 @@
 const User = require('../../models/Users');
 const Role = require('../../models/roles');
+const Departments = require('../../models/departments');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const asyncHandler = require('express-async-handler');
 const errorLogger = require('../../../logger');
@@ -40,11 +41,53 @@ const chatController = {
 	},
 
 	getAllCandidate: async (req, res) => {
+		const { interestedIn, department, searchQuery, subject, page = 1, pageSize = 10 } = req.query;
+
 		try {
-			const users = await User.find({ status: 'active', role: { $ne: 'admin' } })
+			let query = {
+				status: 'active',
+				role: { $ne: 'admin' },
+				interestedIn: interestedIn === 'student' ? 'tutor' : 'student'
+			};
+
+			if (department) query.departmentId = department;
+
+			if (searchQuery) {
+				const sanitizedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+				query.name = { $regex: sanitizedQuery, $options: 'i' };
+			}
+
+			if (subject) {
+				query.subjects = subject;
+			}
+
+			const totalCount = await User.countDocuments(query);
+
+			const users = await User.find(query)
 				.select('-password')
-				.populate('departmentId');
-			res.status(200).json({ status: true, data: users });
+				.populate('departmentId')
+				.sort({ createdAt: -1 })
+				.skip((page - 1) * parseInt(pageSize))
+				.limit(parseInt(pageSize));
+
+			res.status(200).json({
+				status: true,
+				data: users,
+				totalCount: totalCount,
+				totalPages: Math.ceil(totalCount / parseInt(pageSize)),
+				currentPage: parseInt(page),
+				pageSize: parseInt(pageSize)
+			});
+		} catch (error) {
+			console.error('Error in getAllCandidate:', error);
+			res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
+	},
+
+	getAllDepartments: async (req, res) => {
+		try {
+			const departments = await Departments.find();
+			res.status(200).json({ status: true, data: departments });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
