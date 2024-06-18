@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
-import { Col, Image, Input, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
+import { Col, Image, Input, Modal, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
 import AuthContext from '@/contexts/AuthContext';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
 import { getAllProductsListing } from '@/lib/commonApi';
-
+import InfoModal from './InfoModal';
 interface Props {
     activeKey: string;
 }
@@ -22,6 +22,8 @@ export default function MarketPlace({ activeKey }: Props) {
     const [pageSize, setPageSize] = useState(10);
     const [totalProducts, setTotalProducts] = useState(0);
     const { user } = useContext(AuthContext);
+    const [infoModal, setInfoModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
     useEffect(() => {
         fetchData();
@@ -77,6 +79,11 @@ export default function MarketPlace({ activeKey }: Props) {
         }
     };
 
+    const handleDetail = (data: any) => {
+        setInfoModal(true);
+        setSelectedProduct(data);
+    }
+
     return (
         <>
             <div className='gapMarginTopTwo'></div>
@@ -131,7 +138,7 @@ export default function MarketPlace({ activeKey }: Props) {
                     <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={6} key={data._id}>
                         <div className="product-grid">
                             <div className="product-image">
-                                <a className="image">
+                                <a className="image" onClick={() => handleDetail(data)}>
                                     <Image src={
                                         data?.images.length > 0
                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
@@ -146,7 +153,7 @@ export default function MarketPlace({ activeKey }: Props) {
                             <Row align='middle'>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <div className="product-content">
-                                        <ParaText size='textGraf' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={40} /> </ParaText>
+                                        <ParaText size='textGraf' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={35} /> </ParaText>
                                     </div>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -162,20 +169,39 @@ export default function MarketPlace({ activeKey }: Props) {
                             <Row align='middle'>
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                                     <div className="product-content">
-                                        <div className="price">${data.discountPrice} <span>${data.price}</span></div>
+                                        <div className="price">
+                                            {data.discountPrice != "undefined" ?
+                                                <>
+                                                    ${data.discountPrice} <span>${data.price}</span>
+                                                </>
+                                                :
+                                                `$${data.price}`
+                                            }
+                                        </div>
+
                                     </div>
                                 </Col>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                    <Tag color="geekblue">
-                                        {calculatePercentageOff(data.price, data.discountPrice)}% off
-                                    </Tag>
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} className='textEnd'>
+                                {data.discountPrice != "undefined" ?
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
+                                        <Tag color="geekblue">
+                                            {calculatePercentageOff(data.price, data.discountPrice)}% off
+                                        </Tag>
+                                    </Col>
+                                    : null}
+                                <Col
+                                    xs={24}
+                                    sm={24}
+                                    md={data.discountPrice !== "undefined" ? 24 : 12}
+                                    lg={data.discountPrice !== "undefined" ? 24 : 12}
+                                    xl={data.discountPrice !== "undefined" ? 24 : 12}
+                                    xxl={data.discountPrice !== "undefined" ? 24 : 12}
+                                    className='textEnd'
+                                >
                                     <Tooltip
                                         title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                         color={'#EDF1F5'}
                                     >
-                                        <WechatOutlined style={{ fontSize: '53px', cursor: 'pointer' }} />
+                                        <WechatOutlined style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
                                     </Tooltip>
                                 </Col>
                             </Row>
@@ -194,6 +220,17 @@ export default function MarketPlace({ activeKey }: Props) {
                     showSizeChanger
                 />
             </div>
+            <Modal
+                title={"Item details"}
+                open={infoModal}
+                onCancel={() => setInfoModal(false)}
+                footer={null}
+                width={890}
+            >
+                <InfoModal
+                    product={selectedProduct}
+                />
+            </Modal>
         </>
     )
 }

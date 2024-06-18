@@ -18,9 +18,9 @@ import {
 import UploadImage from '../UploadImage';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { addUpdateProductDetails, getProductCategories, deleteProductImage } from '@/lib/adminApi';
 import { validationRules } from '@/lib/validations';
 import NumericInput from '@/app/commonUl/NumericInput';
+import { getProductCategories, addUpdateProductDetails, deleteProductImage } from '@/lib/commonApi';
 
 interface Props {
     onSuccess: any;

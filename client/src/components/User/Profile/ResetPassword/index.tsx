@@ -50,9 +50,6 @@ export default function ResetPassword({ activeKey }: Props) {
     };
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
-                Reset Password
-            </ParaText>
             <div className="smallTopMargin"></div>
             <Form layout='vertical' form={form} size='large' onFinish={onFinish}>
                 <Row>

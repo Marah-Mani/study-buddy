@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Image, message, Popconfirm, Switch } from 'antd';
+import { Space, Table, Image, message, Popconfirm, Switch, Drawer } from 'antd';
 import type { TableColumnsType } from 'antd';
-import { deleteUser, getAllUsers, updateUserStatus } from '@/lib/adminApi';
+import { deleteUser, getAllUsers, getSingleUserDetail, updateUserStatus } from '@/lib/adminApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import TextCapitalize from '@/app/commonUl/TextCapitalize';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import EditUser from '../EditUser';
 
 interface DataType {
     key: string;
@@ -27,6 +28,8 @@ interface Props {
 
 export default function TableData({ reload, onEdit, searchInput }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
+    const [open, setOpen] = useState(false);
+    const [editData, setEditData] = useState<any>([]);
 
     useEffect(() => {
         fetchData();
@@ -110,8 +113,16 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         }
     ];
 
-    const handleEdit = (id: any) => {
-        // onEdit(id);
+    const handleEdit = async (id: any) => {
+        try {
+            const res = await getSingleUserDetail(id);
+            if (res.status === true) {
+                setOpen(true);
+                setEditData(res.data);
+            }
+        } catch (error) {
+            ErrorHandler.showNotification(error);
+        }
     };
 
     const handleDelete = async (id: any) => {
@@ -147,14 +158,27 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             />)
     }));
 
+    const onClose = () => {
+        setOpen(false);
+    };
+
+    const handleReload = () => {
+        setOpen(false);
+        fetchData();
+    };
+
     return (
         <div>
             <Table
-                className='textCenter'
+                className='customResponsiveTable'
                 columns={columns}
                 bordered
                 dataSource={data}
             />
+            <Drawer title={'Edit User'} onClose={onClose} open={open} width={600}>
+                <EditUser editData={editData} onReload={handleReload} />
+            </Drawer>
         </div>
+
     );
 }

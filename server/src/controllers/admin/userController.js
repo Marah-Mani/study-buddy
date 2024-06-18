@@ -2,8 +2,9 @@
 const userActivity = require('../../models/userActivity');
 const Users = require('../../models/Users');
 const errorLogger = require('../../../logger');
-const nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken');
+const { createUpload } = require('../../utils/multerConfig');
+const { createNotification } = require('../../common/notifications');
+const { trackUserActivity } = require('../../common/functions');
 
 const userController = {
 	getAllActivity: async (req, res) => {
@@ -31,73 +32,67 @@ const userController = {
 		}
 	},
 
-	addUpdateUser: async (req, res) => {
+	updateUserDetails: async (req, res) => {
 		try {
-			const userData = {
-				name: req.body.name,
-				email: req.body.email,
-				status: req.body.status,
-				roleId: req.body.roleId,
-				updatedBy: req.body.updatedBy
-			};
-
-			if (!userData.email) {
-				return res.status(400).json({ status: false, message: 'Email is required' });
-			}
-
-			const existingUser = await Users.findOne({ email: userData.email });
-
-			if (existingUser) {
-				// Update existing user
-				Object.assign(existingUser, userData);
-				existingUser.updatedBy = userData.updatedBy;
-				await existingUser.save();
-				return res.status(200).json({ status: true, message: 'User updated successfully' });
-			} else {
-				// Add new user
-				const newUser = new Users(userData);
-				await newUser.save();
-
-				const userId = newUser._id.toString();
-				const resetToken = jwt.sign({ userId: userId }, process.env.JWT_SECRET, {
-					expiresIn: '1h'
-				});
-				newUser.resetToken = resetToken;
-				const resetUrl = `${process.env.APP_URL}/reset-password?userId=${userId}&token=${resetToken}`;
+			const upload = createUpload('userImage');
+			upload.single('image')(req, res, async (err) => {
+				if (err) {
+					errorLogger('Error uploading logo:', err);
+					return res.status(500).json({ message: 'Error uploading logo', status: false });
+				}
 
 				try {
-					const transporter = nodemailer.createTransport({
-						service: 'gmail',
-						auth: {
-							user: process.env.MAIL_USERNAME,
-							pass: process.env.MAIL_PASSWORD
-						}
-					});
+					const profileData = {
+						name: req.body.name,
+						email: req.body.email,
+						phoneNumber: req.body.phoneNumber,
+						address: {
+							country: req.body.country,
+							state: req.body.state
+						},
+						skills: req.body.skills ? req.body.skills.split(',').map((skill) => skill.trim()) : [],
+						languages: req.body.languages ? req.body.languages.split(',').map((lang) => lang.trim()) : [],
+						profileTitle: req.body.profileTitle,
+						higherEducation: req.body.higherEducation,
+						profileDescription: req.body.profileDescription,
+						socialLinks: {
+							twitter: req.body.twitter || null,
+							facebook: req.body.facebook || null,
+							linkedin: req.body.linkedIn || null,
+							instagram: req.body.instagram || null,
+							website: req.body.website || null
+						},
+						image: req.file && req.file.filename ? req.file.filename : req.body.image || null
+					};
 
-					await transporter.sendMail({
-						from: 'your_email@example.com',
-						to: userData.email,
-						subject: 'User Added',
-						html: `
-							<p>Dear ${userData.name},</p>
-							<p>Welcome to boiler! Your account has been created by the administrator, and now it's time to set up your password and start exploring your dashboard.</p>
-							<p>To complete the setup process, please click on the link below to set your password:</p>
-							<p><a href="${resetUrl}">Set Password</a></p>
-							<p>Once you click the link, you'll be directed to a page where you can securely set your password. After that, you can log in using your email address (${userData.email}) and the password you just created.</p>
-							<p>Thank you for choosing boiler! We're excited to have you on board.</p>
-							<p>Best regards,<br>boiler plate</p>
-						`
-					});
-
-					return res.status(200).json({ status: true, message: 'User added successfully' });
-				} catch (emailError) {
-					console.error('Error sending email:', emailError);
-					return res.status(500).json({ status: false, message: 'User added but email sending failed' });
+					try {
+						const existingUser = await Users.findByIdAndUpdate(req.body.userId, profileData, { new: true });
+						await trackUserActivity(req.body.userId, `Profile updated by ${req.body.name}`);
+						const UserNotificationData = {
+							notification: `Profile has been updated successfully`,
+							notifyBy: req.body.userId,
+							notifyTo: req.body.userId,
+							type: 'profile update',
+							url: '/user/edit-profile'
+						};
+						createNotification(UserNotificationData);
+						return res.status(200).json({
+							status: true,
+							message: 'Profile has been updated successfully',
+							user: existingUser
+						});
+					} catch (error) {
+						errorLogger('Error updating user:', error);
+						return res.status(500).json({ status: false, message: 'Internal Server Error' });
+					}
+				} catch (error) {
+					errorLogger(error);
+					return res.status(500).json({ status: false, message: 'Internal Server Error' });
 				}
-			}
+			});
 		} catch (error) {
-			console.error('Error processing user operation:', error);
-			res.status(500).json({ status: false, message: 'Internal Server Error' });
+			errorLogger(error);
+			return res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},
 
@@ -126,6 +121,23 @@ const userController = {
 				status: true,
 				message: 'User status updated successfully',
 			});
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ message: 'Internal Server Error' });
+		}
+	},
+
+	getSingleUserDetail: async (req, res) => {
+		try {
+			const userId = req.params.id;
+			if (!userId) {
+				return res.status(404).json({ message: 'User not found', status: false });
+			}
+			const user = await Users.findOne({ _id: userId });
+			if (!user) {
+				return res.status(404).json({ message: 'User not found', status: false });
+			}
+			res.status(200).json({ status: true, data: user });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ message: 'Internal Server Error' });

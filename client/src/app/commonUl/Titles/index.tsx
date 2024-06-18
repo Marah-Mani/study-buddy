@@ -41,7 +41,7 @@ const Titles = ({ level = 1, content, children, className = '', color = 'default
 								: level === 5
 									? screenWidth > 767
 										? 24
-										: 12
+										: 24
 									: screenWidth > 767
 										? 16
 										: 10
@@ -69,18 +69,16 @@ const Titles = ({ level = 1, content, children, className = '', color = 'default
 					fontSize,
 					fontWeight,
 					color: `${color == 'defaultColor'
-						? '#4F4F4F'
-						: color == 'white'
-							? '#fff'
+						? '#999999'
+						: color == 'PrimaryColor'
+							? '#0088cc'
 							: color == 'SecondaryColor'
-								? '#0091F7'
-								: color == 'PrimaryColor'
-									? '#012A59'
+								? '#f4f4f4'
+								: color == 'white'
+									? '#fff'
 									: color == 'black'
-										? '#000'
-										: color == 'yellowText'
-											? '#FFE70F'
-											: color
+										? '#222529'
+										: color
 						}`
 				}}
 			>

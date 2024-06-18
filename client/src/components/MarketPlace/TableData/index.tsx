@@ -4,10 +4,11 @@ import type { TableColumnsType } from 'antd';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { deleteProduct, getAllProducts } from '@/lib/adminApi';
+import { deleteProduct } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import AuthContext from '@/contexts/AuthContext';
 import { getUserProducts } from '@/lib/commonApi';
+import { getAllProducts } from '@/lib/adminApi';
 
 interface DataType {
     key: React.Key;
@@ -154,8 +155,8 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             title: data.title,
             category: data.categoryId.name,
             subCategory: data.subCategoryId.name,
-            price: data.price,
-            discountPrice: data.discountPrice,
+            price: `$${data.price}`,
+            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : `$${data.discountPrice}`,
             status: (
                 data.status == 'active' ?
                     <Tag color="green">Active</Tag>

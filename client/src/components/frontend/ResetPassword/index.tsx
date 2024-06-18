@@ -1,11 +1,13 @@
 'use client';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import './style.css'
 import React, { useState } from 'react';
 import { createNewPassword } from '@/lib/ApiAdapter';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ErrorHandler from '@/lib/ErrorHandler';
 import Link from 'next/link';
+import Titles from '@/app/commonUl/Titles';
 export default function ResetPassword() {
 	const [form] = Form.useForm();
 	const searchParams = useSearchParams();
@@ -32,8 +34,10 @@ export default function ResetPassword() {
 
 	return (
 		<>
-			<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '300px' }}>
-				<h1 style={{ textAlign: 'center' }}>Set New Password</h1>
+			<div className='resetpasssword'>
+				<div className='heading'>
+					<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Set New Password</Titles>
+				</div>
 				<Form
 					name="normal_login"
 					className="login-form"
@@ -56,6 +60,7 @@ export default function ResetPassword() {
 							type="password"
 							placeholder="Enter new password"
 							minLength={8}
+							style={{ height: '40px' }}
 							maxLength={15} />
 					</Form.Item>
 					<Form.Item
@@ -76,6 +81,7 @@ export default function ResetPassword() {
 						<Input.Password
 							prefix={<LockOutlined className="site-form-item-icon" />}
 							type="password"
+							style={{ height: '40px' }}
 							placeholder="Enter confirm Password"
 							maxLength={20} />
 					</Form.Item>
@@ -84,13 +90,13 @@ export default function ResetPassword() {
 							type="primary"
 							htmlType="submit"
 							className="register-form-button"
-							style={{ width: '100%' }}
+							style={{ width: '100%', height: '40px' }}
 						>
 							{loading ? 'Please wait...' : 'Reset Password'}
 						</Button>
 					</Form.Item>
 					<Link href="/en/login" passHref>
-						<Button type="primary" style={{ width: '100%' }}>
+						<Button type="primary" style={{ width: '100%', height: '40px' }}>
 							Back To Login
 						</Button>
 					</Link>

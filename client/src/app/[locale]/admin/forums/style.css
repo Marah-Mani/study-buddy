@@ -1,0 +1,9 @@
+.baseBody {
+  padding: 40px 20px;
+}
+
+@media (min-width: 1200px) {
+  .baseBody {
+    padding: 60px 20px;
+  }
+}
