@@ -15,6 +15,8 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FcGoogle } from "react-icons/fc";
 import { ImFacebook2 } from "react-icons/im";
 import ParaText from '@/app/commonUl/ParaText';
+import './style.css'
+import Titles from '@/app/commonUl/Titles';
 
 const Register = () => {
 	const [form] = Form.useForm();
@@ -131,9 +133,10 @@ const Register = () => {
 			setLoading(true);
 			const res = await register(formData);
 			if (res.status === true) {
-				message.success(res.message);
+				// message.success(res.message);
 				form.resetFields();
-				router.push('/en/user/dashboard');
+				await login(formData.email, formData.password, '');
+				// router.push('/en/user/dashboard');
 			} else {
 				message.error(res.message);
 			}
@@ -155,8 +158,10 @@ const Register = () => {
 
 	return (
 		<>
-			<div style={{ maxWidth: '300px', margin: 'auto', paddingTop: '100px' }}>
-				<h1 style={{ textAlign: 'center' }}>Register</h1>
+			<div className='register'>
+				<div className='heading'>
+					<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Register</Titles>
+				</div>
 				<Form
 					name="normal_register"
 					className="register-form"
@@ -176,7 +181,7 @@ const Register = () => {
 						},
 
 					]}>
-						<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Full Name" maxLength={30} />
+						<Input style={{ height: "40px" }} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Full Name" maxLength={30} />
 					</Form.Item>
 					<Form.Item name="email" rules={[
 						{
@@ -188,6 +193,7 @@ const Register = () => {
 						}, { validator: validateEmail }
 					]}>
 						<Input
+							style={{ height: "40px" }}
 							prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
 					</Form.Item>
 
@@ -195,7 +201,7 @@ const Register = () => {
 						name="interest"
 						rules={[{ required: true, message: 'Please select your interest!' }]}
 					>
-						<Select placeholder="Select interest">
+						<Select placeholder="Select interest" style={{ height: "40px" }}>
 							<Select.Option value="tutor">Tutor</Select.Option>
 							<Select.Option value="student">Student</Select.Option>
 						</Select>
@@ -205,7 +211,7 @@ const Register = () => {
 						name="departments"
 						rules={[{ required: true, message: 'Please select departments!' }]}
 					>
-						<Select placeholder="Select departments" onChange={handleDepartmentChange} >
+						<Select placeholder="Select departments" onChange={handleDepartmentChange} style={{ height: "40px" }} >
 							{departments && departments.map((department: any) => (
 								<Select.Option key={department._id} value={department._id}>
 									{department.departmentName}
@@ -218,7 +224,7 @@ const Register = () => {
 						name="subjects"
 						rules={[{ required: true, message: 'Please select subjects!' }]}
 					>
-						<Select mode="multiple" placeholder="Select subjects" maxTagCount="responsive" disabled={!selectedDepartment}>
+						<Select mode="multiple" placeholder="Select subjects" maxTagCount="responsive" disabled={!selectedDepartment} style={{ height: "40px" }}>
 							{selectedDepartment &&
 								getSubjectsForDepartment(selectedDepartment).map((subject: string, index: number) => (
 									<Select.Option key={index} value={subject}>
@@ -241,8 +247,10 @@ const Register = () => {
 						<Input.Password
 							prefix={<LockOutlined className="site-form-item-icon" />}
 							type='password'
+							style={{ height: "40px" }}
 							placeholder="Enter password"
 							maxLength={20} />
+
 					</Form.Item>
 					<Form.Item
 						name="confirmPassword"
@@ -262,31 +270,32 @@ const Register = () => {
 						<Input.Password
 							prefix={<LockOutlined className="site-form-item-icon" />}
 							type='password'
+							style={{ height: "40px" }}
 							iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
 							visibilityToggle
 							placeholder="Enter confirm Password"
 							maxLength={20} />
 					</Form.Item>
 					<Form.Item>
-						<Button type="primary" htmlType="submit" className="register-form-button" style={{ width: '100%' }}>
+						<Button type="primary" htmlType="submit" className="register-form-button" style={{ width: '100%', height: '40px' }}>
 							{loading ? 'Please wait...' : 'Register'}
 						</Button>
 					</Form.Item>
 					<Form.Item>
 						<div style={{ textAlign: 'center' }}>Or</div>
-						<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px' }}>
+						<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 							<Button
 								// type="primary"
-								style={{ width: '45%', height: "44px", alignItems: "center", }}
-								icon={<FcGoogle />}
+								style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+								icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 								onClick={handleGoogleLogin}
 							>
 								Google
 							</Button>
 							<Button
 								// type="primary"
-								style={{ width: '45%', height: "44px", alignItems: "center" }}
-								icon={<ImFacebook2 style={{ color: '#4064ac' }} />}
+								style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+								icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 								onClick={handleFacebookLogin}
 							>
 								Facebook

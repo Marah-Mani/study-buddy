@@ -4,7 +4,7 @@ import AuthContext from '@/contexts/AuthContext'
 import { handleFileCompression } from '@/lib/commonServices'
 import ErrorHandler from '@/lib/ErrorHandler'
 import { validationRules } from '@/lib/validations'
-import { Button, Col, Drawer, Form, Input, message, Row, Select, Upload, UploadFile } from 'antd'
+import { Button, Col, Drawer, Form, Input, message, Row, Select, Space, Upload, UploadFile } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import ForumData from './ForumData'
@@ -172,23 +172,24 @@ export default function Forums({ activeKey }: Props) {
 
     return (
         <>
-            <div className="smallTopMargin"></div>
+            <div className='gapMarginTopTwo'></div>
             <Row>
-                <Col md={12}>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                     <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
                         Forums
                     </ParaText>
                 </Col>
 
-                <Col md={10} className={'textEnd'} style={{ display: "flex" }}>
-                    <Input type='search' placeholder='search' value={searchQuery} onChange={HandleSearch} />
-                    <Button icon={<FaPlus />} type={'primary'} onClick={handleItems} >
-
-                        Add Item
-                    </Button>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
+                    <Space wrap className="floatEnd">
+                        <Input type='search' placeholder='search' value={searchQuery} onChange={HandleSearch} style={{ height: '40px' }} />
+                        <Button icon={<FaPlus />} type={'primary'} onClick={handleItems} style={{ height: '40px' }}>
+                            Add Item
+                        </Button>
+                    </Space>
                 </Col>
-            </Row>
-            <div className="largeTopMargin"></div>
+            </Row >
+            <div className='gapMarginTopOne'></div>
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
                 <Form

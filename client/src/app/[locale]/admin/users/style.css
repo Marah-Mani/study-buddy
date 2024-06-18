@@ -1,4 +1,11 @@
 .dashBody {
+  padding: 15px;
+  padding-top: 4%;
+}
+
+@media (max-width: 991px) {
+  .dashBody {
     padding: 15px;
-    padding-top: 4%;
+    padding-top: 14%;
+  }
 }

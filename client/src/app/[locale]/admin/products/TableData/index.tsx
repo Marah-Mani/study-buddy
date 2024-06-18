@@ -146,6 +146,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             <Table
                 columns={columns}
                 bordered
+                className="customResponsiveTable"
                 dataSource={data}
             />
             {/* <Row>
