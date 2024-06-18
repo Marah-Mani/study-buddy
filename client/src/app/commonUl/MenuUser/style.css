@@ -1,5 +1,5 @@
 .menuDash {
-  background-color: #0088cc;
+  background-color: #1967d2;
   padding: 32px 15px;
   height: 100vh;
   width: 100%;
@@ -7,7 +7,6 @@
   overflow-y: scroll;
   position: fixed;
 }
-
 #menuId .ant-menu-item {
   padding-left: 14px !important;
 }
@@ -35,6 +34,11 @@ li.ant-menu-item.ant-menu-item-selected svg {
   font-size: 16px;
 } */
 
+@media (max-width: 1700px) {
+  .menuDash {
+    max-width: 220px;
+  }
+}
 @media (max-width: 1200px) {
   .menuDash {
     height: auto !important;

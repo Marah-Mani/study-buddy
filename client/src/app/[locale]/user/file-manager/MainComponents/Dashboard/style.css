@@ -16,7 +16,6 @@ body {
 }
 
 .siteLayoutBackground {
-  background: #fff;
   padding-top: 100px;
   padding: 0px 10px 0px;
   height: calc(86vh);
@@ -127,6 +126,10 @@ body {
   border: 1px solid #f2f4f5;
   margin-top: 20px;
   padding: 10px;
+  border-radius: 8px;
+}
+body.dark-mode .tableCommn {
+  border: 1px solid #393939;
 }
 
 .flexBar {
