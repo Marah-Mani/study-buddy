@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { Result, Button } from 'antd';
-import { HomeOutlined, ExclamationCircleOutlined, CreditCardOutlined } from '@ant-design/icons'; // Added ExclamationCircleOutlined
+import { ExclamationCircleOutlined } from '@ant-design/icons'; // Added ExclamationCircleOutlined
 import { useRouter } from 'next/navigation';
 
 export default function FailedPage() {

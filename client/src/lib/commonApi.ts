@@ -660,3 +660,119 @@ export const getFileDetails = async (id: string): Promise<any> => {
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
 	});
 };
+
+export const getAllProductsListing = async (searchObject?: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/products/get-all-product`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: {
+				searchObject
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}
+
+export const getUserProducts = async (searchObject?: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/products/get-user-product`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: {
+				searchObject
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}
+
+export const getSingleProduct = async (id: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/products/getSingleProduct/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteProductImage = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/products/deleteProductImage`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteProduct = async (id: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/products/deleteProduct/${id}`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const addUpdateProductDetails = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/products/add-update-product-details`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': `multipart/form-data; boundary = ${data._boundary} `,
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getProductCategories = async (): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/products/get-product-categories`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}

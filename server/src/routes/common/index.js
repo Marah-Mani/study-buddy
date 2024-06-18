@@ -6,6 +6,7 @@ const userRoutes = require('./userRoutes');
 const messageRoutes = require('./messageRoutes');
 const profileRoutes = require('./profileRoutes');
 const forumRoutes = require('./forumRoutes');
+const productRoutes = require('./productRoutes');
 const fileManagerRoutes = require('./fileManagerRoutes');
 
 router.use('/notification', notificationRoutes);
@@ -15,5 +16,6 @@ router.use('/message', messageRoutes);
 router.use('/profile', profileRoutes);
 router.use('/forum', forumRoutes);
 router.use('/fileManager', fileManagerRoutes);
+router.use('/products', productRoutes);
 
 module.exports = router;
