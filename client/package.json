@@ -26,6 +26,7 @@
 		"antd": "^5.13.3",
 		"antd-img-crop": "^4.21.0",
 		"axios": "^1.6.0",
+		"bad-words": "^3.0.4",
 		"browser-image-compression": "^2.0.2",
 		"clsx": "^1.2.1",
 		"date-fns": "^3.6.0",
@@ -67,6 +68,7 @@
 		"use-file-picker": "^2.1.2"
 	},
 	"devDependencies": {
+		"@types/bad-words": "^3.0.3",
 		"@types/dateformat": "^5.0.2",
 		"@types/js-cookie": "^3.0.6",
 		"@types/lodash": "^4.17.1",

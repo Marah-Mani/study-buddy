@@ -66,8 +66,18 @@ const chatController = {
 
 					const unreadCount = await Message.countDocuments({
 						chat: chat._id,
-						readBy: { $ne: req.user._id },
+						readBy: {
+							$not: {
+								$elemMatch: { user: req.user._id }
+							}
+						},
 						sender: { $ne: req.user._id }
+					});
+
+					const meetings = await Message.find({
+						chat: chat._id,
+						meetingId: { $ne: null },
+						meetingStartTime: { $gte: new Date() }
 					});
 
 					const stickyMessage = await StickyMessage.findOne({ chatId: chat._id });
@@ -75,7 +85,8 @@ const chatController = {
 					return {
 						...populatedChat.toObject(),
 						unreadCount,
-						stickyMessage
+						stickyMessage,
+						meetings
 					};
 				})
 			);
@@ -251,6 +262,29 @@ const chatController = {
 			}
 
 			res.json(currentUser);
+		} catch (error) {
+			res.status(400).json({ error: error.message });
+		}
+	}),
+
+	markRead: asyncHandler(async (req, res) => {
+		try {
+			const { chatId } = req.query;
+			const read = req.query.read === 'true';
+			const currentTime = new Date();
+
+			const chat = await Chat.findByIdAndUpdate(
+				chatId,
+				{ $addToSet: { markRead: { user: req.user._id, read: read } } },
+				{ new: true }
+			);
+
+			await Message.updateMany(
+				{ chat: chatId },
+				{ $addToSet: { readBy: { user: req.user._id, seenAt: currentTime } } }
+			);
+
+			return res.json(chat);
 		} catch (error) {
 			res.status(400).json({ error: error.message });
 		}

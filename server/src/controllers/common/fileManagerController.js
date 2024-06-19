@@ -155,25 +155,22 @@ async function deleteFolderAndContents(folderId) {
 }
 
 const fetchSubfoldersRecursive = async (folderId) => {
-    try {
-        // Find all folders that have parentFolderId equal to folderId
-        const folders = await FileManagerFolder.find({ parentFolder: folderId });
 
-        // Array to hold promises for fetching subfolders recursively
-        const subFoldersPromises = folders.map(async (folder) => {
-            // Recursively fetch subfolders of the current folder
-            const subfolders = await fetchSubfoldersRecursive(folder._id);
-            return { ...folder.toObject(), subfolders }; // Append fetched subfolders to current folder
-        });
+    // Find all folders that have parentFolderId equal to folderId
+    const folders = await FileManagerFolder.find({ parentFolder: folderId });
 
-        // Wait for all recursive subfolder fetching to complete
-        const subFolders = await Promise.all(subFoldersPromises);
+    // Array to hold promises for fetching subfolders recursively
+    const subFoldersPromises = folders.map(async (folder) => {
+        // Recursively fetch subfolders of the current folder
+        const subfolders = await fetchSubfoldersRecursive(folder._id);
+        return { ...folder.toObject(), subfolders }; // Append fetched subfolders to current folder
+    });
 
-        return subFolders;
-    } catch (error) {
-        throw error;
-    }
+    // Immediately return the result of Promise.all
+    return await Promise.all(subFoldersPromises);
+
 };
+
 
 const fileManagerController = {
     addOrRemoveFileToFavorite: async (req, res) => {
