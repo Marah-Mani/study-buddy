@@ -7,6 +7,7 @@ const Chat = require('../../models/Chat');
 const messageController = {
 	allMessages: asyncHandler(async (req, res) => {
 		try {
+			// const { count } = req.query;
 			const messages = await Message.find({
 				chat: req.params.chatId,
 				sentTime: { $lte: new Date() },
@@ -15,6 +16,9 @@ const messageController = {
 				.populate('sender', 'name image email')
 				.populate('attachment')
 				.populate('readBy.user')
+				// .limit(40)
+				// .skip(count)
+				// .sort({ _id: -1 })
 				.populate('chat');
 
 			res.json(messages);
@@ -24,7 +28,18 @@ const messageController = {
 		}
 	}),
 	sendMessage: asyncHandler(async (req, res) => {
-		const { content, chatId, attachmentId, messageId, sentTime, status } = req.body;
+		const {
+			content,
+			chatId,
+			attachmentId,
+			messageId,
+			sentTime,
+			status,
+			meetingId,
+			meetingStartTime,
+			startUrl,
+			joinUrl
+		} = req.body;
 
 		if (!content || !chatId) {
 			return res.sendStatus(400);
@@ -36,7 +51,13 @@ const messageController = {
 			chat: chatId,
 			attachment: attachmentId ? attachmentId : null,
 			sentTime: sentTime,
-			status: status
+			status: status,
+			readBy: [{ user: req.user._id, seenAt: new Date() }],
+			deleteFor: [],
+			meetingStartTime: meetingStartTime,
+			startUrl: startUrl,
+			joinUrl: joinUrl,
+			meetingId: meetingId
 		};
 
 		try {
@@ -58,16 +79,31 @@ const messageController = {
 				select: 'name image email'
 			});
 
-			if (status !== 'scheduled') await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
+			if (status !== 'scheduled') {
+				await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
+			}
 
 			const currentTime = new Date();
+
+			// Add readBy for existing messages in the chat sent by other users
 			await Message.updateMany(
-				{ chat: chatId, 'readBy.user': { $ne: req.user._id } },
+				{ chat: chatId, sender: { $ne: req.user._id } },
 				{
 					$addToSet: { readBy: { user: req.user._id, seenAt: currentTime } },
 					status: 'seen'
 				}
 			);
+
+			// Extract receiver's ID from chat users
+			const chat = await Chat.findById(chatId);
+			const receiverId = chat.users.find((user) => String(user._id) !== String(req.user._id));
+
+			// Check if the sender has blocked the receiver
+			if (req.user.block.includes(String(receiverId))) {
+				// Push receiver's ID to deleteFor
+				message.deleteFor.push(receiverId);
+				await message.save();
+			}
 
 			res.json(message);
 		} catch (error) {

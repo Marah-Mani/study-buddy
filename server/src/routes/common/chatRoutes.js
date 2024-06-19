@@ -14,5 +14,6 @@ router.route('/files/:chatId').get(protect, chatController.chatFiles);
 router.route('/clear-chat/:chatId').get(protect, chatController.clearChat);
 router.route('/delete-chat/:chatId').get(protect, chatController.deleteChat);
 router.route('/block').post(protect, chatController.blockUser);
+router.route('/mark-read').get(protect, chatController.markRead);
 
 module.exports = router;

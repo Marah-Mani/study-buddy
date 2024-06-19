@@ -9,31 +9,38 @@ import {
     Sidebar,
     MessageSeparator,
     ExpansionPanel,
+    TypingIndicator,
+    InputToolbox
 } from '@chatscope/chat-ui-kit-react';
 import moment from 'moment-timezone';
 import MyChats from '../MyChats';
 import ChatContext from '@/contexts/ChatContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { getSender, getSenderFull } from '@/lib/chatLogics';
 import io from "socket.io-client";
 import ErrorHandler from '@/lib/ErrorHandler';
 import MessageBox from '../MessageBox';
-import { Avatar, Button, DatePicker, Form, Image, Input, List, Modal, Skeleton, Tooltip, Avatar as AntdAvatar, Dropdown, MenuProps } from 'antd';
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Form, Image, Input, List, Modal, Tooltip, Avatar as AntdAvatar, Dropdown, MenuProps, Popover, Col, Card, Row, Tag, Popconfirm, message } from 'antd';
 import { GrDocumentCsv } from 'react-icons/gr';
-import { BiDownload, BiTrash } from 'react-icons/bi';
+import { BiDownload, BiTrash, BiVideo } from 'react-icons/bi';
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
 import { FaEllipsisV, FaInfo, FaStar, FaVideo } from 'react-icons/fa';
 import TimeAgo from 'react-timeago'
-import TimeZoneDisplay from '@/app/commonUl/TimeZoneDisplay';
-const ENDPOINT = "http://localhost:3001"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "http://localhost:3001";
 var socket: any, selectedChatCompare: any;
 import dateFormat from "dateformat";
 import Link from 'next/link';
 import StringAvatar from '@/app/commonUl/StringAvatar';
+import CreateMeetingModal from '@/components/CreateMeetingModal';
+import AuthContext from '@/contexts/AuthContext';
+import TimeZoneDifference from '../TimeZoneDifference';
+import { BsEmojiFrown } from 'react-icons/bs';
+import CreateTodoModal from '@/components/CreateTodoModal';
+import { deleteTodo, getAllTodo } from '@/lib/commonApi';
+import Filter from 'bad-words'
+import { bannedWords, getSender, getSenderFull } from '@/lib/chatLogics';
 
 const { TextArea } = Input;
 interface DataType {
@@ -54,6 +61,9 @@ export default function Chat() {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState<boolean>(false);
     const [isTyping, setIsTyping] = useState(false);
+    const [showCreateMeetingForm, setShowCreateMeetingForm] = useState<boolean>(false)
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [dropdownVisible, setDropdownVisible] = useState(false);
     const {
         selectedChat,
         setSelectedChat,
@@ -67,8 +77,9 @@ export default function Chat() {
         chats,
         setFavourite,
         favourites,
-        fetchAgain
+        fetchAgain,
     }: any = useContext(ChatContext)
+    const { setUser } = useContext(AuthContext)
     const [prevDate, setPrevDate] = useState<any>('')
     const [prevIndex, setPrevIndex] = useState<any>()
     const [viewInfo, setViewInfo] = useState<boolean>(true)
@@ -81,13 +92,47 @@ export default function Chat() {
     const [stickyNote, setStickyNote] = useState('')
     const [stickyNoteId, setStickyNoteId] = useState('')
     const [files, setFiles] = useState<any>([])
-    const getListRef = () => document.querySelector("[data-message-list-container] [data-cs-message-list]");
+    const getListRef = () => document.querySelector("[data-cs-message-list]");
     const token = Cookies.get('session_token')
     const [form] = Form.useForm()
-    const [counter, setCounter] = useState(40);
+    const [counter, setCounter] = useState<number>(0);
     const [loadingMore, setLoadingMore] = useState(false);
-    const [loadedMessages, setLoadedMessages] = useState([]);
     const [bookmarkMessages, setBookmarkMessages] = useState<BookmarkDataType[]>()
+    const [eventType, setEventType] = useState('');
+    const [allTask, setAllTask] = useState([]);
+    const [loading, setLoading] = useState(false)
+    const [meetings, setMeetings] = useState<any>()
+
+
+    const handleDelete = async (taskId: string) => {
+        const deleteData = {
+            userId: user?._id,
+            id: taskId
+        }
+        const res = await deleteTodo(deleteData);
+        if (res.status == true) {
+            message.success(res.message);
+            fetchAllTask();
+        } else {
+            message.error(res.message);
+        }
+    };
+
+    useEffect(() => {
+        selectedChat && fetchAllTask();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [reload, selectedChat]);
+
+
+    const fetchAllTask = async () => {
+        try {
+            const response = await getAllTodo({ chatId: selectedChat._id });
+            setAllTask(response.data);
+            setLoading(false)
+        } catch (error) {
+            console.error('Error fetching authors:', error);
+        }
+    };
 
     const config = {
         headers: {
@@ -153,17 +198,23 @@ export default function Chat() {
 
             // setLoading(true);
 
-            const { data } = await axios.get(
+            let { data } = await axios.get(
                 `${process.env.NEXT_PUBLIC_API_URL}/common/message/${selectedChat._id}`,
                 config
             );
+            // data = data.reverse();
             if (data.length === 0) setLoadingComplete(true);
             const bookmarkMessage: any = []
+            const meetingData: any = []
             data.map((item: any) => {
                 if (item.bookmark.includes(user?._id)) {
                     bookmarkMessage.push(item)
                 }
+                if (item.meetingId !== null) {
+                    meetingData.push(item)
+                }
             })
+            setMeetings(meetingData)
             setBookmarkMessages(bookmarkMessage)
             setMessages(data);
             // setLoading(false);
@@ -217,8 +268,12 @@ export default function Chat() {
                 },
             };
             setNewMessage("");
+            const filter = new Filter();
+            filter.addWords(...bannedWords);
+
+            const content = filter.clean(name ? name : newMessage);
             const formData = {
-                content: name ? name : newMessage,
+                content: content,
                 chatId: selectedChat,
                 attachmentId: attachmentId,
                 status: status,
@@ -231,7 +286,8 @@ export default function Chat() {
             );
             socket.emit("new message", data);
             if (data.status !== 'scheduled') {
-                setMessages([...messages, data]); setFetchAgain(!fetchAgain)
+                setMessages([...messages, data]);
+                setFetchAgain(!fetchAgain)
                 setSelectedChat({ ...selectedChat, unreadCount: 0 })
             }
 
@@ -258,7 +314,6 @@ export default function Chat() {
     }, [user]);
 
     useEffect(() => {
-        fetchMessages();
         if (selectedChat) {
             setStickyNote(selectedChat.stickyMessage?.message)
             setStickyNoteId(selectedChat.stickyMessage?._id)
@@ -268,21 +323,35 @@ export default function Chat() {
     }, [selectedChat]);
 
     useEffect(() => {
-        fetchMessageOnScroll();
+        fetchMessages();
         // eslint-disable-next-line
-    }, [counter]);
+    }, [selectedChat]);
+
+    const handleSelectChat = async (chat: any) => {
+        if (selectedChat && chat._id == selectedChat._id) {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/common/chat/seen`, { chatId: chat._id, userId: user?._id }, config);
+            const updatedChats = chats.map((c: any) => {
+                if (c._id === chat._id) {
+                    return { ...c, unreadCount: 0 };
+                }
+                return c;
+            });
+            setChats(updatedChats);
+        }
+    }
 
     useEffect(() => {
         if (user && socketConnected) {
             socket.on("message received", (newMessageReceived: any) => {
                 if (
-                    !selectedChatCompare || // if chat is not selected or doesn't match current chat
+                    !selectedChatCompare ||
                     selectedChatCompare._id !== newMessageReceived.chat._id
                 ) {
                     if (!notification.includes(newMessageReceived)) {
                         setNotification([newMessageReceived, ...notification]);
                     }
                 } else {
+                    handleSelectChat(newMessageReceived.chat)
                     setMessages([...messages, newMessageReceived]);
                 }
                 setFetchAgain(!fetchAgain);
@@ -497,12 +566,19 @@ export default function Chat() {
             },
         },
         {
-            label: 'Block',
+            label: selectedChat && user.block.includes(getSenderFull(user, selectedChat.users)._id) ? 'Unblock' : 'Block',
             key: '2',
             onClick: () => {
                 handleBlockUser();
             },
-        }
+        },
+        {
+            label: 'Mark as read',
+            key: '3',
+            onClick: () => {
+                handleMarkRead();
+            },
+        },
     ];
 
     const handleClearChat = async () => {
@@ -533,6 +609,23 @@ export default function Chat() {
         }
     }
 
+    const handleMarkRead = async () => {
+        try {
+            const { data } = await axios.get(
+                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/mark-read/?read=${true}&chatId=${selectedChat._id}`,
+                config
+            );
+            if (data) {
+                setMessages(undefined)
+                setSelectedChat(undefined)
+                setFetchAgain(!fetchAgain)
+            }
+            message.success('Saved.')
+        } catch (error) {
+            new ErrorHandler(error)
+        }
+    }
+
     const handleBlockUser = async () => {
         try {
             const senderId = getSenderFull(user, selectedChat.users)._id
@@ -547,18 +640,34 @@ export default function Chat() {
                 config
             );
 
-            // if (response.data) {
-            //     setMessages(undefined);
-            //     setSelectedChat(undefined);
-            //     setFetchAgain(!fetchAgain);
-            // }
+            if (response.data) {
+                setFetchAgain(!fetchAgain);
+            }
         } catch (error) {
             console.error("Error blocking user:", error);
             new ErrorHandler(error);
         }
     };
 
+    const onEmojiClick = (emojiObject: any, event: any) => {
+        setNewMessage((prevInput: any) => prevInput + emojiObject.emoji);
+        console.log(emojiObject)
+    };
 
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        setEventType('');
+    };
+
+    const onYReachStart = () => {
+        if (loadingMore === true || heightRef.current > 0) {
+            return;
+        }
+        setLoadingMore(true);
+        setCounter(counter + 40)
+        const list: any = getListRef();
+        heightRef.current = list.scrollHeight;
+    };
 
     return (
         <MainContainer
@@ -570,26 +679,41 @@ export default function Chat() {
             <MyChats />
             {
                 selectedChat &&
-                <ChatContainer>
+                <ChatContainer data-message-list-container>
                     <ConversationHeader>
                         <ConversationHeader.Back />
                         <ConversationHeader.Content>
                             <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
                                 <div style={{ position: 'relative' }}>
-                                    <StringAvatar email={getSender(user, selectedChat.users).email} key={`chat-${selectedChat._id}`} name={selectedChat && !selectedChat.isGroupChat ? getSender(user, selectedChat.users) : selectedChat.chatName} />
-                                    <div style={{ width: '13px', height: '13px', position: 'absolute', bottom: 0, right: 0, background: 'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)', borderRadius: '50px', border: '2px solid #fff' }}></div>
+                                    <StringAvatar
+                                        email={getSender(user, selectedChat.users).email}
+                                        key={`chat-${selectedChat._id}`}
+                                        name={`${selectedChat &&
+                                            !selectedChat.isGroupChat ?
+                                            getSender(user, selectedChat.users)
+                                            :
+                                            selectedChat.chatName}`}
+                                        user={getSenderFull(user, selectedChat.users)}
+                                    />
                                 </div>
                                 <div>
                                     <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>
                                         {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
+                                        &nbsp;<span style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                                            {onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ?
+                                                'Online' :
+                                                <>Online <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} /></>}</span>
                                     </p>
                                     <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
-                                        {onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ? 'Online' :
-                                            <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} />}{' '}
-                                        {!selectedChat.isGroupChat &&
-                                            <span>
-                                                Current time: {moment().tz(user.timeZone).format('hh:mm a')}
-                                            </span>
+                                        {
+                                            user.block.includes(getSenderFull(user, selectedChat.users)._id) ? (
+                                                <p>You blocked this user.</p>
+                                            ) :
+                                                !selectedChat.isGroupChat &&
+                                                <span>
+                                                    Current time: {moment().tz(user.timeZone).format('hh:mm a')}&nbsp;
+                                                    {selectedChat && <TimeZoneDifference timeZone1={user?.timeZone} timeZone2={getSenderFull(user, selectedChat.users).timeZone} />}
+                                                </span>
                                         }
                                     </p>
                                 </div>
@@ -597,7 +721,7 @@ export default function Chat() {
                         </ConversationHeader.Content>
                         <ConversationHeader.Actions>
                             <Button icon={<FaInfo />} onClick={() => setViewInfo(!viewInfo)} />&nbsp;
-                            <Button icon={<FaVideo />} />&nbsp;
+                            <Button onClick={() => setShowCreateMeetingForm(true)} icon={<FaVideo />} />&nbsp;
                             <Button icon={<FaStar color={`${selectedChat.favourites.includes(user?._id) ? '#000' : '#ccc'}`} />} onClick={handleFavourite} />&nbsp;
                             <Dropdown menu={{ items }} placement='bottomRight' trigger={['click']}>
                                 <Button icon={<FaEllipsisV />} />
@@ -605,9 +729,10 @@ export default function Chat() {
                         </ConversationHeader.Actions>
                     </ConversationHeader>
                     <MessageList
-                        data-message-list-container
                         loadingMore={loadingMore}
-                    //  onYReachStart={onYReachStart}
+                        // onYReachStart={onYReachStart}
+                        // style={{ height: "500px" }}
+                        typingIndicator={isTyping && <TypingIndicator content={`${getSenderFull(user, selectedChat.users).name} is typing`} />}
                     >
                         {messages &&
                             messages.map((m: any, i: number) => (
@@ -630,22 +755,65 @@ export default function Chat() {
                                 )
                             ))
                         }
-
                     </MessageList>
-                    <MessageInput onAttachClick={() => openFilePicker()} onChange={typingHandler} placeholder="Type message here" onSend={() => sendMessage(null, newMessage)} />
+                    <MessageInput
+                        onAttachClick={() => openFilePicker()}
+                        // attachButton={false}
+                        onChange={typingHandler}
+                        placeholder={user.block.includes(getSenderFull(user, selectedChat.users)._id) ? 'You blocked this user' : 'Type message here'}
+                        onSend={() => sendMessage(null, newMessage)}
+                        disabled={user.block.includes(getSenderFull(user, selectedChat.users)._id)}
+                        value={newMessage}
+                    />
+                    {/* <InputToolbox>
+                        <Popover content={<EmojiPicker
+                            onEmojiClick={onEmojiClick}
+                        />} title="Title" trigger="click">
+                            <Button icon={<BsEmojiFrown />} />
+                        </Popover>
+                    </InputToolbox> */}
                 </ChatContainer>
             }
             {
                 viewInfo &&
                 <Sidebar position="right">
                     <div>
-                        <div className="right-profile-box" style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: "100%", flexDirection: 'column' }}>
+                        <div
+                            className="right-profile-box"
+                            style={{
+                                marginTop: '40px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: "100%",
+                                flexDirection: 'column'
+                            }}
+                        >
                             <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
                                 {selectedChat &&
                                     !selectedChat?.isGroupChat ?
                                     <div style={{ position: 'relative' }}>
-                                        <StringAvatar email={getSender(user, selectedChat.users).email} key={`chat-${selectedChat._id}`} name={selectedChat && !selectedChat.isGroupChat ? getSender(user, selectedChat.users) : selectedChat.chatName} />
-                                        <div style={{ width: '13px', height: '13px', position: 'absolute', bottom: 0, right: 0, background: 'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)', borderRadius: '50px', border: '2px solid #fff' }}></div>
+                                        <StringAvatar
+                                            email={getSender(user, selectedChat.users).email}
+                                            key={`chat-${selectedChat._id}`}
+                                            name={selectedChat && !selectedChat.isGroupChat ?
+                                                getSender(user, selectedChat.users) :
+                                                selectedChat.chatName}
+                                        />
+                                        <div
+                                            style={{
+                                                width: '13px',
+                                                height: '13px',
+                                                position: 'absolute',
+                                                bottom: 0,
+                                                right: 0,
+                                                background:
+                                                    onlineUsers.includes(getSenderFull(user, selectedChat.users)._id) ?
+                                                        'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)' :
+                                                        'radial-gradient(circle at 3px 3px,#fffccc,#ffee00)',
+                                                borderRadius: '50px',
+                                                border: '2px solid #fff'
+                                            }}></div>
                                     </div>
                                     :
                                     <AntdAvatar.Group
@@ -689,7 +857,6 @@ export default function Chat() {
                                 ? getSender(user, selectedChat.users)
                                 : selectedChat?.chatName}</h4>
                             <p>{selectedChat && !selectedChat.isGroupChat && getSenderFull(user, selectedChat.users).email}</p>
-                            <p><TimeZoneDisplay userTimeZone={user?.timeZone} /></p>
                         </div>
                         <div className="right-profile-box" style={{ marginBottom: '20px' }}></div>
                         <MessageSeparator />
@@ -789,6 +956,59 @@ export default function Chat() {
                             />
                         </ExpansionPanel>
                         <ExpansionPanel
+                            style={{ borderBottom: '1px solid #ccc' }}
+                            title="Meeting"
+                        >
+                            <List
+                                className="demo-loadmore-list"
+                                itemLayout="horizontal"
+                                dataSource={meetings}
+                                renderItem={(item: any) => (
+                                    <List.Item
+                                        actions={[<Link key="list-loadmore-more" target='_blank' href={item.senderId === user._id ? item.startUrl : item.joinUrl}><Button type='link'><BiVideo style={{ fontSize: '22px' }} /></Button></Link>]}
+                                    >
+                                        <List.Item.Meta
+                                            title={item.content}
+                                            description={dateFormat(item.meetingStartTime, "dd/mm/yyyy, h:MM tt")}
+                                        />
+
+                                    </List.Item>
+                                )}
+                            />
+                        </ExpansionPanel>
+                        <ExpansionPanel
+                            title="Todo"
+                        >
+                            <List
+                                className="demo-loadmore-list"
+                                itemLayout="horizontal"
+                                dataSource={allTask}
+                                renderItem={(task: any) => (
+                                    <List.Item
+                                        actions={[<Button type='link' key="list-loadmore-more" onClick={() => handleDelete(task._id)}><BiTrash /></Button>]}
+                                    >
+                                        <List.Item.Meta
+                                            title={<>{task.title}  <Tag color={
+                                                task.priority === 'High' ? "gold" :
+                                                    task.priority === 'Medium' ? 'blue' :
+                                                        task.priority === "Low" ? "green" :
+                                                            task.priority === "Critical" ? "red" :
+                                                                'green'
+                                            }>
+                                                {task.priority}
+                                            </Tag></>}
+                                            description={`${new Date(task.assignedDate).toLocaleDateString()} - ${new Date(task.targetDate).toLocaleDateString()}
+                                            ${new Date(task.targetDate) < new Date() && (
+                                                    <span style={{ color: 'red' }}> Expired</span>
+                                                )}`}
+                                        />
+
+                                    </List.Item>
+                                )}
+                            />
+                            <Button onClick={() => setIsModalVisible(true)}>Add todo</Button>
+                        </ExpansionPanel>
+                        <ExpansionPanel
                             title="Personal notes"
                             open={true}
                         >
@@ -828,6 +1048,16 @@ export default function Chat() {
                     </>
                 ))
             }
+            <CreateMeetingModal open={showCreateMeetingForm} sendMessage={sendMessage} setOpen={setShowCreateMeetingForm} />
+            <CreateTodoModal
+                handleCancel={handleCancel}
+                eventType={eventType}
+                isModalVisible={isModalVisible}
+                chatId={selectedChat?._id}
+                setReload={setReload}
+                reload={reload}
+                setIsModalVisible={setIsModalVisible}
+            />
         </MainContainer >
     )
 }

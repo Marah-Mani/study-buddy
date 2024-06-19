@@ -186,8 +186,6 @@ export default function Brands() {
                                                 ]
                                             }
                                         >
-                                            {/* <NumericInput value={value} onChange={setValue} /> */}
-
                                             <PhoneInput
                                                 country={'il'}
                                                 value={phone}
@@ -196,7 +194,6 @@ export default function Brands() {
                                             />
                                         </Form.Item>
                                     </Col>
-
                                     <Col span={24}>
                                         <Form.Item name={'profileDescription'} label={'Profile Description'}>
                                             <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />

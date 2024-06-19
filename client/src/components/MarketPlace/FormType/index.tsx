@@ -35,6 +35,16 @@ export default function FormType({ onSuccess, editData }: Props) {
     const [category, setCategory] = useState<any>([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [productId, setProductId] = useState('');
+    const [price, setPrice] = useState('');
+    const [discountPrice, setDiscountPrice] = useState('');
+
+    const handlePriceChange = (value: string) => {
+        setPrice(value);
+    };
+
+    const handleDiscountPriceChange = (value: string) => {
+        setDiscountPrice(value);
+    };
 
     useEffect(() => {
         if (user) {
@@ -210,13 +220,51 @@ export default function FormType({ onSuccess, editData }: Props) {
                         </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                        <Form.Item label="Price" name="price">
-                            <NumericInput placeholder={'Enter price'} value={''} onChange={() => { }} />
+                        <Form.Item
+                            label="Price"
+                            name="price"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please enter the price',
+                                },
+                            ]}
+                        >
+                            <NumericInput
+                                placeholder="Enter price"
+                                value={price}
+                                onChange={handlePriceChange}
+                                maxLength={4}
+                            />
                         </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                        <Form.Item label="Discounted Price" name="discountPrice">
-                            <NumericInput placeholder={'Enter discount price'} value={''} onChange={() => { }} />
+                        <Form.Item
+                            label="Discounted Price"
+                            name="discountPrice"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please enter the discount price',
+                                },
+                                ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || parseFloat(value) < parseFloat(getFieldValue('price'))) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject(
+                                            new Error('Discounted price must be less than the price')
+                                        );
+                                    },
+                                }),
+                            ]}
+                        >
+                            <NumericInput
+                                placeholder="Enter discount price"
+                                value={discountPrice}
+                                onChange={handleDiscountPriceChange}
+                                maxLength={4}
+                            />
                         </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>

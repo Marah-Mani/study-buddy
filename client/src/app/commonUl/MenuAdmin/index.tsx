@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
+import { FaFileCircleCheck } from 'react-icons/fa6';
+import { AiOutlineProfile } from 'react-icons/ai';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -26,44 +28,8 @@ function getItem(
 	} as MenuItem;
 }
 
-const items: MenuItem[] = [
-	getItem(
-		'Dashboard',
-		'1',
-		<Link href="/en/admin/dashboard">
-			<IoHome />
-		</Link>
-	),
-	getItem(
-		'Settings',
-		'2',
-		<Link href="/en/admin/settings">
-			<IoSettings />
-		</Link>
-	),
 
-	getItem(
-		'Forums',
-		'3',
-		<Link href="/en/admin/forums">
-			<IoDocumentText />
-		</Link>
-	),
-	getItem(
-		'Market Place',
-		'4',
-		<Link href="/en/admin/market-place">
-			<IoDocumentText />
-		</Link>
-	),
-	getItem(
-		'Users',
-		'5',
-		<Link href="/en/admin/users">
-			<IoDocumentText />
-		</Link>
-	)
-];
+
 
 export default function MenuAdmin() {
 	const { logout } = useContext(AuthContext);
@@ -75,6 +41,72 @@ export default function MenuAdmin() {
 		}
 	}
 
+	function handleLogout(e: any) {
+		e.preventDefault();
+		logout();
+	}
+
+	const items: MenuItem[] = [
+		getItem(
+			'Dashboard',
+			'1',
+			<Link href="/en/admin/dashboard">
+				<IoHome />
+			</Link>
+		),
+		getItem(
+			'Chats',
+			'7',
+			<Link href="/en/admin/chat">
+				<IoDocumentText />
+			</Link>
+		),
+		getItem(
+			'Settings',
+			'2',
+			<Link href="/en/admin/settings">
+				<IoSettings />
+			</Link>
+		),
+
+		getItem(
+			'Forums',
+			'3',
+			<Link href="/en/admin/forums">
+				<IoDocumentText />
+			</Link>
+		),
+
+		getItem(
+			'Market Place',
+			'4',
+			<Link href="/en/admin/market-place">
+				<IoDocumentText />
+			</Link>
+		),
+		getItem(
+			'Users',
+			'5',
+			<Link href="/en/admin/users">
+				<IoDocumentText />
+			</Link>
+		),
+		getItem(
+			'File Manager',
+			'6',
+			<Link href="/en/admin/file-manager">
+				<FaFileCircleCheck />
+			</Link>
+		),
+		getItem(
+			'Logout',
+			'7',
+			<Link onClick={handleLogout} href='#'>
+				<AiOutlineProfile />
+			</Link>
+		),
+	];
+
 	const pathname = usePathname();
 	useEffect(() => {
 		let defaultSelectedKey;
@@ -83,10 +115,10 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/admin/forums':
+			case pathname === '/en/admin/settings':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/admin/file-manager':
+			case pathname === '/en/admin/forums':
 				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/admin/market-place':
@@ -94,6 +126,12 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/users':
 				setDefaultSelectedKey('5');
+				break;
+			case pathname === '/en/admin/file-manager':
+				setDefaultSelectedKey('6');
+				break;
+			case pathname === '/en/admin/chat':
+				setDefaultSelectedKey('7');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
