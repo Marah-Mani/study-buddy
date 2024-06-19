@@ -583,83 +583,6 @@ export const getForumCategories = async (): Promise<any> => {
 	})
 }
 
-export const addOrRemoveFileToFavorite = async (data: any): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/addOrRemoveFileToFavorite`,
-			method: 'post',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token} `
-			},
-			data
-		});
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
-
-export const checkIsFavoriteFile = async (data: any): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/check-favorite-file`,
-			method: 'post',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token} `
-			},
-			data
-		});
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
-
-export const deleteUserFile = async (data: any): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/deleteUserFile`,
-			method: 'post',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token} `
-			},
-			data
-		});
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
-
-export const getFavoriteFiles = async (id: string): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFavoriteFiles/${id}`,
-			method: 'get',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token} `
-			}
-		});
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
-
-export const getFileDetails = async (id: string): Promise<any> => {
-	const token = Cookies.get('session_token');
-	return new Promise((resolve, reject) => {
-		const req = axios.request({
-			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFileDetails/${id}`,
-			method: 'get',
-			headers: {
-				Accept: 'application/json',
-				Authorization: `Bearer ${token} `
-			}
-		});
-		req.then((res) => resolve(res.data)).catch((err) => reject(err));
-	});
-};
 
 export const getAllProductsListing = async (searchObject?: any): Promise<any> => {
 	const token = Cookies.get('session_token');
@@ -776,3 +699,326 @@ export const getProductCategories = async (): Promise<any> => {
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
 	})
 }
+export const addOrRemoveFileToFavorite = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/addOrRemoveFileToFavorite`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const checkIsFavoriteFile = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/check-favorite-file`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteUserFile = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/deleteUserFile`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getFavoriteFiles = async (id: string): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFavoriteFiles/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getFileDetails = async (id: string): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFileDetails/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const createFolder = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/createFolder`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+
+export const getFolder = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	try {
+		const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFoldersByUserId/${data.userId}`, {
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: {
+				parentFolderId: data.folderId
+			}
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching folder data:', error);
+		throw error;
+	}
+};
+
+
+export const updateFolder = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/updateFolder/${data.folderId}`,
+			method: 'put',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+export const deleteFolder = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/deleteFolder`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getFileTypes = async (userId: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFileTypes/${userId}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getFilesWithParams = async (search?: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFilesWithParams`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			params: {
+				search
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const downloadZipFile = async (folderId: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	try {
+		const response = await axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/downloadFolder/${folderId}`,
+			method: 'get',
+			responseType: 'blob', // Important to handle binary data
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error downloading zip file:', error);
+		throw error;
+	}
+};
+
+export const RecoverFolder = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/recoverFolder/${data.folderId}`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const RecoverFile = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/recoverFile/${data.fileId}`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteFolderPermanently = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/deleteFolderPermanently`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const deleteFilePermanently = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/deleteFilePermanently`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const GetRecycledFilesAndFolders = async (userId: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/recycledFilesAndFolder/${userId}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getFilesByFolder = async (folderId: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getFilesByFolder/${folderId}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const fileUpload = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/uploadFile`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': `multipart/form-data; boundary = ${data._boundary} `,
+				Authorization: `Bearer ${token}`
+			},
+			data
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+
+export const getListOfContributors = async (id: string): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/fileManager/getListOfContributors/${id}`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};

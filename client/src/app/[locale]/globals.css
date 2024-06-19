@@ -50,6 +50,7 @@ ul {
 li {
   list-style: none;
 }
+
 .ant-btn-primary {
   color: #fff;
   background: #1967d2 !important;
@@ -60,6 +61,7 @@ body {
   background-color: white;
   color: #121212;
 }
+
 body.dark-mode {
   background-color: #121212;
   color: white;
@@ -101,26 +103,31 @@ body.dark-mode .ant-list-item-meta-description {
   background-color: #121212 !important;
   color: white !important;
 }
+
 body.dark-mode .ant-select-selector,
 body.dark-mode .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
   color: #121212 !important;
   border: 1px solid #343434 !important;
 }
+
 body.dark-mode .ant-form-item {
   background-color: transparent !important;
   color: #121212 !important;
 }
+
 body.dark-mode .ant-input {
   color: #fff;
   background-color: transparent;
   border: 1px solid #343434;
 }
+
 body.dark-mode .ant-float-btn-icon svg,
 body.dark-mode .ant-btn-block .ant-btn-icon svg {
   color: #121212;
 }
-body.dark-mode .ant-table-thead > tr > th,
-body.dark-mode .ant-table-tbody > tr > td {
+
+body.dark-mode .ant-table-thead>tr>th,
+body.dark-mode .ant-table-tbody>tr>td {
   background-color: transparent;
   color: #fff;
   border: 1px solid #343434;
@@ -128,11 +135,12 @@ body.dark-mode .ant-table-tbody > tr > td {
 
 body.dark-mode .ant-drawer-body,
 body.dark-mode .ant-tabs-tab,
-body.dark-mode .ant-form-item-label > label,
+body.dark-mode .ant-form-item-label>label,
 body.dark-mode .ant-input-group-addon,
 body.dark-mode .ant-btn-icon svg {
   color: white;
 }
+
 body.dark-mode .ant-timeline-item-head,
 body.dark-mode .ant-row,
 body.dark-mode .ant-col,
@@ -159,6 +167,7 @@ body.dark-mode .ant-btn-primary.ant-btn-icon-only svg {
   border-color: #121212 !important;
   color: #121212 !important;
 }
+
 body.dark-mode svg {
   color: #fff;
 }
@@ -167,240 +176,54 @@ body.dark-mode .ant-btn-default {
   background: transparent;
   color: #fff;
 }
+
 body.dark-mode .ant-card .ant-card-body,
 body.dark-mode .ant-dropdown-menu {
   border-radius: 9px 9px 9px 9px;
   border: 1px solid #343434;
 }
+
 body.dark-mode .ant-card-bordered {
   border: 1px solid transparent;
 }
-body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered > .ant-table-container {
+
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container {
   border-inline-start: 1px solid #343434;
   border: 1px solid #343434;
 }
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > thead
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > thead
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > thead
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > thead
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > thead
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > thead
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > thead
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > thead
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tbody
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tbody
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tbody
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tbody
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tbody
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tbody
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tfoot
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tfoot
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tfoot
-  > tr
-  > th,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tfoot
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tfoot
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > td,
-body.dark-mode
-  .ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tfoot
-  > tr
-  > td {
+
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>thead>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>thead>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>thead>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>thead>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>thead>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>tbody>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>tbody>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>tbody>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>tbody>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>tbody>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tbody>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>tbody>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>tfoot>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>tfoot>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>tfoot>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>tfoot>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-header>table>tfoot>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-body>table>tfoot>tr>td,
+body.dark-mode .ant-table-wrapper .ant-table.ant-table-bordered>.ant-table-container>.ant-table-summary>table>tfoot>tr>td {
   border-inline-end: 1px solid #343434;
 }
-body.dark-mode .ant-table-wrapper .ant-table-tbody > tr > th,
-body.dark-mode .ant-table-wrapper .ant-table-tbody > tr > td {
+
+body.dark-mode .ant-table-wrapper .ant-table-tbody>tr>th,
+body.dark-mode .ant-table-wrapper .ant-table-tbody>tr>td {
   border-bottom: 1px solid #343434;
 }
+
 body.dark-mode td.ant-table-cell {
   color: #fff !important;
   background-color: #121212 !important;

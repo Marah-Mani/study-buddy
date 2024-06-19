@@ -8,7 +8,7 @@ interface Props {
 export default function ShortFileName({ fileName, short }: Props) {
     return (
         <>
-            <p style={{ wordBreak: 'break-all', overflow: 'break-word' }}>{fileName.length > short ? fileName.slice(0, short) + '...' : fileName}</p>
+            {fileName.length > short ? fileName.slice(0, short) + '...' : fileName}
         </>
     );
 }

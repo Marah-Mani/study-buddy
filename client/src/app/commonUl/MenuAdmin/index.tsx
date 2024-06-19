@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
+import { FaFileCircleCheck } from 'react-icons/fa6';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -62,6 +63,13 @@ const items: MenuItem[] = [
 		<Link href="/en/admin/users">
 			<IoDocumentText />
 		</Link>
+	),
+	getItem(
+		'File Manager',
+		'6',
+		<Link href="/en/admin/file-manager">
+			<FaFileCircleCheck />
+		</Link>
 	)
 ];
 
@@ -94,6 +102,9 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/users':
 				setDefaultSelectedKey('5');
+				break;
+			case pathname === '/en/admin/file-manager':
+				setDefaultSelectedKey('6');
 				break;
 			default:
 				// if (!defaultSelectedKey) {

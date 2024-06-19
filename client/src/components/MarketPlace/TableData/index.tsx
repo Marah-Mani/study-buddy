@@ -89,6 +89,8 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         {
             title: 'Action',
             dataIndex: 'action',
+            fixed: 'right',
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     <span className='edit'>  <AiOutlineEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>
@@ -174,6 +176,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 columns={columns}
                 bordered
                 dataSource={data}
+                scroll={{ x: 1500 }}
             />
         </div>
     );

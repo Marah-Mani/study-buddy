@@ -186,8 +186,6 @@ export default function Brands() {
                                                 ]
                                             }
                                         >
-                                            {/* <NumericInput value={value} onChange={setValue} /> */}
-
                                             <PhoneInput
                                                 country={'il'}
                                                 value={phone}
@@ -196,46 +194,6 @@ export default function Brands() {
                                             />
                                         </Form.Item>
                                     </Col>
-                                    {/* <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item name={'country'} label='Country'
-                                            rules={
-                                                [
-                                                    {
-                                                        required: true,
-                                                        message: 'Please enter country'
-                                                    },
-                                                ]
-                                            }
-
-                                        >
-                                            <Input
-                                                placeholder='Enter country'
-                                                type='text' maxLength={30}
-                                                value={country}
-                                                readOnly
-                                            />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item name={'state'} label='State'
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please enter state'
-                                                },
-                                                {
-                                                    max: validationRules.textLength.maxLength,
-                                                    message: `Name must be at most ${validationRules.textLength.maxLength} characters`
-                                                },
-                                                { pattern: /^[A-Za-z\s]+$/, message: 'Please enter only alphabets!' }
-                                            ]}
-                                        >
-                                            <Input
-                                                placeholder='Enter state'
-                                                type='text' maxLength={50}
-                                            />
-                                        </Form.Item>
-                                    </Col> */}
                                     <Col span={24}>
                                         <Form.Item name={'profileDescription'} label={'Profile Description'}>
                                             <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />

@@ -133,6 +133,7 @@ export default function MarketPlace({ activeKey }: Props) {
                     </Space>
                 </Col>
             </Row>
+            <div className='gapMarginTopOne'></div>
             <Row gutter={[16, 16]}>
                 {allProducts.map((data: any) => (
                     <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={6} key={data._id}>
@@ -144,13 +145,13 @@ export default function MarketPlace({ activeKey }: Props) {
                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
                                             : `/images/avatar.png`
                                     }
-                                        width={300}
+                                        width={350}
                                         height={250}
                                     />
                                 </a>
                             </div>
 
-                            <Row align='middle'>
+                            <Row align='middle' onClick={() => handleDetail(data)}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <div className="product-content">
                                         <ParaText size='textGraf' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={35} /> </ParaText>
@@ -167,7 +168,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                             </Row>
                             <Row align='middle'>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} onClick={() => handleDetail(data)}>
                                     <div className="product-content">
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
@@ -182,7 +183,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     </div>
                                 </Col>
                                 {data.discountPrice != "undefined" ?
-                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd' onClick={() => handleDetail(data)}>
                                         <Tag color="geekblue">
                                             {calculatePercentageOff(data.price, data.discountPrice)}% off
                                         </Tag>

@@ -24,6 +24,11 @@
             "date": 1718682392911,
             "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-06-18.log",
             "hash": "06f65210886b82b1c30773eca729030cc45f52e1d0270a828e7fa71937eb44b1"
+        },
+        {
+            "date": 1718768791320,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-06-19.log",
+            "hash": "763fc70de130eda670421f555b99c67ba9c5af152828b58c6864d61abf8ed34e"
         }
     ],
     "hashType": "sha256"

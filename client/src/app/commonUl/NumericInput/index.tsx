@@ -1,26 +1,25 @@
-import React, { useState } from 'react';
-import { Input, Tooltip } from 'antd';
+import React from 'react';
+import { Input } from 'antd';
 
 interface NumericInputProps {
     style?: React.CSSProperties;
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
+    maxLength: number;
 }
 
 export default function NumericInput(props: NumericInputProps) {
-
-    const { value, onChange, placeholder } = props;
+    const { value, onChange, placeholder, maxLength, style } = props;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value: inputValue } = e.target;
         const reg = /^-?\d*(\.\d*)?$/;
-        if (reg.test(inputValue) || inputValue === '' || inputValue === '-') {
+        if ((reg.test(inputValue) || inputValue === '' || inputValue === '-') && inputValue.length <= maxLength) {
             onChange(inputValue);
         }
     };
 
-    // '.' at the end or only '-' in the input box.
     const handleBlur = () => {
         let valueTemp = value;
         if (value?.charAt(value?.length - 1) === '.' || value === '-') {
@@ -31,12 +30,13 @@ export default function NumericInput(props: NumericInputProps) {
 
     return (
         <Input
-            {...props}
+            value={value}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder={placeholder}
-            maxLength={12}
-            type="number"
+            maxLength={maxLength}
+            style={style}
+            type="text"
         />
     );
 }

@@ -3,7 +3,6 @@ import { Col, Row } from "antd";
 import Link from "next/link";
 import { BsFiletypeDoc } from "react-icons/bs";
 import { FaFileAudio, FaFileVideo, FaImages } from "react-icons/fa";
-import GetFileTypeIcon from "../commonComponents/GetFileTypeIcon";
 interface props {
     myFiles: any;
 }
@@ -24,7 +23,7 @@ export default function FilesData({ myFiles }: props) {
                             <Link href='#'>
                                 <div className='cardCommn'>
                                     <Row align='middle'>
-                                        <Col xs={8} sm={12} md={12} lg={12} xl={12} xxl={12}><GetFileTypeIcon fileType={file.fileType} size={30} /></Col>
+                                        <Col xs={8} sm={12} md={12} lg={12} xl={12} xxl={12}><FaImages className='sameColorSvg' size={30} /></Col>
                                         <Col xs={16} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd' key={index}>
                                             <ParaText size='textGraf' color='black' fontWeightBold={600}>{file.fileType}</ParaText>
                                             <ParaText size='smallExtra' color='black' className='dBlock'>{file.sizeCount}</ParaText>
