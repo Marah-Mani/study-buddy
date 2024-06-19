@@ -7,8 +7,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
-import { FaFileCircleCheck } from 'react-icons/fa6';
-import { AiOutlineProfile } from 'react-icons/ai';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -28,25 +26,12 @@ function getItem(
 	} as MenuItem;
 }
 
-
-function handleLogout(e: any) {
-	e.preventDefault();
-	logout();
-}
-
 const items: MenuItem[] = [
 	getItem(
 		'Dashboard',
 		'1',
 		<Link href="/en/admin/dashboard">
 			<IoHome />
-		</Link>
-	),
-	getItem(
-		'Chats',
-		'7',
-		<Link href="/en/admin/chat">
-			<IoDocumentText />
 		</Link>
 	),
 	getItem(
@@ -64,7 +49,6 @@ const items: MenuItem[] = [
 			<IoDocumentText />
 		</Link>
 	),
-
 	getItem(
 		'Market Place',
 		'4',
@@ -78,24 +62,10 @@ const items: MenuItem[] = [
 		<Link href="/en/admin/users">
 			<IoDocumentText />
 		</Link>
-	),
-	getItem(
-		'File Manager',
-		'6',
-		<Link href="/en/admin/file-manager">
-			<FaFileCircleCheck />
-		</Link>
-	),
-	getItem(
-		'Logout',
-		'7',
-		<Link onClick={handleLogout} href='#'>
-			<AiOutlineProfile />
-		</Link>
-	),
+	)
 ];
 
-export default function MenuAdmin() {
+export default function MenuAdminMobile() {
 	const { logout } = useContext(AuthContext);
 	const [defaultSelectedKey, setDefaultSelectedKey] = useState('1')
 
@@ -116,7 +86,7 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/forums':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/admin/forums':
+			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/admin/market-place':
@@ -124,12 +94,6 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/users':
 				setDefaultSelectedKey('5');
-				break;
-			case pathname === '/en/admin/file-manager':
-				setDefaultSelectedKey('6');
-				break;
-			case pathname === '/en/admin/chat':
-				setDefaultSelectedKey('7');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
@@ -139,22 +103,20 @@ export default function MenuAdmin() {
 
 	return (
 		<>
-			<div id="menuId">
-				<div className="dddd">
-					<div className="menuDash darkMenuDash" id="menuDash">
-						<div className="textCenter">
-							<Link href="/">
-							</Link>
-						</div>
-						<div className="gapMarginTop"></div>
-						<Menu
-							selectedKeys={[defaultSelectedKey]}
-							mode="inline"
-							theme="dark"
-							items={items}
-							onClick={handleClick}
-						/>
+			<div id="menuIdMobile">
+				<div className="menuDashMobile darkMenuDashMobile">
+					<div className="textCenter">
+						<Link href="/">
+						</Link>
 					</div>
+					<div className="gapMarginTop"></div>
+					<Menu
+						selectedKeys={[defaultSelectedKey]}
+						mode="inline"
+						theme="dark"
+						items={items}
+						onClick={handleClick}
+					/>
 				</div>
 			</div>
 		</>

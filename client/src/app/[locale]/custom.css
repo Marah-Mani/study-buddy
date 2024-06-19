@@ -203,3 +203,9 @@ body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+@media (max-width: 991px) {
+  .gapMarginTop {
+    margin-top: 20px !important;
+  }
+}

@@ -16,7 +16,10 @@ import LastLoginDateTime from '@/components/frontend/LastLoginDateTime';
 import { getHeaderMenus } from '@/lib/frontendApi';
 import { CiDark } from 'react-icons/ci';
 import { MdDarkMode } from 'react-icons/md';
-
+import { IoMenuSharp } from "react-icons/io5";
+import { IoIosClose } from "react-icons/io";
+import MenuUserMobile from '../MenuUserMobile';
+import MenuAdminMobile from '../MenuAdminMobile';
 export default function TopBar() {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [showNotificationBell, setShowNotificationBell] = useState(false);
@@ -154,6 +157,20 @@ export default function TopBar() {
 		}
 	}, [darkMode]);
 
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+	const [open, setOpen] = useState(false);
+
+	const showDrawer = () => {
+		setOpen(true);
+	};
+
+	const onClose = () => {
+		setOpen(false);
+	};
+
 	return (
 		<>
 			<div className='topBar'>
@@ -183,6 +200,11 @@ export default function TopBar() {
 					</Col>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} >
 						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
+							<div className='mobileMenu'>
+								<div className='menuIcon' onClick={showDrawer}>
+									<IoMenuSharp color='#000' size={20} />
+								</div>
+							</div>
 							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode size={20} /> : <CiDark size={20} />} /></div>
 							<div onClick={handleDivClickBell}>
 								{latestBell.isRead === '' ? (
@@ -331,7 +353,13 @@ export default function TopBar() {
 						<LastLoginDateTime />
 					</div>
 				</Row>
+				<Drawer title="Study Buddy" className='paddingRemoveBody' onClose={onClose} open={open} placement='left' width='300'>
+					{user?.role == 'admin' ?
+						<MenuAdminMobile /> :
+						<MenuUserMobile />}
+				</Drawer>
 			</div>
+
 		</>
 	);
 }

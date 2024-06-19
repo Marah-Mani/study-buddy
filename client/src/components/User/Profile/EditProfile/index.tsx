@@ -133,7 +133,7 @@ export default function Brands() {
                 :
                 <div>
                     <div className="smallTopMargin"></div>
-                    <Form layout='vertical' form={form} size='large' onFinish={onfinish} >
+                    <Form layout='vertical' form={form} size='large' onFinish={onfinish} className='ant-items-mar'>
                         <Row gutter={24}>
 
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
@@ -217,10 +217,7 @@ export default function Brands() {
                                             </Upload>
                                         </Form.Item>
                                     </Col>
-                                    <Col md={24} style={{ textAlign: 'start' }}>
-                                        <div className="largeTopMargin" ></div>
-                                        <Button type='primary' htmlType='submit'>Update Profile</Button>
-                                    </Col>
+
                                 </Row>
                             </Col>
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
@@ -374,10 +371,13 @@ export default function Brands() {
                                 </Row>
                             </Col>
                         </Row>
-
+                        <Col md={24} className='textEnd'>
+                            <Button type='primary' htmlType='submit'>Update Profile</Button>
+                        </Col>
                     </Form>
                 </div>
             }
+
         </>
     )
 }
