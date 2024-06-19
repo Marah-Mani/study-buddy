@@ -87,6 +87,7 @@ const Login = () => {
 	};
 
 	return (
+
 		<div className='login'>
 			<div className='heading'>
 				<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>

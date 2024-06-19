@@ -7,7 +7,8 @@ import AuthContext from '@/contexts/AuthContext';
 import { getUserById } from '@/lib/ApiAdapter';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ParaText from '@/app/commonUl/ParaText';
-
+import './style.css'
+import Titles from '@/app/commonUl/Titles';
 const LockScreen = () => {
 	const [form] = Form.useForm();
 	const router = useRouter();
@@ -44,9 +45,11 @@ const LockScreen = () => {
 	}, [searchParams]);
 
 	return (
-		<div style={{ maxWidth: '400px', margin: 'auto', paddingTop: '300px' }}>
-			<Card style={{ width: 400, backgroundColor: 'white', boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)' }}>
-				<h1 style={{ textAlign: 'center' }}>Lock Screen</h1>
+		<>
+			<div className='lockScreen'>
+				<div className='heading'>
+					<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Lock Screen</Titles>
+				</div>
 				<p style={{ textAlign: 'center', fontWeight: '300' }}>Hello {userData?.name}</p>
 				<Form
 					name="normal_login"
@@ -56,7 +59,7 @@ const LockScreen = () => {
 					form={form}
 					style={{ paddingTop: '20px' }}
 				>
-					<div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+					<div style={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'center' }}>
 						<Space>
 							{userData?.image ? (
 								<Avatar size={44} src={userData?.image} />
@@ -84,11 +87,12 @@ const LockScreen = () => {
 							type="password"
 							placeholder="Password"
 							maxLength={20}
+							style={{ height: "40px" }}
 						/>
 					</Form.Item>
 
 					<Form.Item>
-						<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+						<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
 							{loading ? 'Please wait...' : 'Unlock'}
 						</Button>
 					</Form.Item>
@@ -101,8 +105,8 @@ const LockScreen = () => {
 						</Link>
 					</span>
 				</div>
-			</Card>
-		</div>
+			</div>
+		</>
 	);
 };
 
