@@ -78,8 +78,8 @@ export default function Dashboard({ activeKey, initialState }: Props) {
         setNewFolderName(folder);
     };
     const handleClick = (folder: any) => {
-        setFileId('');
         setFolder(folder)
+        setFileId('');
     }
 
 
@@ -125,7 +125,7 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                         {/* <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'><span className='viewAll'>View All</span></Col> */}
                                     </Row>
                                     <div className='gapMarginTopOne'></div>
-                                    <GetFiles userId={user?._id} fileType={undefined} onSelectedId={(data: any) => { setFileId(data) }} />
+                                    <GetFiles userId={user?._id} fileType={undefined} onSelectedId={(data: any) => { setFileId(data), setFolder(null) }} />
                                 </div>
                             </Content>
                         ) : (
@@ -144,11 +144,12 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                             </>
                         )}
                     </Col>
-                    {fileId &&
+                    {(fileId || folder) &&
                         <Col xs={24} sm={24} md={24} lg={5} xl={5} xxl={5}>
                             <FileInformation fileId={fileId} folder={folder} />
                         </Col>
                     }
+
                 </Row>
             </div>
         </>

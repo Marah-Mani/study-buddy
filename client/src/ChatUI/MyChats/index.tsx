@@ -5,28 +5,33 @@ import {
     Sidebar,
     Search,
     ConversationList,
-    Conversation,
-    AddUserButton
+    AddUserButton,
+    Conversation
 } from '@chatscope/chat-ui-kit-react';
 // eslint-disable-next-line import/no-unresolved
-import Avatar from 'react-avatar';
 import ChatContext from '@/contexts/ChatContext';
 import axios from 'axios';
-import { Dropdown, Flex, MenuProps, notification } from 'antd';
+import { Button, Divider, Flex, List, Modal, Tabs, TabsProps, notification } from 'antd';
 import Cookies from 'js-cookie';
 import SearchUser from '../SearchUser';
-import { getSender, getSenderFull } from '@/lib/chatLogics';
 import GroupChatModal from '../GroupChatModal';
+import ConversationItem from '../ConversationItem';
 import StringAvatar from '@/app/commonUl/StringAvatar';
+import { FaEllipsisVertical } from 'react-icons/fa6';
+import ErrorHandler from '@/lib/ErrorHandler';
+import MyAccount from '../MyAccount';
+import { getSender, getSenderFull } from '@/lib/chatLogics';
+import MeetingItem from '../MeetingItem';
 
 export default function MyChats() {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
-    const [loading, setLoading] = useState(false);
     const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
     const token = Cookies.get('session_token')
-    const [openDrawer, setOpenDrawer] = useState(false)
     const [showGroupChatModal, setShowGroupChatModal] = useState(false)
+    const [viewProfile, setViewProfile] = useState<boolean>(false)
+    const [blocks, setBlocks] = useState<any>([])
+    const [meetings, setMeetings] = useState<any>([])
 
     const config = {
         headers: {
@@ -34,17 +39,17 @@ export default function MyChats() {
         },
     };
 
-    const items: MenuProps['items'] = [
-        {
-            label: <span onClick={() => setOpenDrawer(true)}>New chat</span>,
-            key: '0',
-        },
-        {
-            label: <span onClick={() => setShowGroupChatModal(true)}>New group</span>,
-            key: '1',
+    const getBlockedUser = async () => {
+        try {
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/user/block/${user._id}`, config);
+            setBlocks(data.data.block)
+            return data;
+        } catch (error) {
+            notification.error({
+                message: "Failed to Load the blocked users",
+            });
         }
-    ];
-
+    }
 
     const fetchChats = async () => {
         try {
@@ -55,11 +60,18 @@ export default function MyChats() {
             };
 
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, config);
-            // setSelectedChat(data[0])
+            setSelectedChat(selectedChat || data[0])
             const favouriteChats: any = [];
             const nonFavouriteChats: any = [];
+            const allMeetings: any = [];
 
             data.map((chatData: any) => {
+                if (chatData.meetings.length > 0) {
+                    allMeetings.push(chatData)
+                }
+                if (selectedChat && selectedChat._id === chatData._id) {
+                    setSelectedChat(chatData)
+                }
                 if (chatData.favourites.includes(user?._id)) {
                     favouriteChats.push(chatData)
                 } else {
@@ -68,30 +80,11 @@ export default function MyChats() {
             })
             setFavourite(favouriteChats);
             setChats(nonFavouriteChats);
+            setMeetings(allMeetings)
         } catch (error) {
             notification.error({
                 message: "Failed to Load the chats",
             });
-        }
-    };
-
-    const handleSearch = async () => {
-        if (!search) {
-            // notification.info({
-            //     message: "Please Enter something in search"
-            // });
-            return;
-        }
-
-        try {
-            setLoading(true);
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/user?search=${search}`, config);
-            setLoading(false);
-            setChats(data);
-        } catch (error) {
-            notification.error({
-                message: "Failed to Load the Search Results"
-            })
         }
     };
 
@@ -115,14 +108,152 @@ export default function MyChats() {
     }, [search])
 
     useEffect(() => {
-        if (user) { fetchChats() }
+        if (user) {
+            fetchChats();
+            getBlockedUser();
+        }
         // eslint-disable-next-line
     }, [reload, fetchAgain]);
+
+    const tabItems: TabsProps['items'] = [
+        {
+            key: '1',
+            label: "Chats",
+            children: <div>
+                {favourites.length > 0 &&
+                    <Divider orientation='left' style={{ margin: 0 }}>Favourites</Divider>
+                }
+                {favourites.length > 0 && favourites.map((chat: any) => (
+                    <ConversationItem
+                        key={chat._id}
+                        selectedChat={selectedChat}
+                        chat={chat}
+                        onlineUsers={onlineUsers}
+                        setSelectedChat={setSelectedChat}
+                        handleSelectChat={handleSelectChat}
+                        user={user}
+                    />
+                ))}
+                {chats.length > 0 &&
+                    <Divider orientation='left' style={{ margin: 0 }}>Chats</Divider>
+                }
+                {chats.length > 0 && chats.map((chat: any) => (
+                    <ConversationItem
+                        key={chat._id}
+                        selectedChat={selectedChat}
+                        chat={chat}
+                        onlineUsers={onlineUsers}
+                        setSelectedChat={setSelectedChat}
+                        handleSelectChat={handleSelectChat}
+                        user={user}
+                    />
+                ))}
+            </div>,
+        },
+        {
+            key: '2',
+            label: 'Contacts',
+            children: <SearchUser
+                setShowGroupChatModal={setShowGroupChatModal}
+                showGroupChatModal={showGroupChatModal}
+            // onlineUsers={onlineUsers}
+            />,
+        },
+        {
+            key: '3',
+            label: 'Calls',
+            children: meetings && meetings.map((chat: any) => (
+                chat.meetings.map((meeting: any) => (
+                    <MeetingItem
+                        key={chat._id}
+                        selectedChat={selectedChat}
+                        chat={chat}
+                        onlineUsers={onlineUsers}
+                        setSelectedChat={setSelectedChat}
+                        handleSelectChat={handleSelectChat}
+                        user={user}
+                        meeting={meeting}
+                    />
+                ))
+            ))
+        }
+    ];
+
+    const unblockUser = async (id: string) => {
+        try {
+            if (!id) {
+                throw new Error("Sender ID not found");
+            }
+
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/block`,
+                { userId: id },
+                config
+            );
+
+            if (response.data) {
+                setReload(!reload)
+            }
+        } catch (error) {
+            console.error("Error blocking user:", error);
+            new ErrorHandler(error);
+        }
+    };
+
+    const accountItems: TabsProps['items'] = [
+        {
+            key: '1',
+            label: 'My account',
+            children: <MyAccount config={config} user={user} />
+        },
+        {
+            key: '2',
+            label: 'Block users',
+            children: <List
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={blocks}
+                renderItem={(item: any) => (
+                    <List.Item
+                        actions={[<Button type='link' key={item._id} onClick={() => unblockUser(item._id)}>Unblock</Button>]}
+                    >
+                        <List.Item.Meta
+                            title={item.name}
+                            description={item.email}
+                        />
+
+                    </List.Item>
+                )}
+            />
+        }
+    ]
 
     return (
         <Sidebar
             position="left"
         >
+            <Flex justify='space-between' align='center' style={{ padding: '10px' }}>
+                <Conversation.Content>
+                    <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
+                        <div style={{ position: 'relative' }}>
+                            <StringAvatar
+                                email={user.email}
+                                key={`chat-${user._id}`}
+                                name={user && user.name}
+                                user={user}
+                            />
+                        </div>
+                        <div>
+                            <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>{user.name}
+                            </p>
+                            <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                                {user.email}
+                            </p>
+                        </div>
+                    </div>
+                </Conversation.Content>
+                <Button type='link' onClick={() => setViewProfile(!viewProfile)}><FaEllipsisVertical /></Button>
+            </Flex>
             <Flex justify='space-between'>
                 <Search
                     style={{ width: '100%' }}
@@ -131,108 +262,19 @@ export default function MyChats() {
                     onClearClick={() => { setSearch(""); setReload(!reload) }}
                     placeholder="Search..."
                 />
-                <Dropdown trigger={['click', 'hover']} menu={{ items }} placement='bottomRight'>
-                    <AddUserButton />
-                </Dropdown>
             </Flex>
-            <ConversationList title='Favourite'>
-                {favourites.length > 0 &&
-                    <Conversation
-                        name='Favourite'
-                    />
-                }
-                {favourites.length > 0 && favourites.map((chat: any) => (
-                    <Conversation
-                        key={chat._id}
-                        onClick={() => { setSelectedChat(chat); handleSelectChat(chat) }}
-                        active={selectedChat === chat}
-                        unreadCnt={chat.unreadCount}
-                        lastActivityTime={<span style={{ color: 'teal' }}>{onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'Online' : ''}</span>}
-                    >
-                        <Conversation.Content>
-                            <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
-                                <div style={{ position: 'relative' }}>
-
-                                    {
-                                        chat.image ?
-                                            <Avatar
-                                                name={chat.name}
-                                                src={chat.image}
-                                            // status={onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'available' : 'unavailable'}
-                                            />
-                                            :
-                                            <StringAvatar email={getSender(user, chat.users).email} key={`chat-${chat._id}`} name={chat && !chat.isGroupChat ? getSender(user, chat.users) : chat.chatName} />
-                                    }
-                                    <div style={{ width: '13px', height: '13px', position: 'absolute', bottom: 0, right: 0, background: 'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)', borderRadius: '50px', border: '2px solid #fff' }}></div>
-                                </div>
-                                <div>
-                                    <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>{!chat.isGroupChat
-                                        ? getSender(user, chat.users)
-                                        : chat.chatName}
-                                    </p>
-                                    <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
-                                        {!chat.isGroupChat
-                                            ? getSender(user, chat.users)
-                                            : chat.chatName}
-                                        {chat.latestMessage && ': ' + (chat.latestMessage.content.length > 50
-                                            ? chat.latestMessage.content.substring(0, 51) + "..."
-                                            : chat.latestMessage.content)}
-                                    </p>
-                                </div>
-                            </div>
-                        </Conversation.Content>
-                    </Conversation>
-                ))}
-                {chats.length > 0 &&
-                    <Conversation
-                        name='Chats'
-                    />
-                }
-                {chats.length > 0 && chats.map((chat: any) => (
-                    <Conversation
-                        key={chat._id}
-                        onClick={() => { setSelectedChat(chat); handleSelectChat(chat) }}
-                        active={selectedChat === chat}
-                        unreadCnt={chat.unreadCount}
-                        lastActivityTime={<span style={{ color: 'teal' }}>{onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'Online' : ''}</span>}
-                    >
-                        <Conversation.Content>
-                            <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
-                                <div style={{ position: 'relative' }}>
-
-                                    {
-                                        chat.image ?
-                                            <Avatar
-                                                name={chat.name}
-                                                src={chat.image}
-                                            // status={onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'available' : 'unavailable'}
-                                            />
-                                            :
-                                            <StringAvatar email={getSender(user, chat.users).email} key={`chat-${chat._id}`} name={chat && !chat.isGroupChat ? getSender(user, chat.users) : chat.chatName} />
-                                    }
-                                    <div style={{ width: '13px', height: '13px', position: 'absolute', bottom: 0, right: 0, background: 'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)', borderRadius: '50px', border: '2px solid #fff' }}></div>
-                                </div>
-                                <div>
-                                    <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>{!chat.isGroupChat
-                                        ? getSender(user, chat.users)
-                                        : chat.chatName}
-                                    </p>
-                                    <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
-                                        {!chat.isGroupChat
-                                            ? getSender(user, chat.users)
-                                            : chat.chatName}
-                                        {chat.latestMessage && ': ' + (chat.latestMessage.content.length > 50
-                                            ? chat.latestMessage.content.substring(0, 51) + "..."
-                                            : chat.latestMessage.content)}
-                                    </p>
-                                </div>
-                            </div>
-                        </Conversation.Content>
-                    </Conversation>
-                ))}
-            </ConversationList>
-            <SearchUser openDrawer={openDrawer} setOpenDrawer={() => setOpenDrawer(false)} />
+            <div>
+                <ConversationList>
+                    <Tabs type='card' style={{ margin: 0, padding: 0 }} className='chat-tabs' defaultActiveKey="1" items={tabItems} />
+                </ConversationList>
+            </div>
             <GroupChatModal open={showGroupChatModal} setOpen={setShowGroupChatModal} />
+            <Modal open={viewProfile} onCancel={() => setViewProfile(!viewProfile)} title='Manage Account' centered footer=''>
+                <Tabs
+                    tabPosition={'left'}
+                    items={accountItems}
+                />
+            </Modal>
         </Sidebar>
     )
 }

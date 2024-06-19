@@ -13,7 +13,8 @@ import ChatContext from '@/contexts/ChatContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { BiBookmark } from 'react-icons/bi';
+import { BiBookmark, BiVideo } from 'react-icons/bi';
+import Link from 'next/link';
 
 interface MessageBoxProps {
     messages: any;
@@ -125,7 +126,6 @@ export default function MessageBox({
             }
             <div style={{ display: 'flex', gap: '0px', alignItems: 'flex-start ' }}>
                 <Message
-                    // onClick={() => { alert(message._id) }}
                     key={message._id}
                     model={{
                         direction: `${message.sender._id === user._id ? 'outgoing' : 'incoming'}`,
@@ -136,7 +136,18 @@ export default function MessageBox({
                     }}
                 >
                     <Message.CustomContent style={{ backgroundColor: '#6ea9d7 !important' }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-end' }} className='textEnd'>
+                        {message.meetingId !== null &&
+                            <>
+                                <i style={{ display: 'flex', alignItems: 'center' }}>
+                                    <b>
+                                        Meeting scheduled for {dateFormat(message.meetingStartTime, 'mm-dd-yy, h:MM TT')}.
+                                    </b>
+                                    <Link href={message.senderId === user._id ? message.startUrl : message.joinUrl} target='_blank'><BiVideo style={{ fontSize: '28px' }} /></Link>
+                                </i>
+                                <br />
+                            </>
+                        }
+                        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }} className='textEnd'>
                             <div dangerouslySetInnerHTML={{ __html: message.content }}></div>
                             <p style={{ fontSize: '10px', width: '75px' }}>{dateFormat(message.sentTime || message.createdAt, "h:MM TT")}&nbsp;
                                 {
@@ -146,7 +157,6 @@ export default function MessageBox({
                                 {
                                     message.bookmark.includes(user._id) && <BiBookmark />
                                 }
-
                             </p>
                         </div>
                     </Message.CustomContent>
@@ -211,14 +221,14 @@ export default function MessageBox({
                     </Message.Footer>
                 </Message>
                 <div style={{ marginTop: '5px' }}>
-                    {/* {
-                        message.sender._id == user._id && */}
-                    <Dropdown trigger={['click']} placement='bottomRight' menu={{ items }}>
-                        <BsThreeDotsVertical style={{ fontSize: '14px', cursor: 'pointer' }} />
-                    </Dropdown>
-                    {/* } */}
+                    {
+                        message.sender._id == user._id &&
+                        <Dropdown trigger={['click']} placement='bottomRight' menu={{ items }}>
+                            <BsThreeDotsVertical style={{ fontSize: '14px', cursor: 'pointer' }} />
+                        </Dropdown>
+                    }
                 </div>
-            </div>
+            </div >
         </>
     )
 }

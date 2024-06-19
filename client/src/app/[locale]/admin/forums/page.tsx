@@ -1,12 +1,13 @@
 'use client'
 import Forums from '@/components/Admin/Forums';
 import React from 'react'
-import './style.css'
+import styles from './forum.module.css';
 
 export default function page() {
     return (
         <>
-            <div className='baseBody'>
+            <div className={styles.baseBody}>
+                <div className="gapMarginTopOne"></div>
                 <Forums activeKey={''} />
             </div>
         </>

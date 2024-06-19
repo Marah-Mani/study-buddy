@@ -24,7 +24,7 @@ const initialDepartments = [
 
 // MongoDB connection URI
 const mongoURI =
-	'mongodb+srv://stayable:7CCCzZDmorj3zd9h@cluster0.iyu0yml.mongodb.net/StudyBuddy?retryWrites=true&w=majority';
+	'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy?retryWrites=true&w=majority';
 
 // Connect to MongoDB
 mongoose

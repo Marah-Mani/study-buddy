@@ -25,10 +25,9 @@ interface DataType {
 }
 export default function ForumData({ activeKey, onEdit, reload, getData, filterData }: Props) {
 
-    const [dataSource, setDataSource] = useState<any>([])
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [messages, setMessage] = useState('Please select atleast one to delete');
     const [selectedforumId, setSelectedforumId] = useState<string[]>([]);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetchData();
@@ -37,9 +36,11 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
 
     const fetchData = async () => {
         try {
-            const res = await getAllForums();
+            const searchObject = {
+                userId: user?._id,
+            }
+            const res = await getAllForums(searchObject);
             if (res.status == true) {
-                setDataSource(res.data);
                 getData(res.data)
             }
         } catch (error) {
@@ -104,12 +105,9 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
         { title: 'Action', dataIndex: 'action' }
     ];
     const rowSelection = {
-        onChange: (selectedRowKeys: any, selectedRows: any) => {
+        onChange: (selectedRowKeys: any) => {
             if (selectedRowKeys) {
                 setSelectedRowKeys(selectedRowKeys);
-                setMessage('Are you sure you want to delete this Forums?');
-            } else {
-                setMessage('');
             }
             setSelectedforumId(selectedRowKeys);
         }

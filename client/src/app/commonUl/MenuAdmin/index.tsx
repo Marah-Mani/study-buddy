@@ -51,6 +51,13 @@ const items: MenuItem[] = [
 		</Link>
 	),
 	getItem(
+		'Chats',
+		'7',
+		<Link href="/en/admin/chat">
+			<IoDocumentText />
+		</Link>
+	),
+	getItem(
 		'Market Place',
 		'4',
 		<Link href="/en/admin/market-place">
@@ -94,7 +101,7 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/forums':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/admin/file-manager':
+			case pathname === '/en/admin/forums':
 				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/admin/market-place':
@@ -105,6 +112,9 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('6');
+				break;
+			case pathname === '/en/admin/chat':
+				setDefaultSelectedKey('7');
 				break;
 			default:
 				// if (!defaultSelectedKey) {

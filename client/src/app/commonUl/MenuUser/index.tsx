@@ -92,8 +92,14 @@ export default function MenuAUser() {
 			case pathname === '/en/user/forums':
 				setDefaultSelectedKey('5');
 				break;
-			case pathname === '/en/user/market-place':
+			case pathname === '/en/user/question-answer':
 				setDefaultSelectedKey('6');
+				break;
+			case pathname === '/en/user/market-place':
+				setDefaultSelectedKey('7');
+				break;
+			case pathname === '/en/user/chat':
+				setDefaultSelectedKey('8');
 				break;
 			case pathname === '/en/user/notifications':
 				setDefaultSelectedKey('7'); // Redirect to Dashboard
@@ -121,6 +127,13 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
+			'Chat',
+			'8',
+			<Link href="/en/user/chat">
+				<AiOutlineProfile />
+			</Link>
+		),
+		getItem(
 			'Users',
 			'3',
 			<Link href="/en/user/candidate">
@@ -135,15 +148,22 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Q&A',
+			'Forums',
 			'5',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
 			</Link>
 		),
 		getItem(
-			'Market Place',
+			'Q&A',
 			'6',
+			<Link href="/en/user/question-answer">
+				<QuestionCircleOutlined />
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'7',
 			<Link href="/en/user/market-place">
 				<IoDocumentText />
 			</Link>
@@ -152,24 +172,6 @@ export default function MenuAUser() {
 
 	let dynamicItems: MenuItem[] = [];
 
-	if (role) {
-		// dynamicItems = role
-		// 	.flatMap(item => {
-		// 		if (item.roleName.toLowerCase() === (user?.roleId?.roleName.toLowerCase() ?? '')) {
-		// 			const permissions = item.permissions;
-		// 			console.log(permissions);
-		// 			const allowedPermissions = Object.keys(permissions)
-		// 				.filter(key => permissions[key] === true)
-		// 				.map(permission => permission.toLowerCase());
-
-		// 			return staticItems.filter(menuItem => {
-		// 				const label = menuItem.label as string; // Type assertion
-		// 				return allowedPermissions.includes(label.toLowerCase());
-		// 			});
-		// 		}
-		// 		return [];
-		// 	});
-	}
 
 	let items = staticItems;
 
