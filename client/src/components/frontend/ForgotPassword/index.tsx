@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import AuthContext from '@/contexts/AuthContext';
-import Cookies from 'js-cookie';
-import { forgetEmailPassword, socialLogin } from '@/lib/ApiAdapter';
+import { FaArrowLeft } from "react-icons/fa6";
+import { forgetEmailPassword } from '@/lib/ApiAdapter';
 import { useRouter } from 'next/navigation';
 import ErrorHandler from '@/lib/ErrorHandler';
 import './style.css'
@@ -53,7 +52,7 @@ const ForgotPassword = () => {
 					</Button>
 				</Form.Item>
 				<Link href="/en/login" passHref>
-					<Button type="primary" style={{ width: '100%', height: '40px' }}>
+					<Button type="link" style={{ width: '100%', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} icon={<FaArrowLeft style={{ display: 'flex', alignItems: 'center' }} />}>
 						Back to login
 					</Button>
 				</Link>

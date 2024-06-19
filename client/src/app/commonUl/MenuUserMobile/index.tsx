@@ -43,7 +43,7 @@ function getItem(
 	} as MenuItem;
 }
 
-export default function MenuAUser() {
+export default function MenuUserMobile() {
 	const { logout } = useContext(AuthContext);
 	const [role, setAllRole] = useState<Roles[]>([]);
 	const { user } = useContext(AuthContext);
@@ -179,22 +179,19 @@ export default function MenuAUser() {
 
 	return (
 		<>
-			<div id="menuId">
-				<div className="dddd">
-					<div className="menuDash darkMenuDashUser" id="menuDash">
-						<div className="textCenter">
-							<Link href="/">
-							</Link>
-						</div>
-						<div className="gapMarginTop"></div>
-						<Menu
-							selectedKeys={[defaultSelectedKey]}
-							mode="inline"
-							theme="dark"
-							items={items}
-							onClick={handleClick}
-						/>
+			<div id="menuIdMobile">
+				<div className="menuDashMobile darkMenuDash">
+					<div className="textCenter">
+						<Link href="/"></Link>
 					</div>
+					<div className="gapMarginTop"></div>
+					<Menu
+						selectedKeys={[defaultSelectedKey]}
+						mode="inline"
+						theme="dark"
+						items={items}
+						onClick={handleClick}
+					/>
 				</div>
 			</div>
 		</>

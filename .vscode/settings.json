@@ -14,7 +14,7 @@
 		}
 	},
 	"deepscan.ignoreConfirmWarning": true,
-	"cSpell.words": ["contactus", "Efact", "Frofile", "Opene", "Successfull"],
+	"cSpell.words": ["contactus", "Efact", "Frofile", "Opene", "Rocketchat", "Successfull"],
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},

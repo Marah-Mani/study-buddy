@@ -12,16 +12,16 @@ form {
 }
 @media screen and (min-width: 700px) {
   .back {
-    background-image: url('https://www.allen.ac.in/ace2425/assets/images/register.png');
+    background-image: url('https://img.freepik.com/free-vector/security-concept-illustration_114360-497.jpg?t=st=1718393269~exp=1718396869~hmac=9fa80db8071c0ada6af2589e76d7343873d3741266fbc8ea89541cea8ced49f1');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: right;
     height: 100vh;
   }
 
   .login-container {
     position: absolute;
-    right: 0;
+    left: 0;
     max-width: 900px;
     height: 100%;
     top: 0;

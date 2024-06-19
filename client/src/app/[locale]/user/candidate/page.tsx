@@ -205,18 +205,18 @@ export default function Page() {
                         {AllCandidates.map((item: any) => (
                             <>
                                 <div style={{ padding: ' 15px 15px 25px 15px' }} className='candidates-details'>
-                                    <div className='imagevecter'></div>
-                                    <Row gutter={[16, 16]} align='middle'>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+
+                                    <Row gutter={[16, 16]}>
+                                        <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
                                             <Row align='middle'>
-                                                <Col xs={24} sm={24} md={3} lg={3} xl={2} xxl={2} className=''>
+                                                <Col xs={6} sm={3} md={6} lg={3} xl={3} xxl={3} className=''>
                                                     <Image src={
                                                         item?.image
                                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item?.image}`
                                                             : `/images/avatar.png`
                                                     } width={50} height={50} alt='user' style={{ borderRadius: '50px' }} />
                                                 </Col>
-                                                <Col xs={24} sm={24} md={21} lg={21} xl={22} xxl={22}>
+                                                <Col xs={18} sm={21} md={18} lg={21} xl={21} xxl={21}>
                                                     <Flex align='center'>
                                                         <ParaText size="small" color='PrimaryColor' className="dBlock" fontWeightBold={600}>
                                                             {`${item?.name} `}
@@ -225,6 +225,7 @@ export default function Page() {
                                                             {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
                                                         </Tag>
                                                     </Flex>
+
                                                     <ParaText size="textGraf" fontWeightBold={600} color='black'>
                                                         {item?.profileTitle && capitalizeFirstLetterOfEachWord(item?.profileTitle)}
                                                     </ParaText>
@@ -232,47 +233,7 @@ export default function Page() {
                                                 </Col>
                                             </Row>
                                         </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                            <div>
-                                                <span><CiHeart size={20} /></span>
-                                            </div>
-                                            <br />
-                                            <div>
-                                                <Space size={[8, 16]} wrap>
-                                                    {item.socialLinks.facebook !== "null" && item.socialLinks.facebook !== null &&
-                                                        <a href={item.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
-                                                            <span><FaFacebookSquare size={20} /></span>
-                                                        </a>
-                                                    }
-                                                    {item.socialLinks.instagram !== "null" && item.socialLinks.instagram !== null &&
-                                                        <a href={item.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                                                            <span><FaInstagramSquare size={20} /></span>
-                                                        </a>
-                                                    }
-                                                    {item.socialLinks.twitter !== "null" && item.socialLinks.twitter !== null &&
-                                                        <a href={item.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                                                            <span><FaTwitter size={20} /></span>
-                                                        </a>
-                                                    }
-                                                    {item.socialLinks.likedIn !== "null" && item.socialLinks.linkedin !== null &&
-                                                        <a href={item.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                                                            <span><IoLogoLinkedin size={20} /></span>
-                                                        </a>
-                                                    }
-                                                </Space>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    <br />
-                                    <Flex gap="4px 0" wrap='wrap'>
-                                        <Tag icon={<FaUserGraduate />} >
-                                            &nbsp;
-                                            {item?.higherEducation && capitalizeFirstLetterOfEachWord(item?.higherEducation)}
-                                        </Tag>
-                                    </Flex>
-                                    <br />
-                                    <Row gutter={[16, 16]} align='middle'>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
                                             <ParaText size="textGraf" color='PrimaryColor'>
                                                 <span>
                                                     <strong> Department :</strong> </span>
@@ -281,7 +242,7 @@ export default function Page() {
                                                     {item?.departmentId?.departmentName}
                                                 </span>
                                             </ParaText>
-                                            <br />
+                                            &nbsp; &nbsp; &nbsp;
                                             <ParaText size="textGraf" color='PrimaryColor'>
                                                 <span>
                                                     <strong> Subjects :</strong> </span>
@@ -298,11 +259,67 @@ export default function Page() {
                                                     }
                                                 </span>
                                             </ParaText>
-                                            <br />
-                                            <ParaText size="textGraf" color='black' fontWeightBold={600} className='dBlock'>
-                                                <ParaText size="textGraf" color='black' fontWeightBold={600}>
-                                                    {item?.profileDescription}
+                                            <br className='dNone' />
+                                            <br className='dNone' />
+                                            <Flex gap="4px 0" wrap='wrap'>
+                                                <Tag icon={<FaUserGraduate />} >
+                                                    &nbsp;
+                                                    {item?.higherEducation && capitalizeFirstLetterOfEachWord(item?.higherEducation)}
+                                                </Tag>
+                                                <ParaText size="textGraf" color='black'>
+                                                    <span>
+                                                        <strong> Skills :</strong>   &nbsp;</span>
+
                                                 </ParaText>
+                                                &nbsp;
+                                                {item.skills.map((skill: string, index: number) => (
+                                                    <Tag key={index}>
+                                                        {capitalizeFirstLetterOfEachWord(skill)}
+                                                    </Tag>
+                                                ))}
+                                                {item.skills.length === 0 && (
+                                                    <Tag>
+                                                        No skills specified
+                                                    </Tag>
+                                                )}
+                                            </Flex>
+                                        </Col>
+                                        <Col className='textEnd' xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
+                                            <span><FaRocketchat size={30} color='#267200' style={{ cursor: 'pointer' }} /></span> &nbsp;
+                                            <span><CiHeart size={30} /></span>
+                                            <div>
+                                                <br />
+                                                <br className='dNone' />
+                                                <Space size={[8, 16]} wrap>
+                                                    {item.socialLinks.facebook !== "null" && item.socialLinks.facebook !== null &&
+                                                        <a href={item.socialLinks.facebook} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaFacebookSquare size={20} color='#838383' /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.instagram !== "null" && item.socialLinks.instagram !== null &&
+                                                        <a href={item.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaInstagramSquare color='#838383' size={20} /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.twitter !== "null" && item.socialLinks.twitter !== null &&
+                                                        <a href={item.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                                                            <span><FaTwitter size={20} color='#838383' /></span>
+                                                        </a>
+                                                    }
+                                                    {item.socialLinks.likedIn !== "null" && item.socialLinks.linkedin !== null &&
+                                                        <a href={item.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                                                            <span><IoLogoLinkedin size={20} color='#838383' /></span>
+                                                        </a>
+                                                    }
+                                                </Space>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Divider />
+                                    <Row gutter={[16, 16]} align='middle'>
+                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                            <ParaText size="textGraf" color='defaultColor'>
+                                                {item?.profileDescription}
                                             </ParaText>
                                         </Col>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
@@ -326,32 +343,7 @@ export default function Page() {
                                             </ParaText>
                                         </Col>
                                     </Row>
-                                    <Divider />
-                                    <Row gutter={[16, 16]} align='middle'>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <Flex gap="4px 0" wrap='wrap'>
-                                                <ParaText size="textGraf" color='black'>
-                                                    <span>
-                                                        <strong> Skills :</strong>   &nbsp;</span>
 
-                                                </ParaText>
-                                                {item.skills.map((skill: string, index: number) => (
-                                                    <Tag key={index}>
-                                                        {capitalizeFirstLetterOfEachWord(skill)}
-                                                    </Tag>
-                                                ))}
-                                                {item.skills.length === 0 && (
-                                                    <Tag>
-                                                        No skills specified
-                                                    </Tag>
-                                                )}
-
-                                            </Flex>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                            <span><FaRocketchat size={22} color='#8BC34A' style={{ cursor: 'pointer' }} /></span> &nbsp;
-                                        </Col>
-                                    </Row>
                                 </div>
                             </>
                         ))}

@@ -7,7 +7,9 @@
   overflow-y: scroll;
   position: fixed;
 }
-
+body.dark-mode .menuDash {
+  border: 1px solid #343434;
+}
 #menuId .ant-menu-item {
   padding-left: 14px !important;
 }
