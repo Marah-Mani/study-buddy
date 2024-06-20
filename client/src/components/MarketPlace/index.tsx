@@ -10,6 +10,7 @@ import { getAllProductsListing } from '@/lib/commonApi';
 import InfoModal from './InfoModal';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import './style.css'
 import ChatContext from '@/contexts/ChatContext';
 import { useRouter } from 'next/navigation';
 interface Props {
@@ -112,18 +113,16 @@ export default function MarketPlace({ activeKey }: Props) {
 
     return (
         <>
-            <div className='gapMarginTopTwo'></div>
             <Row>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                    <div className="largeTopMargin"></div>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                    <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
                         Market Place
                     </ParaText>
                 </Col>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className="textEnd">
-                    <Space>
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className="textEnd markitPlace">
+                    <Space wrap>
                         <Select
-                            style={{ height: '40px' }}
+                            style={{ height: '35px' }}
                             placeholder={'Select a category'}
                             showSearch
                             allowClear
@@ -139,7 +138,7 @@ export default function MarketPlace({ activeKey }: Props) {
                             onChange={(value: string) => setSelectedCategory(value)}
                         />
                         <Select
-                            style={{ height: '40px' }}
+                            style={{ height: '35px' }}
                             placeholder={'Select a sub-category'}
                             showSearch
                             allowClear
@@ -155,11 +154,11 @@ export default function MarketPlace({ activeKey }: Props) {
                             }
                             onChange={(value: string) => setSubCategory(value)}
                         />
-                        <Input placeholder="Search" style={{ height: '38px', width: '100%' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
+                        <Input placeholder="Search" style={{ height: '35px', width: '100%', borderRadius: '0px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                     </Space>
                 </Col>
             </Row>
-            <div className='gapMarginTopOne'></div>
+            <div className='gapMarginTopTwo'></div>
             <Row gutter={[16, 16]}>
                 {allProducts.map((data: any) => (
                     <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={6} key={data._id}>
@@ -171,8 +170,6 @@ export default function MarketPlace({ activeKey }: Props) {
                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
                                             : `/images/avatar.png`
                                     }
-                                        width={350}
-                                        height={250}
                                     />
                                 </a>
                             </div>

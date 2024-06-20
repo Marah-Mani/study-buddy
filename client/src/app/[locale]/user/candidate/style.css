@@ -49,7 +49,10 @@ body.dark-mode .candidates-details {
 .floatRight {
   float: right;
 }
-
+.sectionPart .ant-divider-horizontal {
+  margin: 0px;
+  padding-bottom: 10px;
+}
 @media (max-width: 767px) {
   .dNone {
     display: none;

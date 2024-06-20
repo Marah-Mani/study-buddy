@@ -4,3 +4,9 @@
   padding: 20px;
   padding-top: 6%;
 }
+.mainSection .ant-form-item .ant-form-item-control-input-content {
+  margin-bottom: 16px;
+}
+.mainSection .ant-form-large .ant-form-item .ant-form-item-label > label {
+  height: 30px;
+}
