@@ -173,7 +173,7 @@ export default function Chat() {
 
             try {
                 const { data } = await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/chat/upload`,
                     formData,
                     config
                 );
@@ -573,7 +573,7 @@ export default function Chat() {
             },
         },
         {
-            label: 'Mark as read',
+            label: 'Default read',
             key: '3',
             onClick: () => {
                 handleMarkRead();
@@ -673,7 +673,7 @@ export default function Chat() {
         <MainContainer
             responsive
             style={{
-                height: '80vh', marginTop: '10vh'
+                height: '90vh', marginTop: '8vh'
             }}
         >
             <MyChats />
@@ -965,7 +965,7 @@ export default function Chat() {
                                 dataSource={meetings}
                                 renderItem={(item: any) => (
                                     <List.Item
-                                        actions={[<Link key="list-loadmore-more" target='_blank' href={item.senderId === user._id ? item.startUrl : item.joinUrl}><Button type='link'><BiVideo style={{ fontSize: '22px' }} /></Button></Link>]}
+                                        actions={[<Link key="list-loadmore-more" target='_blank' href={`${item.senderId === user._id ? item.startUrl : item.joinUrl}`}><Button type='link'><BiVideo style={{ fontSize: '22px' }} /></Button></Link>]}
                                     >
                                         <List.Item.Meta
                                             title={item.content}

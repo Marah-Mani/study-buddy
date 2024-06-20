@@ -142,7 +142,7 @@ export default function MessageBox({
                                     <b>
                                         Meeting scheduled for {dateFormat(message.meetingStartTime, 'mm-dd-yy, h:MM TT')}.
                                     </b>
-                                    <Link href={message.senderId === user._id ? message.startUrl : message.joinUrl} target='_blank'><BiVideo style={{ fontSize: '28px' }} /></Link>
+                                    <Link href={`${message.senderId === user._id ? message.startUrl : message.joinUrl}`} target='_blank'><BiVideo style={{ fontSize: '28px' }} /></Link>
                                 </i>
                                 <br />
                             </>

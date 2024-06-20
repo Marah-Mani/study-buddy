@@ -83,6 +83,7 @@ const userSchema = new mongoose.Schema({
 	stickyNote: { type: String, default: null },
 	timeZone: { type: String, default: 'Asia/Kolkata' },
 	block: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
+	chatStatus: { type: String, enum: ['online', 'offline', 'default'], default: 'default' },
 	status: { type: String, enum: ['active', 'inactive', 'deleted', 'suspended'], default: 'active' },
 	createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'users', default: null },
 	createdAt: { type: Date, default: Date.now },

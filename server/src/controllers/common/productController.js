@@ -27,7 +27,8 @@ const productController = {
                 .skip(skip)
                 .limit(parseInt(searchObject.pageSize))
                 .populate('categoryId', 'name')
-                .populate('subCategoryId', 'name');
+                .populate('subCategoryId', 'name')
+                .populate('createdBy', 'name');
 
             res.status(200).json({ status: true, data: { products, total } });
         } catch (error) {
