@@ -9,8 +9,8 @@ export default function Page() {
 	const [key, setKey] = useState('1');
 
 	const items = [
-		{ label: 'My Market Place', component: <MyMarketPlace activeKey={key} /> },
 		{ label: 'Market Place', component: <MarketPlace activeKey={key} /> },
+		{ label: 'My Market Place', component: <MyMarketPlace activeKey={key} /> },
 	].map((item, index) => ({
 		label: item.label,
 		key: String(index + 1),

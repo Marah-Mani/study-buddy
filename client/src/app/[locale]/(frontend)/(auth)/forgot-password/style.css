@@ -12,18 +12,19 @@ form {
 }
 @media screen and (min-width: 700px) {
   .back {
-    background-image: url('https://joa.je/media/3xqchtgiunssc_project-management-professional-certification-path-231-crop-1200w-800h.webp');
-    background-size: cover;
+    background-image: url('https://www.allen.ac.in/ace2425/assets/images/register.png');
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: left;
     height: 100vh;
   }
+
   .login-container {
     position: absolute;
     right: 0;
     max-width: 900px;
     height: 100%;
     top: 0;
-    background: #fff;
+    background: #ffeabf;
   }
 }

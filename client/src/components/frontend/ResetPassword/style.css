@@ -1,10 +1,10 @@
 .resetpasssword {
   max-width: 350px;
-  margin: 0 auto;
-  padding-top: 40%;
+  margin: 30% auto;
   border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+  padding: 5% 5% 3% 5%;
 }
 .heading {
   text-align: center;
@@ -15,7 +15,7 @@
   display: inline-block;
   padding-bottom: 5px;
   transition: all 0.3s ease;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .overEfact::after {
@@ -35,4 +35,15 @@
   width: 100%;
   left: 0;
   background: #1967d2;
+}
+
+@media (max-width: 991px) {
+  @media (max-width: 991px) {
+    .resetpasssword {
+      padding: 2% 2% 3% 2%;
+      margin: 10% 15px;
+      max-width: 100%;
+      height: auto;
+    }
+  }
 }

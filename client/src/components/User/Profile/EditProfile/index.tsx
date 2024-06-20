@@ -133,7 +133,7 @@ export default function Brands() {
                 :
                 <div>
                     <div className="smallTopMargin"></div>
-                    <Form layout='vertical' form={form} size='large' onFinish={onfinish} >
+                    <Form layout='vertical' form={form} size='large' onFinish={onfinish} className='ant-items-mar'>
                         <Row gutter={24}>
 
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
@@ -186,8 +186,6 @@ export default function Brands() {
                                                 ]
                                             }
                                         >
-                                            {/* <NumericInput value={value} onChange={setValue} /> */}
-
                                             <PhoneInput
                                                 country={'il'}
                                                 value={phone}
@@ -196,46 +194,6 @@ export default function Brands() {
                                             />
                                         </Form.Item>
                                     </Col>
-                                    {/* <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item name={'country'} label='Country'
-                                            rules={
-                                                [
-                                                    {
-                                                        required: true,
-                                                        message: 'Please enter country'
-                                                    },
-                                                ]
-                                            }
-
-                                        >
-                                            <Input
-                                                placeholder='Enter country'
-                                                type='text' maxLength={30}
-                                                value={country}
-                                                readOnly
-                                            />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item name={'state'} label='State'
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please enter state'
-                                                },
-                                                {
-                                                    max: validationRules.textLength.maxLength,
-                                                    message: `Name must be at most ${validationRules.textLength.maxLength} characters`
-                                                },
-                                                { pattern: /^[A-Za-z\s]+$/, message: 'Please enter only alphabets!' }
-                                            ]}
-                                        >
-                                            <Input
-                                                placeholder='Enter state'
-                                                type='text' maxLength={50}
-                                            />
-                                        </Form.Item>
-                                    </Col> */}
                                     <Col span={24}>
                                         <Form.Item name={'profileDescription'} label={'Profile Description'}>
                                             <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
@@ -259,10 +217,7 @@ export default function Brands() {
                                             </Upload>
                                         </Form.Item>
                                     </Col>
-                                    <Col md={24} style={{ textAlign: 'start' }}>
-                                        <div className="largeTopMargin" ></div>
-                                        <Button type='primary' htmlType='submit'>Update Profile</Button>
-                                    </Col>
+
                                 </Row>
                             </Col>
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
@@ -416,10 +371,13 @@ export default function Brands() {
                                 </Row>
                             </Col>
                         </Row>
-
+                        <Col md={24} className='textEnd'>
+                            <Button type='primary' htmlType='submit'>Update Profile</Button>
+                        </Col>
                     </Form>
                 </div>
             }
+
         </>
     )
 }

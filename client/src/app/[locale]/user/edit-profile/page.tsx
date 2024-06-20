@@ -37,7 +37,6 @@ export default function Page() {
 	});
 	return (
 		<>
-			<div className="gapMarginTop"></div>
 			<div className='boxInbox'>
 				<ParaText size="large" fontWeightBold={600} color="PrimaryColor">
 					Profile Details

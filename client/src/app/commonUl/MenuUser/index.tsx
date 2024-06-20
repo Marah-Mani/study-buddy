@@ -92,8 +92,14 @@ export default function MenuAUser() {
 			case pathname === '/en/user/forums':
 				setDefaultSelectedKey('5');
 				break;
-			case pathname === '/en/user/market-place':
+			case pathname === '/en/user/question-answer':
 				setDefaultSelectedKey('6');
+				break;
+			case pathname === '/en/user/market-place':
+				setDefaultSelectedKey('7');
+				break;
+			case pathname === '/en/user/chat':
+				setDefaultSelectedKey('8');
 				break;
 			case pathname === '/en/user/notifications':
 				setDefaultSelectedKey('7'); // Redirect to Dashboard
@@ -104,6 +110,10 @@ export default function MenuAUser() {
 		}
 	}, [pathname])
 
+	function handleLogout(e: any) {
+		e.preventDefault();
+		logout();
+	}
 
 	const staticItems: MenuItem[] = [
 		getItem(
@@ -113,10 +123,11 @@ export default function MenuAUser() {
 				<IoHome />
 			</Link>
 		),
+
 		getItem(
-			'Profile',
-			'2',
-			<Link href="/en/user/edit-profile">
+			'Chat',
+			'8',
+			<Link href="/en/user/chat">
 				<AiOutlineProfile />
 			</Link>
 		),
@@ -135,41 +146,44 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Q&A',
+			'Forums',
 			'5',
 			<Link href="/en/user/forums">
 				<QuestionCircleOutlined />
 			</Link>
 		),
 		getItem(
-			'Market Place',
+			'Q&A',
 			'6',
+			<Link href="/en/user/question-answer">
+				<QuestionCircleOutlined />
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'7',
 			<Link href="/en/user/market-place">
 				<IoDocumentText />
 			</Link>
-		)
+		),
+		getItem(
+			'Profile',
+			'2',
+			<Link href="/en/user/edit-profile">
+				<AiOutlineProfile />
+			</Link>
+		),
+		getItem(
+			'Logout',
+			'8',
+			<Link onClick={handleLogout} href='#'>
+				<AiOutlineProfile />
+			</Link>
+		),
 	];
 
 	let dynamicItems: MenuItem[] = [];
 
-	if (role) {
-		// dynamicItems = role
-		// 	.flatMap(item => {
-		// 		if (item.roleName.toLowerCase() === (user?.roleId?.roleName.toLowerCase() ?? '')) {
-		// 			const permissions = item.permissions;
-		// 			console.log(permissions);
-		// 			const allowedPermissions = Object.keys(permissions)
-		// 				.filter(key => permissions[key] === true)
-		// 				.map(permission => permission.toLowerCase());
-
-		// 			return staticItems.filter(menuItem => {
-		// 				const label = menuItem.label as string; // Type assertion
-		// 				return allowedPermissions.includes(label.toLowerCase());
-		// 			});
-		// 		}
-		// 		return [];
-		// 	});
-	}
 
 	let items = staticItems;
 
@@ -181,7 +195,7 @@ export default function MenuAUser() {
 		<>
 			<div id="menuId">
 				<div className="dddd">
-					<div className="menuDash darkMenuDash" id="menuDash">
+					<div className="menuDash darkMenuDashUser" id="menuDash">
 						<div className="textCenter">
 							<Link href="/">
 							</Link>

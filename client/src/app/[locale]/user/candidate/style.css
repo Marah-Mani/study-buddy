@@ -41,26 +41,11 @@ body.dark-mode .candidates-details {
   float: right;
 }
 
-@media (min-width: 1200px) {
-  .imagevecter {
-    position: absolute;
-    top: 10%;
-    left: 60%;
-    transform: translateX(-5%);
-    width: 100%;
-    height: 100%;
-    background-image: url(https://apusthemes.com/wp-demo/superio/wp-content/uploads/2023/07/h21-icon3.jpg);
-    background-repeat: no-repeat;
-    animation: moveUpDown 3s ease-in-out infinite;
+@media (max-width: 767px) {
+  .dNone {
+    display: none;
   }
-
-  @keyframes moveUpDown {
-    0%,
-    100% {
-      top: 0;
-    }
-    50% {
-      top: 10px; /* Adjust this value to control the distance of the movement */
-    }
+  .menuStyle {
+    padding: 2px;
   }
 }

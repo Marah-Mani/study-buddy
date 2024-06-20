@@ -63,7 +63,12 @@
   background: transparent;
   color: #999999;
 }
-
+.mobileMenu {
+  display: none;
+}
+.mobileMenu svg {
+  color: #000;
+}
 @media (min-width: 1700px) {
   .topBar {
     background: var(--Grayscale-White, #fff);
@@ -79,6 +84,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .mobileMenu {
+    display: block;
+  }
+}
+
 @media (min-width: 1367px) {
   .topBar {
     width: 100vw;
@@ -91,4 +102,12 @@
     width: 100vw;
     padding: 16px 15px;
   }
+}
+
+/* styles/MobileMenu.module.css */
+.paddingRemoveBody .ant-drawer-body {
+  padding: 0px !important;
+}
+.paddingRemoveBody .ant-drawer-header {
+  display: none !important;
 }

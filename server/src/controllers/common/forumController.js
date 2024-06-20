@@ -58,17 +58,18 @@ const invoiceController = {
 			const query = {};
 
 			if (search) {
-				const searchParams = JSON.parse(search);
-
-				if (searchParams.subCatId) {
-					query.subCategoryId = searchParams.subCatId;
+				if (search.subCatId) {
+					query.subCategoryId = search.subCatId;
 				}
 
-				if (searchParams.catId) {
-					query.categoryId = searchParams.catId;
+				if (search.catId) {
+					query.categoryId = search.catId;
 				}
-				if (searchParams.search) {
-					query.title = { $regex: new RegExp(searchParams.search, 'i') };
+				if (search.search) {
+					query.title = { $regex: new RegExp(search.search, 'i') };
+				}
+				if (search.userId) {
+					query.userId = search.userId;
 				}
 			}
 

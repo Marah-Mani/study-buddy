@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
-import { Col, Image, Input, Modal, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
+import { Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
 import AuthContext from '@/contexts/AuthContext';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
 import { getAllProductsListing } from '@/lib/commonApi';
 import InfoModal from './InfoModal';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import ChatContext from '@/contexts/ChatContext';
+import { useRouter } from 'next/navigation';
 interface Props {
     activeKey: string;
 }
@@ -21,9 +25,10 @@ export default function MarketPlace({ activeKey }: Props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalProducts, setTotalProducts] = useState(0);
-    const { user } = useContext(AuthContext);
     const [infoModal, setInfoModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
+    const token = Cookies.get('session_token')
+    const { setSelectedChat, user, chats, setChats }: any = useContext(ChatContext);
 
     useEffect(() => {
         fetchData();
@@ -32,7 +37,7 @@ export default function MarketPlace({ activeKey }: Props) {
     useEffect(() => {
         fetchCategories();
     }, []);
-
+    console.log(user);
     const fetchCategories = async () => {
         try {
             const res = await getProductCategories();
@@ -84,6 +89,27 @@ export default function MarketPlace({ activeKey }: Props) {
         setSelectedProduct(data);
     }
 
+    const router = useRouter();
+
+    const accessChat = async (userId: any) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
+
+            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
+            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/dashboard`);
+        } catch (error) {
+            notification.error({
+                message: "Error fetching the chat"
+            });
+        }
+    };
+
     return (
         <>
             <div className='gapMarginTopTwo'></div>
@@ -133,6 +159,7 @@ export default function MarketPlace({ activeKey }: Props) {
                     </Space>
                 </Col>
             </Row>
+            <div className='gapMarginTopOne'></div>
             <Row gutter={[16, 16]}>
                 {allProducts.map((data: any) => (
                     <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={6} key={data._id}>
@@ -144,13 +171,13 @@ export default function MarketPlace({ activeKey }: Props) {
                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
                                             : `/images/avatar.png`
                                     }
-                                        width={300}
+                                        width={350}
                                         height={250}
                                     />
                                 </a>
                             </div>
 
-                            <Row align='middle'>
+                            <Row align='middle' onClick={() => handleDetail(data)}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <div className="product-content">
                                         <ParaText size='textGraf' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={35} /> </ParaText>
@@ -167,7 +194,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                             </Row>
                             <Row align='middle'>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} onClick={() => handleDetail(data)}>
                                     <div className="product-content">
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
@@ -182,7 +209,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     </div>
                                 </Col>
                                 {data.discountPrice != "undefined" ?
-                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd' onClick={() => handleDetail(data)}>
                                         <Tag color="geekblue">
                                             {calculatePercentageOff(data.price, data.discountPrice)}% off
                                         </Tag>
@@ -201,7 +228,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                         color={'#EDF1F5'}
                                     >
-                                        <WechatOutlined style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
+                                        <WechatOutlined onClick={() => accessChat(data.createdBy)} style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
                                     </Tooltip>
                                 </Col>
                             </Row>

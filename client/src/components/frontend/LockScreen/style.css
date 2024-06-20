@@ -1,0 +1,48 @@
+.lockScreen {
+  max-width: 500px;
+  margin: 25% auto;
+  border-radius: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+  padding: 5% 5% 0% 5%;
+  height: 50vh;
+}
+.heading {
+  text-align: center;
+}
+.overEfact {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.overEfact::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #1967d2;
+  transition: width 0.3s ease;
+  -webkit-transition: width 0.3s ease;
+}
+
+.overEfact:hover::after {
+  width: 100%;
+  left: 0;
+  background: #1967d2;
+}
+
+@media (max-width: 991px) {
+  .lockScreen {
+    padding: 2% 2% 2% 2%;
+    margin: 10% 15px;
+    max-width: 100%;
+    height: auto;
+  }
+}

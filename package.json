@@ -4,7 +4,7 @@
 	"description": "",
 	"proxy": "http://127.0.0.1:3001/api",
 	"scripts": {
-		"start": "npm run lint && concurrently \"npm run start:server\" \"npm run start:client\"",
+		"start": "bash check-pull.sh && npm run lint && concurrently \"npm run start:server\" \"npm run start:client\"",
 		"production": "npm run lint && concurrently \"npm run start:server\" \"npm run start:clientProd\"",
 		"start:client": "cd client && npm run dev",
 		"start:server": "cd server && npm run dev",
