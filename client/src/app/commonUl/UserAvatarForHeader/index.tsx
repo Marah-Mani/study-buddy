@@ -21,7 +21,6 @@ export default function UserAvatarForHeader() {
       e.preventDefault();
       logout();
    }
-   console.log(user, 'user 11111')
 
    function handleLockScreen(e: any) {
       e.preventDefault();

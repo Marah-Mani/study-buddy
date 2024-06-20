@@ -175,7 +175,7 @@ export default function MenuAUser() {
 		),
 		getItem(
 			'Logout',
-			'8',
+			'9',
 			<Link onClick={handleLogout} href='#'>
 				<AiOutlineProfile />
 			</Link>
