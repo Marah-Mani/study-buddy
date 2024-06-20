@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const archiver = require('archiver');
+const { trackUserActivity } = require('../../common/functions');
 const getFileCount = async (folderId) => {
 	try {
 		return await FileManagerFile.countDocuments({ folderId: folderId, status: 'active' });
@@ -113,6 +114,7 @@ async function recoverFolderAndSubfolders(folderId) {
 		const subfolders = await FileManagerFolder.find({ parentFolder: folderId });
 		for (let subfolder of subfolders) {
 			await recoverFolderAndSubfolders(subfolder._id);
+			await trackUserActivity(subfolder.createdBy, 'Your subfolder has been deleted successfully!');
 		}
 		// Recover files within the folder
 		await FileManagerFile.updateMany({ folderId: folderId }, { $set: { status: 'active' } });
@@ -144,6 +146,7 @@ async function deleteFolderAndContents(folderId) {
 		const subfolders = await FileManagerFolder.find({ parentFolder: folderId });
 		for (let subfolder of subfolders) {
 			await deleteFolderAndContents(subfolder._id);
+			await trackUserActivity(subfolder.createdBy, 'Your subfolder has been deleted successfully!');
 		}
 
 		// Delete files within the folder
@@ -215,7 +218,7 @@ const fileManagerController = {
 			});
 
 			await newFolder.save();
-
+			await trackUserActivity(userId, 'Your folder has been created successfully!');
 			return res.status(201).json({ status: true, message: 'Folder created successfully', data: newFolder });
 		} catch (error) {
 			// Log the error
@@ -354,7 +357,7 @@ const fileManagerController = {
 			await folder.save();
 
 			fs.renameSync(currentFolderPath, newFolderPath);
-
+			await trackUserActivity(userId, 'Your folder has been updated successfully!');
 			return res.status(200).json({ status: true, message: 'Folder updated successfully', data: folder });
 		} catch (error) {
 			// Log and handle error
@@ -395,7 +398,7 @@ const fileManagerController = {
 			});
 
 			await newFile.save();
-
+			await trackUserActivity(userId, 'Your file has been uploaded successfully!');
 			return res.status(201).json({ status: true, message: 'File uploaded successfully', data: newFile });
 		} catch (error) {
 			console.log(error, 'here error');
@@ -485,7 +488,7 @@ const fileManagerController = {
 			file.filePath = updatedPath;
 
 			await file.save();
-
+			await trackUserActivity(file.createdBy, 'Your File has been renamed successfully!');
 			return res.status(200).json({ status: true, message: 'File renamed successfully', data: file });
 		} catch (error) {
 			errorLogger(error);
@@ -518,7 +521,7 @@ const fileManagerController = {
 					data.push(recycledFile);
 				}
 			}
-
+			await trackUserActivity(userId, 'Your recycled files and folders have been retrieved successfully!');
 			return res.status(200).json({
 				status: true,
 				message: 'Recycled files and folders retrieved successfully',
@@ -541,7 +544,10 @@ const fileManagerController = {
 
 			// Recover the folder
 			await recoverFolderAndSubfolders(folderId);
-
+			await trackUserActivity(
+				folder.createdBy,
+				'Your folder and its subfolders have been recovered successfully!'
+			);
 			return res
 				.status(200)
 				.json({ status: true, message: 'Folder and its subfolders recovered successfully', data: folder });
@@ -576,7 +582,7 @@ const fileManagerController = {
 
 			// Recursively delete subfolders
 			await deleteSubfolders(folderId, userId, currentTime);
-
+			await trackUserActivity(userId, 'Your folder and its subfolders have been deleted successfully!');
 			return res
 				.status(200)
 				.json({ status: true, message: 'Folder and its subfolders deleted successfully', data: folder });
@@ -600,7 +606,7 @@ const fileManagerController = {
 			file.deletedBy = userId;
 			file.deletedAt = currentTime;
 			await file.save();
-
+			await trackUserActivity(userId, 'Your File have been deleted successfully!');
 			return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
 		} catch (error) {
 			// Log and handle error
@@ -699,7 +705,7 @@ const fileManagerController = {
 			file.status = 'active';
 			file.deletedBy = null;
 			await file.save();
-
+			await trackUserActivity(file.createdBy, 'Your File have been deleted successfully!');
 			return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
 		} catch (error) {
 			// Log and handle error
@@ -833,7 +839,7 @@ const fileManagerController = {
 
 			// Remove the folder from the database
 			await FileManagerFolder.findByIdAndDelete(fileId);
-
+			await trackUserActivity(folder.createdBy, 'Your File have been deleted successfully!');
 			return res
 				.status(200)
 				.json({ status: true, message: 'Folder permanently deleted successfully', data: folder });
@@ -898,6 +904,7 @@ const fileManagerController = {
 			}
 
 			archive.finalize();
+			await trackUserActivity(folder.createdBy, 'Your Folder have been downloaded successfully!');
 		} catch (error) {
 			console.error('Error fetching folder contents:', error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });

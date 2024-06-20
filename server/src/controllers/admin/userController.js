@@ -22,7 +22,8 @@ const userController = {
 			const users = await Users.find({
 				status: { $in: ['active', 'inactive'] },
 				role: { $ne: 'admin' }
-			}).sort({ _id: -1 })
+			})
+				.sort({ _id: -1 })
 				.populate('departmentId', 'departmentName');
 
 			res.status(200).json({ status: true, data: users });
@@ -119,7 +120,7 @@ const userController = {
 			await Users.updateOne({ _id: userId }, { status });
 			res.status(200).json({
 				status: true,
-				message: 'User status updated successfully',
+				message: 'User status updated successfully'
 			});
 		} catch (error) {
 			errorLogger(error);

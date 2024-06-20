@@ -29,6 +29,8 @@ async function getAdminEmailByRole(modelName) {
 }
 
 const trackUserActivity = async (userId, message) => {
+	console.log(userId, 'userId');
+	console.log(message, 'message');
 	try {
 		const activity = new userActivity({
 			userId: userId,

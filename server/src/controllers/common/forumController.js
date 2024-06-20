@@ -6,6 +6,7 @@ const errorLogger = require('../../../logger');
 const { createUpload } = require('../../utils/multerConfig');
 const { getAdminDataByRole, trackUserActivity } = require('../../common/functions');
 const unlinkImage = require('../../utils/unlinkImage');
+const { createNotification } = require('../../common/notifications');
 
 const invoiceController = {
 	addUpdateForumData: async (req, res) => {
@@ -39,6 +40,14 @@ const invoiceController = {
 						await forum.save();
 					}
 					const adminId = await getAdminDataByRole('users');
+					const NotificationData = {
+						notification: `Forum data updated by admin`,
+						notifyBy: req.body.userId,
+						notifyTo: req.body.userId,
+						type: 'Forum',
+						url: ''
+					};
+					createNotification(NotificationData);
 					await trackUserActivity(adminId, 'Forum data updated by admin');
 					res.status(200).json({ status: true, message: 'Forum data updated successfully', forum });
 				} catch (error) {
