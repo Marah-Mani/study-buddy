@@ -146,7 +146,6 @@ const settingController = {
 			);
 			const adminId = await getAdminDataByRole('users');
 			await trackUserActivity(adminId, 'Payment details updated by admin');
-			console.log(adminSettings, '++++');
 			res.status(200).json({ status: true, message: 'Payment details updated successfully', adminSettings });
 		} catch (error) {
 			errorLogger(error);

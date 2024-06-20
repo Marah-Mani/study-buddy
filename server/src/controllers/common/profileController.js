@@ -6,6 +6,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const errorLogger = require('../../../logger');
 const bcrypt = require('bcrypt');
 const { createNotification } = require('../../common/notifications');
+const { trackUserActivity } = require('../../common/functions');
 
 const profileController = {
 	storeCardDetail: catchErrors(async (req, res) => {
@@ -96,15 +97,15 @@ const profileController = {
 				type: 'profile_update',
 				url: `/en/user/edit-profile` // Optional URL to include in the notification
 			};
-
 			createNotification(userNotificationData);
+			await trackUserActivity(user._id, `Your password has been update successfully`);
 
 			res.json({ message: 'Password updated successfully', status: true });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ message: 'Internal Server Error' });
 		}
-	},
+	}
 };
 
 module.exports = profileController;

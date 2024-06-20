@@ -3,6 +3,7 @@ const Product = require('../../models/product');
 const Forums = require('../../models/forums');
 const stickyMessage = require('../../models/stickyMessage');
 const errorLogger = require('../../../logger');
+const { trackUserActivity } = require('../../common/functions');
 
 const dashboardController = {
 
@@ -15,6 +16,7 @@ const dashboardController = {
             }
             const newUser = new stickyMessage(req.body);
             await newUser.save();
+            await trackUserActivity(newUser.userId, 'Your sticky note has been saved successfully!');
             return res.status(201).json({ status: true, message: 'Sticky note saved successfully', data: newUser });
         } catch (error) {
             errorLogger(error);
@@ -25,7 +27,8 @@ const dashboardController = {
     deleteStickyNote: async (req, res) => {
         try {
             const id = req.body._id;
-            await stickyMessage.findByIdAndDelete(id)
+            await stickyMessage.findByIdAndDelete(id);
+            await trackUserActivity(id, 'Your sticky note has been deleted successfully!');
             res.status(200).json({ status: true, message: 'Sticky note deleted successfully' });
         } catch (error) {
             errorLogger(error);
