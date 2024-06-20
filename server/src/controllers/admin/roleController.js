@@ -1,5 +1,6 @@
 const Role = require('../../models/roles');
 const logError = require('../../../logger');
+const { trackUserActivity } = require('../../common/functions');
 
 const roleController = {
 	allRoles: async (req, res) => {
@@ -45,11 +46,12 @@ const roleController = {
 					Object.assign(existingRole, roleData);
 					existingRole.updatedBy = req.body.userId;
 					await existingRole.save();
-
+					await trackUserActivity(req.body.userId, 'Your Role has been updates successfully');
 					res.status(200).json({ status: true, message: 'Role updated successfully' });
 				} else {
 					const newRole = new Role(roleData);
 					await newRole.save();
+					await trackUserActivity(req.body.userId, 'Your Role has been added successfully');
 					res.status(200).json({ status: true, message: 'Role added successfully' });
 				}
 			} catch (error) {
@@ -69,6 +71,7 @@ const roleController = {
 			if (deletedRole.deletedCount === 0) {
 				return res.status(404).json({ message: 'Role not found', status: false });
 			}
+			await trackUserActivity(req.body.userId, 'Your Role has been deleted successfully');
 			res.json({ message: 'Role has been deleted successfully', status: true });
 		} catch (error) {
 			logError(error);
