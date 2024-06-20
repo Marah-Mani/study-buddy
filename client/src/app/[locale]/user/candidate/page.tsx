@@ -139,10 +139,10 @@ export default function Page() {
                     <div className='gapMarginTop'></div>
                     <div className='menuStyle'>
                         <Row gutter={[16, 16]} align='middle'>
-                            <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+                            <Col xs={24} sm={24} md={4} lg={4} xl={6} xxl={8}>
                                 <ParaText size='small' color='PrimaryColor' fontWeightBold={600}> <strong>{AllCandidates.length}</strong>{user?.interestedIn === "student" ? " Tutor" : " student"}</ParaText>
                             </Col>
-                            <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+                            <Col xs={24} sm={24} md={20} lg={20} xl={18} xxl={16}>
                                 <div className='floatRight'>
                                     <Space wrap>
                                         <Dropdown overlay={
@@ -173,7 +173,7 @@ export default function Page() {
 
                                             </Menu>
                                         }>
-                                            <Button style={{ width: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <Button style={{ width: '250px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '0px' }}>
                                                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                                     {selectedSubject ? capitalizeFirstLetterOfEachWord(selectedSubject) : 'Select subject'}
                                                 </span>
@@ -182,7 +182,7 @@ export default function Page() {
                                         </Dropdown>
                                         <Input.Search
                                             placeholder="Search with name"
-                                            style={{ width: '100%' }}
+                                            style={{ width: '100%', borderRadius: '0px' }}
                                             value={searchQuery}
                                             onChange={handleInputChange}
                                             enterButton={
@@ -209,14 +209,14 @@ export default function Page() {
                                     <Row gutter={[16, 16]}>
                                         <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
                                             <Row align='middle'>
-                                                <Col xs={6} sm={3} md={6} lg={3} xl={3} xxl={3} className=''>
+                                                <Col xs={6} sm={3} md={6} lg={4} xl={4} xxl={3} className=''>
                                                     <Image src={
                                                         item?.image
                                                             ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item?.image}`
                                                             : `/images/avatar.png`
                                                     } width={50} height={50} alt='user' style={{ borderRadius: '50px' }} />
                                                 </Col>
-                                                <Col xs={18} sm={21} md={18} lg={21} xl={21} xxl={21}>
+                                                <Col xs={18} sm={21} md={18} lg={20} xl={20} xxl={21}>
                                                     <Flex align='center'>
                                                         <ParaText size="small" color='PrimaryColor' className="dBlock" fontWeightBold={600}>
                                                             {`${item?.name} `}

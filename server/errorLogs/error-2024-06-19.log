@@ -1,0 +1,2 @@
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-19T13:10:55.626Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-19T13:10:56.086Z"}
