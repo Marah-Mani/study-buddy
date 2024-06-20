@@ -81,7 +81,7 @@ app.get('/', async (req, res) => {
 	res.send('Welcome to the Api');
 });
 
-app.post('/api/upload', protect, fileController.uploadFile);
+app.post('/api/chat/upload', protect, fileController.uploadFile);
 
 app.use('/images', express.static(path.join(__dirname, 'src', 'storage')));
 

@@ -88,89 +88,93 @@ const Login = () => {
 
 	return (
 
-		<div className='login'>
-			<div className='heading'>
-				<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>
-			</div>
-			<Form
-				name="normal_login"
-				className="login-form"
-				initialValues={{ remember: true }}
-				onFinish={onFinish}
-				form={form}
-				style={{ paddingTop: '20px' }}
-			>
-				<Form.Item name="email" rules={[
-					{
-						required: true, message: 'Please input your Email!'
-					},
-					{
-						type: 'email',
-						message: 'The input is not a valid email!',
-					}, { validator: validateEmail }
-				]}>
-					<Input
-						prefix={<UserOutlined className="site-form-item-icon" />} style={{ height: "40px" }} type={'email'} placeholder="Email" maxLength={30} />
-				</Form.Item>
-				<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
-					<Input.Password
-						prefix={<LockOutlined className="site-form-item-icon" />}
-						type="password"
-						placeholder="Password"
-						style={{ height: "40px" }}
-						maxLength={15}
-					/>
-				</Form.Item>
-				<Form.Item>
-					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
-						{loading ? 'Please wait...' : 'Log in'}
-					</Button>
-
-				</Form.Item>
-				<Col lg={12} md={12} sm={12} xs={24}>
-					<Form.Item name="remember" valuePropName="checked" style={{ marginBottom: 0 }}>
-						<Checkbox>Remember me</Checkbox>
-					</Form.Item>
-				</Col>
-				<Form.Item>
-					<div style={{ textAlign: 'center', marginBottom: '20px' }}>Or</div>
-
-					<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
-						<Button
-							// type="primary"
-							style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
-							icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
-							onClick={handleGoogleLogin}
-						>
-							Google
-						</Button>
-						<Button
-							// type="primary"
-							style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
-							icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
-							onClick={handleFacebookLogin}
-						>
-							Facebook
-						</Button>
+		<>
+			<div className='loginMain'>
+				<div className='login'>
+					<div className='heading'>
+						<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>
 					</div>
-				</Form.Item>
-			</Form>
-			<div style={{ textAlign: 'center', marginTop: '20px' }}>
-				<span>
-					Not registered?{' '}
-					<Link href="/en/register" passHref>
-						<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Register here</ParaText></Link>
-				</span>
+					<Form
+						name="normal_login"
+						className="login-form"
+						initialValues={{ remember: true }}
+						onFinish={onFinish}
+						form={form}
+						style={{ paddingTop: '20px' }}
+					>
+						<Form.Item name="email" rules={[
+							{
+								required: true, message: 'Please input your Email!'
+							},
+							{
+								type: 'email',
+								message: 'The input is not a valid email!',
+							}, { validator: validateEmail }
+						]}>
+							<Input
+								prefix={<UserOutlined className="site-form-item-icon" />} style={{ height: "40px" }} type={'email'} placeholder="Email" maxLength={30} />
+						</Form.Item>
+						<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+							<Input.Password
+								prefix={<LockOutlined className="site-form-item-icon" />}
+								type="password"
+								placeholder="Password"
+								style={{ height: "40px" }}
+								maxLength={15}
+							/>
+						</Form.Item>
+						<Form.Item>
+							<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
+								{loading ? 'Please wait...' : 'Log in'}
+							</Button>
+
+						</Form.Item>
+						<Col lg={12} md={12} sm={12} xs={24}>
+							<Form.Item name="remember" valuePropName="checked" style={{ marginBottom: 0 }}>
+								<Checkbox>Remember me</Checkbox>
+							</Form.Item>
+						</Col>
+						<Form.Item>
+							<div style={{ textAlign: 'center', marginBottom: '20px' }}>Or</div>
+
+							<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
+								<Button
+									// type="primary"
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
+									onClick={handleGoogleLogin}
+								>
+									Google
+								</Button>
+								<Button
+									// type="primary"
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
+									onClick={handleFacebookLogin}
+								>
+									Facebook
+								</Button>
+							</div>
+						</Form.Item>
+					</Form>
+					<div style={{ textAlign: 'center', marginTop: '20px' }}>
+						<span>
+							Not registered?{' '}
+							<Link href="/en/register" passHref>
+								<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Register here</ParaText></Link>
+						</span>
+					</div>
+					<div style={{ textAlign: 'center', marginTop: '20px' }}>
+						<span>
+							Forgot Password?{' '}
+							<Link href="/en/forgot-password" passHref>
+								<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Click here</ParaText>
+							</Link>
+						</span>
+					</div>
+				</div>
 			</div>
-			<div style={{ textAlign: 'center', marginTop: '20px' }}>
-				<span>
-					Forgot Password?{' '}
-					<Link href="/en/forgot-password" passHref>
-						<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Click here</ParaText>
-					</Link>
-				</span>
-			</div>
-		</div>
+		</>
 	);
 };
 

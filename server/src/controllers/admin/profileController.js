@@ -3,10 +3,10 @@ const errorLogger = require('../../../logger');
 const { createUpload } = require('../../utils/multerConfig');
 const bcrypt = require('bcrypt');
 const { createNotification } = require('../../common/notifications');
+const { trackUserActivity } = require('../../common/functions');
 
 const profileController = {
 	updateProfileDetails: async (req, res) => {
-
 		try {
 			const upload = createUpload('userImage');
 			await upload.single('image')(req, res, async (err) => {
@@ -37,9 +37,12 @@ const profileController = {
 							url: '/admin/edit-profile'
 						};
 						createNotification(AdminNotificationData);
-						return res
-							.status(200)
-							.json({ status: true, message: 'Profile has been updated successfully', brand: existingUser });
+						await trackUserActivity(req.body.userId, 'Your profile has been updates successfully');
+						return res.status(200).json({
+							status: true,
+							message: 'Profile has been updated successfully',
+							brand: existingUser
+						});
 					} catch (error) {
 						errorLogger('Error updating brand:', error);
 						return res.status(500).json({ status: false, message: 'Internal Server Error' });
@@ -86,7 +89,7 @@ const profileController = {
 			};
 
 			createNotification(userNotificationData);
-
+			await trackUserActivity(req.body.userId, 'Your password has been updates successfully');
 			res.json({ message: 'Password updated successfully', status: true });
 		} catch (error) {
 			errorLogger(error);

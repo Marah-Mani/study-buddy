@@ -1,5 +1,5 @@
 .menuStyle {
-  padding: 15px;
+  padding: 4px 0px;
   width: 100%;
 }
 .menuStyle .ant-btn.ant-btn-default.ant-btn-compact-item.ant-btn-compact-first-item {
@@ -18,6 +18,12 @@ body.dark-mode .menuStyle .ant-btn-default {
   border-radius: 0px;
   box-shadow: none;
 }
+.floatRight .ant-btn-primary.ant-btn-icon-only.ant-input-search-button {
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .candidates {
   border-radius: 7px;
 }
@@ -28,6 +34,9 @@ body.dark-mode .menuStyle .ant-btn-default {
   border: 1px solid #f1f1f1;
   margin-bottom: 20px;
   position: relative;
+}
+.floatRight .ant-input-outlined {
+  border-radius: 0px;
 }
 
 body.dark-mode .candidates-details {

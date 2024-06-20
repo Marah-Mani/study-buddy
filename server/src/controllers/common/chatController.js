@@ -5,6 +5,7 @@ const User = require('../../models/Users');
 const asyncHandler = require('express-async-handler');
 const StickyMessage = require('../../models/stickyMessage');
 const File = require('../../models/File');
+const { getAdminDataByRole } = require('../../common/functions');
 
 const chatController = {
 	accessChat: asyncHandler(async (req, res) => {
@@ -103,6 +104,11 @@ const chatController = {
 		}
 
 		var users = JSON.parse(req.body.users);
+
+		if (req.body.type == 'marketChat') {
+			const adminId = await getAdminDataByRole('users');
+			users.push(adminId);
+		}
 
 		if (users.length < 2) {
 			return res.status(400).send('More than 2 users are required to form a group chat');
