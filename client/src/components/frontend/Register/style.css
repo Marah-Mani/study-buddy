@@ -1,10 +1,13 @@
-.register {
-  max-width: 500px;
-  margin: 8% auto;
+.registerMain {
+  padding: 7% 17%;
+}
+.login {
+  max-width: 600px;
   border-radius: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   background-color: #fff;
-  padding: 5% 5% 3% 5%;
+  padding: 5% 5% 5% 5%;
+  margin: 0 auto;
 }
 .heading {
   text-align: center;
@@ -38,12 +41,12 @@
 }
 
 @media (max-width: 991px) {
-  @media (max-width: 991px) {
-    .register {
-      padding: 2% 2% 2% 2%;
-      margin: 10% 15px;
-      max-width: 100%;
-      height: auto;
-    }
+  .login {
+    padding: 5%;
+    max-width: 100%;
+    height: auto;
+  }
+  .registerMain {
+    padding: 4%;
   }
 }

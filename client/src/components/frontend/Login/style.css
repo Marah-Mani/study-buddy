@@ -1,11 +1,13 @@
+.loginMain {
+  padding: 20% 17%;
+}
 .login {
   max-width: 500px;
-  margin: 18% auto;
   border-radius: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   background-color: #fff;
-  padding: 5% 5% 0% 5%;
-  height: 64vh;
+  padding: 5% 5% 5% 5%;
+  margin: 0 auto;
 }
 .heading {
   text-align: center;
@@ -40,9 +42,11 @@
 
 @media (max-width: 991px) {
   .login {
-    padding: 2% 2% 2% 2%;
-    margin: 10% 15px;
+    padding: 5%;
     max-width: 100%;
     height: auto;
+  }
+  .loginMain {
+    padding: 4%;
   }
 }
