@@ -339,7 +339,7 @@ export default function SingleForum({ forumData }: Props) {
                                  {/* COMMENT MESSAGE */}
                                  <div className='descriptionMargin'>
                                     <div dangerouslySetInnerHTML={{ __html: comment?.message }}></div>
-                                    <Button onClick={() => deleteUserComments(comment._id)}>Delete</Button>
+                                    {/* <Button onClick={() => deleteUserComments(comment._id)}>Delete</Button> */}
 
                                     <div className="smallTopMargin"></div>
                                     <div style={{ display: 'flex', gap: '10px' }}>

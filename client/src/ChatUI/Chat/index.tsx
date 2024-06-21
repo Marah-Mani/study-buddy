@@ -41,6 +41,7 @@ import CreateTodoModal from '@/components/CreateTodoModal';
 import { deleteTodo, getAllTodo } from '@/lib/commonApi';
 import Filter from 'bad-words'
 import { bannedWords, getSender, getSenderFull } from '@/lib/chatLogics';
+import { validationRules } from '@/lib/validations';
 
 const { TextArea } = Input;
 interface DataType {
@@ -372,7 +373,10 @@ export default function Chat() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
+    const maxLength = validationRules.chatInput.maxLength
+
     const typingHandler = (value: string) => {
+        if (value.length > maxLength) return;
         setNewMessage(value);
         if (!socketConnected) return;
 

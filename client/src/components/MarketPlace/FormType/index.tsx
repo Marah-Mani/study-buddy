@@ -302,6 +302,11 @@ export default function FormType({ onSuccess, editData }: Props) {
                         >
                             <Input.TextArea
                                 rows={3}
+                                showCount
+                                maxLength={
+                                    validationRules.textLongLength.maxLength
+                                }
+                                placeholder="Enter description"
                             />
                         </Form.Item>
                     </Col>
