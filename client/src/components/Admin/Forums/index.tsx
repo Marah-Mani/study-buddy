@@ -172,23 +172,6 @@ export default function Forums({ activeKey }: Props) {
 
     return (
         <>
-            <div className='gapMarginTopTwo'></div>
-            <Row>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
-                        Forums
-                    </ParaText>
-                </Col>
-
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
-                    <Space wrap className="floatEnd">
-                        <Input type='search' placeholder='search' value={searchQuery} onChange={HandleSearch} style={{ height: '40px' }} />
-                        <Button icon={<FaPlus />} type={'primary'} onClick={handleItems} style={{ height: '40px' }}>
-                            Add Item
-                        </Button>
-                    </Space>
-                </Col>
-            </Row >
             <div className='gapMarginTopOne'></div>
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>

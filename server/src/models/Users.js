@@ -65,11 +65,11 @@ const userSchema = new mongoose.Schema({
 		taxNumber: { type: String, default: null }
 	},
 	socialLinks: {
-		twitter: { type: String, default: null },
-		facebook: { type: String, default: null },
-		linkedin: { type: String, default: null },
-		instagram: { type: String, default: null },
-		website: { type: String, default: null }
+		twitter: { type: String, default: '' },
+		facebook: { type: String, default: '' },
+		linkedin: { type: String, default: '' },
+		instagram: { type: String, default: '' },
+		website: { type: String, default: '' }
 	},
 	metaTitle: { type: String, default: null },
 	metaDescription: { type: String, default: null },

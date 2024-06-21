@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './style.css'
 import { Col, Divider, Drawer, Image, Row, Badge, Avatar, Button } from 'antd';
 import { FaRegBell } from 'react-icons/fa6';
@@ -17,17 +17,15 @@ import { getHeaderMenus } from '@/lib/frontendApi';
 import { CiDark } from 'react-icons/ci';
 import { MdDarkMode } from 'react-icons/md';
 import { IoMenuSharp } from "react-icons/io5";
-import { IoIosClose } from "react-icons/io";
 import MenuUserMobile from '../MenuUserMobile';
 import MenuAdminMobile from '../MenuAdminMobile';
+
 export default function TopBar() {
-	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [showNotificationBell, setShowNotificationBell] = useState(false);
 	const { user } = useContext(AuthContext);
 	const [notificationData, setNotificationData] = useState<any[]>([]);
 	const [latestBell, setLatestBell]: any = useState('');
 	const [headerMenu, setHeaderMenu] = useState<any>([])
-	const [pageTitle, setPageTitle] = useState('');
 	const pathName = usePathname();
 
 	const router = useRouter();
@@ -38,11 +36,6 @@ export default function TopBar() {
 		}
 		setShowNotificationBell(true);
 	};
-	// const handleWindowClick = (event: any) => {
-	// 	if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-	// 		setShowNotificationBell(false);
-	// 	}
-	// };
 
 	useEffect(() => {
 		fetchAllNotifications();
@@ -74,23 +67,11 @@ export default function TopBar() {
 		} catch (error) { }
 	};
 
-	// useEffect(() => {
-	// 	window.addEventListener('click', handleWindowClick);
-	// 	return () => {
-	// 		window.removeEventListener('click', handleWindowClick);
-	// 	};
-	// }, [user]);
 	const handleDashboardHeading = () => {
 		const pathSegments = pathName.split('/');
 		let specificPath: string | undefined = pathSegments.pop();
 		if (specificPath && /\d+/.test(specificPath)) {
 			specificPath = pathSegments.pop();
-		}
-		if (specificPath) {
-			const specificPathWithSpace = specificPath.replace(/-/g, ' ');
-			setPageTitle(specificPathWithSpace);
-		} else {
-			setPageTitle('');
 		}
 	};
 
@@ -127,22 +108,6 @@ export default function TopBar() {
 		}
 	};
 
-	const handleReadStatus = async (notification: any) => {
-		try {
-			const data = {
-				userId: user?._id,
-				isRead: 'yes'
-			};
-			const res = await updateReadStatus(data);
-			if (res.success === true) {
-				setShowNotificationBell(false);
-				router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${notification.url}`);
-			}
-		} catch (error) {
-			console.log(error)
-			ErrorHandler.showNotification(error);
-		}
-	};
 	const [darkMode, setDarkMode] = useState(false);
 
 	const handleToggle = () => {
@@ -157,10 +122,6 @@ export default function TopBar() {
 		}
 	}, [darkMode]);
 
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const toggleMenu = () => {
-		setIsMenuOpen(!isMenuOpen);
-	};
 	const [open, setOpen] = useState(false);
 
 	const showDrawer = () => {
@@ -177,9 +138,16 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<ParaText size="small" color="PrimaryColor" fontWeightBold={600}>
-								Study Buddy
-							</ParaText>
+							<div style={{
+								width
+									: '50%'
+							}}>
+								<Image
+									src={'/home/logo.png'}
+									alt="logo"
+									preview={false}
+								/>
+							</div>
 						</Link>
 					</Col>
 					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
@@ -266,15 +234,6 @@ export default function TopBar() {
 																		/>
 																	</div>
 																) : (
-																	// <div className={styles['imageProfile']}>
-																	// 	<small
-																	// 		title={notification?.notifyBy?.name}
-																	// 		className={styles['notification_name']}
-																	// 	>
-																	// 		{notification?.notifyBy?.name}
-																	// 	</small>
-																	// </div>
-
 																	<Avatar size={44} icon={<UserOutlined />} />
 																)}
 															</Col>
