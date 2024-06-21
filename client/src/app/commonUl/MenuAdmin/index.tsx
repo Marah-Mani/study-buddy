@@ -78,6 +78,14 @@ export default function MenuAdmin() {
 		),
 
 		getItem(
+			'Q&A',
+			'9',
+			<Link href="/en/admin/question-answer">
+				<IoDocumentText />
+			</Link>
+		),
+
+		getItem(
 			'Market Place',
 			'4',
 			<Link href="/en/admin/market-place">
@@ -100,7 +108,7 @@ export default function MenuAdmin() {
 		),
 		getItem(
 			'Logout',
-			'7',
+			'8',
 			<Link onClick={handleLogout} href='#'>
 				<AiOutlineProfile />
 			</Link>
@@ -132,6 +140,9 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/chat':
 				setDefaultSelectedKey('7');
+				break;
+			case pathname === '/en/admin/question-answer':
+				setDefaultSelectedKey('9');
 				break;
 			default:
 				// if (!defaultSelectedKey) {

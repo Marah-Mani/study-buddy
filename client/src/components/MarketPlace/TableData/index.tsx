@@ -27,6 +27,7 @@ interface Props {
 export default function TableData({ reload, onEdit, searchInput }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (user) fetchData();
@@ -34,6 +35,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
 
     const fetchData = async () => {
         try {
+            setLoading(true);
             const searchObject = {
                 search: searchInput,
                 userId: user?._id
@@ -43,15 +45,18 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 const res = await getUserProducts(searchObject);
                 if (res.status == true) {
                     setAllProducts(res.data.products);
+                    setLoading(false);
                 }
             } else {
                 const res = await getAllProducts(searchInput);
                 if (res.status == true) {
                     setAllProducts(res.data);
+                    setLoading(false);
                 }
             }
 
         } catch (error) {
+            setLoading(false);
             ErrorHandler.showNotification(error);
         }
     }
@@ -177,6 +182,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 bordered
                 dataSource={data}
                 scroll={{ x: 1500 }}
+                loading={loading}
             />
         </div>
     );

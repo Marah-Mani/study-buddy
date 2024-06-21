@@ -21,6 +21,10 @@ export const validationRules = {
         maxLength: 10000,
         minLength: 10,
     },
+    chatInput: {
+        maxLength: 2000,
+        minLength: 10,
+    },
     phoneNumber: {
         maxLength: 15,
         pattern: /^\+?[0-9]{1,4}?[-. ]?\(?(?:[0-9]{1,3})\)?[-. ]?[0-9]{1,4}[-. ]?[0-9]{1,4}$/

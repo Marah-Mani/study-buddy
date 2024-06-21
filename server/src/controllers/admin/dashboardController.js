@@ -50,13 +50,26 @@ const dashboardController = {
 
     getDashboardData: async (req, res) => {
         try {
-            const totalStudentCount = await User.countDocuments({ interestedIn: 'student', status: 'active' });
-            const totalTutorCount = await User.countDocuments({
-                interestedIn: 'tutor', status: 'active'
-            });
-            const totalUsers = await User.countDocuments({ role: 'user', status: 'active' })
-            const totalProduct = await Product.countDocuments({ status: 'active' })
-            const totalForums = await Forums.countDocuments()
+            // Execute all database queries in parallel
+            const [
+                totalStudentCount,
+                totalTutorCount,
+                totalUsers,
+                totalProduct,
+                totalForums,
+                latestForums,
+                latestProducts,
+                latestUsers
+            ] = await Promise.all([
+                User.countDocuments({ interestedIn: 'student', status: 'active' }),
+                User.countDocuments({ interestedIn: 'tutor', status: 'active' }),
+                User.countDocuments({ role: 'user', status: 'active' }),
+                Product.countDocuments({ status: 'active' }),
+                Forums.countDocuments(),
+                Forums.find().select('title createdAt slug').limit(10).sort({ createdAt: -1 }),
+                Product.find().limit(10).sort({ createdAt: -1 }).populate('createdBy', 'name'),
+                User.find().select('name image email phoneNumber createdAt').limit(10).sort({ createdAt: -1 })
+            ]);
 
             const data = {
                 totalStudentCount,
@@ -64,13 +77,18 @@ const dashboardController = {
                 totalUsers,
                 totalProduct,
                 totalForums,
-            }
-            res.status(200).json({ status: true, data: data });
+                latestForums,
+                latestProducts,
+                latestUsers
+            };
+
+            res.status(200).json({ status: true, data });
         } catch (error) {
             errorLogger(error);
             res.status(500).json({ status: false, message: 'Internal Server Error' });
         }
     }
+
 };
 
 module.exports = dashboardController;
