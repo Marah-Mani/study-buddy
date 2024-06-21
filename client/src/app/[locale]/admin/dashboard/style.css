@@ -1,10 +1,10 @@
 .dashBody {
-  padding: 55px 0px;
+  padding: 55px 10px;
 }
 
 @media (max-width: 991px) {
   .dashBody {
-    padding: 0px 0px;
+    padding: 10px 10px;
   }
 }
 
@@ -17,73 +17,60 @@
 
 .userTotal {
   background-color: rgb(132 90 223);
-  padding: 6px;
   border-radius: 50%;
-  width: 20%;
+  width: 35px;
   margin: auto;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.userCard .ant-card.ant-card-bordered {
+.userTotal.userCard {
   border-top: 2px solid rgb(132 90 223);
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.studentTotal {
+.userTotal.studentTotal {
   background-color: rgb(35 183 229);
-  padding: 6px;
-  border-radius: 50%;
-  width: 20%;
-  margin: auto;
 }
 
-.studentCard .ant-card.ant-card-bordered {
+.userTotal.studentCard {
   border-top: 2px solid rgb(35 183 229);
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.totalCount {
+.userTotal.totalCount {
   background-color: rgb(38 191 148);
-  padding: 6px;
-  border-radius: 50%;
-  width: 20%;
-  margin: auto;
 }
 
-.totalCard .ant-card.ant-card-bordered {
+.userTotal.totalCard .ant-card.ant-card-bordered {
   border-top: 2px solid rgb(38 191 148);
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.productTotal {
+.userTotal.productTotal {
   background-color: rgb(245 184 73);
-  padding: 6px;
-  border-radius: 50%;
-  width: 15%;
-  margin: auto;
 }
 
-.totalProduct .ant-card.ant-card-bordered {
+.userTotal.totalProduct .ant-card.ant-card-bordered {
   border-top: 2px solid rgb(245 184 73);
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.forumTotal {
+.userTotal.forumTotal {
   background-color: rgb(230 83 60);
-  padding: 6px;
-  border-radius: 50%;
-  width: 15%;
-  margin: auto;
 }
 
-.totalForum .ant-card.ant-card-bordered {
+.userTotal.totalForum .ant-card.ant-card-bordered {
   border-top: 2px solid rgb(230 83 60);
   background: #fff;
   border-radius: 8px;

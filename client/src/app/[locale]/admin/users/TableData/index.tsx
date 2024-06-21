@@ -30,6 +30,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
     const [editData, setEditData] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -37,11 +38,14 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
 
     const fetchData = async () => {
         try {
+            setLoading(true);
             const res = await getAllUsers(searchInput);
             if (res.status === true) {
                 setAllProducts(res.data);
+                setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             ErrorHandler.showNotification(error);
         }
     };
@@ -174,6 +178,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 columns={columns}
                 bordered
                 dataSource={data}
+                loading={loading}
             />
             <Drawer title={'Edit User'} onClose={onClose} open={open} width={600}>
                 <EditUser editData={editData} onReload={handleReload} />
