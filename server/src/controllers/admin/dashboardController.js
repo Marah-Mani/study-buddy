@@ -63,7 +63,7 @@ const dashboardController = {
             ] = await Promise.all([
                 User.countDocuments({ interestedIn: 'student', status: 'active' }),
                 User.countDocuments({ interestedIn: 'tutor', status: 'active' }),
-                User.countDocuments({ role: 'user', status: 'active' }),
+                User.countDocuments({ role: { $ne: 'admin' }, status: 'active' }),
                 Product.countDocuments({ status: 'active' }),
                 Forums.countDocuments(),
                 Forums.find().select('title createdAt slug').limit(10).sort({ createdAt: -1 }),

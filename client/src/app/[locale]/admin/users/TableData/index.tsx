@@ -75,10 +75,6 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             dataIndex: 'email',
         },
         {
-            title: 'Phone No.',
-            dataIndex: 'phoneNumber',
-        },
-        {
             title: 'Department',
             dataIndex: 'department',
         },
@@ -147,9 +143,9 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             <Image
                 src={data?.image ?
                     `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${data?.image}`
-                    : `/images/avatar.png`} width={50} height={50} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span></Space>,
+                    : `/images/avatar.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
+        </Space>,
         email: data.email,
-        phoneNumber: data.phoneNumber,
         department: data.departmentId?.departmentName,
         interestedIn: <TextCapitalize text={data.interestedIn} />,
         gender: <TextCapitalize text={data.gender} />,
