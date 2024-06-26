@@ -1,0 +1,104 @@
+.bannerImages {
+  background-size: cover;
+  background-image: url(/images/3.jpg);
+  background-position: center center;
+  height: 80vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+.textSection {
+  padding: 15% 5%;
+  max-width: 800px;
+}
+
+/* CSS */
+.button-67 {
+  background: #ab9248;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  max-width: 30%;
+  display: block;
+  font-size: 1rem;
+  margin-top: 4%;
+  padding: 15px;
+}
+
+/* InnerBanner Section */
+.innerBanner {
+  padding: 6% 0px;
+}
+.progress_bar-Section {
+  padding: 6% 10%;
+}
+.progress_bar .pro-bar {
+  background: hsl(0, 0%, 97%);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.1) inset;
+  height: 4px;
+  margin-bottom: 12px;
+  margin-top: 50px;
+  position: relative;
+}
+.progress_bar .progress_bar_title {
+  color: hsl(218, 4%, 50%);
+  font-size: 15px;
+  font-weight: 300;
+  position: relative;
+  top: -28px;
+  z-index: 1;
+}
+.progress_bar .progress_number {
+  float: right;
+}
+.progress_bar .progress-bar-inner {
+  background-color: hsl(0, 0%, 88%);
+  display: block;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 1s linear 0s;
+}
+.progress_bar .progress-bar-inner:before {
+  content: '';
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  position: absolute;
+  right: 1px;
+  top: 0;
+  z-index: 1;
+}
+.progress_bar .progress-bar-inner:after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background-color: inherit;
+  border-radius: 50%;
+  position: absolute;
+  right: -4px;
+  top: -5px;
+}
+
+/* innerBannerOne */
+@media (max-width: 767px) {
+  .button-67 {
+    max-width: 100%;
+  }
+  .textSection {
+    padding: 25% 5% 0%;
+    max-width: 800px;
+  }
+  .progress_bar-Section {
+    padding: 6% 0%;
+  }
+  .bannerImages {
+    height: 500px;
+    padding-bottom: 20px;
+  }
+}

@@ -131,7 +131,7 @@ export default function Brands() {
                 <Spin style={{ marginTop: '-20vh' }} />
             </div>
                 :
-                <div>
+                <div className='mainSection'>
                     <div className="smallTopMargin"></div>
                     <Form layout='vertical' form={form} size='large' onFinish={onfinish} className='ant-items-mar'>
                         <Row gutter={24}>
@@ -153,6 +153,7 @@ export default function Brands() {
                                             ]}
                                         >
                                             <Input
+                                                style={{ height: '35px' }}
                                                 placeholder='Enter name'
                                                 type='text' maxLength={30}
 
@@ -168,6 +169,7 @@ export default function Brands() {
                                             }]}
                                         >
                                             <Input
+                                                style={{ height: '35px' }}
                                                 placeholder='Enter email'
                                                 type='email' maxLength={50} disabled
 
@@ -190,7 +192,7 @@ export default function Brands() {
                                                 country={'il'}
                                                 value={phone}
                                                 onChange={handlePhoneChange}
-                                                inputStyle={{ width: '100%' }}
+                                                inputStyle={{ width: '100%', height: '35px' }}
                                             />
                                         </Form.Item>
                                     </Col>
@@ -224,14 +226,14 @@ export default function Brands() {
                                 <Row gutter={24}>
                                     <Col span={24}>
                                         <Form.Item name={'profileTitle'} label={'Profile Title'}>
-                                            <Input placeholder='Enter profile title' />
+                                            <Input placeholder='Enter profile title' style={{ height: '35px' }} />
                                         </Form.Item>
                                     </Col>
                                     <Col span={24}>
                                         <Form.Item name={'skills'} label={'Skills'}>
                                             <Select
                                                 mode="tags"
-                                                style={{ width: '100%' }}
+                                                style={{ width: '100%', height: '35px' }}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter skills"
                                             // options={options}
@@ -242,7 +244,7 @@ export default function Brands() {
                                         <Form.Item name={'languages'} label={'Languages'}>
                                             <Select
                                                 mode="tags"
-                                                style={{ width: '100%' }}
+                                                style={{ width: '100%', height: '35px' }}
                                                 tokenSeparators={[',']}
                                                 placeholder="Enter Languages"
                                             // options={options}
@@ -260,7 +262,7 @@ export default function Brands() {
                                                 }
                                             ]}
                                         >
-                                            <Select placeholder='Select your highest education level'>
+                                            <Select placeholder='Select your highest education level' style={{ height: '35px' }}>
                                                 <Select.Option value='none'>None</Select.Option>
                                                 <Select.Option value='high school'>High School</Select.Option>
                                                 <Select.Option value='associate degree'>Associate Degree</Select.Option>
@@ -291,6 +293,7 @@ export default function Brands() {
                                         >
                                             <Input
                                                 placeholder='Enter Facebook link'
+                                                style={{ height: '35px' }}
                                                 type='link'
                                                 maxLength={50}
                                                 suffix={<FaFacebook />}
@@ -313,6 +316,7 @@ export default function Brands() {
                                             ]}
                                         >
                                             <Input
+                                                style={{ height: '35px' }}
                                                 placeholder='Enter Twitter link'
                                                 type='link'
                                                 maxLength={50}
@@ -337,6 +341,7 @@ export default function Brands() {
                                             ]}
                                         >
                                             <Input
+                                                style={{ height: '35px' }}
                                                 placeholder='Enter LinkedIn link'
                                                 type='link'
                                                 maxLength={50}
@@ -361,6 +366,7 @@ export default function Brands() {
                                             ]}
                                         >
                                             <Input
+                                                style={{ height: '35px' }}
                                                 placeholder='Enter Instagram link'
                                                 type='link'
                                                 maxLength={50}

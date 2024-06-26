@@ -65,37 +65,44 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         {
             title: 'Image',
             dataIndex: 'image',
+            width: '10%',
         },
         {
             title: 'Title',
             dataIndex: 'title',
+            width: '50%',
         },
 
         {
             title: 'Category',
             dataIndex: 'category',
+            width: '10%',
         },
         {
             title: 'Sub-category',
             dataIndex: 'subCategory',
+            width: '10%',
         },
         {
             title: 'Price',
             dataIndex: 'price',
+            width: '10%',
         },
         {
             title: 'Discount Price',
             dataIndex: 'discountPrice',
+            width: '10%',
         },
         {
             title: 'Status',
             dataIndex: 'status',
+            width: '10%',
         },
         {
             title: 'Action',
             dataIndex: 'action',
             fixed: 'right',
-            width: 100,
+            width: '10%',
             render: (text, record) => (
                 <Space size="middle">
                     <span className='edit'>  <AiOutlineEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>

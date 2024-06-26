@@ -14,7 +14,24 @@
 		}
 	},
 	"deepscan.ignoreConfirmWarning": true,
-	"cSpell.words": ["contactus", "Efact", "Frofile", "Opene", "Rocketchat", "Successfull"],
+	"cSpell.words": [
+		"Admition",
+		"aliquip",
+		"cididunt",
+		"contactus",
+		"Efact",
+		"enim",
+		"Frofile",
+		"laboris",
+		"minime",
+		"nostrud",
+		"Opene",
+		"Rocketchat",
+		"Sorem",
+		"Successfull",
+		"temin",
+		"veniam"
+	],
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
