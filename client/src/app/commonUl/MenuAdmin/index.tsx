@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
-import { FaFileCircleCheck } from 'react-icons/fa6';
-import { AiOutlineProfile } from 'react-icons/ai';
+import { FaFileCircleCheck, FaProductHunt } from 'react-icons/fa6';
+import { UserOutlined, WechatOutlined, QuestionCircleOutlined, LogoutOutlined } from '@ant-design/icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -55,40 +55,17 @@ export default function MenuAdmin() {
 			</Link>
 		),
 		getItem(
-			'Chats',
-			'7',
-			<Link href="/en/admin/chat">
-				<IoDocumentText />
+			'Users',
+			'5',
+			<Link href="/en/admin/users">
+				<UserOutlined />
 			</Link>
 		),
-		getItem(
-			'Settings',
-			'2',
-			<Link href="/en/admin/settings">
-				<IoSettings />
-			</Link>
-		),
-
-		getItem(
-			'Forums',
-			'3',
-			<Link href="/en/admin/forums">
-				<IoDocumentText />
-			</Link>
-		),
-
 		getItem(
 			'Market Place',
 			'4',
 			<Link href="/en/admin/market-place">
-				<IoDocumentText />
-			</Link>
-		),
-		getItem(
-			'Users',
-			'5',
-			<Link href="/en/admin/users">
-				<IoDocumentText />
+				<FaProductHunt />
 			</Link>
 		),
 		getItem(
@@ -99,10 +76,32 @@ export default function MenuAdmin() {
 			</Link>
 		),
 		getItem(
-			'Logout',
+			'Forums',
+			'3',
+			<Link href="/en/admin/forums">
+				<QuestionCircleOutlined />
+			</Link>
+		),
+
+		getItem(
+			'Chats',
 			'7',
+			<Link href="/en/admin/chat">
+				<WechatOutlined />
+			</Link>
+		),
+		getItem(
+			'Settings',
+			'2',
+			<Link href="/en/admin/settings">
+				<IoSettings />
+			</Link>
+		),
+		getItem(
+			'Logout',
+			'8',
 			<Link onClick={handleLogout} href='#'>
-				<AiOutlineProfile />
+				<LogoutOutlined />
 			</Link>
 		),
 	];
@@ -132,6 +131,9 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/chat':
 				setDefaultSelectedKey('7');
+				break;
+			case pathname === '/en/admin/question-answer':
+				setDefaultSelectedKey('9');
 				break;
 			default:
 				// if (!defaultSelectedKey) {

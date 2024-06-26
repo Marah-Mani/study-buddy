@@ -357,7 +357,16 @@ const authController = {
 			// Update the user's password
 			user.password = hashedPassword;
 			await user.save();
+			const userNotificationData = {
+				notification: `Your account has been successfully created.`,
+				notifyBy: userId,
+				notifyTo: userId,
+				type: 'registered',
+				tag: `registered`,
+				url: `/en/user/dashboard`
+			};
 
+			createNotification(userNotificationData);
 			res.json({ message: 'Password saved successfully', status: true });
 		} catch (error) {
 			logError(error);
@@ -496,6 +505,16 @@ const authController = {
 
 			// Track user activity
 			await trackUserActivity(user._id, 'Requested for forget password email.');
+			const userNotificationData = {
+				notification: `Your Password saved successfully`,
+				notifyBy: userId,
+				notifyTo: userId,
+				type: 'registered',
+				tag: `registered`,
+				url: `/en/user/dashboard`
+			};
+
+			createNotification(userNotificationData);
 
 			// Return success message
 			res.json({ message: 'Password saved successfully', status: true });

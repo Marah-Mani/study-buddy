@@ -4,18 +4,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoDocumentText, IoHome } from 'react-icons/io5';
-import { FaAppStore } from 'react-icons/fa';
+import { IoHome, IoSettings } from 'react-icons/io5';
+import { FaProductHunt } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getAllRoles } from '@/lib/commonApi';
-import { AiOutlineProfile, AiOutlineUser } from "react-icons/ai";
-import { LuListTodo } from "react-icons/lu";
-import { SlEnvolopeLetter } from 'react-icons/sl';
-import { MdOutlineCalendarMonth } from 'react-icons/md';
+import { AiOutlineUser } from "react-icons/ai";
 import { Roles } from '@/lib/types';
 import { BiSolidFileArchive } from 'react-icons/bi';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, WechatOutlined, LogoutOutlined } from '@ant-design/icons';
 type MenuItem = {
 	key: string;
 	link?: string; // Change to optional if not all items have link
@@ -123,19 +120,18 @@ export default function MenuAUser() {
 				<IoHome />
 			</Link>
 		),
-
-		getItem(
-			'Chat',
-			'8',
-			<Link href="/en/user/chat">
-				<AiOutlineProfile />
-			</Link>
-		),
 		getItem(
 			'Users',
 			'3',
 			<Link href="/en/user/candidate">
 				<AiOutlineUser />
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'7',
+			<Link href="/en/user/market-place">
+				<FaProductHunt />
 			</Link>
 		),
 		getItem(
@@ -146,13 +142,6 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Forums',
-			'5',
-			<Link href="/en/user/forums">
-				<QuestionCircleOutlined />
-			</Link>
-		),
-		getItem(
 			'Q&A',
 			'6',
 			<Link href="/en/user/question-answer">
@@ -160,24 +149,26 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Market Place',
-			'7',
-			<Link href="/en/user/market-place">
-				<IoDocumentText />
+			'Chat',
+			'8',
+			<Link href="/en/user/chat">
+				<WechatOutlined />
 			</Link>
 		),
+
+
 		getItem(
 			'Profile',
 			'2',
 			<Link href="/en/user/edit-profile">
-				<AiOutlineProfile />
+				<IoSettings />
 			</Link>
 		),
 		getItem(
 			'Logout',
-			'8',
+			'9',
 			<Link onClick={handleLogout} href='#'>
-				<AiOutlineProfile />
+				<LogoutOutlined />
 			</Link>
 		),
 	];

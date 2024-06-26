@@ -24,6 +24,7 @@ const sendEmail = async (user, templateType, extraPlaceholders = {}) => {
 
         const adminId = await getAdminDataByRole('users');
         const adminSetting = await AdminSetting.findOne({ userId: adminId });
+        console.log(adminId)
         const emailSignature = adminSetting.emailSignature;
 
         // Replace placeholders in the email template

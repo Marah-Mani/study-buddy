@@ -1,0 +1,38 @@
+.faq-accordion-container {
+  padding: 2% 0px 6%;
+  background: linear-gradient(to bottom, hsl(273, 75%, 66%), hsl(240, 73%, 65%));
+  position: relative;
+}
+
+.faq-accordion-container .ant-collapse-header-text {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+.faq-accordion-container .ant-collapse-expand-icon {
+  color: #fff;
+}
+
+@media (min-width: 800px) {
+  .faq-accordion-container:before {
+    content: url('https://frontendmentor-showcase.netlify.app/static/media/illustration-woman-online-desktop.843eb114c7213a596ee2.svg');
+    transform: translate(-50%, -55%);
+    width: 140px;
+    height: 300px;
+    animation: dropbox 0.8s ease-in-out;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+  }
+
+  @keyframes dropbox {
+    0% {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -55%);
+      opacity: 1;
+    }
+  }
+}

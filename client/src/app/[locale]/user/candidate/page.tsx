@@ -1,30 +1,29 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css'
-import type { MenuProps } from 'antd';
+import { notification, Tooltip } from 'antd';
 import { Button, Col, Input, Image, Row, Space, Divider, Dropdown, Menu, message, Skeleton } from 'antd';
-import DropDownOne from './DropDownOne';
-import DropDownTwo from './DropDownTwo';
 import { CiSearch } from "react-icons/ci";
 import { FaTwitter } from "react-icons/fa";
 import ParaText from '@/app/commonUl/ParaText';
-import DropDownThree from './DropDownThree';
-import { CiLocationOn } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
-import { IoLogoYoutube, IoMdArrowDropdown } from "react-icons/io";
-import { FaRocketchat } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUserGraduate } from "react-icons/fa6";
 import { Flex, Tag } from 'antd';
 import { getAllCandidate, getAllDepartments } from '@/lib/commonApi';
 import AuthContext from '@/contexts/AuthContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { IoCloseCircle, IoLogoLinkedin, IoSearchCircle } from 'react-icons/io5';
+import { IoLogoLinkedin } from 'react-icons/io5';
+import { WechatOutlined } from '@ant-design/icons';
+import Cookies from 'js-cookie';
+import ChatContext from '@/contexts/ChatContext';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 
 export default function Page() {
-    const [current, setCurrent] = useState('mail');
     const [AllCandidates, setAllCandidates] = useState<any[]>([]);
     const [AllDepartments, setAllDepartments] = useState([]);
     const [AllSubjects, setAllSubjects] = useState([]);
@@ -36,8 +35,10 @@ export default function Page() {
         pageSize: 10,
         total: 0,
     });
-
+    const token = Cookies.get('session_token')
+    const { chats, setChats }: any = useContext(ChatContext);
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -63,15 +64,18 @@ export default function Page() {
         };
 
         try {
+            setLoading(true);
             const response = await getAllCandidate(query);
 
             if (pagination.page == 1) {
                 // Reset candidates list when fetching the first page
                 setAllCandidates(response.data);
+                setLoading(false);
             } else {
                 // Append new data to existing candidates list for pagination
                 setAllCandidates(prevCandidates => [...prevCandidates, ...response.data]);
                 message.success(`${response.data.length} more candidates loaded successfully!`);
+                setLoading(false);
             }
 
             // Update pagination total count
@@ -80,6 +84,7 @@ export default function Page() {
                 total: response.totalCount,
             }));
         } catch (error) {
+            setLoading(false);
             console.error('Error fetching candidates:', error);
         }
     };
@@ -129,6 +134,26 @@ export default function Page() {
     const capitalizeFirstLetterOfEachWord = (text: string) => {
         if (!text) return text;
         return text.replace(/\b\w/g, char => char.toUpperCase());
+    };
+    const router = useRouter();
+
+    const accessChat = async (userId: any) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
+
+            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
+            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
+        } catch (error) {
+            notification.error({
+                message: "Error fetching the chat"
+            });
+        }
     };
 
     return (
@@ -200,7 +225,7 @@ export default function Page() {
                         next={() => setPagination(prev => ({ ...prev, page: pagination.page + 1 }))}
                         hasMore={AllCandidates.length < pagination.total}
                         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-                        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                        endMessage={!loading && <Divider plain>It is all, nothing more 🤐</Divider>}
                     >
                         {AllCandidates.map((item: any) => (
                             <>
@@ -285,7 +310,12 @@ export default function Page() {
                                             </Flex>
                                         </Col>
                                         <Col className='textEnd' xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
-                                            <span><FaRocketchat size={30} color='#267200' style={{ cursor: 'pointer' }} /></span> &nbsp;
+                                            <Tooltip
+                                                title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                                color={'#EDF1F5'}
+                                            >
+                                                <WechatOutlined onClick={() => accessChat(item?._id)} style={{ fontSize: '30px', cursor: 'pointer', color: '#267200' }} />
+                                            </Tooltip> &nbsp;
                                             <span><CiHeart size={30} /></span>
                                             <div>
                                                 <br />
@@ -347,6 +377,7 @@ export default function Page() {
                                 </div>
                             </>
                         ))}
+                        {loading && <Skeleton avatar paragraph={{ rows: 1 }} active />}
                     </InfiniteScroll>
 
                 </Col>

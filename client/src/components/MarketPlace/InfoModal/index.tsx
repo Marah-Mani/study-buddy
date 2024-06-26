@@ -1,16 +1,22 @@
 import ParaText from '@/app/commonUl/ParaText'
-import { Col, Image, Row, Tag, Tooltip } from 'antd'
-import React from 'react'
+import { Col, Image, notification, Row, Tag, Tooltip } from 'antd'
+import React, { useContext } from 'react'
 import { WechatOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './style.css'
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import AuthContext from '@/contexts/AuthContext';
 interface Props {
     product: any
 }
 
 export default function InfoModal({ product }: Props) {
+    const token = Cookies.get('session_token');
+    const { user } = useContext(AuthContext);
 
     function calculatePercentageOff(originalPrice: number, discountedPrice: number) {
         const discount = originalPrice - discountedPrice;
@@ -48,6 +54,45 @@ export default function InfoModal({ product }: Props) {
                 }
             }
         ]
+    };
+
+    const router = useRouter();
+
+
+    const getFirstName = (fullName: any) => {
+        const nameParts = fullName.trim().split(' ');
+        return nameParts[0];
+    };
+
+    const handleSubmit = async (data: any) => {
+        try {
+            const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
+            const selectedUsers = [
+                {
+                    _id: data.createdBy._id,
+                }
+            ]
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
+                {
+                    name: groupChatName,
+                    users: JSON.stringify(selectedUsers.map((u: any) => u._id)),
+                    type: 'marketChat'
+                },
+                config
+            );
+            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
+
+        } catch (error) {
+            notification.error({
+                message: "Failed to Create the Chat!"
+            });
+        }
     };
 
     return (
@@ -126,7 +171,7 @@ export default function InfoModal({ product }: Props) {
                                 color={'#EDF1F5'}
                                 placement='left'
                             >
-                                <WechatOutlined style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
+                                <WechatOutlined onClick={() => handleSubmit(product)} style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
                             </Tooltip>
                         </Col>
                     </Row>

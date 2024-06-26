@@ -24,6 +24,21 @@
             "date": 1718854515848,
             "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-20.log",
             "hash": "887278bdaf8eee81b607a206c945e70de5eabc0422a1e6983488b1fcbfa5676d"
+        },
+        {
+            "date": 1719202352299,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-24.log",
+            "hash": "2b7aa9650fa5bb8a061ef2c04d6a5c5d44198fbade7a0b1adea33af36a33011a"
+        },
+        {
+            "date": 1719319297836,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-25.log",
+            "hash": "edd3eb4206d7ebb72b147e33004dafa8239e29ce13193679a6fe40759b550fbc"
+        },
+        {
+            "date": 1719379981130,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-06-26.log",
+            "hash": "87e3a706c7794fcd2c971d4143a70bedd40eecea24444b5afcbb02e085ff0359"
         }
     ],
     "hashType": "sha256"

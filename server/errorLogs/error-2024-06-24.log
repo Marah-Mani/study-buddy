@@ -1,0 +1,6 @@
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T04:13:04.593Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T04:13:04.622Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T10:21:49.695Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T10:21:49.706Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T10:22:16.699Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-24T10:22:16.711Z"}

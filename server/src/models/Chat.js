@@ -7,6 +7,12 @@ const chatModel = mongoose.Schema(
 		users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
 		deleteFor: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
 		favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users', default: [] }],
+		markRead: [
+			{
+				user: { type: mongoose.Schema.Types.ObjectId, ref: 'users', default: [] },
+				read: { type: Boolean, default: false }
+			}
+		],
 		latestMessage: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Message'

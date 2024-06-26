@@ -1,0 +1,78 @@
+.dashBody {
+  padding: 55px 10px;
+}
+
+@media (max-width: 991px) {
+  .dashBody {
+    padding: 10px 10px;
+  }
+}
+
+.timelineCard .ant-card.ant-card-bordered {
+  border-top: 2px solid rgb(35 183 229);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userTotal {
+  background-color: rgb(132 90 223);
+  border-radius: 50%;
+  width: 35px;
+  margin: auto;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userTotal.userCard {
+  border-top: 2px solid rgb(132 90 223);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userTotal.studentTotal {
+  background-color: rgb(35 183 229);
+}
+
+.userTotal.studentCard {
+  border-top: 2px solid rgb(35 183 229);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userTotal.totalCount {
+  background-color: rgb(38 191 148);
+}
+
+.userTotal.totalCard .ant-card.ant-card-bordered {
+  border-top: 2px solid rgb(38 191 148);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userTotal.productTotal {
+  background-color: rgb(245 184 73);
+}
+
+.userTotal.totalProduct .ant-card.ant-card-bordered {
+  border-top: 2px solid rgb(245 184 73);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userTotal.forumTotal {
+  background-color: rgb(230 83 60);
+}
+
+.userTotal.totalForum .ant-card.ant-card-bordered {
+  border-top: 2px solid rgb(230 83 60);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

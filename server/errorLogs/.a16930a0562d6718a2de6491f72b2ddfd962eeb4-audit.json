@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 90
+    },
+    "auditLog": "/home/bpl11/Documents/study-buddy/server/errorLogs/.a16930a0562d6718a2de6491f72b2ddfd962eeb4-audit.json",
+    "files": [
+        {
+            "date": 1718862541126,
+            "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-06-20.log",
+            "hash": "ff1f06d972b79a7062c51c82bdc6a41a307859ab21e59ff1e22584832284c7da"
+        }
+    ],
+    "hashType": "sha256"
+}

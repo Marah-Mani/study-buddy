@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
 import { Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
-import AuthContext from '@/contexts/AuthContext';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
@@ -13,6 +12,7 @@ import axios from 'axios';
 import './style.css'
 import ChatContext from '@/contexts/ChatContext';
 import { useRouter } from 'next/navigation';
+import AuthContext from '@/contexts/AuthContext';
 interface Props {
     activeKey: string;
 }
@@ -29,7 +29,7 @@ export default function MarketPlace({ activeKey }: Props) {
     const [infoModal, setInfoModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const token = Cookies.get('session_token')
-    const { setSelectedChat, user, chats, setChats }: any = useContext(ChatContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         fetchData();
@@ -38,7 +38,7 @@ export default function MarketPlace({ activeKey }: Props) {
     useEffect(() => {
         fetchCategories();
     }, []);
-    console.log(user);
+
     const fetchCategories = async () => {
         try {
             const res = await getProductCategories();
@@ -92,21 +92,38 @@ export default function MarketPlace({ activeKey }: Props) {
 
     const router = useRouter();
 
-    const accessChat = async (userId: any) => {
+
+    const getFirstName = (fullName: any) => {
+        const nameParts = fullName.trim().split(' ');
+        return nameParts[0];
+    };
+    const handleSubmit = async (data: any) => {
         try {
+            const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
+            const selectedUsers = [
+                {
+                    _id: data.createdBy._id,
+                }
+            ]
             const config = {
                 headers: {
-                    "Content-type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
+            await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
+                {
+                    name: groupChatName,
+                    users: JSON.stringify(selectedUsers.map((u: any) => u._id)),
+                    type: 'marketChat'
+                },
+                config
+            );
+            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
 
-            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
-            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/dashboard`);
         } catch (error) {
             notification.error({
-                message: "Error fetching the chat"
+                message: "Failed to Create the Chat!"
             });
         }
     };
@@ -225,7 +242,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                         color={'#EDF1F5'}
                                     >
-                                        <WechatOutlined onClick={() => accessChat(data.createdBy)} style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
+                                        <WechatOutlined onClick={() => handleSubmit(data)} style={{ fontSize: '30px', cursor: 'pointer', color: '#267200' }} />
                                     </Tooltip>
                                 </Col>
                             </Row>

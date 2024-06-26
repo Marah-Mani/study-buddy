@@ -30,6 +30,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
     const [editData, setEditData] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -37,11 +38,14 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
 
     const fetchData = async () => {
         try {
+            setLoading(true);
             const res = await getAllUsers(searchInput);
             if (res.status === true) {
                 setAllProducts(res.data);
+                setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             ErrorHandler.showNotification(error);
         }
     };
@@ -69,10 +73,6 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         {
             title: 'Email',
             dataIndex: 'email',
-        },
-        {
-            title: 'Phone No.',
-            dataIndex: 'phoneNumber',
         },
         {
             title: 'Department',
@@ -143,9 +143,9 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             <Image
                 src={data?.image ?
                     `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${data?.image}`
-                    : `/images/avatar.png`} width={50} height={50} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span></Space>,
+                    : `/images/avatar.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
+        </Space>,
         email: data.email,
-        phoneNumber: data.phoneNumber,
         department: data.departmentId?.departmentName,
         interestedIn: <TextCapitalize text={data.interestedIn} />,
         gender: <TextCapitalize text={data.gender} />,
@@ -174,6 +174,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 columns={columns}
                 bordered
                 dataSource={data}
+                loading={loading}
             />
             <Drawer title={'Edit User'} onClose={onClose} open={open} width={600}>
                 <EditUser editData={editData} onReload={handleReload} />

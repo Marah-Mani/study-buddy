@@ -65,11 +65,11 @@ const userSchema = new mongoose.Schema({
 		taxNumber: { type: String, default: null }
 	},
 	socialLinks: {
-		twitter: { type: String, default: null },
-		facebook: { type: String, default: null },
-		linkedin: { type: String, default: null },
-		instagram: { type: String, default: null },
-		website: { type: String, default: null }
+		twitter: { type: String, default: '' },
+		facebook: { type: String, default: '' },
+		linkedin: { type: String, default: '' },
+		instagram: { type: String, default: '' },
+		website: { type: String, default: '' }
 	},
 	metaTitle: { type: String, default: null },
 	metaDescription: { type: String, default: null },
@@ -83,6 +83,7 @@ const userSchema = new mongoose.Schema({
 	stickyNote: { type: String, default: null },
 	timeZone: { type: String, default: 'Asia/Kolkata' },
 	block: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
+	chatStatus: { type: String, enum: ['online', 'offline', 'default'], default: 'default' },
 	status: { type: String, enum: ['active', 'inactive', 'deleted', 'suspended'], default: 'active' },
 	createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'users', default: null },
 	createdAt: { type: Date, default: Date.now },

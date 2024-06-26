@@ -137,7 +137,7 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
                     Delete
                 </Button>
             </Popconfirm>}
-            <Table columns={columns} dataSource={data} rowSelection={{
+            <Table columns={columns} bordered dataSource={data} rowSelection={{
                 type: 'checkbox',
                 ...rowSelection
             }} />

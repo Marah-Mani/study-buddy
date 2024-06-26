@@ -1,0 +1,117 @@
+:root {
+  --main-color: #fea702;
+}
+.features {
+  padding: 5% 0px 5% 0px;
+}
+.main-timeline:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.main-timeline .timeline {
+  width: 50%;
+  margin: 0 5px 0 0;
+  float: left;
+}
+.main-timeline .timeline-content {
+  padding: 60px 20px 20px;
+  display: block;
+  position: relative;
+}
+.main-timeline .timeline-content:hover {
+  text-decoration: none;
+}
+.main-timeline .timeline-content:before {
+  content: '';
+  background-color: var(--main-color);
+  height: 120px;
+  width: 120px;
+  border-radius: 50% 50% 0 50%;
+  opacity: 0.2;
+  position: absolute;
+  right: 0;
+  animation: rotate 60s linear infinite;
+  bottom: 0;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes move {
+  from {
+    transform: translate(calc(cos(var(--move)) * var(--distance)), calc(sin(var(--move)) * var(--distance)))
+      rotate(0deg);
+  }
+  to {
+    transform: translate(calc(cos(var(--move)) * var(--distance)), calc(sin(var(--move)) * var(--distance)))
+      rotate(-360deg);
+  }
+}
+.main-timeline .timeline-icon {
+  color: #fff;
+  background-color: var(--main-color);
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50% 0 50% 50%;
+  box-shadow: -5px 0 rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.main-timeline .title {
+  color: #000;
+  background: linear-gradient(-88deg, transparent -26%, var(--main-color) 116%);
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 5px 30px 5px 10px;
+  margin: 0 0 7px;
+  display: inline-block;
+  margin-bottom: 13px !important;
+}
+.main-timeline .description {
+  color: #555;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  margin: 0;
+}
+.main-timeline .timeline:nth-child(even) {
+  margin: 0 0 0 5px;
+  float: right;
+}
+.main-timeline .timeline:nth-child(even) .timeline-content:before {
+  border-radius: 50% 50% 50% 0;
+  left: 0;
+  right: auto;
+}
+.main-timeline .timeline:nth-child(even) .timeline-icon {
+  border-radius: 0 50% 50%;
+  right: auto;
+  left: 0;
+}
+.main-timeline .timeline:nth-child(4n + 2) {
+  --main-color: #5db15c;
+}
+.main-timeline .timeline:nth-child(4n + 3) {
+  --main-color: #11a4c1;
+}
+.main-timeline .timeline:nth-child(4n + 4) {
+  --main-color: #2a9afc;
+}
+@media screen and (max-width: 767px) {
+  .main-timeline .timeline,
+  .main-timeline .timeline:nth-child(even) {
+    width: 100%;
+    margin: 0 0 30px;
+  }
+}
