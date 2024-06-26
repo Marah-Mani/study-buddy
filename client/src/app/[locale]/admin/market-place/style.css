@@ -1,6 +1,6 @@
 .boxInbox {
   padding: 15px;
-  padding-top: 5%;
+  padding-top: 4%;
 }
 
 .dashBody .ant-segmented {
@@ -48,7 +48,7 @@
 .product-grid .product-image img {
   width: 100%;
   height: 200px;
-  object-fit: contain;
+  object-fit: cover;
   background-color: rgba(243 246 248);
   border-radius: 6px;
 }
@@ -177,7 +177,6 @@
   display: inline-block;
 }
 
-
 @media only screen and (max-width: 990px) {
   .product-grid {
     margin-bottom: 40px;
@@ -191,6 +190,9 @@
 
   .dashBody .ant-space {
     display: block !important;
+  }
+  .boxInbox {
+    padding-top: 10%;
   }
 }
 

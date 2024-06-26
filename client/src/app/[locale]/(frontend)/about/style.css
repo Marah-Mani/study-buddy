@@ -1,0 +1,11 @@
+/* InnerBanner Section */
+.innerBannerAbout {
+  background-image: url(/images/bg1-bg2.jpg);
+  background-position: center;
+  overflow-x: hidden;
+  padding: 9% 0px;
+  background-repeat: no-repeat;
+}
+.progress_bar-Section {
+  padding: 6% 10%;
+}

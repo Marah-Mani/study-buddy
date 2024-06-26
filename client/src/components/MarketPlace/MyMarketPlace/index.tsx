@@ -42,17 +42,16 @@ export default function MyMarketPlace({ activeKey }: Props) {
 
     return (
         <>
-            <div className='gapMarginTopTwo'></div>
             <Row align='middle' gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
                         {user?.role == 'admin' ? 'Item List' : 'My Market Place'}
                     </ParaText>
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
                     <Space>
-                        <Input allowClear placeholder="Search" style={{ height: '38px', width: '100%' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
-                        <Button style={{ height: '38px', width: '100%' }} className='buttonClass' type='primary' onClick={showDrawer}>Add Product</Button>
+                        <Input allowClear placeholder="Search" style={{ height: '35px', width: '100%', borderRadius: '0' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
+                        <Button style={{ height: '35px', width: '100%', borderRadius: '0' }} className='buttonClass' type='primary' onClick={showDrawer}>Add Product</Button>
                     </Space>
 
                 </Col>

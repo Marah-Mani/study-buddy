@@ -1,0 +1,7 @@
+<<<<<<< HEAD
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-20T04:06:51.617Z"}
+{"level":"error","message":"Error: No key set vapidDetails.publicKey","stack":"at /home/sunil-des/Documents/study-buddy/server/src/middleware/catchErrors.js:6:3","timestamp":"2024-06-20T04:06:51.684Z"}
+{"level":"error","message":"Error: Email template not found","stack":"at sendEmail (/home/sunil-des/Documents/study-buddy/server/src/services/auth.js:55:9)","timestamp":"2024-06-20T04:08:16.476Z"}
+{"level":"error","message":"ValidationError: subCategoryId: Cast to ObjectId failed for value \"\" (type string) at path \"subCategoryId\" because of \"BSONError\"","stack":"at /home/sunil-des/Documents/study-buddy/server/src/controllers/common/forumController.js:45:6","timestamp":"2024-06-20T05:10:20.670Z"}
+=======
+>>>>>>> dbb0de2037c2d73bf80ddb92df2b53b8d857e9b6

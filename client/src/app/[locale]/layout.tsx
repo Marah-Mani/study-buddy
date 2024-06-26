@@ -1,6 +1,7 @@
 import React from 'react';
 import './custom.css';
 import './globals.css';
+import './darkMode.css';
 import { AuthContextProvider } from '@/contexts/AuthContext';
 import AntdConfig from '@/lib/AntdConfig';
 import { AntdRegistry } from '@ant-design/nextjs-registry';

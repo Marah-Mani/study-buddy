@@ -159,7 +159,7 @@ export default function Page() {
     return (
         <>
             <div className='gapMarginTopOne'></div>
-            <div style={{ padding: '15px' }}>
+            <div style={{ padding: '15px' }} className='sectionPart'>
                 <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
                     <div className='gapMarginTop'></div>
                     <div className='menuStyle'>
@@ -211,7 +211,7 @@ export default function Page() {
                                             value={searchQuery}
                                             onChange={handleInputChange}
                                             enterButton={
-                                                <Button icon={<CiSearch />} type='primary'></Button>
+                                                <Button icon={<CiSearch />} style={{ borderRadius: '0px' }} type='primary'></Button>
                                             }
                                         />
                                     </Space>

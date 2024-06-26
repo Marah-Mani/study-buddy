@@ -1,7 +1,8 @@
 #customContainer {
-  padding: 28px 0px;
+  padding: 28px 10px;
+  z-index: 9;
 }
-.listItems li {
+.nav li {
   display: inline-block;
   padding: 0px 20px;
 }
@@ -9,4 +10,50 @@
   font-size: var(--fontSizeExtraSmall);
   font-weight: var(--fontWeightBold);
   color: var(--primary-color);
+}
+
+.nav a {
+  padding: 0.5em 0.8em;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav a::before,
+.nav a::after {
+  content: '';
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  transition: all 0.35s ease;
+  opacity: 0;
+}
+
+.nav a::before {
+  content: '';
+  right: 0;
+  top: 0;
+  border-top: 3px solid #ab9248;
+  border-right: 3px solid #ab9248;
+  transform: translate(-100%, 50%);
+}
+
+.nav a:after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  border-bottom: 3px solid #ab9248;
+  border-left: 3px solid #ab9248;
+  transform: translate(100%, -50%);
+}
+
+.nav a:hover:before,
+.nav a:hover:after {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.nav a:hover {
+  color: #3da35d;
 }
