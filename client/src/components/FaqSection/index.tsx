@@ -7,7 +7,7 @@ import ParaText from '@/app/commonUl/ParaText';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 const { Panel } = Collapse;
 export default function FaqSection() {
-    const CustomExpandIcon = ({ isActive }): any => (
+    const CustomExpandIcon = ({ isActive }: any) => (
         isActive ? <MinusOutlined /> : <PlusOutlined />
     );
     const items: CollapseProps['items'] = [
