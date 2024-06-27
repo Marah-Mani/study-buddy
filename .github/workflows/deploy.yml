@@ -16,3 +16,7 @@ jobs:
       - name: SSH to VPS and deploy
         uses: appleboy/ssh-action@master
         with:
+          host: ${{ secrets.ec2_HOST }}
+          username: bitnami
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: bash studyBuddyDeploy.sh
