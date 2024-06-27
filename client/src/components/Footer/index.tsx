@@ -49,6 +49,7 @@ export default function Footer() {
 						<br />
 						<div className='textEnd'>
 							<ParaText size='extraSmall' color='white'>Copyright © Study Buddy all rights reserved.</ParaText>
+							<p><ParaText size='minSmall' color='white'>v 0.0.1</ParaText></p>
 						</div>
 					</div>
 
