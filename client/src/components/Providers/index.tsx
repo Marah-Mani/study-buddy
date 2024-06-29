@@ -27,6 +27,7 @@ const Providers = (props: Props) => {
 		'/forgot-password',
 		'/reset-password',
 		'/payment'
+
 	];
 
 	useEffect(() => {

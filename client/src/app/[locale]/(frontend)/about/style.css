@@ -1,10 +1,8 @@
 /* InnerBanner Section */
 .innerBannerAbout {
-  background-image: url(/images/bg1-bg2.jpg);
-  background-position: center;
+  background-color: #344734;
   overflow-x: hidden;
-  padding: 9% 0px;
-  background-repeat: no-repeat;
+  padding: 2% 0px;
 }
 .progress_bar-Section {
   padding: 6% 10%;
