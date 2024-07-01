@@ -21,12 +21,13 @@ const Providers = (props: Props) => {
 	const excludedPaths = [
 		'/admin',
 		'/staff',
-		'/login',
+		// '/login',
 		'/otp',
 		'/register',
 		'/forgot-password',
 		'/reset-password',
-		'/payment'
+		'/payment',
+		'/user'
 
 	];
 
@@ -51,7 +52,7 @@ const Providers = (props: Props) => {
 		<SessionProvider>
 			{excludedPaths.some((path) => pathname.includes(path)) ? null : <Header />}
 			{props.children}
-			{excludedPaths.some((path) => pathname.includes(path)) || isMobile ? '' : <Footer />}
+			{excludedPaths.some((path) => pathname.includes(path)) ? '' : <Footer />}
 		</SessionProvider>
 	);
 };

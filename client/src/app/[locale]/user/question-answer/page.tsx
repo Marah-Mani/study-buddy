@@ -142,7 +142,6 @@ export default function Page() {
 
     return (
         <>
-            <div className='gapMarginTopTwo'></div>
             <div className='boxInbox'>
                 <div >
                     <Row>

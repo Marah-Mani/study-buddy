@@ -51,35 +51,35 @@ export default function MenuAdmin() {
 			'Dashboard',
 			'1',
 			<Link href="/en/admin/dashboard">
-				<IoHome />
+				<IoHome size={18} />
 			</Link>
 		),
 		getItem(
 			'Users',
 			'5',
 			<Link href="/en/admin/users">
-				<UserOutlined />
+				<UserOutlined size={18} />
 			</Link>
 		),
 		getItem(
 			'Market Place',
 			'4',
 			<Link href="/en/admin/market-place">
-				<FaProductHunt />
+				<FaProductHunt size={18} />
 			</Link>
 		),
 		getItem(
 			'File Manager',
 			'6',
 			<Link href="/en/admin/file-manager">
-				<FaFileCircleCheck />
+				<FaFileCircleCheck size={18} />
 			</Link>
 		),
 		getItem(
 			'Forums',
 			'3',
 			<Link href="/en/admin/forums">
-				<QuestionCircleOutlined />
+				<QuestionCircleOutlined size={18} />
 			</Link>
 		),
 
@@ -87,21 +87,66 @@ export default function MenuAdmin() {
 			'Chats',
 			'7',
 			<Link href="/en/admin/chat">
-				<WechatOutlined />
+				<WechatOutlined size={18} />
 			</Link>
 		),
 		getItem(
 			'Settings',
 			'2',
 			<Link href="/en/admin/settings">
-				<IoSettings />
+				<IoSettings size={18} />
 			</Link>
+		),
+		getItem(
+			'',
+			'10',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'11',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'12',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'13',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'14',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'15',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'16',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'17',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'18',
+			<Link href="/en/login"></Link>
 		),
 		getItem(
 			'Logout',
 			'8',
 			<Link onClick={handleLogout} href='#'>
-				<LogoutOutlined />
+				<LogoutOutlined size={20} />
 			</Link>
 		),
 	];
@@ -132,6 +177,9 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/chat':
 				setDefaultSelectedKey('7');
 				break;
+			case pathname === '/en/login':
+				setDefaultSelectedKey('8');
+				break;
 			case pathname === '/en/admin/question-answer':
 				setDefaultSelectedKey('9');
 				break;
@@ -147,8 +195,7 @@ export default function MenuAdmin() {
 				<div className="dddd">
 					<div className="menuDash darkMenuDash" id="menuDash">
 						<div className="textCenter">
-							<Link href="/">
-							</Link>
+							<Link href="/"></Link>
 						</div>
 						<div className="gapMarginTop"></div>
 						<Menu

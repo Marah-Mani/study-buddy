@@ -27,7 +27,7 @@
   display: block;
   margin-top: 5px;
   right: 0;
-  background: #1967d2;
+  background: #f1a638;
   transition: width 0.3s ease;
   -webkit-transition: width 0.3s ease;
 }
@@ -35,7 +35,7 @@
 .overEfact:hover::after {
   width: 100%;
   left: 0;
-  background: #1967d2;
+  background: #f1a638;
 }
 
 @media (max-width: 991px) {

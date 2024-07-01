@@ -131,7 +131,7 @@ const Login = () => {
 						</Form.Item>
 						<Col lg={12} md={12} sm={12} xs={24}>
 							<Form.Item name="remember" valuePropName="checked" style={{ marginBottom: 0 }}>
-								<Checkbox>Remember me</Checkbox>
+								<Checkbox style={{ color: '#efa24b' }}>Remember me</Checkbox>
 							</Form.Item>
 						</Col>
 						<Form.Item>
@@ -140,7 +140,7 @@ const Login = () => {
 							<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
 									icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleGoogleLogin}
 								>
@@ -148,7 +148,7 @@ const Login = () => {
 								</Button>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
 									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleFacebookLogin}
 								>

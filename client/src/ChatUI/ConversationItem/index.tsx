@@ -34,7 +34,7 @@ export default function ConversationItem(
             lastActivityTime={
                 <span
                     style={{ color: 'teal' }}
-                >{onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'Online' : ''}
+                >{onlineUsers?.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'Online' : ''}
                 </span>}
         >
             <Conversation.Content>
