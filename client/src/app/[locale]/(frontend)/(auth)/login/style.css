@@ -7,6 +7,9 @@
   transition-timing-function: linear;
   background: #344734;
 }
+.background-color{
+  background-color: #344734;
+}
 @media (min-width: 991px) {
   .back {
     background-image: url('https://www.allen.ac.in/ace2425/assets/images/register.png');
@@ -14,8 +17,10 @@
     background-repeat: no-repeat;
     background-position: left;
     height: 100vh;
+    background-color: #344734;
   }
   .login-container {
     height: 100%;
+    background-color: #344734;
   }
 }

@@ -32,7 +32,6 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="gapMarginTop"></div>
 			<div className='boxInbox'>
 				<div className="largeTopMargin"></div>
 				<ParaText size="large" fontWeightBold={600} color="primaryColor">

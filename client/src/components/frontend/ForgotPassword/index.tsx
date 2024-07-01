@@ -51,7 +51,7 @@ const ForgotPassword = () => {
 						{loading ? 'Please wait...' : 'Send me the link'}
 					</Button>
 				</Form.Item>
-				<Link href="/en/login" passHref>
+				<Link href="/en/login" passHref style={{ color: '#f1a638 !important' }}>
 					<Button type="link" style={{ width: '100%', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} icon={<FaArrowLeft style={{ display: 'flex', alignItems: 'center' }} />}>
 						Back to login
 					</Button>

@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 body {
-  font-family: 'Lato', sans-serif;
   overflow-x: hidden !important;
 }
 
@@ -41,9 +40,12 @@ h6 {
   font-weight: 700;
 }
 
-p,
-span {
+p {
   margin: 0px !important;
+  font-family: 'PT Serif', serif !important;
+}
+
+span {
   font-family: 'PT Serif', serif !important;
 }
 
@@ -56,12 +58,9 @@ li {
   list-style: none;
   font-family: 'PT Serif', serif !important;
 }
-a.ant-menu-item-icon {
-  margin-right: 12px;
-}
 .ant-btn-primary {
   color: #fff;
-  background: #1967d2 !important;
+  background: #f1a638 !important;
   box-shadow: 0 2px 0 rgba(8, 108, 168, 0.15);
 }
 /* @font-face {
@@ -74,3 +73,7 @@ a.ant-menu-item-icon {
     url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('truetype'),
     url('./fonts/New-Spirit-SemiBold-Condensed.svg#New Spirit SemiBold Condensed') format('svg');
 } */
+
+.layOutStyle {
+  padding: 4% 2%;
+}

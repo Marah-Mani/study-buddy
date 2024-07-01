@@ -17,6 +17,7 @@ form {
     background-repeat: no-repeat;
     background-position: left;
     height: 100vh;
+    background-color: #344734;
   }
 
   .login-container {
