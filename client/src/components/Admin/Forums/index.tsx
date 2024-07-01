@@ -172,7 +172,7 @@ export default function Forums({ activeKey }: Props) {
 
     return (
         <>
-            <div className='gapMarginTopOne'></div>
+            <div className="largeTopMargin"></div>
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
                 <Form

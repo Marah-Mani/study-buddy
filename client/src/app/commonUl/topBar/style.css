@@ -44,7 +44,7 @@
   left: 0;
   width: 100vw;
   color: #fff;
-  z-index: 1;
+  z-index: 99;
 }
 
 .selectPropties {

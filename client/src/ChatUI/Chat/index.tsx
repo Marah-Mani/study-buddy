@@ -1,5 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import './style.css'
 import {
     MainContainer,
     ChatContainer,
@@ -677,7 +678,7 @@ export default function Chat() {
         <MainContainer
             responsive
             style={{
-                height: '90vh', marginTop: '8vh'
+                height: '90vh', marginTop: ''
             }}
         >
             <MyChats />
@@ -701,14 +702,14 @@ export default function Chat() {
                                     />
                                 </div>
                                 <div>
-                                    <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>
+                                    <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
                                         {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
-                                        &nbsp;<span style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                                        &nbsp;<span style={{ fontSize: "12px", fontWeight: '400' }}>
                                             {onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ?
                                                 'Online' :
                                                 <>Online <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} /></>}</span>
                                     </p>
-                                    <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                                    <p style={{ fontSize: "12px", fontWeight: '400' }}>
                                         {
                                             user.block.includes(getSenderFull(user, selectedChat.users)._id) ? (
                                                 <p>You blocked this user.</p>

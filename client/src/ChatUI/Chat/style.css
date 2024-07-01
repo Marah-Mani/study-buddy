@@ -1,0 +1,150 @@
+.headerMain .cs-message.cs-message--outgoing.cs-message--first .cs-message__content {
+  background-color: rgb(243 246 248) !important;
+  color: #515153 !important;
+  font-size: 13.008px !important;
+}
+
+body.dark-mode .cs-message-list {
+  background-color: #2a2a2a !important;
+}
+body.dark-mode .cs-conversation-header,
+body.dark-mode .cs-sidebar--left,
+body.dark-mode .cs-message-input,
+body.dark-mode .right-profile-box,
+body.dark-mode .scrollbar-container.cs-sidebar.cs-sidebar--right.ps,
+body.dark-mode .cs-expansion-panel__header,
+body.dark-mode .cs-expansion-panel__content {
+  background: #2a2a2a;
+}
+body.dark-mode .cs-conversation-header {
+  border-bottom: solid 1px #393939;
+}
+body.dark-mode .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+body.dark-mode .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+  background: #2a2a2a;
+  border: 1px solid #393939;
+}
+body.dark-mode .ant-tabs-top > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-top > div > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom > div > .ant-tabs-nav::before {
+  border-bottom: 1px solid #393939;
+}
+body.dark-mode .cs-message-input__content-editor[data-placeholder]:empty:before {
+  color: #fff;
+}
+body.dark-mode .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #fff;
+  font-weight: 900;
+}
+body.dark-mode .cs-search {
+  background: #2a2a2a;
+  border: 1px solid #393939;
+}
+body.dark-mode .cs-search__input {
+  background: #2a2a2a;
+}
+body.dark-mode .cs-conversation {
+  background: #2a2a2a !important;
+}
+body.dark-mode .ant-divider-inner-text,
+body.dark-mode .cs-expansion-panel__title,
+body.dark-mode .ant-input::placeholder,
+body.dark-mode .cs-conversation__name,
+body.dark-mode .cs-conversation__info-content {
+  color: #fff !important;
+}
+body.dark-mode .colordarkMode p,
+body.dark-mode .colordarkMode span,
+body.dark-mode .colordarkMode svg {
+  color: #fff !important;
+}
+body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--left,
+body.dark-mode .cs-expansion-panel {
+  border: solid 1px #393939;
+}
+.borderBottom {
+  border-bottom: solid 1px #d1dbe2 !important;
+}
+body.dark-mode .borderBottom {
+  border-bottom: solid 1px #393939 !important;
+}
+body.dark-mode .cs-chat-container .cs-message-input {
+  border-top: solid 1px #393939 !important;
+}
+body.dark-mode .cs-message-input__content-editor-wrapper {
+  background: #2a2a2a !important;
+  border: solid 1px #393939 !important;
+}
+body.dark-mode .cs-message-input__content-editor {
+  background-color: #2a2a2a !important;
+}
+body.dark-mode .cs-message-separator::before,
+body.dark-mode .cs-message-separator::after {
+  background-color: #393939 !important;
+}
+
+body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--right {
+  border-left: solid 1px #393939;
+}
+body.dark-mode .cs-main-container {
+  color: #fff !important;
+  border: solid 1px #393939;
+}
+body.dark-mode .userName p {
+  color: #fff;
+}
+body.dark-mode .ant-flex {
+  background: #2a2a2a !important;
+  border-top: 0px solid #393939;
+}
+.headerMain .cs-chat-container .cs-input-toolbox {
+  background-color: #fff0;
+}
+.chatInput {
+  position: relative !important;
+}
+.chatBox .cs-input-toolbox {
+  position: absolute;
+  bottom: 10px;
+  right: 40px;
+}
+
+.viewFullText .cs-input-toolbox {
+  position: absolute !important;
+  bottom: 13px !important;
+  right: 300px !important;
+}
+
+/* .headerMain .cs-input-toolbox {
+    position: absolute;
+    bottom: 13px;
+    right: 23%;
+  } */
+
+@media (max-width: 767px) {
+  .headerMain .cs-conversation-header {
+    display: block;
+  }
+  .headerMain .cs-input-toolbox {
+    position: absolute;
+    bottom: 14px;
+    right: 36px;
+  }
+  .headerMain .cs-conversation-header__actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .headerMain .cs-message.cs-message--outgoing.cs-message--first .cs-message__content {
+    background-color: rgb(243 246 248) !important;
+    color: #515153 !important;
+    font-size: 13.008px !important;
+  }
+  .headerMain .cs-conversation-header__back button {
+    font-size: 14px;
+  }
+  .headerMain .cs-conversation-header__content {
+    margin-top: 10px;
+  }
+}
