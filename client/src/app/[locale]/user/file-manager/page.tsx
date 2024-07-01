@@ -59,7 +59,7 @@ export default function Page() {
             <div id='fileManagerPage'>
                 <div className="gapMarginTopTwo"></div>
                 <div className='boxInbox'>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                         File Manager
                     </ParaText>
                     <div className="largeTopMargin"></div>

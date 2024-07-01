@@ -36,7 +36,7 @@ export default function ResetPassword() {
 		<>
 			<div className='resetpasssword'>
 				<div className='heading'>
-					<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Set New Password</Titles>
+					<Titles level={5} color='primaryColor' className='textCenter overEfact paddingBottomTwo'>Set New Password</Titles>
 				</div>
 				<Form
 					name="normal_login"

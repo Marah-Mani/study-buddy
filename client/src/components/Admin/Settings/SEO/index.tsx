@@ -59,7 +59,7 @@ export default function SEO({ activeKey }: Props) {
 
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 SEO Integration
             </ParaText>
             <div className="smallTopMargin"></div>

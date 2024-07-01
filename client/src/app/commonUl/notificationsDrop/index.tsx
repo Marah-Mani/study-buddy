@@ -9,19 +9,19 @@ export default function NotificationsDrop() {
 			<div className={styles['notificationsBlank']}>
 				<div className="textEnd">
 					<a href="#">
-						<ParaText size="small" color="PrimaryColor">
+						<ParaText size="small" color="primaryColor">
 							View As Public
 						</ParaText>
 					</a>
 					<br />
 					<a href="#">
-						<ParaText size="small" color="SecondaryColor">
+						<ParaText size="small" color="secondaryColor">
 							Delete
 						</ParaText>
 					</a>
 					<br />
 					<a href="#">
-						<ParaText size="small" color="SecondaryColor">
+						<ParaText size="small" color="secondaryColor">
 							Edit
 						</ParaText>
 					</a>

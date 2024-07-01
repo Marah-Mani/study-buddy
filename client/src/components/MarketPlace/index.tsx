@@ -132,7 +132,7 @@ export default function MarketPlace({ activeKey }: Props) {
         <>
             <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                    <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="small" fontWeightBold={600} color="primaryColor">
                         Market Place
                     </ParaText>
                 </Col>

@@ -20,11 +20,11 @@ export default function DestinationsCard() {
 					<FaStar />
 				</div>
 				<div className="marginTopOne"></div>
-				<Titles level={4} color="PrimaryColor">
+				<Titles level={4} color="primaryColor">
 					Gainesville
 				</Titles>
 				<div className="marginTopOne"></div>
-				<ParaText size="medium" color="PrimaryColor">
+				<ParaText size="medium" color="primaryColor">
 					108 Tours <span className={styles['spacing']}> |</span> 15 Hotels
 				</ParaText>
 			</div>

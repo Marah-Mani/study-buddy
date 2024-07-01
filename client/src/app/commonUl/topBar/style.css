@@ -36,7 +36,7 @@
 }
 
 .topBar {
-  background: var(--Grayscale-White, #fff);
+  background: #344734;
   box-shadow: 0px 4px 12px 0px rgba(21, 21, 21, 0.12);
   padding: 16px 50px;
   position: fixed;
@@ -71,7 +71,7 @@
 }
 @media (min-width: 1700px) {
   .topBar {
-    background: var(--Grayscale-White, #fff);
+    background: #344734;
     box-shadow: 0px 4px 12px 0px rgba(21, 21, 21, 0.12);
     padding: 16px 20px;
   }

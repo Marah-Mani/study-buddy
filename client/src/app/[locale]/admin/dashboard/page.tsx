@@ -72,7 +72,7 @@ export default function Dashboard() {
                                         <div className="userTotal">
                                             <UserOutlined style={{ color: '#fff', fontSize: '18px' }} />
                                         </div>
-                                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">Total Students</ParaText><br />
+                                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">Total Students</ParaText><br />
                                         <Title level={4} color='black' className='textCenter'>{dashboardData?.totalStudentCount}</Title>
                                     </div>
                                 </Card>
@@ -90,7 +90,7 @@ export default function Dashboard() {
                                         <div className="studentTotal userTotal">
                                             <UserOutlined style={{ color: '#fff', fontSize: '25px' }} />
                                         </div>
-                                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">Total Tutors</ParaText><br />
+                                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">Total Tutors</ParaText><br />
                                         <Title level={4} color='black' className='textCenter'>{dashboardData?.totalTutorCount}</Title>
                                     </div>
                                 </Card>
@@ -108,7 +108,7 @@ export default function Dashboard() {
                                         <div className="totalCount userTotal">
                                             <UserOutlined style={{ color: '#fff', fontSize: '25px' }} />
                                         </div>
-                                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">Total Users</ParaText><br />
+                                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">Total Users</ParaText><br />
                                         <Title level={4} color='black' className='textCenter'>{dashboardData?.totalUsers}</Title>
                                     </div>
                                 </Card>
@@ -126,7 +126,7 @@ export default function Dashboard() {
                                         <div className="productTotal userTotal">
                                             <IoDocumentText style={{ color: '#fff', fontSize: '25px' }} />
                                         </div>
-                                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">Total Products</ParaText><br />
+                                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">Total Products</ParaText><br />
                                         <Title level={4} color='black' className='textCenter'>{dashboardData?.totalProduct}</Title>
                                     </div>
                                 </Card>
@@ -144,7 +144,7 @@ export default function Dashboard() {
                                         <div className="forumTotal userTotal">
                                             <IoDocumentText style={{ color: '#fff', fontSize: '25px' }} />
                                         </div>
-                                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">Total Forums</ParaText><br />
+                                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">Total Forums</ParaText><br />
                                         <Title level={4} color='black' className='textCenter'>{dashboardData?.totalForums}</Title>
                                     </div>
                                 </Card>

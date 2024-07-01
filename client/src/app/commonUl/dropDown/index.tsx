@@ -31,7 +31,7 @@ const DropDown: React.FC<DropDownProps> = ({ options, deleteId, editId }) => {
 				<Dropdown overlay={menu} trigger={['click']}>
 					<a onClick={(e) => e.preventDefault()} className="align">
 						<Space>
-							<ParaText size="extraSmall" color="SecondaryColor" className="weight700">
+							<ParaText size="extraSmall" color="secondaryColor" className="weight700">
 								Actions
 								<IoChevronDown color="#0070F5" />
 							</ParaText>

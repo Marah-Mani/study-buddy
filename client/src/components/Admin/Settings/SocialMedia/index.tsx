@@ -59,7 +59,7 @@ export default function SocialMedia({ activeKey }: Props) {
     }
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Social Media Links
             </ParaText>
             <div className="smallTopMargin"></div>

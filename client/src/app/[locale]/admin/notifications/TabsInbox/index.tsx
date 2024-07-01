@@ -113,7 +113,7 @@ export default function TabsInbox() {
 			<div className={styles['boxInbox']}>
 				<Row>
 					<Col xl={9} lg={9} md={9} sm={24} xs={24}>
-						<ParaText size="large" fontWeightBold={600} color="SecondaryColor">
+						<ParaText size="large" fontWeightBold={600} color="secondaryColor">
 							<ParaText size="large" fontWeightBold={600} color="black">
 								My
 							</ParaText>{' '}
@@ -124,7 +124,7 @@ export default function TabsInbox() {
 						<div>
 							<Row gutter={[16, 10]} style={{ display: 'flex', justifyContent: 'end' }} >
 								<Col xl={5} lg={5} md={5} sm={12} xs={12}>
-									<ParaText size="small" color="SecondaryColor">
+									<ParaText size="small" color="secondaryColor">
 										{notificationData.length > 0 ? (
 											<Popconfirm
 												title="Delete All Notification"

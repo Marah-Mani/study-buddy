@@ -174,13 +174,13 @@ export default function IdentityUpload({ activeKey }: Props) {
 
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Upload Identities
             </ParaText>
             <br />
             <Row>
                 <Col md={20} xl={20} lg={20} sm={24} xs={24}>
-                    <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">
                         Document Upload: Easily upload and manage your important documents to keep your profile information complete and up-to-date.
                     </ParaText>
                     <div className="smallTopMargin"></div>

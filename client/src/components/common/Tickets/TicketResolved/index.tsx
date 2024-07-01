@@ -184,7 +184,7 @@ export default function TicketResolved({
                                 <Image src="/images/dashboard/Interviews.png" alt="" />
                                 <ParaText color="defaultColor" size="large" fontWeightBold={600} className="dBlock">
                                     You do not seem to have any messages. Go to <br />
-                                    <ParaText size="large" color="SecondaryColor" fontWeightBold={600}>
+                                    <ParaText size="large" color="secondaryColor" fontWeightBold={600}>
                                         <Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}/admin/ticketInbox`}>
                                             Tickets
                                         </Link>

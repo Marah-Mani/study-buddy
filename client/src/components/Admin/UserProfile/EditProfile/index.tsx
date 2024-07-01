@@ -65,7 +65,7 @@ export default function index() {
                                 />
                             </Col>
                             <Col md={20} lg={20} xl={20} sm={24} xs={24}>
-                                <ParaText size="small" fontWeightBold={500} color="PrimaryColor">
+                                <ParaText size="small" fontWeightBold={500} color="primaryColor">
                                     User Name
                                 </ParaText>
                                 <br />
