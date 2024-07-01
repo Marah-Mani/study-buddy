@@ -8,11 +8,16 @@ export default function FaqSection() {
     return (
         <>
             <div className='faqSection'>
+                <video autoPlay muted loop id='backgroundVideo'>
+                    <source src="/images/85590-590014592.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className='overlay'></div>
                 <div className="customContainer">
                     <div className='faqSection-main'>
                         <Row>
                             <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
-                                <div className='mainHeading'> <Titles level={3} color='black'>Why Choose Study Buddy?</Titles></div>
+                                <div className='mainHeading'> <Titles level={2} color='black'>Why Choose Study Buddy?</Titles></div>
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
                                 <div className='faqSection-text'>

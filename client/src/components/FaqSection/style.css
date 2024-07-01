@@ -1,7 +1,35 @@
 .faqSection {
-  background-color: #eac38b;
+  position: relative;
   padding: 3%;
+  overflow: hidden;
 }
+
+#backgroundVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(234, 195, 139, 0.7); /* Overlay color with transparency */
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
 .features-main {
   padding: 3%;
 }
