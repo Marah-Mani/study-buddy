@@ -194,17 +194,17 @@ export default function MarketPlace({ activeKey }: Props) {
                             <Row align='middle' onClick={() => handleDetail(data)}>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <div className="product-content">
-                                        <ParaText size='textGraf' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={35} /> </ParaText>
+                                        <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}><ShortFileName fileName={data.title} short={35} /> </ParaText>
                                     </div>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <span><ShortFileName fileName={data.description} short={90} /></span>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <ParaText size='textGraf' className="title" fontWeightBold={600}>Category : {data.categoryId.name}</ParaText>
+                                    <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Category : {data.categoryId.name}</ParaText>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <ParaText size='textGraf' className="title" fontWeightBold={600}>Sub-category : {data.subCategoryId.name}</ParaText>
+                                    <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Sub-category : {data.subCategoryId.name}</ParaText>
                                 </Col>
                             </Row>
                             <Row align='middle'>

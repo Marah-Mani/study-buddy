@@ -705,7 +705,7 @@ export default function Chat() {
                                     <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
                                         {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
                                         &nbsp;<span style={{ fontSize: "12px", fontWeight: '400' }}>
-                                            {onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ?
+                                            {onlineUsers?.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ?
                                                 'Online' :
                                                 <>Online <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} /></>}</span>
                                     </p>

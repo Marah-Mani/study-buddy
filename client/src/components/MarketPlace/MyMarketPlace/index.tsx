@@ -44,7 +44,7 @@ export default function MyMarketPlace({ activeKey }: Props) {
         <>
             <Row align='middle' gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
-                    <ParaText size="small" fontWeightBold={600} color="primaryColor">
+                    <ParaText size="small" fontWeightBold={600} color="secondaryColor">
                         {user?.role == 'admin' ? 'Item List' : 'My Market Place'}
                     </ParaText>
                 </Col>

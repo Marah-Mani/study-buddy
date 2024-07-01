@@ -117,42 +117,42 @@ export default function MenuAUser() {
 			'Dashboard',
 			'1',
 			<Link href="/en/user/dashboard">
-				<IoHome />
+				<IoHome size={18} />
 			</Link>
 		),
 		getItem(
 			'Users',
 			'3',
 			<Link href="/en/user/candidate">
-				<AiOutlineUser />
+				<AiOutlineUser size={18} />
 			</Link>
 		),
 		getItem(
 			'Market Place',
 			'7',
 			<Link href="/en/user/market-place">
-				<FaProductHunt />
+				<FaProductHunt size={18} />
 			</Link>
 		),
 		getItem(
 			'File Manager',
 			'4',
 			<Link href="/en/user/file-manager">
-				<BiSolidFileArchive />
+				<BiSolidFileArchive size={18} />
 			</Link>
 		),
 		getItem(
 			'Q&A',
 			'6',
 			<Link href="/en/user/question-answer">
-				<QuestionCircleOutlined />
+				<QuestionCircleOutlined size={18} />
 			</Link>
 		),
 		getItem(
 			'Chat',
 			'8',
 			<Link href="/en/user/chat">
-				<WechatOutlined />
+				<WechatOutlined size={18} />
 			</Link>
 		),
 
@@ -161,14 +161,60 @@ export default function MenuAUser() {
 			'Profile',
 			'2',
 			<Link href="/en/user/edit-profile">
-				<IoSettings />
+				<IoSettings size={18} />
 			</Link>
+		),
+
+		getItem(
+			'',
+			'10',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'11',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'12',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'13',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'14',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'15',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'16',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'17',
+			<Link href="/en/admin/settings"></Link>
+		),
+		getItem(
+			'',
+			'18',
+			<Link href="/en/login"></Link>
 		),
 		getItem(
 			'Logout',
 			'9',
-			<Link onClick={handleLogout} href='#'>
-				<LogoutOutlined />
+			<Link onClick={handleLogout} href="/en/login">
+				<LogoutOutlined size={20} />
 			</Link>
 		),
 	];

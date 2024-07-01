@@ -55,7 +55,7 @@ export default function FileInformation({ fileId, folder }: Props) {
     return (
         <>
             <div id='fileInformation'>
-                <div style={{ background: '#fff' }} >
+                <div  >
                     <div className='fixedFileSearchThree'>
                         <Row align='middle'>
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}><ParaText size='textGraf' color='black' fontWeightBold={600}>{folder ? 'Folder Details' : 'File Details'}  </ParaText></Col>

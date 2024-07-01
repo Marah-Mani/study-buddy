@@ -158,10 +158,8 @@ export default function Page() {
 
     return (
         <>
-            <div className='gapMarginTopOne'></div>
-            <div style={{ padding: '15px' }} className='sectionPart'>
+            <div className='sectionPart'>
                 <Col xs={24} sm={24} md={24} xl={24} xxl={24}>
-                    <div className='gapMarginTop'></div>
                     <div className='menuStyle'>
                         <Row gutter={[16, 16]} align='middle'>
                             <Col xs={24} sm={24} md={4} lg={4} xl={6} xxl={8}>

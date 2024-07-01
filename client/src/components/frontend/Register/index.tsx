@@ -283,11 +283,11 @@ const Register = () => {
 							</Button>
 						</Form.Item>
 						<Form.Item>
-							<div style={{ textAlign: 'center' }}>Or</div>
+							<div style={{ textAlign: 'center', color: '#efa24b' }}>Or</div>
 							<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
 									icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleGoogleLogin}
 								>
@@ -295,7 +295,7 @@ const Register = () => {
 								</Button>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center' }}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
 									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleFacebookLogin}
 								>
