@@ -51,35 +51,35 @@ export default function MenuAdmin() {
 			'Dashboard',
 			'1',
 			<Link href="/en/admin/dashboard">
-				<IoHome size={18} />
+				<IoHome size={20} />
 			</Link>
 		),
 		getItem(
 			'Users',
 			'5',
 			<Link href="/en/admin/users">
-				<UserOutlined size={18} />
+				<UserOutlined size={20} />
 			</Link>
 		),
 		getItem(
 			'Market Place',
 			'4',
 			<Link href="/en/admin/market-place">
-				<FaProductHunt size={18} />
+				<FaProductHunt size={20} />
 			</Link>
 		),
 		getItem(
 			'File Manager',
 			'6',
 			<Link href="/en/admin/file-manager">
-				<FaFileCircleCheck size={18} />
+				<FaFileCircleCheck size={20} />
 			</Link>
 		),
 		getItem(
 			'Forums',
 			'3',
 			<Link href="/en/admin/forums">
-				<QuestionCircleOutlined size={18} />
+				<QuestionCircleOutlined size={20} />
 			</Link>
 		),
 
@@ -87,14 +87,14 @@ export default function MenuAdmin() {
 			'Chats',
 			'7',
 			<Link href="/en/admin/chat">
-				<WechatOutlined size={18} />
+				<WechatOutlined size={20} />
 			</Link>
 		),
 		getItem(
 			'Settings',
 			'2',
 			<Link href="/en/admin/settings">
-				<IoSettings size={18} />
+				<IoSettings size={20} />
 			</Link>
 		),
 		getItem(
@@ -139,14 +139,14 @@ export default function MenuAdmin() {
 		),
 		getItem(
 			'',
-			'18',
+			'20',
 			<Link href="/en/login"></Link>
 		),
 		getItem(
 			'Logout',
 			'8',
 			<Link onClick={handleLogout} href='#'>
-				<LogoutOutlined size={20} />
+				<LogoutOutlined size={25} />
 			</Link>
 		),
 	];
