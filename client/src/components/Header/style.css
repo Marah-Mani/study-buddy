@@ -26,7 +26,7 @@
   text-decoration: none;
   font-size: 20px;
 }
-
+/*
 .nav a::before,
 .nav a::after {
   content: '';
@@ -59,7 +59,7 @@
 .nav a:hover:after {
   transform: translate(0, 0);
   opacity: 1;
-}
+} */
 
 .nav a:hover {
   color: #3da35d;
@@ -72,4 +72,7 @@
 }
 span.anticon.anticon-close svg {
   color: rgb(241, 166, 56);
+}
+.ant-drawer .ant-drawer-header {
+  border-bottom: none !important;
 }
