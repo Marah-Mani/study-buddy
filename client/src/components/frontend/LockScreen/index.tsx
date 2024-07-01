@@ -48,7 +48,7 @@ const LockScreen = () => {
 		<>
 			<div className='lockScreen'>
 				<div className='heading'>
-					<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Lock Screen</Titles>
+					<Titles level={5} color='primaryColor' className='textCenter overEfact paddingBottomTwo'>Lock Screen</Titles>
 				</div>
 				<p style={{ textAlign: 'center', fontWeight: '300' }}>Hello {userData?.name}</p>
 				<Form

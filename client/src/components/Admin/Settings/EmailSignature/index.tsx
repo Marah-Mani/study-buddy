@@ -64,7 +64,7 @@ export default function EmailSignature({ activeKey }: Props) {
             <Form layout='vertical' size='large' form={form} onFinish={onFinish}>
                 <Row>
                     <Col xl={16} lg={16} md={16} sm={24} xs={24}>
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Email Signature
                         </ParaText>
                         <div className="smallTopMargin"></div>

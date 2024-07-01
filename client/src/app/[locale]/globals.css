@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 body {
   font-family: 'Lato', sans-serif;
@@ -16,6 +15,7 @@ html {
 a {
   color: inherit !important;
   background-color: transparent;
+  font-family: 'PT Serif', serif !important;
 }
 
 * {
@@ -37,11 +37,14 @@ h5,
 h6 {
   margin: 0px !important;
   padding: 0px !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 700;
 }
 
-p {
+p,
+span {
   margin: 0px !important;
-  font-family: 'Lato', sans-serif !important;
+  font-family: 'PT Serif', serif !important;
 }
 
 ul {
@@ -51,10 +54,23 @@ ul {
 
 li {
   list-style: none;
+  font-family: 'PT Serif', serif !important;
 }
-
+a.ant-menu-item-icon {
+  margin-right: 12px;
+}
 .ant-btn-primary {
   color: #fff;
   background: #1967d2 !important;
   box-shadow: 0 2px 0 rgba(8, 108, 168, 0.15);
 }
+/* @font-face {
+  font-family: 'New Spirit SemiBold Condensed';
+  src: url('./fonts/New-Spirit-SemiBold-Condensed.eot');
+  src:
+    url('./fonts/New-Spirit-SemiBold-Condensed.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/New-Spirit-SemiBold-Condensed.woff2') format('woff2'),
+    url('./fonts/New-Spirit-SemiBold-Condensed.woff') format('woff'),
+    url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('truetype'),
+    url('./fonts/New-Spirit-SemiBold-Condensed.svg#New Spirit SemiBold Condensed') format('svg');
+} */

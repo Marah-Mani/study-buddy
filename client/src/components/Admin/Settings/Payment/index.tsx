@@ -65,7 +65,7 @@ export default function Payment({ activeKey }: Props) {
             <Form layout='vertical' form={form} size='large' onFinish={onfinish}>
                 <Row>
                     <Col xl={16} lg={16} md={16} sm={24} xs={24}>
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Stripe Keys
                         </ParaText>
                         <Row gutter={[14, 14]}>
@@ -112,7 +112,7 @@ export default function Payment({ activeKey }: Props) {
                                 </Form.Item>
                             </Col>
                             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                                <ParaText size="large" fontWeightBold={600} color="primaryColor">
                                     Paypal Keys
                                 </ParaText>
                             </Col>
@@ -164,7 +164,7 @@ export default function Payment({ activeKey }: Props) {
                     </Col>
                     <Col xl={8} lg={8} md={8} sm={24} xs={24}></Col>
                     <Col xl={8} lg={8} md={8} sm={24} xs={24}>
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Payment Gateway Integration
                         </ParaText>
                         <Row >
@@ -199,7 +199,7 @@ export default function Payment({ activeKey }: Props) {
                         </Row>
                     </Col>
                     <Col md={8} style={{ textAlign: 'end' }}>
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             {''}
                         </ParaText>
                         <div className="largeTopMargin"></div>

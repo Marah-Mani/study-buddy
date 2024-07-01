@@ -161,7 +161,7 @@ const Register = () => {
 			<div className='registerMain'>
 				<div className='login'>
 					<div className='heading'>
-						<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Register</Titles>
+						<Titles level={5} color='primaryColor' className='textCenter overEfact paddingBottomTwo'>Register</Titles>
 					</div>
 					<Form
 						name="normal_register"
@@ -308,7 +308,7 @@ const Register = () => {
 						<span className='loginHere'>
 							Already registered?{' '}
 							<Link href="/en/login" passHref>
-								<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={600}>Log in here</ParaText>
+								<ParaText color="primaryColor" size="textGraf" fontWeightBold={600}>Log in here</ParaText>
 							</Link>
 						</span>
 					</div>

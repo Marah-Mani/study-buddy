@@ -89,7 +89,7 @@ const EmailTemplate = ({ activeKey }: Props) => {
     return (
         <>
             <div className="smallTopMargin"></div>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Email Templates
             </ParaText>
             <Row gutter={16}>
@@ -101,7 +101,7 @@ const EmailTemplate = ({ activeKey }: Props) => {
                         expandable={{
                             expandedRowRender: (record: any) => (
                                 <div key={record._id}>
-                                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                                         {record.name}
                                     </ParaText>
                                     <div className="smallTopMargin"></div>
@@ -190,7 +190,7 @@ const EmailTemplate = ({ activeKey }: Props) => {
                 <Col xl={8} lg={8} md={8} sm={24} xs={24}>
                     <div className="largeTopMargin"></div>
                     <Card>
-                        <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">
                             Use the variables below in your editor to dynamically format your content. Ensure you use the same format and symbols as shown.
                         </ParaText>
                         <div className="smallTopMargin"></div>

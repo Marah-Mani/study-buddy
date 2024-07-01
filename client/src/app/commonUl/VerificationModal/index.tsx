@@ -141,7 +141,7 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 	return (
 		<>
 			<div className="verificationModal textCenter">
-				<Titles level={5} color="PrimaryColor">
+				<Titles level={5} color="primaryColor">
 					Verify Your {userEmail ? 'Email Address' : 'Mobile Number'}
 				</Titles>
 				<div className='gapMarginTopOne'></div>

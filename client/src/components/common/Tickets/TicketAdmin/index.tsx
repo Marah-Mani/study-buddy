@@ -145,7 +145,7 @@ export default function TicketAdmin({ tickets, onClose, onStatusUpdate, editTick
         <>
             <Row>
                 <Col md={12}>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                         Tickets
                     </ParaText>
                 </Col>

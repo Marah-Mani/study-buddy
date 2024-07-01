@@ -198,7 +198,7 @@ export default function Brands({ activeKey }: Props) {
 
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Brand Details
             </ParaText>
             <div className="smallTopMargin"></div>

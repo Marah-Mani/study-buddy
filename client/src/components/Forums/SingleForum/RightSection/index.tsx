@@ -126,7 +126,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                             <Input placeholder='Search here...' onChange={(e: any) => { onSearch(e.target.value) }} maxLength={50}
                             />
                             <div className="smallTopMargin"></div>
-                            <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
+                            <ParaText size="small" fontWeightBold={600} color="primaryColor">
                                 Categories
                             </ParaText>
                             <div className="smallTopMargin"></div>
@@ -143,7 +143,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                         </>}
                     {relatedData.relatedForums?.length > 0 && categoryId &&
                         <>
-                            <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
+                            <ParaText size="small" fontWeightBold={600} color="primaryColor">
                                 Related Forums
                             </ParaText>
                             <div className="smallTopMargin"></div>
@@ -167,7 +167,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                                                     }
                                                 </Col>
                                                 <Col md={21}>
-                                                    <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">
+                                                    <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">
                                                         <Link target={'blank'} href={`${process.env.NEXT_PUBLIC_SITE_URL}/admin/questions/${data.slug}`} >
                                                             {data.title.length > 65 ? `${data.title.slice(0, 65)}...` : data.title}
                                                         </Link>
@@ -184,7 +184,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                     }
                     {relatedData.others?.length > 0 &&
                         <>
-                            <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
+                            <ParaText size="small" fontWeightBold={600} color="primaryColor">
                                 Other Forums
                             </ParaText>
                             <div className="smallTopMargin"></div>
@@ -208,7 +208,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                                                     }
                                                 </Col>
                                                 <Col md={21}>
-                                                    <ParaText size="extraSmall" fontWeightBold={600} color="PrimaryColor">
+                                                    <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">
                                                         <Link target={'blank'} href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${data.slug}`} >
                                                             {data.title.length > 65 ? `${data.title.slice(0, 65)}...` : data.title}
                                                         </Link>

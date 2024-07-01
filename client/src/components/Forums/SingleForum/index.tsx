@@ -232,7 +232,7 @@ export default function SingleForum({ forumData }: Props) {
                            <span><RelativeTime date={forumData.createdAt} /></span>
                         </div>
                      </div>
-                     <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                     <ParaText size="large" fontWeightBold={600} color="primaryColor">
                         {forumData.title}
                      </ParaText>
                      <div className="smallTopMargin"></div>
@@ -299,7 +299,7 @@ export default function SingleForum({ forumData }: Props) {
                         }
                      </div>
                      {dataSource?.comments?.length > 0 &&
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                            Comments
                         </ParaText>
                      }
@@ -437,7 +437,7 @@ export default function SingleForum({ forumData }: Props) {
                                     <Col md={3}></Col>
                                     <Col md={21}>
                                        {comment?.replies?.length > 0 &&
-                                          <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                                          <ParaText size="large" fontWeightBold={600} color="primaryColor">
                                              Replies
                                           </ParaText>
                                        }

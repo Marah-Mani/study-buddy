@@ -33,7 +33,7 @@ const ForgotPassword = () => {
 	return (
 		<div className='forgetPassword'>
 			<div className='heading'>
-				<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Forgot Password</Titles>
+				<Titles level={5} color='primaryColor' className='textCenter overEfact paddingBottomTwo'>Forgot Password</Titles>
 			</div>
 			<Form
 				name="normal_login"

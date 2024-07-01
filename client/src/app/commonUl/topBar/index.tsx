@@ -155,7 +155,7 @@ export default function TopBar() {
 							headerMenu.map((menu: any, index: any) => {
 								return (
 									<Link style={{ paddingLeft: '10px' }} key={index} href={`${menu.link}`} >
-										<ParaText size="small" color="SecondaryColor">
+										<ParaText size="small" color="secondaryColor">
 											{menu.title}
 										</ParaText>
 									</Link>
@@ -173,10 +173,10 @@ export default function TopBar() {
 									<IoMenuSharp color='#000' size={20} />
 								</div>
 							</div>
-							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode size={20} /> : <CiDark size={20} />} /></div>
+							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode color='#fff' size={20} /> : <CiDark color='#fff' size={20} />} /></div>
 							<div onClick={handleDivClickBell}>
 								{latestBell.isRead === '' ? (
-									<FaRegBell size={20} />
+									<FaRegBell size={20} color='#fff' />
 								) : (
 									<div
 										className='bell'
@@ -184,7 +184,7 @@ export default function TopBar() {
 											handleDivClickBell(e);
 										}}
 									>
-										<FaRegBell size={20} />
+										<FaRegBell color='#fff' size={20} />
 									</div>
 								)}
 							</div>
@@ -194,7 +194,7 @@ export default function TopBar() {
 									title="Notifications"
 									footer={
 										<div className="textCenter">
-											<ParaText size="small" color="SecondaryColor">
+											<ParaText size="small" color="secondaryColor">
 												<b style={{ cursor: 'pointer' }} onClick={handleNavigation}>
 
 												</b>

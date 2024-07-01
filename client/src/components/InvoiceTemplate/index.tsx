@@ -146,7 +146,7 @@ export default function InvoiceTemplate({ data }: any) {
                                 <Content style={{ marginTop: '16px' }}>
                                     <Row>
                                         <Col xl={18}>
-                                            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">Invoice: #12540</ParaText>
+                                            <ParaText size="large" fontWeightBold={600} color="primaryColor">Invoice: #12540</ParaText>
                                         </Col>
                                         <Col xl={6} style={{ textAlign: "right" }}>
                                             <Button style={{ background: "#23b7e5", color: "white" }} onClick={handlePrint}> Print</Button>

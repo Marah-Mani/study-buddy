@@ -5,7 +5,7 @@
   transition-property: border-radius, height;
   transition-duration: 1s;
   transition-timing-function: linear;
-  background: #ffeabf;
+  background: #344734;
 }
 @media (min-width: 991px) {
   .back {

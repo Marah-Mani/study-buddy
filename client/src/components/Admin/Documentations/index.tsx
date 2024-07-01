@@ -76,12 +76,12 @@ export default function Documentations() {
                     </Card>
                 </Col>
             </Row>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Browse articles by category
             </ParaText>
             <div className="mediumTopMargin"></div>
             <Card>
-                <ParaText size="small" fontWeightBold={600} color="PrimaryColor">
+                <ParaText size="small" fontWeightBold={600} color="primaryColor">
                     Browse Articles
                 </ParaText>
                 <div className="mediumTopMargin"></div>
