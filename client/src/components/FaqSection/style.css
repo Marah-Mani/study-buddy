@@ -1,38 +1,31 @@
-.faq-accordion-container {
-  padding: 2% 0px 6%;
-  background: linear-gradient(to bottom, hsl(273, 75%, 66%), hsl(240, 73%, 65%));
-  position: relative;
+.faqSection {
+  background-color: #eac38b;
+  padding: 3%;
+}
+.features-main {
+  padding: 3%;
+}
+.faqSection-text {
+  padding: 4% 18%;
+}
+.mainHeading {
+  padding: 0px 16% 0px 12%;
 }
 
-.faq-accordion-container .ant-collapse-header-text {
-  font-size: 20px;
-  color: #fff;
-  font-weight: 700;
-}
-.faq-accordion-container .ant-collapse-expand-icon {
-  color: #fff;
-}
-
-@media (min-width: 800px) {
-  .faq-accordion-container:before {
-    content: url('https://frontendmentor-showcase.netlify.app/static/media/illustration-woman-online-desktop.843eb114c7213a596ee2.svg');
-    transform: translate(-50%, -55%);
-    width: 140px;
-    height: 300px;
-    animation: dropbox 0.8s ease-in-out;
-    position: absolute;
-    top: 40%;
-    left: 10%;
+@media (max-width: 1440px) {
+  .mainHeading {
+    padding: 0px 0% 0px 4%;
   }
+}
 
-  @keyframes dropbox {
-    0% {
-      transform: translate(-50%, -100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translate(-50%, -55%);
-      opacity: 1;
-    }
+@media (max-width: 991px) {
+  .faqSection-text {
+    padding: 4% 0%;
+  }
+  .mainHeading {
+    padding: 0px 0% 0px 0%;
+  }
+  .features-main {
+    padding: 0%;
   }
 }

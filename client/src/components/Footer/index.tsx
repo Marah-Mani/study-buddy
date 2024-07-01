@@ -1,11 +1,10 @@
 'use client';
 import React, { } from 'react';
 import './style.css';
-
-import { SiFacebook } from 'react-icons/si';
-import { FaTwitter, FaYoutube } from 'react-icons/fa6';
-import { PiInstagramLogoFill } from 'react-icons/pi';
+import { MdMailOutline } from "react-icons/md";
 import ParaText from '@/app/commonUl/ParaText';
+import { Col, Row } from 'antd';
+import Titles from '@/app/commonUl/Titles';
 
 export default function Footer() {
 	return (
@@ -15,46 +14,31 @@ export default function Footer() {
 			<section className='footerSection'>
 				<footer className="footer">
 					<div className="customContainer">
-						<div className="row">
-							<div className="footer-col leftBar">
-								<h4>follow us</h4>
+						<Row align='middle' className="row">
+
+							<Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16} className="footer-col leftBar " >
+								<Titles level={3} color='primaryColor'>Study Buddy</Titles>
 								<div className='gapMarginTopTwo'></div>
-								<ParaText size='extraSmall' color='white' className='dBlock'>Study Buddy is dedicated to helping students connect with like-minded peers for collaborative learning.</ParaText>
-								<div className='gapMarginTopTwo'></div>
-								<div className="social-links">
-									<a href="#">
-										<SiFacebook />
-									</a>
-									<a href="#">
-										<FaTwitter />
-									</a>
-									<a href="#">
-										<PiInstagramLogoFill />
-									</a>
-									<a href="#">
-										<FaYoutube />
-									</a>
+								<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+								> <MdMailOutline color='#F1A638' />
+									<ParaText fontWeightBold={600} size='extraSmall' color='white'> Study24Buddyy@gmail.com</ParaText>
 								</div>
-							</div>
-							<div className="footer-col">
-								<h4>navigation</h4>
+								<div className='gapMarginTopTwo'></div>
+
+							</Col>
+							<Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8} className="footer-col navBar">
 								<ul>
-									<li><a href="/en/contact">Contact Us</a></li>
-									<li><a href="/en/privacy">Privacy Policy</a></li>
-									<li><a href="/en/terms">Terms of Use</a></li>
+									<li><a href="/en/contact"> <ParaText fontWeightBold={600} size='medium' color='primaryColor'>Navigation</ParaText></a></li>
+									<li><a href="/en/contact"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>About Us</ParaText></a></li>
+									<li><a href="/en/contact"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Contact Us</ParaText> </a></li>
+									<li><a href="/en/privacy"> <ParaText fontWeightBold={500} size='small' color='primaryColor'> Privacy Policy</ParaText></a></li>
+									<li><a href="/en/terms"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Terms of Use</ParaText> </a></li>
 								</ul>
-							</div>
-						</div>
-						<br />
-						<br />
-						<div className='textEnd'>
-							<ParaText size='extraSmall' color='white'>Copyright © Study Buddy all rights reserved.</ParaText>
-							<p><ParaText size='minSmall' color='white'>v 0.0.1</ParaText></p>
-						</div>
+							</Col>
+
+						</Row>
 					</div>
-
 				</footer>
-
 			</section>
 		</>
 	);

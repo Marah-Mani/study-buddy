@@ -1,56 +1,59 @@
 import React from 'react'
+import { Col, Image, Row } from 'antd';
+import { Carousel } from 'antd';
 import './style.css'
-import type { CollapseProps } from 'antd';
-import { Col, Collapse, Row } from 'antd';
 import Titles from '@/app/commonUl/Titles';
 import ParaText from '@/app/commonUl/ParaText';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
-const { Panel } = Collapse;
 export default function FaqSection() {
-    const CustomExpandIcon = ({ isActive }: any) => (
-        isActive ? <MinusOutlined /> : <PlusOutlined />
-    );
-    const items: CollapseProps['items'] = [
-        {
-            key: '1',
-            label: 'User-Friendly Interface',
-            children: <ParaText size="extraSmall" color="black"> Easy to navigate and use, even for those who are not tech-savvy.</ParaText>,
-        },
-        {
-            key: '2',
-            label: 'Secure and Private',
-            children: <ParaText size="extraSmall" color="black">Your data is safe with us. We prioritize your privacy and security.</ParaText>,
-        },
-        {
-            key: '3',
-            label: 'Community Driven',
-            children: <ParaText size="extraSmall" color="black">Built by students, for students. Join a vibrant community that understands your needs.</ParaText>,
-        },
-        {
-            key: '4',
-            label: 'All-In-One Solution',
-            children: <ParaText size="extraSmall" color="black">No need to juggle multiple apps and platforms. StudyBuddy brings everything you need under o</ParaText>,
-        },
-    ];
     return (
         <>
-            <div className='faq-accordion-container'>
-                <div className='customContainer'>
-
-                    <Row gutter={[16, 16]}>
-                        <Col lg={12}> </Col>
-                        <Col lg={12}>
-                            <div className=''>
-                                <Titles color='white' level={2}>Why Choose StudyBuddy</Titles>
-                            </div>
-                            <br />
-                            <div className='gapMarginTopTwo'></div>
-                            <Collapse accordion items={items} expandIconPosition="end" expandIcon={({ isActive }) => <CustomExpandIcon isActive={isActive} />} />
-                        </Col>
-                    </Row >
-                </div >
+            <div className='faqSection'>
+                <div className="customContainer">
+                    <div className='faqSection-main'>
+                        <Row>
+                            <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
+                                <div className='mainHeading'> <Titles level={3} color='black'>Why Choose Study Buddy?</Titles></div>
+                            </Col>
+                            <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
+                                <div className='faqSection-text'>
+                                    <Image src='/images/imgpsh_fullsize_anim (3).png' alt='' width={60} height={60} preview={false} />
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Titles level={5} color='secondaryColor'>Community connection</Titles>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Image src='/images/imgpsh_fullsize_anim.png' alt='' width={60} height={60} preview={false} />
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <ParaText size='medium' color='black'>Buy, sell, or trade textbooks, gadgets, and other college essentials within your community.</ParaText>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                </div>
+                            </Col>
+                            <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
+                                <div className='faqSection-text'>
+                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='' width={60} height={60} preview={false} />
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Titles level={5} color='secondaryColor'>Steamlined Learning</Titles>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Image src='/images/imgpsh_fullsize_anim (1).png' alt='' width={60} height={60} preview={false} />
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <Titles level={5} color='secondaryColor'> Security First</Titles>
+                                    <div className='gapPaddingTopOTwo'></div>
+                                    <ParaText size='medium' color='black'>Get answers to your academic questions from peers and experts. Share your knowledge to help others</ParaText>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
             </div>
-
         </>
     )
 }
+
