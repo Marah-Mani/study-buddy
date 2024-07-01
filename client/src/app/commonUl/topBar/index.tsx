@@ -19,6 +19,7 @@ import { MdDarkMode } from 'react-icons/md';
 import { IoMenuSharp } from "react-icons/io5";
 import MenuUserMobile from '../MenuUserMobile';
 import MenuAdminMobile from '../MenuAdminMobile';
+import Titles from '../Titles';
 
 export default function TopBar() {
 	const [showNotificationBell, setShowNotificationBell] = useState(false);
@@ -138,16 +139,7 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<div style={{
-								width
-									: '50%'
-							}}>
-								<Image
-									src={'/home/logo.png'}
-									alt="logo"
-									preview={false}
-								/>
-							</div>
+							<Titles level={4} color="white">Study Buddy</Titles>
 						</Link>
 					</Col>
 					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
@@ -191,7 +183,7 @@ export default function TopBar() {
 
 							{showNotificationBell && (
 								<Drawer
-									title="Notifications"
+									title={<div><ParaText size="small" color="white">Notifications</ParaText></div>}
 									footer={
 										<div className="textCenter">
 											<ParaText size="small" color="secondaryColor">
@@ -240,7 +232,7 @@ export default function TopBar() {
 															<Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
 																<div key={index}
 																>
-																	<ParaText size="extraSmall" color="black">
+																	<ParaText size="extraSmall" color="white">
 
 																		{
 																			notification.url ?
@@ -254,7 +246,7 @@ export default function TopBar() {
 																		}
 
 																	</ParaText></div>
-																<span style={{ fontSize: '10px' }}>
+																<span style={{ fontSize: '10px', color: 'white' }}>
 																	{notification?.createdAt && (
 																		<span style={{ fontSize: '11px' }}>
 																			{new Intl.DateTimeFormat('en-US', {

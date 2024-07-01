@@ -65,7 +65,7 @@ export default function ConversationItem(
                             ? getSender(user, chat.users)
                             : chat.chatName}
                         </p>
-                        <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                        <p style={{ fontSize: "12px", fontWeight: '400', color: '#000' }}>
                             {
                                 user.block.includes(getSenderFull(user, chat.users)._id) ? (
                                     <p>You blocked this user.</p>

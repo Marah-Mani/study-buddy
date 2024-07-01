@@ -244,9 +244,9 @@ export default function MyChats() {
                             />
                         </div>
                         <div>
-                            <p style={{ fontWeight: '500', textTransform: 'capitalize' }}>{user.name}
+                            <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>{user.name}
                             </p>
-                            <p style={{ fontSize: "12px", fontWeight: '400', color: 'rgba(0,0,0,.6)' }}>
+                            <p style={{ fontSize: "12px", fontWeight: '400' }}>
                                 {user.email}
                             </p>
                         </div>
