@@ -92,7 +92,7 @@ const Login = () => {
 			<div className='loginMain'>
 				<div className='login'>
 					<div className='heading'>
-						<Titles level={5} color='PrimaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>
+						<Titles level={5} color='primaryColor' className='textCenter overEfact paddingBottomTwo'>Login</Titles>
 					</div>
 					<Form
 						name="normal_login"
@@ -161,14 +161,14 @@ const Login = () => {
 						<span>
 							Not registered?{' '}
 							<Link href="/en/register" passHref>
-								<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Register here</ParaText></Link>
+								<ParaText color="primaryColor" size="textGraf" fontWeightBold={700}> Register here</ParaText></Link>
 						</span>
 					</div>
 					<div style={{ textAlign: 'center', marginTop: '20px' }}>
 						<span>
 							Forgot Password?{' '}
 							<Link href="/en/forgot-password" passHref>
-								<ParaText color="PrimaryColor" size="textGraf" fontWeightBold={700}> Click here</ParaText>
+								<ParaText color="primaryColor" size="textGraf" fontWeightBold={700}> Click here</ParaText>
 							</Link>
 						</span>
 					</div>

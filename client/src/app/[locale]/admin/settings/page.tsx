@@ -35,7 +35,7 @@ export default function Page() {
 			<div className="gapMarginTop"></div>
 			<div className='boxInbox'>
 				<div className="largeTopMargin"></div>
-				<ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+				<ParaText size="large" fontWeightBold={600} color="primaryColor">
 					Settings
 				</ParaText>
 				<div className="largeTopMargin"></div>

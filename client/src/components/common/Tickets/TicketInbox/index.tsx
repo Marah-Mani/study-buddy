@@ -99,7 +99,7 @@ export default function TicketInbox({ tickets, onClose, onStatusUpdate, editTick
             <div className="boxInbox">
                 <Row gutter={[16, 16]} align='middle'>
                     <Col xs={24} sm={3} md={3} lg={3} xl={3} xxl={3}>
-                        <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Tickets
                         </ParaText>
                     </Col>
@@ -325,7 +325,7 @@ export default function TicketInbox({ tickets, onClose, onStatusUpdate, editTick
                                                                     <Space>
                                                                         <ParaText
                                                                             size="extraSmall"
-                                                                            color="SecondaryColor"
+                                                                            color="secondaryColor"
                                                                             className="weight700"
                                                                         >
                                                                             <BsThreeDotsVertical />

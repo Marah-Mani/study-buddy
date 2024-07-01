@@ -33,7 +33,7 @@ const BlogCard = ({
 				<div className="blogImages">
 
 				</div>
-				<ParaText size="large" color="PrimaryColor">
+				<ParaText size="large" color="primaryColor">
 					{title}
 				</ParaText>
 				<div className={styles['joannaWellick']}>

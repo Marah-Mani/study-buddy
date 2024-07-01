@@ -9,7 +9,7 @@ export default function settings() {
             <div className="smallTopMargin"></div>
             <div className='boxInbox'>
                 <div className="largeTopMargin"></div>
-                <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                <ParaText size="large" fontWeightBold={600} color="primaryColor">
                     Profile
                 </ParaText>
                 <div className="largeTopMargin"></div>

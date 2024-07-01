@@ -78,7 +78,7 @@ export default function CardInfo({ activeKey }: Props) {
 
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Card Information
             </ParaText>
             <div className="smallTopMargin"></div>
@@ -108,7 +108,7 @@ export default function CardInfo({ activeKey }: Props) {
                         <Card
                             title={
                                 <>
-                                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                                         Add New Card
                                     </ParaText>
                                 </>

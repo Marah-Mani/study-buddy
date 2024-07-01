@@ -60,7 +60,7 @@ export default function FooterMenu({ activeKey }: Props) {
             <div className="smallTopMargin"></div>
             <Row>
                 <Col md={12}>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                         Footer Menu
                     </ParaText>
                 </Col>

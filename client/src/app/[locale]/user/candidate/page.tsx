@@ -165,7 +165,7 @@ export default function Page() {
                     <div className='menuStyle'>
                         <Row gutter={[16, 16]} align='middle'>
                             <Col xs={24} sm={24} md={4} lg={4} xl={6} xxl={8}>
-                                <ParaText size='small' color='PrimaryColor' fontWeightBold={600}> <strong>{AllCandidates.length}</strong>{user?.interestedIn === "student" ? " Tutor" : " student"}</ParaText>
+                                <ParaText size='small' color='primaryColor' fontWeightBold={600}> <strong>{AllCandidates.length}</strong>{user?.interestedIn === "student" ? " Tutor" : " student"}</ParaText>
                             </Col>
                             <Col xs={24} sm={24} md={20} lg={20} xl={18} xxl={16}>
                                 <div className='floatRight'>
@@ -243,7 +243,7 @@ export default function Page() {
                                                 </Col>
                                                 <Col xs={18} sm={21} md={18} lg={20} xl={20} xxl={21}>
                                                     <Flex align='center'>
-                                                        <ParaText size="small" color='PrimaryColor' className="dBlock" fontWeightBold={600}>
+                                                        <ParaText size="small" color='primaryColor' className="dBlock" fontWeightBold={600}>
                                                             {`${item?.name} `}
                                                         </ParaText>
                                                         <Tag color='success' style={{ marginLeft: '8px' }}>
@@ -259,7 +259,7 @@ export default function Page() {
                                             </Row>
                                         </Col>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
-                                            <ParaText size="textGraf" color='PrimaryColor'>
+                                            <ParaText size="textGraf" color='primaryColor'>
                                                 <span>
                                                     <strong> Department :</strong> </span>
                                                 &nbsp;
@@ -268,7 +268,7 @@ export default function Page() {
                                                 </span>
                                             </ParaText>
                                             &nbsp; &nbsp; &nbsp;
-                                            <ParaText size="textGraf" color='PrimaryColor'>
+                                            <ParaText size="textGraf" color='primaryColor'>
                                                 <span>
                                                     <strong> Subjects :</strong> </span>
                                                 &nbsp;

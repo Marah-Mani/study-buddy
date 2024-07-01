@@ -293,7 +293,7 @@ const Todo = () => {
 					<Col xs={24} sm={24} md={24} lg={24} xl={20} xxl={20}>
 						<Row gutter={[16, 16]} className='boxInbox'>
 							<Col span={24}>
-								<ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+								<ParaText size="large" fontWeightBold={600} color="primaryColor">
 									Tasks
 								</ParaText>
 							</Col>

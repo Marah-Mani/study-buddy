@@ -340,7 +340,7 @@ export default function TicketPageReply({ onClose, ticketData, onStatusUpdate, h
                                         <ParaText
                                             className="dBlock"
                                             size="smallExtra"
-                                            color="PrimaryColor"
+                                            color="primaryColor"
                                             fontWeightBold={500}
                                         >
                                             {chat?.userId?.name != null ? chat?.userId?.name : chat?.userId?.name} ({chat?.userId?.role})

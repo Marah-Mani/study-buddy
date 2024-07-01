@@ -84,7 +84,7 @@ export default function DigitalSignature({ activeKey }: Props) {
 
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+            <ParaText size="large" fontWeightBold={600} color="primaryColor">
                 Digital Signature
             </ParaText>
             <div className="smallTopMargin"></div>

@@ -74,7 +74,7 @@ export default function KnowledgeBase({ activeKey }: Props) {
             <div className="smallTopMargin"></div>
             <Row gutter={8}>
                 <Col md={17}>
-                    <ParaText size="large" fontWeightBold={600} color="PrimaryColor">
+                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
                         Knowledge Base
                     </ParaText>
                 </Col>
