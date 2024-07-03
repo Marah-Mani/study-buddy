@@ -59,6 +59,16 @@
             "date": 1719805703260,
             "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-07-01.log",
             "hash": "776f08fd4dd7f56d677d7617c39ef1fc427a89122b2bd0a5a0193c91bb3efe50"
+        },
+        {
+            "date": 1719894548457,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-07-02.log",
+            "hash": "680c48dd3c5d8c9d56ecbfc04a8e1eb8a6dc0fa83a511690339562741fd37b39"
+        },
+        {
+            "date": 1719978376718,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-07-03.log",
+            "hash": "21a1830eab0fc803d49c2b4926e53d2815d93f34e84ec082da1785fe4beb3499"
         }
     ],
     "hashType": "sha256"

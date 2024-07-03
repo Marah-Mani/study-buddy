@@ -213,7 +213,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
                                                 <>
-                                                    ${data.discountPrice} <span>${data.price}</span>
+                                                    <Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} /> {data.discountPrice} <span> <Image width={15} preview={false} src="/icons/shekel-sign.png" alt='' />  {data.price}</span>
                                                 </>
                                                 :
                                                 `$${data.price}`
@@ -224,7 +224,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                                 {data.discountPrice != "undefined" ?
                                     <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd' onClick={() => handleDetail(data)}>
-                                        <Tag color="geekblue">
+                                        <Tag color="#f1a638">
                                             {calculatePercentageOff(data.price, data.discountPrice)}% off
                                         </Tag>
                                     </Col>
@@ -242,7 +242,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                         color={'#EDF1F5'}
                                     >
-                                        <WechatOutlined onClick={() => handleSubmit(data)} style={{ fontSize: '30px', cursor: 'pointer', color: '#267200' }} />
+                                        <Image src="/icons/yellowbubble-chat.png" alt='' />
                                     </Tooltip>
                                 </Col>
                             </Row>

@@ -2,14 +2,10 @@
 import './style.css';
 import React, { useContext, useEffect, useState } from 'react';
 import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
+import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
-import { FaFileCircleCheck, FaProductHunt } from 'react-icons/fa6';
-import { UserOutlined, WechatOutlined, QuestionCircleOutlined, LogoutOutlined } from '@ant-design/icons';
-
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -32,6 +28,7 @@ function getItem(
 
 
 export default function MenuAdmin() {
+	const [isActive, setIsActive] = useState(true);
 	const { logout } = useContext(AuthContext);
 	const [defaultSelectedKey, setDefaultSelectedKey] = useState('1')
 
@@ -51,52 +48,102 @@ export default function MenuAdmin() {
 			'Dashboard',
 			'1',
 			<Link href="/en/admin/dashboard">
-				<IoHome size={20} />
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '1' ? (
+						<Image preview={false} src="/icons/yellowhome.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowhome.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
 		getItem(
 			'Users',
-			'5',
+			'2',
 			<Link href="/en/admin/users">
-				<UserOutlined size={20} />
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '2' ? (
+						<Image preview={false} src="/icons/yellowuser.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowuser.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
 		getItem(
 			'Market Place',
-			'4',
-			<Link href="/en/admin/market-place">
-				<FaProductHunt size={20} />
-			</Link>
-		),
-		getItem(
-			'File Manager',
-			'6',
-			<Link href="/en/admin/file-manager">
-				<FaFileCircleCheck size={20} />
-			</Link>
-		),
-		getItem(
-			'Forums',
 			'3',
-			<Link href="/en/admin/forums">
-				<QuestionCircleOutlined size={20} />
+			<Link href="/en/admin/market-place">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '3' ? (
+						<Image preview={false} src="/icons/yellowmarket.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowmarket.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
 
 		getItem(
-			'Chats',
-			'7',
+			'Q&A',
+			'4',
 			<Link href="/en/admin/chat">
-				<WechatOutlined size={20} />
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '4' ? (
+						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		getItem(
+			'Profile',
+			'5',
+			<Link href="/en/admin/edit-profile">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '5' ? (
+						<Image preview={false} src="/icons/yellowedit.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowedit.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
 		getItem(
-			'Settings',
-			'2',
-			<Link href="/en/admin/settings">
-				<IoSettings size={20} />
+			'Chat',
+			'6',
+			<Link href="/en/admin/chat">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '6' ? (
+						<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
+
+		// getItem(
+		// 	'Settings',
+		// 	'2',
+		// 	<Link href="/en/admin/settings">
+		// 		<Image preview={false} src="/icons/home.png" alt="" width={20} height={20} />
+		// 	</Link>
+		// ),
 		getItem(
 			'',
 			'10',
@@ -145,8 +192,16 @@ export default function MenuAdmin() {
 		getItem(
 			'Logout',
 			'8',
-			<Link onClick={handleLogout} href='#'>
-				<LogoutOutlined size={25} />
+			<Link href="/en/login">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '6' ? (
+						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
 			</Link>
 		),
 	];
@@ -162,11 +217,11 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/settings':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/admin/forums':
-				setDefaultSelectedKey('3');
+			case pathname === '/en/admin/chat':
+				setDefaultSelectedKey('6');
 				break;
 			case pathname === '/en/admin/market-place':
-				setDefaultSelectedKey('4');
+				setDefaultSelectedKey('3');
 				break;
 			case pathname === '/en/admin/users':
 				setDefaultSelectedKey('5');

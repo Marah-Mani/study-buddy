@@ -45,8 +45,10 @@ p {
   font-family: 'PT Serif', serif !important;
 }
 
-span {
+span,
+a {
   font-family: 'PT Serif', serif !important;
+  font-weight: 600;
 }
 
 ul {
