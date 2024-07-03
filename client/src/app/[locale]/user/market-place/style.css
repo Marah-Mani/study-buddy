@@ -82,7 +82,7 @@
 
 .product-grid .social li a:hover {
   color: #fff !important;
-  background: #e84393;
+  background: #344734;
 }
 
 .product-grid .social li a:before,
@@ -136,11 +136,11 @@
 }
 
 .product-grid .title a:hover {
-  color: #e84393;
+  color: #344734;
 }
 
 .product-grid .price {
-  color: #e84393;
+  color: #344734;
   font-size: 17px;
   font-weight: 700;
 }

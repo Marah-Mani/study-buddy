@@ -17,12 +17,14 @@
 	"cSpell.words": [
 		"Admition",
 		"aliquip",
+		"chatwhite",
 		"cididunt",
 		"contactus",
 		"Efact",
 		"enim",
 		"Frofile",
 		"fullsize",
+		"homewhite",
 		"imgpsh",
 		"laboris",
 		"minime",
@@ -33,7 +35,12 @@
 		"Steamlined",
 		"Successfull",
 		"temin",
-		"veniam"
+		"userwhite",
+		"veniam",
+		"yellowchat",
+		"yellowedit",
+		"yellowhome",
+		"yellowuser"
 	],
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
