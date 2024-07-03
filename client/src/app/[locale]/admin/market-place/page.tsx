@@ -19,9 +19,7 @@ export default function Page() {
 
 	return (
 		<>
-			<div className="smallTopMargin"></div>
 			<div className='boxInbox'>
-				<div className="largeTopMargin"></div>
 				<Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
 			</div>
 		</>
