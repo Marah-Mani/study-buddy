@@ -62,7 +62,7 @@ export default function MenuAdmin() {
 		getItem(
 			'Users',
 			'2',
-			<Link href="/en/admin/users">
+			<Link href="/en/admin/candidate">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '2' ? (
 						<Image preview={false} src="/icons/yellowuser.png" alt="Active User" width={20} height={20} />
@@ -93,7 +93,7 @@ export default function MenuAdmin() {
 		getItem(
 			'Q&A',
 			'4',
-			<Link href="/en/admin/chat">
+			<Link href="/en/admin/forums">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '4' ? (
 						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
@@ -109,7 +109,7 @@ export default function MenuAdmin() {
 		getItem(
 			'Profile',
 			'5',
-			<Link href="/en/admin/edit-profile">
+			<Link href="/en/admin/profile">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '5' ? (
 						<Image preview={false} src="/icons/yellowedit.png" alt="Active User" width={20} height={20} />
@@ -137,64 +137,12 @@ export default function MenuAdmin() {
 			</Link>
 		),
 
-		// getItem(
-		// 	'Settings',
-		// 	'2',
-		// 	<Link href="/en/admin/settings">
-		// 		<Image preview={false} src="/icons/home.png" alt="" width={20} height={20} />
-		// 	</Link>
-		// ),
-		getItem(
-			'',
-			'10',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'11',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'12',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'13',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'14',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'15',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'16',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'17',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'20',
-			<Link href="/en/login"></Link>
-		),
 		getItem(
 			'Logout',
-			'8',
+			'7',
 			<Link href="/en/login">
 				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '6' ? (
+					{defaultSelectedKey === '7' ? (
 						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
 					)
 						:
@@ -209,34 +157,27 @@ export default function MenuAdmin() {
 	const pathname = usePathname();
 	useEffect(() => {
 		let defaultSelectedKey;
-
 		switch (true) {
 			case pathname === '/en/admin/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/admin/settings':
+			case pathname === '/en/admin/users':
 				setDefaultSelectedKey('2');
-				break;
-			case pathname === '/en/admin/chat':
-				setDefaultSelectedKey('6');
 				break;
 			case pathname === '/en/admin/market-place':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/admin/users':
+			case pathname === '/en/admin/forums':
+				setDefaultSelectedKey('4');
+				break;
+			case pathname === '/en/admin/profile':
 				setDefaultSelectedKey('5');
 				break;
-			case pathname === '/en/admin/file-manager':
+			case pathname === '/en/admin/chat':
 				setDefaultSelectedKey('6');
 				break;
-			case pathname === '/en/admin/chat':
-				setDefaultSelectedKey('7');
-				break;
 			case pathname === '/en/login':
-				setDefaultSelectedKey('8');
-				break;
-			case pathname === '/en/admin/question-answer':
-				setDefaultSelectedKey('9');
+				setDefaultSelectedKey('7');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
@@ -252,7 +193,7 @@ export default function MenuAdmin() {
 						<div className="textCenter">
 							<Link href="/"></Link>
 						</div>
-						<div className="gapMarginTop"></div>
+						<div className="gapPaddingTopOTwo"></div>
 						<Menu
 							selectedKeys={[defaultSelectedKey]}
 							mode="inline"

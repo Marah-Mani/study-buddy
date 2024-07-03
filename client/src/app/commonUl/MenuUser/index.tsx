@@ -126,7 +126,7 @@ export default function MenuAUser() {
 		getItem(
 			'Q&A',
 			'4',
-			<Link href="/en/user/chat">
+			<Link href="/en/user/forums">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '4' ? (
 						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
@@ -169,65 +169,12 @@ export default function MenuAUser() {
 				</span>
 			</Link>
 		),
-
-		// getItem(
-		// 	'Settings',
-		// 	'2',
-		// 	<Link href="/en/user/settings">
-		// 		<Image preview={false} src="/icons/home.png" alt="" width={20} height={20} />
-		// 	</Link>
-		// ),
-		getItem(
-			'',
-			'10',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'11',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'12',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'13',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'14',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'15',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'16',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'17',
-			<Link href="/en/user/settings"></Link>
-		),
-		getItem(
-			'',
-			'20',
-			<Link href="/en/login"></Link>
-		),
 		getItem(
 			'Logout',
-			'8',
+			'7',
 			<Link href="/en/login">
 				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '6' ? (
+					{defaultSelectedKey === '7' ? (
 						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
 					)
 						:
@@ -246,28 +193,22 @@ export default function MenuAUser() {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/edit-profile':
+			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/user/candidate':
+			case pathname === '/en/user/market-place':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/user/file-manager':
+			case pathname === '/en/user/forums':
 				setDefaultSelectedKey('4');
 				break;
-			case pathname === '/en/user/forums':
-				setDefaultSelectedKey('5');
-				break;
-			case pathname === '/en/user/question-answer':
-				setDefaultSelectedKey('6');
-				break;
-			case pathname === '/en/user/market-place':
-				setDefaultSelectedKey('7');
+			case pathname === '/en/user/edit-profile':
+				setDefaultSelectedKey('5'); // Redirect to Dashboard
 				break;
 			case pathname === '/en/user/chat':
-				setDefaultSelectedKey('8');
+				setDefaultSelectedKey('6'); // Redirect to Dashboard
 				break;
-			case pathname === '/en/user/notifications':
+			case pathname === '/en/login':
 				setDefaultSelectedKey('7'); // Redirect to Dashboard
 				break;
 			default:
@@ -296,7 +237,7 @@ export default function MenuAUser() {
 							<Link href="/">
 							</Link>
 						</div>
-						<div className="gapMarginTop"></div>
+						<div className="gapPaddingTopOTwo"></div>
 						<Menu
 							selectedKeys={[defaultSelectedKey]}
 							mode="inline"

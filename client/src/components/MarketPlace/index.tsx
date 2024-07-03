@@ -213,7 +213,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
                                                 <>
-                                                    <Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} /> {data.discountPrice} <span> <Image width={15} preview={false} src="/icons/shekel-sign.png" alt='' />  {data.price}</span>
+                                                    <Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} />&nbsp; {data.discountPrice} <span> <Image width={15} preview={false} src="/icons/shekel-sign.png" alt='' />&nbsp;  {data.price}</span>
                                                 </>
                                                 :
                                                 `$${data.price}`

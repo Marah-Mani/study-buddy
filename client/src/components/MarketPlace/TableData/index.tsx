@@ -169,8 +169,8 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             title: data.title,
             category: data.categoryId.name,
             subCategory: data.subCategoryId.name,
-            price: <><Image src="/icons/shekel-sign.png" width={15} height={15} preview={false} alt='' />{data.price}</>,
-            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <><Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} height={15} />{data.discountPrice}</>,
+            price: <><Image src="/icons/shekel-sign.png" width={15} height={15} preview={false} alt='' />&nbsp;{data.price}</>,
+            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <><Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} height={15} />&nbsp;{data.discountPrice}</>,
             status: (
                 data.status == 'active' ?
                     <Tag color="green">Active</Tag>
