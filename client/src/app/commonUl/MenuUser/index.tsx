@@ -1,7 +1,7 @@
 'use client';
 import './style.css';
 import React, { useContext, useEffect, useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings } from 'react-icons/io5';
@@ -41,6 +41,7 @@ function getItem(
 }
 
 export default function MenuAUser() {
+	const [isActive, setIsActive] = useState(true);
 	const { logout } = useContext(AuthContext);
 	const [role, setAllRole] = useState<Roles[]>([]);
 	const { user } = useContext(AuthContext);
@@ -69,6 +70,174 @@ export default function MenuAUser() {
 			logout();
 		}
 	}
+
+	function handleLogout(e: any) {
+		e.preventDefault();
+		logout();
+	}
+
+	const staticItems: MenuItem[] = [
+		getItem(
+			'Dashboard',
+			'1',
+			<Link href="/en/user/dashboard">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '1' ? (
+						<Image preview={false} src="/icons/home.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/homewhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'Users',
+			'2',
+			<Link href="/en/user/candidate">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '2' ? (
+						<Image preview={false} src="/icons/user.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/userwhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'3',
+			<Link href="/en/user/market-place">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '3' ? (
+						<Image preview={false} src="/icons/place.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/retailerwhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		getItem(
+			'Q&A',
+			'4',
+			<Link href="/en/user/chat">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '4' ? (
+						<Image preview={false} src="/icons/chat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/chatwhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		getItem(
+			'Profile',
+			'5',
+			<Link href="/en/user/edit-profile">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '5' ? (
+						<Image preview={false} src="/icons/edit.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/editwhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'chat',
+			'6',
+			<Link href="/en/user/chat">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '6' ? (
+						<Image preview={false} src="/icons/bubble-chat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/bubble-chatwhite.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		// getItem(
+		// 	'Settings',
+		// 	'2',
+		// 	<Link href="/en/user/settings">
+		// 		<Image preview={false} src="/icons/home.png" alt="" width={20} height={20} />
+		// 	</Link>
+		// ),
+		getItem(
+			'',
+			'10',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'11',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'12',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'13',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'14',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'15',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'16',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'17',
+			<Link href="/en/user/settings"></Link>
+		),
+		getItem(
+			'',
+			'20',
+			<Link href="/en/login"></Link>
+		),
+		getItem(
+			'Logout',
+			'8',
+			<Link href="/en/login">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '6' ? (
+						<Image preview={false} src="/icons/turn-off.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/turn-off.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+	];
 
 	const pathname = usePathname();
 	useEffect(() => {
@@ -107,117 +276,7 @@ export default function MenuAUser() {
 		}
 	}, [pathname])
 
-	function handleLogout(e: any) {
-		e.preventDefault();
-		logout();
-	}
 
-	const staticItems: MenuItem[] = [
-		getItem(
-			'Dashboard',
-			'1',
-			<Link href="/en/user/dashboard">
-				<IoHome size={18} />
-			</Link>
-		),
-		getItem(
-			'Users',
-			'3',
-			<Link href="/en/user/candidate">
-				<AiOutlineUser size={18} />
-			</Link>
-		),
-		getItem(
-			'Market Place',
-			'7',
-			<Link href="/en/user/market-place">
-				<FaProductHunt size={18} />
-			</Link>
-		),
-		getItem(
-			'File Manager',
-			'4',
-			<Link href="/en/user/file-manager">
-				<BiSolidFileArchive size={18} />
-			</Link>
-		),
-		getItem(
-			'Q&A',
-			'6',
-			<Link href="/en/user/question-answer">
-				<QuestionCircleOutlined size={18} />
-			</Link>
-		),
-		getItem(
-			'Chat',
-			'8',
-			<Link href="/en/user/chat">
-				<WechatOutlined size={18} />
-			</Link>
-		),
-
-
-		getItem(
-			'Profile',
-			'2',
-			<Link href="/en/user/edit-profile">
-				<IoSettings size={18} />
-			</Link>
-		),
-
-		getItem(
-			'',
-			'10',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'11',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'12',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'13',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'14',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'15',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'16',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'17',
-			<Link href="/en/admin/settings"></Link>
-		),
-		getItem(
-			'',
-			'18',
-			<Link href="/en/login"></Link>
-		),
-		getItem(
-			'Logout',
-			'9',
-			<Link onClick={handleLogout} href="/en/login">
-				<LogoutOutlined size={20} />
-			</Link>
-		),
-	];
 
 	let dynamicItems: MenuItem[] = [];
 
