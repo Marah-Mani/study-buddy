@@ -1,13 +1,13 @@
 .product-content .price {
-    color: #e84393;
-    font-size: 17px;
-    font-weight: 700;
+  color: #344734;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .product-content .price span {
-    color: #999;
-    font-weight: 500;
-    text-decoration: line-through;
-    margin-left: 5px;
-    display: inline-block;
+  color: #999;
+  font-weight: 500;
+  text-decoration: line-through;
+  margin-left: 5px;
+  display: inline-block;
 }
