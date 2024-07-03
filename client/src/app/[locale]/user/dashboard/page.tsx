@@ -54,7 +54,6 @@ export default function Dashboard() {
 	return (
 		<>
 			<div className='dashBody'>
-				<div className="gapMarginTopTwo"></div>
 				<Row gutter={[16, 16]}>
 					<div className="gapMarginTopTwo"></div>
 					<Col xs={12} sm={12} md={8} lg={6} xl={6} xxl={6}>
@@ -121,7 +120,6 @@ export default function Dashboard() {
 							/>
 						</Card>
 					</Col>
-
 				</Row>
 			</div>
 		</>

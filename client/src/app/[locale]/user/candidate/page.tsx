@@ -346,7 +346,7 @@ export default function Page() {
                                     <Divider />
                                     <Row gutter={[16, 16]} align='middle'>
                                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <ParaText size="textGraf" color='defaultColor'>
+                                            <ParaText size="textGraf" color='black'>
                                                 {item?.profileDescription}
                                             </ParaText>
                                         </Col>
