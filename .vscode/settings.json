@@ -36,7 +36,11 @@
 		"Successfull",
 		"temin",
 		"userwhite",
-		"veniam"
+		"veniam",
+		"yellowchat",
+		"yellowedit",
+		"yellowhome",
+		"yellowuser"
 	],
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"

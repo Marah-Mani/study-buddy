@@ -83,11 +83,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/dashboard">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '1' ? (
-						<Image preview={false} src="/icons/home.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowhome.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/homewhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowhome.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
@@ -98,11 +98,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/candidate">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '2' ? (
-						<Image preview={false} src="/icons/user.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowuser.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/userwhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowuser.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
@@ -113,11 +113,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/market-place">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '3' ? (
-						<Image preview={false} src="/icons/place.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowmarket.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/retailerwhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowmarket.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
@@ -129,11 +129,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/chat">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '4' ? (
-						<Image preview={false} src="/icons/chat.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/chatwhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
@@ -145,26 +145,26 @@ export default function MenuAUser() {
 			<Link href="/en/user/edit-profile">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '5' ? (
-						<Image preview={false} src="/icons/edit.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowedit.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/editwhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowedit.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
 		),
 		getItem(
-			'chat',
+			'Chat',
 			'6',
 			<Link href="/en/user/chat">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '6' ? (
-						<Image preview={false} src="/icons/bubble-chat.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/bubble-chatwhite.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
@@ -228,11 +228,11 @@ export default function MenuAUser() {
 			<Link href="/en/login">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '6' ? (
-						<Image preview={false} src="/icons/turn-off.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/turn-off.png" alt="Inactive User" width={20} height={20} />
+							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
