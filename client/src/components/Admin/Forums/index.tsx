@@ -8,16 +8,19 @@ import { Button, Col, Drawer, Form, Input, message, Row, Select, Space, Upload, 
 import React, { useContext, useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import ForumData from './ForumData'
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { addUpdateForumData, deleteForumAttachment, getForumCategories } from '@/lib/commonApi'
 
 interface Props {
     activeKey: string;
+    newRecord: any;
+    onBack: any;
+    setNewRecord: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface DataItem {
     title: string;
 }
-export default function Forums({ activeKey }: Props) {
+export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: Props) {
     const [drawer, setDrawer] = useState(false);
     const [form] = Form.useForm();
     const { user } = useContext(AuthContext);
@@ -53,6 +56,13 @@ export default function Forums({ activeKey }: Props) {
     useEffect(() => {
         fetchCategories();
     }, [])
+
+    useEffect(() => {
+        if (newRecord) {
+            setDrawer(true);
+            setNewRecord(false)
+        }
+    }, [newRecord])
 
     const handleItems = () => {
         setDrawer(true);
@@ -164,15 +174,8 @@ export default function Forums({ activeKey }: Props) {
         </div>
     );
 
-    const handleRemove = () => {
-        setAttachment([]);
-    }
-
-
-
     return (
         <>
-            <div className="largeTopMargin"></div>
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
                 <Form
@@ -297,7 +300,7 @@ export default function Forums({ activeKey }: Props) {
                                     beforeUpload={handleImageUpload}
                                     accept=".jpg,.jpeg,.png"
                                     style={{ width: '100%' }}
-                                    onRemove={handleRemove}
+                                    onRemove={handleRemoveAttachment}
 
                                 >
                                     {attachment.length >= 1 ? null : uploadButton}

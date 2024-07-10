@@ -119,8 +119,12 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
-                    <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
+                    {user?.role !== 'user' && (
+                        <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
+                    )}
+                    {!user?.role || user?.role !== 'user' ? (
+                        <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
+                    ) : null}
                     <IsFavoriteFile activeKey={activeKey}
                         onReload={(data: any) => {
                             if (data == 'favorites') {

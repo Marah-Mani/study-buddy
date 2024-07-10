@@ -4,7 +4,7 @@ const ProductSubCategory = require('../models/productSubCategory');
 
 const categories = [
 	{
-		name: 'Books',
+		name: 'Textbooks',
 		description: 'Books for study across various subjects and levels.',
 		subcategories: [
 			{ name: 'Textbooks', description: 'Academic textbooks for schools and colleges.' },
@@ -13,7 +13,7 @@ const categories = [
 		]
 	},
 	{
-		name: 'Stationery',
+		name: 'Dorm and apartment essentials',
 		description: 'Essential stationery items for students.',
 		subcategories: [
 			{ name: 'Notebooks', description: 'Notebooks for taking notes and writing assignments.' },
