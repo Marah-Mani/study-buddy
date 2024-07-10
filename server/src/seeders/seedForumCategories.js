@@ -4,127 +4,99 @@ const ForumSubCategory = require('../models/forumSubCategory');
 
 const categories = [
 	{
-		name: 'Software Engineering',
+		name: 'Electronics',
 		description: 'A category for discussions related to software engineering.',
 		subcategories: [
-			{ name: 'Calculus 0', description: 'Fundamentals of calculus for software engineers.' },
-			{ name: 'Calculus 1', description: 'Advanced calculus concepts.' },
-			{ name: 'Calculus 2', description: 'Multivariable calculus.' },
-			{ name: 'Java', description: 'Programming in Java.' },
-			{ name: 'C, C++', description: 'Programming in C and C++.' },
-			{ name: 'Algorithms 1', description: 'Introduction to algorithms.' },
-			{ name: 'Algorithms 2', description: 'Advanced algorithms.' },
-			{ name: 'Physics 1', description: 'Physics for software engineering.' },
-			{ name: 'Physics 2', description: 'Advanced physics for software engineering.' },
-			{ name: 'Software Design', description: 'Principles of software design.' },
-			{ name: 'Databases', description: 'Database management systems.' }
+			{ name: 'Calculus', description: 'Mathematical study of continuous change' },
+			{ name: 'Physics 1', description: 'Fundamentals of mechanics, heat, and sound' },
+			{ name: 'Calculus 2', description: 'Advanced topics in calculus, including integration and series' },
+			{ name: 'Differential Equations', description: 'Mathematical equations involving derivatives of functions' }
 		]
 	},
 	{
-		name: 'Mechanical Engineering',
-		description: 'A category for discussions related to mechanical engineering.',
+		name: 'Materials',
+		description: 'A category for discussions related to various academic materials.',
 		subcategories: [
-			{ name: 'Calculus 0', description: 'Fundamentals of calculus for mechanical engineers.' },
-			{ name: 'Calculus 1', description: 'Advanced calculus concepts.' },
-			{ name: 'Calculus 2', description: 'Multivariable calculus.' },
-			{ name: 'Thermodynamics', description: 'Principles of thermodynamics.' },
-			{ name: 'Fluid Mechanics', description: 'Basics of fluid mechanics.' },
-			{ name: 'Mechanics of Materials', description: 'Study of material mechanics.' },
-			{ name: 'Dynamics', description: 'Principles of dynamics.' }
-		]
-	},
-	{
-		name: 'Civil Engineering',
-		description: 'A category for discussions related to civil engineering.',
-		subcategories: [
-			{ name: 'Structural Analysis', description: 'Principles of structural analysis.' },
-			{ name: 'Geotechnical Engineering', description: 'Basics of geotechnical engineering.' },
-			{ name: 'Environmental Engineering', description: 'Principles of environmental engineering.' },
-			{ name: 'Transportation Engineering', description: 'Basics of transportation engineering.' },
-			{ name: 'Construction Management', description: 'Study of construction management.' }
-		]
-	},
-	{
-		name: 'Computer Science',
-		description: 'A category for discussions related to computer science.',
-		subcategories: [
-			{ name: 'Operating Systems', description: 'Principles of operating systems.' },
-			{ name: 'Data Structures', description: 'Study of data structures.' },
-			{ name: 'Networks', description: 'Basics of computer networks.' },
-			{ name: 'Artificial Intelligence', description: 'Principles of AI and machine learning.' },
-			{ name: 'Computer Graphics', description: 'Basics of computer graphics.' },
-			{ name: 'Cybersecurity', description: 'Principles of cybersecurity.' }
-		]
-	},
-	{
-		name: 'Biomedical Engineering',
-		description: 'A category for discussions related to biomedical engineering.',
-		subcategories: [
-			{ name: 'Biomechanics', description: 'Study of biomechanics.' },
-			{ name: 'Biomedical Imaging', description: 'Principles of biomedical imaging.' },
-			{ name: 'Biomaterials', description: 'Basics of biomaterials.' },
-			{ name: 'Bioinstrumentation', description: 'Principles of bioinstrumentation.' },
 			{
-				name: 'Biomedical Signal Processing',
-				description: 'Basics of signal processing in biomedical engineering.'
+				name: 'Linear Algebra',
+				description: 'Mathematical study of vectors, vector spaces, and linear transformations'
+			},
+			{
+				name: 'Calculus 1',
+				description: 'Introduction to calculus, including limits, derivatives, and integrals'
+			},
+			{
+				name: 'Organic Chemistry',
+				description: 'Study of the structure, properties, and reactions of organic compounds'
+			},
+			{
+				name: 'Physical Chemistry',
+				description: 'Study of macroscopic, atomic, subatomic, and particulate phenomena in chemical systems'
 			}
 		]
 	},
 	{
-		name: 'Aerospace Engineering',
-		description: 'A category for discussions related to aerospace engineering.',
+		name: 'Pharma',
+		description: 'A category for discussions related to pharmaceutical studies and chemistry.',
 		subcategories: [
-			{ name: 'Aerodynamics', description: 'Principles of aerodynamics.' },
-			{ name: 'Flight Mechanics', description: 'Study of flight mechanics.' },
-			{ name: 'Aerospace Materials', description: 'Basics of materials used in aerospace.' },
-			{ name: 'Propulsion', description: 'Principles of propulsion systems.' },
-			{ name: 'Spacecraft Design', description: 'Designing spacecraft and related systems.' }
+			{
+				name: 'Calculus 1',
+				description: 'Introduction to calculus, including limits, derivatives, and integrals'
+			},
+			{ name: 'Introduction to Chemistry', description: 'Basics of chemical principles and reactions' },
+			{
+				name: 'Analytical Chemistry 1',
+				description: 'Introduction to techniques and methods for analyzing chemical compounds'
+			},
+			{
+				name: 'Organic Chemistry',
+				description: 'Study of the structure, properties, and reactions of organic compounds'
+			}
 		]
 	},
 	{
-		name: 'Chemical Engineering',
-		description: 'A category for discussions related to chemical engineering.',
+		name: 'Machines',
+		description: 'A category for discussions related to machine studies and engineering.',
 		subcategories: [
-			{ name: 'Chemical Process Engineering', description: 'Principles of chemical process engineering.' },
-			{ name: 'Thermodynamics', description: 'Thermodynamics in chemical engineering.' },
-			{ name: 'Reaction Engineering', description: 'Study of chemical reactions and reactor design.' },
-			{ name: 'Biochemical Engineering', description: 'Engineering principles applied to biological systems.' },
-			{ name: 'Process Control', description: 'Control of chemical processes.' }
+			{
+				name: 'Calculus 1',
+				description: 'Introduction to calculus, including limits, derivatives, and integrals'
+			},
+			{ name: 'Physics 1', description: 'Fundamentals of mechanics, heat, and sound' },
+			{ name: 'Calculus 2', description: 'Advanced topics in calculus, including integration and series' },
+			{
+				name: 'Physics 2',
+				description: 'Advanced topics in physics, including electricity, magnetism, and optics'
+			}
 		]
 	},
 	{
-		name: 'Environmental Engineering',
-		description: 'A category for discussions related to environmental engineering.',
+		name: 'Software',
+		description: 'A category for discussions related to software studies and computer science.',
 		subcategories: [
-			{ name: 'Water Resources', description: 'Management of water resources.' },
-			{ name: 'Air Quality', description: 'Study of air quality and pollution control.' },
-			{ name: 'Waste Management', description: 'Principles of waste management.' },
-			{ name: 'Environmental Impact Assessment', description: 'Assessing the environmental impact of projects.' },
-			{ name: 'Sustainable Development', description: 'Principles of sustainable development in engineering.' }
-		]
-	},
-	{
-		name: 'Electrical Engineering',
-		description: 'A category for discussions related to electrical engineering.',
-		subcategories: [
-			{ name: 'Calculus 0', description: 'Fundamentals of calculus for electrical engineers.' },
-			{ name: 'Calculus 1', description: 'Advanced calculus concepts.' },
-			{ name: 'Calculus 2', description: 'Multivariable calculus.' },
-			{ name: 'Differential Functions', description: 'Study of differential functions.' },
-			{ name: 'Physics 1', description: 'Physics for electrical engineering.' },
-			{ name: 'Physics 2', description: 'Advanced physics for electrical engineering.' },
-			{ name: 'Physics 3', description: 'Electromagnetism and optics.' },
-			{ name: 'Physics 4', description: 'Quantum mechanics.' },
-			{ name: 'Physics 5', description: 'Solid-state physics.' },
-			{ name: 'Physics 6', description: 'Nuclear physics.' },
-			{ name: 'Physics 7', description: 'Plasma physics.' }
+			{
+				name: 'Discrete Mathematics',
+				description: 'Study of mathematical structures that are fundamentally discrete rather than continuous'
+			},
+			{
+				name: 'Introduction to Programming',
+				description: 'Basics of programming, including fundamental concepts and introductory coding skills'
+			},
+			{
+				name: 'Calculus 1',
+				description: 'Introduction to calculus, including limits, derivatives, and integrals'
+			},
+			{
+				name: 'Data Structures',
+				description: 'Introduction to data structures and algorithms for organizing and manipulating data'
+			}
 		]
 	}
 ];
 
 mongoose
 	.connect(
-		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy?retryWrites=true&w=majority',
+		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy-dev?retryWrites=true&w=majority',
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(async () => {

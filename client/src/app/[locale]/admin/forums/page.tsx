@@ -8,7 +8,10 @@ export default function page() {
         <>
             <div className="largeTopMargin"></div>
             <div className='baseBody'>
-                <Forums activeKey={''} />
+                <Forums activeKey={''} newRecord={undefined} onBack={undefined} setNewRecord={function (value: React.SetStateAction<boolean>): void {
+                    throw new Error('Function not implemented.');
+                }}
+                />
             </div>
         </>
     )

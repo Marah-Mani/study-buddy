@@ -9,6 +9,7 @@ import ErrorHandler from '@/lib/ErrorHandler';
 import AuthContext from '@/contexts/AuthContext';
 import { getUserProducts } from '@/lib/commonApi';
 import { getAllProducts } from '@/lib/adminApi';
+import { BiShekel } from 'react-icons/bi';
 
 interface DataType {
     key: React.Key;
@@ -168,9 +169,9 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             </Space>,
             title: data.title,
             category: data.categoryId.name,
-            subCategory: data.subCategoryId.name,
-            price: <><Image src="/icons/shekel-sign.png" width={15} height={15} preview={false} alt='' />&nbsp;{data.price}</>,
-            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <><Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} height={15} />&nbsp;{data.discountPrice}</>,
+            subCategory: data.subCategoryId?.name,
+            price: <> <BiShekel style={{ color: 'green' }} /></>,
+            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <> <BiShekel style={{ color: 'green' }} /></>,
             status: (
                 data.status == 'active' ?
                     <Tag color="green">Active</Tag>

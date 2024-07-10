@@ -126,7 +126,7 @@ export default function MenuAUser() {
 		getItem(
 			'Q&A',
 			'4',
-			<Link href="/en/user/forums">
+			<Link href="/en/user/question-answer">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '4' ? (
 						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
@@ -165,6 +165,21 @@ export default function MenuAUser() {
 						:
 						(
 							<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'File Manager',
+			'8',
+			<Link href="/en/user/file-manager">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '8' ? (
+						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
 			</Link>

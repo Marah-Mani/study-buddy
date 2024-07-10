@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MenuProps, Popconfirm } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { HiDotsVertical } from 'react-icons/hi';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import AuthContext from '@/contexts/AuthContext';
 
 interface DropdownMenuProps {
     onUpdate: (updateInfo: { folder: any; action: any }) => void;
 }
 
 export default function DropdownMenu({ onUpdate }: any) {
+    const { user } = useContext(AuthContext);
+    console.log(user)
 
     const items: MenuProps['items'] = [
         {
@@ -35,10 +38,16 @@ export default function DropdownMenu({ onUpdate }: any) {
             key: '2',
         },
     ];
+    const filteredItems = items.filter((item: any) => {
+        if (item.key === '0' || item.key === '1') {
+            return user?.role !== 'user';
+        }
+        return true;
+    });
 
     return (
         <>
-            <Dropdown menu={{ items }} trigger={['click']} className='viewAll'>
+            <Dropdown menu={{ items: filteredItems }} trigger={['click']} className='viewAll'>
                 <a onClick={(e) => e.preventDefault()}>
                     <HiDotsVertical />
                 </a>

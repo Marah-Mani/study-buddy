@@ -136,6 +136,21 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
+		getItem(
+			'File Manager',
+			'8',
+			<Link href="/en/admin/file-manager">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '8' ? (
+						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
 
 		getItem(
 			'Logout',
@@ -152,6 +167,7 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
+
 	];
 
 	const pathname = usePathname();

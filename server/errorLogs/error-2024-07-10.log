@@ -1,0 +1,1 @@
+{"level":"error","message":"TypeError: Cannot read properties of null (reading 'lastSeen')","stack":"at lastSeenUser (/home/bpl11/Documents/study-buddy/server/src/controllers/user/profileController.js:149:4)","timestamp":"2024-07-10T11:41:35.877Z"}

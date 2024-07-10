@@ -7,7 +7,7 @@ import { FcEmptyTrash } from 'react-icons/fc';
 import { SlEnvolopeLetter } from 'react-icons/sl';
 import { HomeOutlined, ProfileOutlined } from '@ant-design/icons';
 import Dashboard from '@/components/FileManager/MainComponents/Dashboard';
-import MyFiles from '@/components/FileManager/MainComponents/MyFiles';
+// import MyFiles from '@/components/FileManager/MainComponents/MyFiles';
 import FavoriteFiles from '@/components/FileManager/MainComponents/FavoriteFiles';
 import RecycleBin from '@/components/FileManager/MainComponents/RecycleBin';
 import RecentFiles from '@/components/FileManager/MainComponents/RecentFiles';
@@ -28,11 +28,11 @@ export default function Page() {
                 }}><HomeOutlined /> Dashboard</p>
             ), component: <Dashboard activeKey={key} initialState={initialState} />
         },
-        {
-            label: (
-                <p><HomeOutlined /> My Files</p>
-            ), component: <MyFiles activeKey={key} />
-        },
+        // {
+        //     label: (
+        //         <p><HomeOutlined /> My Files</p>
+        //     ), component: <MyFiles activeKey={key} />
+        // },
         {
             label: (
                 <p><ProfileOutlined /> Favorites</p>

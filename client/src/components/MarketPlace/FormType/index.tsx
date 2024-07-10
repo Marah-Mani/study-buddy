@@ -77,6 +77,7 @@ export default function FormType({ onSuccess, editData }: Props) {
     const fetchCategories = async () => {
         try {
             const res = await getProductCategories();
+            console.log(res, '0000')
             if (res.status == true) {
                 setCategory(res.data);
             }
@@ -337,7 +338,7 @@ export default function FormType({ onSuccess, editData }: Props) {
                     }
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                         <Form.Item
-                            label="File Upload"
+                            label="File Upload (Max 3 file to Upload)"
                             name="images"
                         >
                             <UploadImage fileList={(data: any) => setFileList(data)} />

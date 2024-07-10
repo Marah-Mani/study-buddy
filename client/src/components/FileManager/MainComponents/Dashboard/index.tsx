@@ -29,7 +29,7 @@ export default function Dashboard({ activeKey, initialState }: Props) {
     const [action, setAction] = useState("")
     const { user } = useContext(AuthContext);
     const [fileId, setFileId] = useState('');
-    const [folder, setFolder] = useState<any>()
+    const [folder, setFolder] = useState<any>();
 
     useEffect(() => {
         if (user && activeKey == '1') {
@@ -112,7 +112,9 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 </div>
                                 <div className="mediumTopMargin"></div>
                                 <div className='siteLayoutBackground'>
-                                    <FilesData myFiles={myFiles} />
+                                    {user?.role !== 'user' && (
+                                        <FilesData myFiles={myFiles} />
+                                    )}
                                     <div className='gapMarginTop'></div>
 
                                     <Folders folderData={folderData} handleUpdate={handleUpdate}

@@ -33,6 +33,7 @@ export default function Page() {
     const [forumResult, setForumResult] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState<any>();
     const [allDataType, setAllDataType] = useState(true);
+    const [newRecord, setNewRecord] = useState(false);
 
     useEffect(() => {
         fetchData(searchQuery);
@@ -127,16 +128,25 @@ export default function Page() {
         throw new Error('Function not implemented.');
     }
 
-    const handleItems = () => {
 
-    }
-
-    const handleQuestions = () => {
+    const handleQuestions = (type: string) => {
         if (allDataType) {
             setAllDataType(false)
-        } else {
-            setAllDataType(true)
         }
+        else {
+            setAllDataType(true)
+            fetchData(searchQuery);
+        }
+    }
+
+    const handleQuestionssss = (type: string) => {
+        if (type === 'new') {
+            setNewRecord(true);
+        }
+        if (allDataType) {
+            setAllDataType(false)
+        }
+
     }
 
 
@@ -148,10 +158,10 @@ export default function Page() {
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <Space wrap className="floatEnd">
                                 {/* <Input type='search' placeholder='search' value={searchQuery} onChange={handleSearch} style={{ height: '40px' }} /> */}
-                                <Button type='primary' onClick={handleQuestions} style={{ height: '40px' }}>
+                                <Button type='primary' onClick={() => handleQuestions('')} style={{ height: '40px' }}>
                                     {allDataType ? 'My Questions' : 'All Questions'}
                                 </Button>
-                                <Button icon={<FaPlus />} type={'primary'} onClick={handleItems} style={{ height: '40px' }}>
+                                <Button icon={<FaPlus />} type={'primary'} onClick={() => handleQuestionssss('new')} style={{ height: '40px' }}>
                                     Ask Question
                                 </Button>
                             </Space>
@@ -275,7 +285,9 @@ export default function Page() {
                             :
                             <>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <Forums activeKey={''} />
+                                    <Forums
+                                        activeKey={''}
+                                        newRecord={newRecord} onBack={handleQuestions} setNewRecord={setNewRecord} />
                                 </Col>
                             </>
                         }

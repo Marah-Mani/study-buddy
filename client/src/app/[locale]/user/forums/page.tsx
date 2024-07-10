@@ -8,7 +8,9 @@ export default function page() {
         <>
             <div className={styles.baseBody}>
                 <div className="gapMarginTopOne"></div>
-                <Forums activeKey={''} />
+                <Forums activeKey={''} newRecord={undefined} onBack={undefined} setNewRecord={function (value: React.SetStateAction<boolean>): void {
+                    throw new Error('Function not implemented.');
+                }} />
             </div>
         </>
     )
