@@ -85,7 +85,7 @@ const productController = {
 						price: req.body.price,
 						discountPrice: req.body.discountPrice,
 						categoryId: req.body.categoryId,
-						subCategoryId: req.body.subCategoryId,
+						subCategoryId: req.body.subCategoryId ? req.body.subCategoryId : null,
 						status: req.body.status,
 						createdBy: req.body.createdBy
 					};

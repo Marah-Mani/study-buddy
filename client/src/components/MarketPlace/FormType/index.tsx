@@ -94,7 +94,7 @@ export default function FormType({ onSuccess, editData }: Props) {
             formData.append('price', values.price);
             formData.append('discountPrice', values.discountPrice);
             formData.append('categoryId', values.categoryId);
-            formData.append('subCategoryId', values.subCategoryId);
+            formData.append('subCategoryId', values.subCategoryId || '');
             formData.append('status', values.status);
             formData.append('createdBy', user?._id || '');
             formData.append('productId', productId || '');

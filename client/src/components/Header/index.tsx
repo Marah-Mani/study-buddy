@@ -22,7 +22,9 @@ export default function Header() {
 	const [activeIndex, setActiveIndex] = useState(null);
 
 	const handleClick = (index: any) => {
+		console.log(index, '===')
 		setActiveIndex(index);
+		setOpen(false);
 	};
 	return (
 		<>
@@ -79,37 +81,35 @@ export default function Header() {
 					</Row>
 
 					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
-						<Link href="/">
-							<Link href="/">
-								{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
-								<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
-							</Link>
+						<Link href="/" onClick={onClose}>
+							{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+							<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
 						</Link>
 						<br />
 						<br />
 						<ul className="textCenter nav">
 							<li>
-								<Link href="/">
+								<Link href="/" onClick={onClose}>
 									<ParaText size="small" color="primaryColor">Home</ParaText>
 								</Link>
 							</li>
 							<br />
 							<br />
 							<li>
-								<Link href="/en/about">
+								<Link href="/en/about" onClick={onClose}>
 									<ParaText size="small" color="primaryColor">About us</ParaText></Link>
 							</li>
 							<br />
 							<br />
 							<li>
-								<Link href="/en/contact">
+								<Link href="/en/contact" onClick={onClose}>
 									<ParaText size="small" color="primaryColor">Contact us</ParaText>
 								</Link>
 							</li>
 							<br />
 							<br />
 							<li>
-								<Link href="/en/login">
+								<Link href="/en/login" onClick={onClose}>
 									<ParaText size="small" color="primaryColor">Login</ParaText>
 								</Link>
 							</li>
