@@ -135,6 +135,7 @@ export default function InfoModal({ product }: Props) {
                             <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : {product.subCategoryId.name}</ParaText>
                         </Col>
                     </Row>
+                    <br />
                     <Row align='middle'>
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                             <div className="product-content">
@@ -152,7 +153,7 @@ export default function InfoModal({ product }: Props) {
                         </Col>
                         {product.discountPrice != "undefined" ?
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                <Tag color="geekblue">
+                                <Tag color="#f1a638">
                                     {calculatePercentageOff(product.price, product.discountPrice)}% off
                                 </Tag>
                             </Col>
@@ -171,7 +172,8 @@ export default function InfoModal({ product }: Props) {
                                 color={'#EDF1F5'}
                                 placement='left'
                             >
-                                <WechatOutlined onClick={() => handleSubmit(product)} style={{ fontSize: '30px', cursor: 'pointer', color: '#4cb54c' }} />
+                                <br />
+                                <Image src="/icons/yellowbubble-chat.png" alt='' />
                             </Tooltip>
                         </Col>
                     </Row>

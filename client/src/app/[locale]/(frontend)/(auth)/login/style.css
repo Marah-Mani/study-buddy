@@ -7,20 +7,25 @@
   transition-timing-function: linear;
   background: #344734;
 }
-.background-color{
+.background-color {
   background-color: #344734;
+}
+@media (max-width: 767px) {
+  .login-container {
+    height: auto;
+    background-color: #344734;
+  }
 }
 @media (min-width: 991px) {
   .back {
-    background-image: url('https://www.allen.ac.in/ace2425/assets/images/register.png');
+    background-image: url(/images/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: left;
     height: 100vh;
     background-color: #344734;
-  }
-  .login-container {
-    height: 100%;
-    background-color: #344734;
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
   }
 }

@@ -2,3 +2,8 @@
   background-color: #344734;
   padding: 4% 0px;
 }
+.logoSite {
+  max-width: 55%;
+  height: 102px;
+  object-fit: cover;
+}

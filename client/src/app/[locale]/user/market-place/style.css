@@ -177,3 +177,10 @@
     margin-bottom: 6px !important;
   }
 }
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #b98845 !important;
+}
+.ant-tabs .ant-tabs-ink-bar {
+  color: #b98845 !important;
+}

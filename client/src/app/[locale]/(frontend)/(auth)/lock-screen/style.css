@@ -10,21 +10,33 @@ form {
   display: flex;
   flex-direction: column;
 }
+.background-color {
+  background-color: #344734;
+}
+@media (max-width: 767px) {
+  .login-container {
+    height: auto;
+    background-color: #344734;
+  }
+}
 @media screen and (min-width: 700px) {
   .back {
-    background-image: url('https://img.freepik.com/free-vector/security-concept-illustration_114360-497.jpg?t=st=1718393269~exp=1718396869~hmac=9fa80db8071c0ada6af2589e76d7343873d3741266fbc8ea89541cea8ced49f1');
+    background-image: url(/images/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
     height: 100vh;
     background-color: #344734;
+    text-align: center;
+    margin: 0 auto;
+    width: 60%;
   }
 
   .login-container {
     position: absolute;
     left: 0;
     max-width: 900px;
-    height: 100%;
+    height: auto;
     top: 0;
     background: #344734;
     background-color: #344734;
