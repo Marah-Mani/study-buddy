@@ -9,6 +9,16 @@
             "date": 1718862541126,
             "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-06-20.log",
             "hash": "ff1f06d972b79a7062c51c82bdc6a41a307859ab21e59ff1e22584832284c7da"
+        },
+        {
+            "date": 1720520520882,
+            "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-07-09.log",
+            "hash": "65fec7cfe3fd57b7b71baffefaeb58561f76da29913b59e694a790d47d6fd918"
+        },
+        {
+            "date": 1720582381378,
+            "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-07-10.log",
+            "hash": "34844fcae6e5557eb7db10adfae33752ad4d5c82a39b82dfaa7a6ef00f80a17e"
         }
     ],
     "hashType": "sha256"

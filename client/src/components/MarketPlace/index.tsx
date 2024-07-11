@@ -13,6 +13,7 @@ import './style.css'
 import ChatContext from '@/contexts/ChatContext';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
+import { BiShekel } from 'react-icons/bi';
 interface Props {
     activeKey: string;
 }
@@ -204,7 +205,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Category : {data.categoryId.name}</ParaText>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Sub-category : {data.subCategoryId.name}</ParaText>
+                                    <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Sub-category : {data.subCategoryId?.name}</ParaText>
                                 </Col>
                             </Row>
                             <Row align='middle'>
@@ -213,7 +214,8 @@ export default function MarketPlace({ activeKey }: Props) {
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
                                                 <>
-                                                    <Image preview={false} src="/icons/shekel-sign.png" alt='' width={15} />&nbsp; {data.discountPrice} <span> <Image width={15} preview={false} src="/icons/shekel-sign.png" alt='' />&nbsp;  {data.price}</span>
+                                                    <BiShekel style={{ color: 'green' }} />
+
                                                 </>
                                                 :
                                                 `$${data.price}`
