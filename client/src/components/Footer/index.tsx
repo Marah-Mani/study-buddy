@@ -17,7 +17,8 @@ export default function Footer() {
 						<Row align='middle' className="row">
 
 							<Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16} className="footer-col leftBar " >
-								<Titles level={3} color='primaryColor'>Study Buddy</Titles>
+								<img src='/images/logo.png' className='logoSite' alt='Logo Site' />
+								{/* <Titles level={3} color='primaryColor'>Study Buddy</Titles> */}
 								<div className='gapMarginTopTwo'></div>
 								<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
 								> <MdMailOutline color='#F1A638' />

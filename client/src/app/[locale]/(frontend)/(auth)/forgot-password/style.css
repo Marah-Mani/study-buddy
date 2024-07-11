@@ -12,10 +12,10 @@ form {
 }
 @media screen and (min-width: 700px) {
   .back {
-    background-image: url('https://www.allen.ac.in/ace2425/assets/images/register.png');
+    background-image: url(/images/logo.png);
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: right;
     height: 100vh;
     background-color: #344734;
   }
@@ -27,5 +27,6 @@ form {
     height: 100%;
     top: 0;
     background: #344734;
+    left: 0;
   }
 }

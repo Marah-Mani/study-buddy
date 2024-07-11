@@ -1,6 +1,7 @@
 'use client';
 import React, { } from 'react';
-import { Col, Image, Row } from 'antd';
+import { Col, Row } from 'antd';
+import Image from 'next/image';
 import './style.css'
 import Titles from '@/app/commonUl/Titles';
 import ParaText from '@/app/commonUl/ParaText';
@@ -33,19 +34,23 @@ export default function Home() {
 								<div className='textSection'>
 									<Titles level={2} color='primaryColor'>Find Your Perfect Study Buddy Today!</Titles>
 									<div className='gapPaddingTopOTwo'></div>
-									<ParaText size='medium' color='primaryColor'>StudyBuddy is your one-stop platform designed to enhance your college experience. Join our community of learners to connect with study partners who share your interests and goals. Improve your skills, stay motivated, and make learning more fun with a study buddy.
+									<ParaText size='medium' color='primaryColor'>
+										StudyBuddy is your one-stop platform designed to enhance your college experience. Join our community of learners to connect with study partners who share your interests and goals. Improve your skills, stay motivated, and make learning more fun with a study buddy.
 									</ParaText>
 									<div className='gapPaddingTopOTwo'></div>
-									<Link href='/en/contact'><button className="button-67" role="button">Get Started</button></Link>
+									<Link href='/en/contact'>
+										<button className="button-67" role="button">Get Started</button>
+									</Link>
 								</div>
 							</Col>
 							<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
 								<div className='bannerImage'>
-									<Image src='/images/imgpsh_fullsize_anim (5).png' alt='' preview={false} />
+									<Image src='/images/imgpsh_fullsize_anim (5).png' layout='responsive' alt='Study Buddy Banner' width={800} height={700} />
 								</div>
 							</Col>
 						</Row>
 					</div>
+
 				</div>
 			</div>
 			<Features />
