@@ -6,7 +6,7 @@ import { Col, Row, Card, Timeline, Typography } from 'antd';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getUserActivities } from '@/lib/commonApi';
 import DateFormat from '@/app/commonUl/DateFormat';
-import { getDashboardData } from '@/lib/userApi';
+import { getDashboardData } from '@/lib/adminApi';
 import Link from 'next/link';
 
 const { Title } = Typography;
@@ -23,7 +23,7 @@ export default function Dashboard() {
 
     const fetchData = async () => {
         try {
-            const res = await getDashboardData(user?._id);
+            const res = await getDashboardData();
             if (res.status == true) {
                 setDashboardData(res.data);
             }
@@ -62,7 +62,7 @@ export default function Dashboard() {
                         <Card
                             extra={
                                 <Link
-                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/user/market-place`}
+                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/admin/market-place`}
                                     style={{ color: 'rgb(134 93 224) ' }}
                                 >
                                     View all
@@ -84,7 +84,7 @@ export default function Dashboard() {
                         <Card
                             extra={
                                 <Link
-                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/user/forums`}
+                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/admin/forums`}
                                     style={{ color: 'rgb(134 93 224) ' }}
                                 >
                                     View all

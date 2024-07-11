@@ -6,6 +6,7 @@ import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
+import { IoFolderOpenOutline } from 'react-icons/io5';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -93,7 +94,7 @@ export default function MenuAdmin() {
 		getItem(
 			'Q&A',
 			'4',
-			<Link href="/en/admin/forums">
+			<Link href="/en/admin/question-answer">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '4' ? (
 						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
@@ -142,11 +143,11 @@ export default function MenuAdmin() {
 			<Link href="/en/admin/file-manager">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '8' ? (
-						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+						<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
+							<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
 						)}
 				</span>
 			</Link>
@@ -183,7 +184,7 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/market-place':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/admin/forums':
+			case pathname === '/en/admin/question-answer':
 				setDefaultSelectedKey('4');
 				break;
 			case pathname === '/en/admin/profile':

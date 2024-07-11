@@ -77,8 +77,6 @@ export default function MenuAdminMobile() {
 
 	const pathname = usePathname();
 	useEffect(() => {
-		let defaultSelectedKey;
-
 		switch (true) {
 			case pathname === '/en/admin/dashboard':
 				setDefaultSelectedKey('1');
