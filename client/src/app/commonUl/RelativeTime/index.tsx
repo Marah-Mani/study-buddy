@@ -4,41 +4,54 @@ interface Props {
     date: any,
 }
 
-const RelativeTime = ({ date }: Props) => {
-    const calculateRelativeTime = (date: any) => {
-        const now = new Date();
-        const targetDate = new Date(date);
-        const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000);
+const calculateRelativeTime = (date: any) => {
+    const now = new Date();
+    const targetDate = new Date(date);
+    const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000);
 
-        if (diffInSeconds < 60) {
-            return `${diffInSeconds} seconds ago`;
-        }
-
+    let value, unit;
+    if (diffInSeconds < 60) {
+        value = diffInSeconds;
+        unit = 'seconds';
+    } else {
         const diffInMinutes = Math.floor(diffInSeconds / 60);
         if (diffInMinutes < 60) {
-            return `${diffInMinutes} minutes ago`;
+            value = diffInMinutes;
+            unit = 'minutes';
+        } else {
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) {
+                value = diffInHours;
+                unit = 'hours';
+            } else {
+                const diffInDays = Math.floor(diffInHours / 24);
+                if (diffInDays < 30) {
+                    value = diffInDays;
+                    unit = 'days';
+                } else {
+                    const diffInMonths = Math.floor(diffInDays / 30);
+                    if (diffInMonths < 12) {
+                        value = diffInMonths;
+                        unit = 'months';
+                    } else {
+                        const diffInYears = Math.floor(diffInMonths / 12);
+                        value = diffInYears;
+                        unit = 'years';
+                    }
+                }
+            }
         }
+    }
+    return { value, unit };
+};
 
-        const diffInHours = Math.floor(diffInMinutes / 60);
-        if (diffInHours < 24) {
-            return `${diffInHours} hours ago`;
-        }
-
-        const diffInDays = Math.floor(diffInHours / 24);
-        if (diffInDays < 30) {
-            return `${diffInDays} days ago`;
-        }
-
-        const diffInMonths = Math.floor(diffInDays / 30);
-        if (diffInMonths < 12) {
-            return `${diffInMonths} months ago`;
-        }
-
-        const diffInYears = Math.floor(diffInMonths / 12);
-        return `${diffInYears} years ago`;
-    };
-
-    return <span>{calculateRelativeTime(date)}</span>;
+const RelativeTime = ({ date }: Props) => {
+    const { value, unit } = calculateRelativeTime(date);
+    return (
+        <span>
+            <span style={{ fontWeight: 'bold' }}>{value}</span> <span style={{ fontWeight: 'normal' }}>{unit} ago</span>
+        </span>
+    );
 };
 
 export default RelativeTime;

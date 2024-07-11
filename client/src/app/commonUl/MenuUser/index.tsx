@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoHome, IoSettings } from 'react-icons/io5';
+import { IoFolderOpenOutline, IoHome, IoSettings } from 'react-icons/io5';
 import { FaProductHunt } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -175,11 +175,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/file-manager">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '8' ? (
-						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+						<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
+							<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
 						)}
 				</span>
 			</Link>

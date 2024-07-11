@@ -779,8 +779,8 @@ export default function Chat() {
                     </InputToolbox> */}
                 </ChatContainer>
             }
-            {
-                viewInfo &&
+            {selectedChat &&
+                !selectedChat?.isGroupChat ?
                 <Sidebar position="right">
                     <div>
                         <div
@@ -1021,7 +1021,7 @@ export default function Chat() {
                         </ExpansionPanel>
                     </div>
                 </Sidebar >
-            }
+                : null}
             <Modal footer='' title={'Edit message'} centered open={showEditMessage} onCancel={() => setShowEditMessage(false)}>
                 <Form layout='vertical' onFinish={handleEditMessage}>
                     <Form.Item label="Message" name={'content'} initialValue={editMessage?.content}>

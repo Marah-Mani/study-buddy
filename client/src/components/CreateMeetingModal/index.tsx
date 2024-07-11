@@ -26,6 +26,7 @@ const CreateMeetingModal = ({ open, setOpen, sendMessage }: CreateMeetingModalPr
     };
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+        console.log('00000')
         setLoading(true);
         try {
             const response = await axios.post('http://localhost:3001/api/common/zoom', values, {
