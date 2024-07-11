@@ -1,5 +1,6 @@
 import React from 'react'
-import { Col, Image, Row } from 'antd';
+import { Col, Row } from 'antd';
+import Image from 'next/image';
 import './style.css'
 import Titles from '@/app/commonUl/Titles';
 import ParaText from '@/app/commonUl/ParaText';
@@ -27,7 +28,7 @@ export default function Features() {
                             </Col>
                             <Col xl={12}>
                                 <div className='features-text textCenter '>
-                                    <Image src='/images/imgpsh_fullsize_anim (4) 1 (1).png' alt='' preview={false} />
+                                    <Image src='/images/imgpsh_fullsize_anim (4) 1 (1).png' layout='responsive' alt='Study Buddy Banner' width={500} height={300} />
                                 </div>
                             </Col>
                             <Col xl={6}>
@@ -37,7 +38,6 @@ export default function Features() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={4} color='secondaryColor'>Matching Algorithm</Titles>
                                     <ParaText size='medium' color='black'>Pair with tutors or study partners based on your major and courses. Indicate if you need help or want to help others, and get matched ac</ParaText>
-
                                 </div>
                             </Col>
                         </Row>

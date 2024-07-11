@@ -9,7 +9,11 @@ export default function page() {
 		<section className='innerBannerAbout'>
 			<div className='customContainer'>
 				<Row gutter={[24, 24]} align='middle'>
-
+					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textCenter'>
+						<div className="contact-info">
+							<Image src="/images/imgpsh_fullsize_anim (6) 1.png" alt="" preview={false} />
+						</div>
+					</Col>
 					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
 						<div className=''>
 							<Titles level={1} color='primaryColor'>Who we are</Titles>
@@ -18,11 +22,7 @@ export default function page() {
 							</ParaText>
 						</div>
 					</Col>
-					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textCenter'>
-						<div className="contact-info">
-							<Image src="/images/imgpsh_fullsize_anim (6) 1.png" alt="" preview={false} />
-						</div>
-					</Col>
+
 				</Row>
 			</div>
 		</section>

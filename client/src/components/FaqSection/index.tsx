@@ -1,6 +1,6 @@
 import React from 'react'
-import { Col, Image, Row } from 'antd';
-import { Carousel } from 'antd';
+import { Col, Row } from 'antd';
+import Image from 'next/image';
 import './style.css'
 import Titles from '@/app/commonUl/Titles';
 import ParaText from '@/app/commonUl/ParaText';
@@ -21,7 +21,7 @@ export default function FaqSection() {
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
                                 <div className='faqSection-text'>
-                                    <Image src='/images/imgpsh_fullsize_anim (3).png' alt='' width={60} height={60} preview={false} />
+                                    <Image src='/images/imgpsh_fullsize_anim (3).png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Community connection</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
@@ -29,7 +29,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <Image src='/images/imgpsh_fullsize_anim.png' alt='' width={60} height={60} preview={false} />
+                                    <Image src='/images/imgpsh_fullsize_anim.png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
@@ -39,7 +39,7 @@ export default function FaqSection() {
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
                                 <div className='faqSection-text'>
-                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='' width={60} height={60} preview={false} />
+                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='Study Buddy Banner' width={80} height={80} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Steamlined Learning</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
@@ -47,7 +47,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <Image src='/images/imgpsh_fullsize_anim (1).png' alt='' width={60} height={60} preview={false} />
+                                    <Image src='/images/imgpsh_fullsize_anim (1).png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'> Security First</Titles>
                                     <div className='gapPaddingTopOTwo'></div>

@@ -133,9 +133,9 @@ export default function MarketPlace({ activeKey }: Props) {
         <>
             <Row>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                    <ParaText size="small" fontWeightBold={600} color="primaryColor">
+                    {/* <ParaText size="small" fontWeightBold={600} color="primaryColor">
                         Market Place
-                    </ParaText>
+                    </ParaText> */}
                 </Col>
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className="textEnd markitPlace">
                     <Space wrap>
@@ -208,8 +208,9 @@ export default function MarketPlace({ activeKey }: Props) {
                                     <ParaText size='textGraf' color='secondaryColor' className="title" fontWeightBold={600}>Sub-category : {data.subCategoryId?.name}</ParaText>
                                 </Col>
                             </Row>
+                            <br />
                             <Row align='middle'>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} onClick={() => handleDetail(data)}>
+                                <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} onClick={() => handleDetail(data)}>
                                     <div className="product-content">
                                         <div className="price">
                                             {data.discountPrice != "undefined" ?
@@ -225,26 +226,26 @@ export default function MarketPlace({ activeKey }: Props) {
                                     </div>
                                 </Col>
                                 {data.discountPrice != "undefined" ?
-                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd' onClick={() => handleDetail(data)}>
+                                    <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} className='textEnd' onClick={() => handleDetail(data)}>
                                         <Tag color="#f1a638">
                                             {calculatePercentageOff(data.price, data.discountPrice)}% off
                                         </Tag>
                                     </Col>
                                     : null}
                                 <Col
-                                    xs={24}
-                                    sm={24}
-                                    md={data.discountPrice !== "undefined" ? 24 : 12}
-                                    lg={data.discountPrice !== "undefined" ? 24 : 12}
-                                    xl={data.discountPrice !== "undefined" ? 24 : 12}
-                                    xxl={data.discountPrice !== "undefined" ? 24 : 12}
-                                    className='textEnd'
+                                    xs={8}
+                                    sm={8}
+                                    md={data.discountPrice !== "undefined" ? 8 : 12}
+                                    lg={data.discountPrice !== "undefined" ? 8 : 12}
+                                    xl={data.discountPrice !== "undefined" ? 8 : 12}
+                                    xxl={data.discountPrice !== "undefined" ? 8 : 12}
+
                                 >
                                     <Tooltip
                                         title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                         color={'#EDF1F5'}
                                     >
-                                        <Image src="/icons/yellowbubble-chat.png" alt='' />
+                                        <Image preview={false} src="/icons/yellowbubble-chat.png" alt='' />
                                     </Tooltip>
                                 </Col>
                             </Row>

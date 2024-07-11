@@ -1,15 +1,16 @@
 'use client';
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import { Drawer } from 'antd';
-import { Button, Col, Image, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { TiThMenu } from "react-icons/ti";
 import Link from 'next/link';
 import ParaText from '@/app/commonUl/ParaText';
-import Titles from '@/app/commonUl/Titles';
+import { useParams, usePathname } from 'next/navigation';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
+	const params = usePathname();
 
 	const showDrawer = () => {
 		setOpen(true);
@@ -47,7 +48,13 @@ export default function Header() {
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} >
 							<Link href="/">
-								<Titles level={3} color="primaryColor">Study Buddy</Titles>
+								{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+								{params == '/en/login'
+									?
+									''
+									:
+									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
+								}
 							</Link>
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} className='textEnd' >
@@ -60,7 +67,10 @@ export default function Header() {
 					<Row align='middle'>
 						<Col xl={0} md={0} xs={18} sm={12} >
 							<Link href="/">
-								<Titles level={3} color="primaryColor">Study Buddy</Titles>
+								<Link href="/">
+									{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
+								</Link>
 							</Link>
 						</Col>
 						<Col xl={0} md={0} xs={6} sm={12} className='textEnd'>
@@ -70,7 +80,10 @@ export default function Header() {
 
 					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
 						<Link href="/">
-							<Titles level={3} color="primaryColor">Study Buddy</Titles>
+							<Link href="/">
+								{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+								<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
+							</Link>
 						</Link>
 						<br />
 						<br />
