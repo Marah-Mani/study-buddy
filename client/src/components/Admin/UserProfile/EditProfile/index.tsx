@@ -8,6 +8,7 @@ import About from '../About';
 import Activity from '../Activity';
 import Documents from '../Documents';
 import PaymentHistory from '../PaymentHistory';
+import { IoMdCall } from "react-icons/io";
 
 export default function index() {
     const items = new Array(5).fill(null).map((_, i) => {
@@ -71,7 +72,7 @@ export default function index() {
                                 <br />
                                 <span>location</span>
                                 <div className="smallTopMargin"></div>
-                                <span><FaPhone style={{ fontSize: '12px' }} /> Phone : +91 98745-63211</span><br />
+                                <span><IoMdCall style={{ fontSize: '12px' }} /> Phone : +91 98745-63211</span><br />
                                 <span><IoMailOutline style={{ fontSize: '12px' }} /> Email : example@gmail.com</span><br />
                                 <span>Website : https://abc.com</span>
                             </Col>
