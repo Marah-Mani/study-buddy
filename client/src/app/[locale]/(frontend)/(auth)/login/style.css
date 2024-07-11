@@ -10,6 +10,12 @@
 .background-color {
   background-color: #344734;
 }
+@media (max-width: 767px) {
+  .login-container {
+    height: auto;
+    background-color: #344734;
+  }
+}
 @media (min-width: 991px) {
   .back {
     background-image: url(/images/logo.png);
@@ -18,9 +24,8 @@
     background-position: left;
     height: 100vh;
     background-color: #344734;
-  }
-  .login-container {
-    height: 100%;
-    background-color: #344734;
+    text-align: center;
+    margin: 0 auto;
+    width: 70%;
   }
 }
