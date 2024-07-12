@@ -129,10 +129,10 @@ export default function InfoModal({ product }: Props) {
                             <span>{product.description}</span>
                         </Col>
                         <Col xs={24} sm={24} md={9} lg={9} xl={9} xxl={9}>
-                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Category : {product.categoryId.name}</ParaText>
+                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Category : {product?.categoryId?.name}</ParaText>
                         </Col>
                         <Col xs={24} sm={24} md={15} lg={15} xl={15} xxl={15}>
-                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : {product.subCategoryId.name}</ParaText>
+                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : {product?.subCategoryId?.name}</ParaText>
                         </Col>
                     </Row>
                     <br />
@@ -153,7 +153,7 @@ export default function InfoModal({ product }: Props) {
                         </Col>
                         {product.discountPrice != "undefined" ?
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                <Tag color="#f1a638">
+                                <Tag color="default" style={{ backgroundColor: '#f1a638' }}>
                                     {calculatePercentageOff(product.price, product.discountPrice)}% off
                                 </Tag>
                             </Col>

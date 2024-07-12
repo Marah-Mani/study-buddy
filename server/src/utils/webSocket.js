@@ -8,7 +8,7 @@ const { sendNotification } = require('./subscribeNotification');
 const webSocket = (server) => {
 	const io = new Server(server, {
 		cors: {
-			origin: 'http://localhost:3000'
+			origin: ['http://localhost:3000', 'http://13.201.57.69:3000/']
 		}
 	});
 	let onlineUsers = [];

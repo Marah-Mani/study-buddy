@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
 import { CiSearch } from 'react-icons/ci';
+import Link from 'next/link';
 interface Props {
     activeKey: string;
 }
@@ -32,10 +33,13 @@ export default function MarketPlace({ activeKey }: Props) {
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const token = Cookies.get('session_token');
     const { user } = useContext(AuthContext);
+    const { setSelectedChat, chats, setChats }: any = useContext(ChatContext);
+
 
     useEffect(() => {
         fetchData();
     }, [user, activeKey, searchInput, selectedCategory, subCategory, currentPage, pageSize]);
+    console.log(user?.role, 'user role');
 
     useEffect(() => {
         fetchCategories();
@@ -123,6 +127,30 @@ export default function MarketPlace({ activeKey }: Props) {
         } catch (error) {
             notification.error({
                 message: 'Failed to Create the Chat!'
+            });
+        }
+    };
+
+    function handleChat(createdBy: any) {
+        accessChat(createdBy);
+    }
+
+    const accessChat = async (userId: any) => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
+
+            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
+            setSelectedChat(data);
+            router.push(`/en/${user?.role}/chat?${data._id}`);
+        } catch (error) {
+            notification.error({
+                message: "Error fetching the chat"
             });
         }
     };
@@ -258,7 +286,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         className="textEnd"
                                         onClick={() => handleDetail(data)}
                                     >
-                                        <Tag color="#f1a638">
+                                        <Tag color="default" style={{ backgroundColor: '#f1a638' }}>
                                             {calculatePercentageOff(data.price, data.discountPrice)}% off
                                         </Tag>
                                     </Col>
@@ -271,12 +299,14 @@ export default function MarketPlace({ activeKey }: Props) {
                                     xl={data.discountPrice !== 'undefined' ? 8 : 12}
                                     xxl={data.discountPrice !== 'undefined' ? 8 : 12}
                                 >
-                                    <Tooltip
-                                        title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
-                                        color={'#EDF1F5'}
-                                    >
-                                        <Image preview={false} src="/icons/yellowbubble-chat.png" alt="" />
-                                    </Tooltip>
+                                    <Link href={``} onClick={() => handleChat(data.createdBy)}>
+                                        <Tooltip
+                                            title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                            color={'#EDF1F5'}
+                                        >
+                                            <Image preview={false} src="/icons/yellowbubble-chat.png" alt='' />
+                                        </Tooltip>
+                                    </Link>
                                 </Col>
                             </Row>
                         </div>

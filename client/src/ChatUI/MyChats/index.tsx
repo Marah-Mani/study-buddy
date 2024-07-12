@@ -32,6 +32,8 @@ export default function MyChats() {
     const [viewProfile, setViewProfile] = useState<boolean>(false)
     const [blocks, setBlocks] = useState<any>([])
     const [meetings, setMeetings] = useState<any>([])
+    const [currentId, setCurrentId] = useState('');
+
 
     const config = {
         headers: {
@@ -53,6 +55,15 @@ export default function MyChats() {
 
     const fetchChats = async () => {
         try {
+            let urlId: any = null
+            if (typeof window !== 'undefined') {
+                const url = window.location.href;
+                const urlParts = url.split('?');
+                if (urlParts.length > 1 && urlParts[1]) {
+                    urlId = urlParts[1];
+                    setCurrentId(urlId);
+                }
+            }
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -70,6 +81,9 @@ export default function MyChats() {
                     allMeetings.push(chatData)
                 }
                 if (selectedChat && selectedChat._id === chatData._id) {
+                    setSelectedChat(chatData)
+                }
+                if (chatData._id == urlId) {
                     setSelectedChat(chatData)
                 }
                 if (chatData.favourites.includes(user?._id)) {
