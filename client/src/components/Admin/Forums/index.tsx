@@ -176,6 +176,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
 
     return (
         <>
+            <br />
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
                 <Form

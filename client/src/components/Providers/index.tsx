@@ -23,9 +23,9 @@ const Providers = (props: Props) => {
 		'/staff',
 		// '/login',
 		'/otp',
-		'/register',
-		'/forgot-password',
-		'/reset-password',
+		// '/register',
+		// '/forgot-password',
+		// '/reset-password',
 		'/payment',
 		'/user'
 

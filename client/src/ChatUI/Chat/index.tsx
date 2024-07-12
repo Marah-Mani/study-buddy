@@ -103,8 +103,7 @@ export default function Chat() {
     const [eventType, setEventType] = useState('');
     const [allTask, setAllTask] = useState([]);
     const [loading, setLoading] = useState(false)
-    const [meetings, setMeetings] = useState<any>()
-
+    const [meetings, setMeetings] = useState<any>();
 
     const handleDelete = async (taskId: string) => {
         const deleteData = {

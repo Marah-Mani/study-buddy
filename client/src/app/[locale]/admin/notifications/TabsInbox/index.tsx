@@ -110,7 +110,7 @@ export default function TabsInbox() {
 	return (
 		<>
 			<div className="smallTopMargin"></div>
-			<div className={styles['boxInbox']}>
+			<div className=''>
 				<Row>
 					<Col xl={9} lg={9} md={9} sm={24} xs={24}>
 						<ParaText size="large" fontWeightBold={600} color="secondaryColor">

@@ -153,7 +153,7 @@ export default function InfoModal({ product }: Props) {
                         </Col>
                         {product.discountPrice != "undefined" ?
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                                <Tag color="#f1a638">
+                                <Tag color="default" style={{ backgroundColor: '#f1a638' }}>
                                     {calculatePercentageOff(product.price, product.discountPrice)}% off
                                 </Tag>
                             </Col>
