@@ -14,6 +14,7 @@ import ChatContext from '@/contexts/ChatContext';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
+import Link from 'next/link';
 interface Props {
     activeKey: string;
 }
@@ -241,12 +242,14 @@ export default function MarketPlace({ activeKey }: Props) {
                                     xxl={data.discountPrice !== "undefined" ? 8 : 12}
 
                                 >
-                                    <Tooltip
-                                        title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
-                                        color={'#EDF1F5'}
-                                    >
-                                        <Image preview={false} src="/icons/yellowbubble-chat.png" alt='' />
-                                    </Tooltip>
+                                    <Link href="/en/user/chat">
+                                        <Tooltip
+                                            title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                            color={'#EDF1F5'}
+                                        >
+                                            <Image preview={false} src="/icons/yellowbubble-chat.png" alt='' />
+                                        </Tooltip>
+                                    </Link>
                                 </Col>
                             </Row>
                         </div>

@@ -129,10 +129,10 @@ export default function InfoModal({ product }: Props) {
                             <span>{product.description}</span>
                         </Col>
                         <Col xs={24} sm={24} md={9} lg={9} xl={9} xxl={9}>
-                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Category : {product.categoryId.name}</ParaText>
+                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Category : {product?.categoryId?.name}</ParaText>
                         </Col>
                         <Col xs={24} sm={24} md={15} lg={15} xl={15} xxl={15}>
-                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : {product.subCategoryId.name}</ParaText>
+                            <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : {product?.subCategoryId?.name}</ParaText>
                         </Col>
                     </Row>
                     <br />
