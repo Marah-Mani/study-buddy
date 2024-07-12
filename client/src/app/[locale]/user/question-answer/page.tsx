@@ -166,6 +166,7 @@ export default function Page() {
                                 </Button>
                             </Space>
                         </Col>
+
                         {allDataType
                             ?
                             <>
@@ -201,7 +202,7 @@ export default function Page() {
                                                                     </div>
                                                                 </div>
                                                                 <div className="smallTopMargin"></div>
-                                                                <ParaText size="small" fontWeightBold={600} color="primaryColor">
+                                                                <ParaText size="small" fontWeightBold={600} color="black">
                                                                     <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}>
                                                                         {forum.title.length > 95 ? `${forum.title.slice(0, 95)}...` : forum.title}
                                                                     </Link>
