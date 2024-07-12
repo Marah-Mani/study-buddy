@@ -69,15 +69,27 @@
 .nav a:hover {
   color: #3da35d;
 }
-.ant-drawer-header {
+/* .ant-drawer-header {
   background-color: #344734 !important;
 }
 .ant-drawer .ant-drawer-body {
   background-color: #344734 !important;
-}
+} */
 span.anticon.anticon-close svg {
   color: rgb(241, 166, 56);
 }
 .ant-drawer .ant-drawer-header {
   border-bottom: none !important;
+}
+
+@media (max-width: 991px) {
+  .logoSite {
+    max-width: 30%;
+    height: auto;
+    object-fit: cover;
+  }
+  #customContainer {
+    padding: 8px 10px;
+    z-index: 9;
+  }
 }
