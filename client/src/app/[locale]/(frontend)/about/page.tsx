@@ -11,7 +11,7 @@ export default function page() {
 				<Row gutter={[24, 24]} align='middle'>
 					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textCenter'>
 						<div className="contact-info">
-							<Image src="/images/imgpsh_fullsize_anim (6) 1.png" alt="" preview={false} />
+							<Image src="/images/logo-.png" alt="" preview={false} />
 						</div>
 					</Col>
 					<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>

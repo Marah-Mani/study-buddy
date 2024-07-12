@@ -26,17 +26,17 @@
 
 #menuIdd .ant-menu .ant-menu-item-selected {
   background-color: #f2eefb !important;
-  color: rgb(132 90 223) !important;
+  color: #efa24b !important;
 }
 
 li.ant-menu-item .ant-menu-item-active {
-  background-color: rgb(132 90 223) !important;
-  color: rgb(132 90 223) !important;
+  background-color: #efa24b !important;
+  color: #efa24b !important;
 }
 
 li.ant-menu-item.ant-menu-item-selected span,
 li.ant-menu-item.ant-menu-item-selected svg {
-  color: rgb(132 90 223);
+  color: #efa24b;
 }
 
 #menuIdd .ant-menu-submenu-title {
