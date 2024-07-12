@@ -6,7 +6,7 @@ import EditProfile from '@/components/Admin/UserProfile/EditProfile';
 export default function settings() {
     return (
         <>
-            <div className='boxInbox'>
+            <div className=''>
                 <ParaText size="large" fontWeightBold={600} color="primaryColor">
                     Profile
                 </ParaText>

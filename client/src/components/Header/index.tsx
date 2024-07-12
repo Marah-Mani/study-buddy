@@ -7,6 +7,7 @@ import { TiThMenu } from "react-icons/ti";
 import Link from 'next/link';
 import ParaText from '@/app/commonUl/ParaText';
 import { useParams, usePathname } from 'next/navigation';
+import Titles from '@/app/commonUl/Titles';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
@@ -49,14 +50,22 @@ export default function Header() {
 							</ul>
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} >
-							<Link href="/">
-								{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
-								{params == '/en/login'
-									?
-									''
-									:
+
+							{/* <Link href="/">
+								{params.includes('login') || params.includes('about') ? (
+									null
+								) : (
 									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
-								}
+								)}
+							</Link> */}
+							<Link href="/">
+								{params.includes('login') || params.includes('register') || params.includes('forgot-password') ? (
+									null
+								) : (
+									<Link href="/">
+										<Titles level={4} color='primaryColor'>Study Buddy</Titles>
+									</Link>
+								)}
 							</Link>
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} className='textEnd' >

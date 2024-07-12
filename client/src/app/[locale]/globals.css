@@ -82,3 +82,20 @@ li {
 .layOutStyle {
   padding: 4% 2%;
 }
+.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar,
+.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-ink-bar {
+  height: 3px;
+  background-color: #efa24b !important;
+  color: #efa24b !important;
+}
+.ant-tabs-tab-btn:hover {
+  color: #efa24b !important;
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #b98845 !important;
+}
+.ant-tabs .ant-tabs-ink-bar {
+  color: #b98845 !important;
+}
