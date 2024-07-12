@@ -99,3 +99,10 @@ li {
 .ant-tabs .ant-tabs-ink-bar {
   color: #b98845 !important;
 }
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected::after,
+.ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-item-selected::after,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-submenu-selected::after,
+.ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-submenu-selected::after {
+  border-bottom-width: 2px;
+  border-bottom-color: #b98845 !important;
+}

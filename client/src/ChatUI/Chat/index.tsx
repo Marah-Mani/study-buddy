@@ -43,6 +43,7 @@ import { deleteTodo, getAllTodo } from '@/lib/commonApi';
 import Filter from 'bad-words'
 import { bannedWords, getSender, getSenderFull } from '@/lib/chatLogics';
 import { validationRules } from '@/lib/validations';
+import { FaRocketchat } from "react-icons/fa6";
 
 const { TextArea } = Input;
 interface DataType {
@@ -1020,7 +1021,14 @@ export default function Chat() {
                         </ExpansionPanel>
                     </div>
                 </Sidebar >
-                : null}
+                :
+                <div style={{ height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto' }}>
+                    <div className='colorBg'>
+                        <FaRocketchat size={100} />
+                    </div>
+                </div>
+
+            }
             <Modal footer='' title={'Edit message'} centered open={showEditMessage} onCancel={() => setShowEditMessage(false)}>
                 <Form layout='vertical' onFinish={handleEditMessage}>
                     <Form.Item label="Message" name={'content'} initialValue={editMessage?.content}>
