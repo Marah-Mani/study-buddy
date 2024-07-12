@@ -133,7 +133,7 @@ export default function Page() {
     return (
         <>
             <div className='gapMarginTopTwo'></div>
-            <div className='boxInbox'>
+            <div className=''>
                 <div >
                     <Row>
                         <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
@@ -168,7 +168,7 @@ export default function Page() {
                                                             </div>
                                                         </div>
                                                         <div className="smallTopMargin"></div>
-                                                        <ParaText size="small" fontWeightBold={600} color="primaryColor">
+                                                        <ParaText size="textGraf" fontWeightBold={600} color="black">
                                                             <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}>
                                                                 {forum.title.length > 95 ? `${forum.title.slice(0, 95)}...` : forum.title}
                                                             </Link>
