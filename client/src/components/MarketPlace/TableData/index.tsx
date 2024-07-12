@@ -71,18 +71,18 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         {
             title: 'Title',
             dataIndex: 'title',
-            width: '50%',
+            width: '40%',
         },
 
         {
             title: 'Category',
             dataIndex: 'category',
-            width: '10%',
+            width: '15%',
         },
         {
             title: 'Sub-category',
             dataIndex: 'subCategory',
-            width: '10%',
+            width: '15%',
         },
         {
             title: 'Price',
@@ -92,7 +92,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
         {
             title: 'Discount Price',
             dataIndex: 'discountPrice',
-            width: '10%',
+            width: '15%',
         },
         {
             title: 'Status',

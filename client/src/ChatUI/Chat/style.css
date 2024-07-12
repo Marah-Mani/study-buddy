@@ -121,7 +121,9 @@ body.dark-mode .ant-flex {
     bottom: 13px;
     right: 23%;
   } */
-
+.colorBg svg {
+  color: rgb(241, 166, 56) !important;
+}
 @media (max-width: 767px) {
   .headerMain .cs-conversation-header {
     display: block;
