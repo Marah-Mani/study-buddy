@@ -39,6 +39,7 @@ export default function MarketPlace({ activeKey }: Props) {
     useEffect(() => {
         fetchData();
     }, [user, activeKey, searchInput, selectedCategory, subCategory, currentPage, pageSize]);
+    console.log(user?.role, 'user role');
 
     useEffect(() => {
         fetchCategories();
@@ -146,7 +147,7 @@ export default function MarketPlace({ activeKey }: Props) {
 
             if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data);
-            router.push(`/en/user/chat?${data._id}`);
+            router.push(`/en/${user?.role}/chat?${data._id}`);
         } catch (error) {
             notification.error({
                 message: "Error fetching the chat"
