@@ -10,11 +10,10 @@ const { getAdminDataByRole } = require('../../common/functions');
 const chatController = {
 	accessChat: asyncHandler(async (req, res) => {
 		const { userId } = req.body;
-
 		if (!userId) {
 			return res.sendStatus(400);
 		}
-
+		// Check if a chat exists and was previously deleted
 		var isChat = await Chat.find({
 			isGroupChat: false,
 			$and: [{ users: { $elemMatch: { $eq: req.user._id } } }, { users: { $elemMatch: { $eq: userId } } }]
@@ -22,15 +21,25 @@ const chatController = {
 			.populate('users', '-password')
 			.populate('latestMessage');
 
-		isChat = await User.populate(isChat, {
-			path: 'latestMessage.sender',
-			select: 'name pic email'
-		});
-
+		// Remove 'deleteFor' field if it exists
 		if (isChat.length > 0) {
-			res.send(isChat[0]);
+			const existingChat = isChat[0];
+
+			if (existingChat.deleteFor && existingChat.deleteFor.includes(req.user._id)) {
+				existingChat.deleteFor = existingChat.deleteFor.filter(
+					(user) => user.toString() !== req.user._id.toString()
+				);
+				await existingChat.save();
+			}
+			isChat = await User.populate(isChat, {
+				path: 'latestMessage.sender',
+				select: 'name pic email'
+			});
+
+			return res.send(existingChat);
 		} else {
-			var chatData = {
+			// Create new chat
+			const chatData = {
 				chatName: 'sender',
 				isGroupChat: false,
 				users: [req.user._id, userId]
@@ -38,8 +47,8 @@ const chatController = {
 
 			try {
 				const createdChat = await Chat.create(chatData);
-				const FullChat = await Chat.findOne({ _id: createdChat._id }).populate('users', '-password');
-				res.status(200).json(FullChat);
+				const fullChat = await Chat.findOne({ _id: createdChat._id }).populate('users', '-password');
+				return res.status(200).json(fullChat);
 			} catch (error) {
 				res.status(400);
 				throw new Error(error.message);
