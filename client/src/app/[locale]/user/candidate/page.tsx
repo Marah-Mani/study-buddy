@@ -148,7 +148,7 @@ export default function Page() {
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
 
             if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
-            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
+            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat?${data._id}`);
         } catch (error) {
             notification.error({
                 message: "Error fetching the chat"
@@ -312,7 +312,7 @@ export default function Page() {
                                                 title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                                 color={'#EDF1F5'}
                                             >
-                                                <WechatOutlined onClick={() => accessChat(item?._id)} style={{ fontSize: '30px', cursor: 'pointer', color: '#267200' }} />
+                                                <WechatOutlined onClick={() => accessChat(item?._id)} style={{ fontSize: '30px', cursor: 'pointer', color: '#f1a638' }} />
                                             </Tooltip> &nbsp;
                                             <span><CiHeart size={30} /></span>
                                             <div>
