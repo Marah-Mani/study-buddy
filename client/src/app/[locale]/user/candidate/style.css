@@ -15,7 +15,7 @@ body.dark-mode .menuStyle .ant-btn-default {
   box-shadow: none;
 }
 .menuStyle .ant-btn {
-  border-radius: 0px;
+  border-radius: 30px;
   box-shadow: none;
 }
 .floatRight .ant-btn-primary.ant-btn-icon-only.ant-input-search-button {
@@ -36,7 +36,7 @@ body.dark-mode .menuStyle .ant-btn-default {
   position: relative;
 }
 .floatRight .ant-input-outlined {
-  border-radius: 0px;
+  border-radius: 30px;
 }
 
 body.dark-mode .candidates-details {
