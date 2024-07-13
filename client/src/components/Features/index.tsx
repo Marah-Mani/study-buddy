@@ -28,7 +28,7 @@ export default function Features() {
                             </Col>
                             <Col xl={12}>
                                 <div className='features-text textCenter '>
-                                    <Image src='/images/imgpsh_fullsize_anim (4) 1 (1).png' layout='responsive' alt='Study Buddy Banner' width={500} height={300} />
+                                    <img src='/images/imgpsh_fullsize_anim (4) 1 (1).png' alt='image study' />
                                 </div>
                             </Col>
                             <Col xl={6}>

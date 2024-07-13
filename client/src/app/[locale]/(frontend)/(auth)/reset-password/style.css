@@ -20,17 +20,6 @@ form {
   }
 }
 @media screen and (min-width: 700px) {
-  .back {
-    background-image: url(/images/logo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
-    height: 100vh;
-    text-align: center;
-    margin: 0 auto;
-    width: 60%;
-  }
-
   .login-container {
     position: absolute;
     right: 0;
