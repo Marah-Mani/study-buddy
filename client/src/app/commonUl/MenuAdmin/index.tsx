@@ -196,6 +196,9 @@ export default function MenuAdmin() {
 			case pathname === '/en/login':
 				setDefaultSelectedKey('7');
 				break;
+			case pathname === '/en/admin/file-manager':
+				setDefaultSelectedKey('8');
+				break;
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');

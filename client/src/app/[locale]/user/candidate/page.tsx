@@ -39,6 +39,8 @@ export default function Page() {
     const { user } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
+    console.log(AllCandidates, 'AllCandidates')
+
     useEffect(() => {
         if (user) {
             fetchAllCandidates();
@@ -276,8 +278,8 @@ export default function Page() {
                                                     <Image
                                                         src={
                                                             item?.image
-                                                                ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item?.image}`
-                                                                : `/images/avatar.png`
+                                                                ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
+                                                                : '/images/users.jpg'
                                                         }
                                                         width={50}
                                                         height={50}

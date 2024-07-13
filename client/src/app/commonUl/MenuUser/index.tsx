@@ -226,6 +226,9 @@ export default function MenuAUser() {
 			case pathname === '/en/login':
 				setDefaultSelectedKey('7'); // Redirect to Dashboard
 				break;
+			case pathname === '/en/user/file-manager':
+				setDefaultSelectedKey('8');
+				break;
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');

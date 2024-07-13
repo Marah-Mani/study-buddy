@@ -38,6 +38,7 @@ export default function Header() {
 									{ href: "/", label: "Home" },
 									{ href: "/en/about", label: "About us" },
 									{ href: "/en/contact", label: "Contact us" },
+									{ href: "/en/login", label: "Login" },
 								].map((item, index) => (
 									<li key={index} >
 										<Link href={item.href} onClick={() => handleClick(index)} className={activeIndex === index ? 'active' : ''}>
@@ -68,11 +69,11 @@ export default function Header() {
 								)}
 							</Link>
 						</Col>
-						<Col xl={6} md={6} xs={0} sm={0} className='textEnd' >
+						{/* <Col xl={6} md={6} xs={0} sm={0} className='textEnd' >
 							<Link href="/en/login">
 								<ParaText size="small" fontWeightBold={500} color="primaryColor">Login</ParaText>
 							</Link>
-						</Col>
+						</Col> */}
 					</Row>
 
 					<Row align='middle'>
