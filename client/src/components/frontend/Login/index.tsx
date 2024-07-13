@@ -140,7 +140,7 @@ const Login = () => {
 							<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
 									icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleGoogleLogin}
 								>
@@ -148,8 +148,8 @@ const Login = () => {
 								</Button>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#efa24b' }}
-									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
+									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
+									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center', color: '#0866ff' }} />}
 									onClick={handleFacebookLogin}
 								>
 									Facebook
