@@ -1,14 +1,9 @@
 .login-container {
   background-color: #fff;
   width: 100%;
-  height: 100vh;
   transition-property: border-radius, height;
   transition-duration: 1s;
   transition-timing-function: linear;
-}
-form {
-  display: flex;
-  flex-direction: column;
 }
 .background-color {
   background-color: #344734;
@@ -20,25 +15,8 @@ form {
   }
 }
 @media screen and (min-width: 700px) {
-  .back {
-    background-image: url(/images/logo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    height: 100vh;
-    background-color: #344734;
-    text-align: center;
-    margin: 0 auto;
-    width: 60%;
-  }
-
   .login-container {
-    position: absolute;
-    left: 0;
-    max-width: 900px;
     height: auto;
-    top: 0;
-    background: #344734;
     background-color: #344734;
   }
 }
