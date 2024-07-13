@@ -6,8 +6,11 @@
   padding: 3%;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .features-main {
-    padding: 0%;
+    padding: 5% 0px;
+  }
+  .features {
+    padding-top: 5%;
   }
 }

@@ -4,10 +4,6 @@
   padding: 2% 0%;
   position: relative;
 }
-.textSection {
-  padding: 30% 0%;
-  max-width: 800px;
-}
 
 /* CSS */
 .button-67 {
@@ -36,19 +32,6 @@
     bottom: 20px;
   }
 }
-@media (max-width: 1300px) {
-  .textSection {
-    padding: 30% 8%;
-  }
-}
-@media (max-width: 991px) {
-  .bannerImages {
-    padding: 0% 0%;
-  }
-  .textSection {
-    padding: 2% 0%;
-  }
-}
 
 @media (min-width: 1200px) {
   .waves {
@@ -60,6 +43,10 @@
   }
   .bannerImage {
     animation: MoveUpDown 10s linear infinite;
-    padding-top: 80px;
+    padding-top: 100px;
+  }
+  .textSection {
+    padding: 40% 8% 0px 8%;
+    max-width: 800px;
   }
 }
