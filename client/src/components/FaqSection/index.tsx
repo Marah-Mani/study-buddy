@@ -16,11 +16,11 @@ export default function FaqSection() {
                 <div className="customContainer">
                     <div className='faqSection-main'>
                         <Row>
-                            <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
-                                <div className='mainHeading'> <Titles level={2} color='black'>Why Choose Study Buddy?</Titles></div>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
+                                <div className='mainHeading'> <Titles level={2} color='black'>Why Choose <br /> Study Buddy?</Titles></div>
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
-                                <div className='faqSection-text'>
+                                <div className='faqSection-text add-padding-new'>
                                     <Image src='/images/imgpsh_fullsize_anim (3).png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Community connection</Titles>

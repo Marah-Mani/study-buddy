@@ -17,17 +17,6 @@
   }
 }
 @media (min-width: 991px) {
-  .back {
-    background-image: url(/images/logo.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
-    height: 100vh;
-    background-color: #344734;
-    text-align: center;
-    margin: 0 auto;
-    width: 60%;
-  }
   .login-container {
     height: 100%;
   }
