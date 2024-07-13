@@ -29,7 +29,7 @@ import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
 import { FaEllipsisV, FaInfo, FaStar, FaVideo } from 'react-icons/fa';
 import TimeAgo from 'react-timeago'
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "http://13.201.57.69:3001";
 var socket: any, selectedChatCompare: any;
 import dateFormat from "dateformat";
 import Link from 'next/link';
