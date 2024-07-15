@@ -63,7 +63,7 @@ export default function MenuAdmin() {
 		getItem(
 			'Users',
 			'2',
-			<Link href="/en/admin/candidate">
+			<Link href="/en/admin/users">
 				<span onClick={() => setIsActive(true)}>
 					{defaultSelectedKey === '2' ? (
 						<Image preview={false} src="/icons/yellowuser.png" alt="Active User" width={20} height={20} />
