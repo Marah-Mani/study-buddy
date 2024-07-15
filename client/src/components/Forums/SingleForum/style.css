@@ -12,17 +12,18 @@
 }
 
 .replyDivBorder {
-  border: 1px solid #0070f5;
-  border-radius: 16px;
-  padding: 5px;
-  margin-bottom: 16px;
-  margin-top: 16px;
+  border: 1px solid #f1a638 !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+  margin-bottom: 16px !important;
+  margin-top: 16px !important;
 }
 
 .backArrowIcon {
   font-size: 17px;
   border-radius: 50%;
-  background: #ccc;
+  background: #f1a638;
+  color: #fff;
   padding: 5px;
 }
 
@@ -32,4 +33,16 @@
 
 .orange-color {
   color: #f2a638;
+}
+.likeCommentRadius {
+  border-radius: 20px;
+  padding: 9px;
+  color: #f1a638;
+}
+
+.question {
+  border: 1px solid #f1a638;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 16px;
 }

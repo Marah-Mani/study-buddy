@@ -164,7 +164,7 @@ export default function Page() {
                         <Row gutter={[16, 16]} align="middle">
                             <Col xs={24} sm={24} md={4} lg={4} xl={6} xxl={8}>
                                 <ParaText size="small" color="primaryColor" fontWeightBold={600}>
-                                    {' '}
+
                                     <strong>{AllCandidates.length}</strong>
                                     {user?.interestedIn === 'student' ? ' Tutor' : ' student'}
                                 </ParaText>
@@ -270,190 +270,198 @@ export default function Page() {
                     >
                         {AllCandidates.map((item: any) => (
                             <>
-                                <div style={{ padding: ' 15px 15px 25px 15px' }} className="candidates-details">
+                                <div style={{ padding: ' 15px 15px 25px 15px' }} >
                                     <Row gutter={[16, 16]}>
-                                        <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
-                                            <Row align="middle">
-                                                <Col xs={6} sm={3} md={6} lg={4} xl={4} xxl={3} className="">
-                                                    <Image
-                                                        src={
-                                                            item?.image
-                                                                ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
-                                                                : '/images/users.jpg'
-                                                        }
-                                                        width={50}
-                                                        height={50}
-                                                        alt="user"
-                                                        style={{ borderRadius: '50px' }}
-                                                    />
-                                                </Col>
-                                                <Col xs={18} sm={21} md={18} lg={20} xl={20} xxl={21}>
-                                                    <Flex align="center">
-                                                        <ParaText
-                                                            size="small"
-                                                            color="primaryColor"
-                                                            className="dBlock"
-                                                            fontWeightBold={600}
-                                                        >
-                                                            {`${item?.name} `}
-                                                        </ParaText>
-                                                        <Tag color="success" style={{ marginLeft: '8px' }}>
-                                                            {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
-                                                        </Tag>
-                                                    </Flex>
-                                                    <ParaText size="textGraf" fontWeightBold={600} color="black">
-                                                        {item?.profileTitle &&
-                                                            capitalizeFirstLetterOfEachWord(item?.profileTitle)}
-                                                    </ParaText>
-                                                    &nbsp;
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <ParaText size="textGraf" color="primaryColor">
-                                                <span>
-                                                    <strong> Department :</strong>{' '}
-                                                </span>
-                                                &nbsp;
-                                                <span>{item?.departmentId?.departmentName}</span>
-                                            </ParaText>
-                                            &nbsp; &nbsp; &nbsp;
-                                            <ParaText size="textGraf" color="primaryColor">
-                                                <span>
-                                                    <strong> Subjects :</strong>{' '}
-                                                </span>
-                                                &nbsp;
-                                                <span>
-                                                    {item.subjects.length > 0
-                                                        ? item.subjects.map((subject: string, index: number) => (
-                                                            <React.Fragment key={index}>
-                                                                {index > 0 && ', '}
-                                                                {subject}
-                                                            </React.Fragment>
-                                                        ))
-                                                        : 'N/A'}
-                                                </span>
-                                            </ParaText>
-                                            <br className="dNone" />
-                                            <br className="dNone" />
-                                            <Flex gap="4px 0" wrap="wrap">
-                                                <Tag icon={<FaUserGraduate />}>
-                                                    &nbsp;
-                                                    {item?.higherEducation &&
-                                                        capitalizeFirstLetterOfEachWord(item?.higherEducation)}
-                                                </Tag>
-                                                <ParaText size="textGraf" color="black">
-                                                    <span>
-                                                        <strong> Skills :</strong> &nbsp;
-                                                    </span>
-                                                </ParaText>
-                                                &nbsp;
-                                                {item.skills.map((skill: string, index: number) => (
-                                                    <Tag key={index}>{capitalizeFirstLetterOfEachWord(skill)}</Tag>
-                                                ))}
-                                                {item.skills.length === 0 && <Tag>No skills specified</Tag>}
-                                            </Flex>
-                                        </Col>
-                                        <Col className="textEnd" xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
-                                            <Tooltip
-                                                title={
-                                                    <span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>
-                                                }
-                                                color={'#EDF1F5'}
-                                            >
-                                                <WechatOutlined
-                                                    onClick={() => accessChat(item?._id)}
-                                                    style={{ fontSize: '30px', cursor: 'pointer', color: '#f1a638' }}
-                                                />
-                                            </Tooltip>{' '}
-                                            &nbsp;
-                                            <span>
-                                                <CiHeart size={30} />
-                                            </span>
-                                            <div>
-                                                <br />
-                                                <br className="dNone" />
-                                                <Space size={[8, 16]} wrap>
-                                                    {item.socialLinks.facebook !== 'null' &&
-                                                        item.socialLinks.facebook !== null && (
-                                                            <a
-                                                                href={item.socialLinks.facebook}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                <span>
-                                                                    <FaFacebookSquare size={20} color="#838383" />
-                                                                </span>
-                                                            </a>
-                                                        )}
-                                                    {item.socialLinks.instagram !== 'null' &&
-                                                        item.socialLinks.instagram !== null && (
-                                                            <a
-                                                                href={item.socialLinks.instagram}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                <span>
-                                                                    <FaInstagramSquare color="#838383" size={20} />
-                                                                </span>
-                                                            </a>
-                                                        )}
-                                                    {item.socialLinks.twitter !== 'null' &&
-                                                        item.socialLinks.twitter !== null && (
-                                                            <a
-                                                                href={item.socialLinks.twitter}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                <span>
-                                                                    <FaTwitter size={20} color="#838383" />
-                                                                </span>
-                                                            </a>
-                                                        )}
-                                                    {item.socialLinks.likedIn !== 'null' &&
-                                                        item.socialLinks.linkedin !== null && (
-                                                            <a
-                                                                href={item.socialLinks.linkedin}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                            >
-                                                                <span>
-                                                                    <IoLogoLinkedin size={20} color="#838383" />
-                                                                </span>
-                                                            </a>
-                                                        )}
-                                                </Space>
+                                        <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+                                            <div className="candidates-details">
+                                                <Row >
+                                                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2} className="">
+                                                        <Image
+                                                            src={
+                                                                item?.image
+                                                                    ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
+                                                                    : '/images/users.jpg'
+                                                            }
+                                                            width={50}
+                                                            height={50}
+                                                            alt="user"
+                                                            preview={false}
+                                                            style={{ borderRadius: '50px' }}
+                                                        />
+                                                    </Col>
+                                                    <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
+                                                        <Row gutter={[16, 16]}>
+                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                                                <Flex align="center">
+                                                                    <ParaText
+                                                                        size="small"
+                                                                        color="black"
+                                                                        className="dBlock"
+                                                                        fontWeightBold={600}
+                                                                    >
+                                                                        {`${item?.name} `}
+                                                                    </ParaText>
+                                                                    {/* <Tag color="success" style={{ marginLeft: '8px' }}>
+                                                                    {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
+                                                                </Tag> */}
+                                                                </Flex>
+                                                                <ParaText size="textGraf" fontWeightBold={600} color="black">
+                                                                    {item?.profileTitle &&
+                                                                        capitalizeFirstLetterOfEachWord(item?.profileTitle)}
+                                                                </ParaText>
+
+                                                                <ParaText size="textGraf" className="dBlock" color="black">
+                                                                    <span>
+                                                                        <strong> Department :</strong>
+                                                                    </span>
+                                                                    &nbsp;
+                                                                    <ParaText size="textGraf" color="primaryColor">
+                                                                        <span>{item?.departmentId?.departmentName}</span>
+                                                                    </ParaText>
+                                                                </ParaText>
+
+                                                                <ParaText size="textGraf" color="black" className="dBlock">
+                                                                    <span>
+                                                                        <strong> Subjects :</strong>
+                                                                    </span>
+                                                                    &nbsp;
+                                                                    <ParaText size="textGraf" color="primaryColor">
+                                                                        <span>
+                                                                            {item.subjects.length > 0
+                                                                                ? item.subjects.map((subject: string, index: number) => (
+                                                                                    <React.Fragment key={index}>
+                                                                                        {index > 0 && ', '}
+                                                                                        {subject}
+                                                                                    </React.Fragment>
+                                                                                ))
+                                                                                : 'N/A'}
+                                                                        </span>
+                                                                    </ParaText>
+                                                                </ParaText>
+
+                                                                <Flex gap="4px 0" wrap="wrap">
+                                                                    {/* <Tag icon={<FaUserGraduate />}>
+                                                                    &nbsp;
+                                                                    {item?.higherEducation &&
+                                                                        capitalizeFirstLetterOfEachWord(item?.higherEducation)}
+                                                                </Tag> */}
+                                                                    <ParaText size="textGraf" color="black">
+                                                                        <span>
+                                                                            <strong> Skills :</strong> &nbsp;
+                                                                        </span>
+                                                                    </ParaText>
+
+                                                                    <ParaText size="textGraf" color="primaryColor">
+
+                                                                        {item.skills.map((skill: string, index: number) => (
+                                                                            <Tag key={index}>{capitalizeFirstLetterOfEachWord(skill)}</Tag>
+                                                                        ))}
+                                                                        {item.skills.length === 0 && <span>No skills specified</span>}
+                                                                    </ParaText>
+                                                                </Flex>
+                                                                <ParaText size="textGraf" color="black">
+                                                                    <span>
+                                                                        <strong> Languages :</strong>
+                                                                    </span>
+                                                                    &nbsp;
+                                                                    <ParaText size="textGraf" color="primaryColor">
+                                                                        <span>
+                                                                            {item.languages.length > 0
+                                                                                ? item.languages.map((language: string, index: number) => (
+                                                                                    <React.Fragment key={index}>
+                                                                                        {index > 0 && ', '}
+                                                                                        {capitalizeFirstLetterOfEachWord(language)}
+                                                                                    </React.Fragment>
+                                                                                ))
+                                                                                : 'N/A'}
+                                                                        </span>
+                                                                    </ParaText>
+                                                                </ParaText>
+                                                                <div>
+                                                                    <br className="dNone" />
+                                                                    <Space size={[8, 16]} wrap>
+                                                                        {item.socialLinks.facebook !== 'null' &&
+                                                                            item.socialLinks.facebook !== null && (
+                                                                                <a
+                                                                                    href={item.socialLinks.facebook}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                >
+                                                                                    <span>
+                                                                                        <FaFacebookSquare size={20} color="#000" />
+                                                                                    </span>
+                                                                                </a>
+                                                                            )}
+                                                                        {item.socialLinks.instagram !== 'null' &&
+                                                                            item.socialLinks.instagram !== null && (
+                                                                                <a
+                                                                                    href={item.socialLinks.instagram}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                >
+                                                                                    <span>
+                                                                                        <FaInstagramSquare color="#000" size={20} />
+                                                                                    </span>
+                                                                                </a>
+                                                                            )}
+                                                                        {item.socialLinks.twitter !== 'null' &&
+                                                                            item.socialLinks.twitter !== null && (
+                                                                                <a
+                                                                                    href={item.socialLinks.twitter}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                >
+                                                                                    <span>
+                                                                                        <FaTwitter size={20} color="#127eb2" />
+                                                                                    </span>
+                                                                                </a>
+                                                                            )}
+                                                                        {item.socialLinks.likedIn !== 'null' &&
+                                                                            item.socialLinks.linkedin !== null && (
+                                                                                <a
+                                                                                    href={item.socialLinks.linkedin}
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
+                                                                                >
+                                                                                    <span>
+                                                                                        <IoLogoLinkedin size={20} color="#127eb2" />
+                                                                                    </span>
+                                                                                </a>
+                                                                            )}
+                                                                    </Space>
+                                                                </div>
+                                                            </Col>
+                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                                                <div className="textEnd" >
+                                                                    <Tooltip
+                                                                        title={
+                                                                            <span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>
+                                                                        }
+                                                                        color={'#EDF1F5'}
+                                                                    >
+                                                                        <WechatOutlined
+                                                                            onClick={() => accessChat(item?._id)}
+                                                                            style={{ fontSize: '30px', cursor: 'pointer', color: '#f1a638' }}
+                                                                        />
+                                                                    </Tooltip>
+                                                                    &nbsp;
+                                                                    <span>
+                                                                        <CiHeart size={30} />
+                                                                    </span>
+                                                                </div>
+                                                                <div className="candidates-details-chat">
+                                                                    <ParaText size="textGraf" color="black">
+                                                                        {item?.profileDescription}
+                                                                    </ParaText>
+                                                                </div>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
                                             </div>
                                         </Col>
                                     </Row>
-                                    <Divider />
-                                    <Row gutter={[16, 16]} align="middle">
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                            <ParaText size="textGraf" color="black">
-                                                {item?.profileDescription}
-                                            </ParaText>
-                                        </Col>
-                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className="textEnd">
-                                            <ParaText size="textGraf" fontWeightBold={600} className="dBlock">
-                                                <ParaText size="textGraf" color="black">
-                                                    <span>
-                                                        <strong> Languages :</strong>{' '}
-                                                    </span>
-                                                    &nbsp;
-                                                    <span>
-                                                        {item.languages.length > 0
-                                                            ? item.languages.map((language: string, index: number) => (
-                                                                <React.Fragment key={index}>
-                                                                    {index > 0 && ', '}
-                                                                    {capitalizeFirstLetterOfEachWord(language)}
-                                                                </React.Fragment>
-                                                            ))
-                                                            : 'N/A'}
-                                                    </span>
-                                                </ParaText>
-                                            </ParaText>
-                                        </Col>
-                                    </Row>
+
                                 </div>
                             </>
                         ))}

@@ -6,6 +6,13 @@
 
 .likeCommentRadius {
   border-radius: 20px;
-  background: #ccc;
   padding: 9px;
+  color: #f1a638;
+}
+
+.question {
+  border: 1px solid #f1a638;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 16px;
 }

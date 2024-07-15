@@ -266,7 +266,18 @@ export default function MarketPlace({ activeKey }: Props) {
                                     <Row>
                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} onClick={() => handleDetail(data)}>
                                             <div className="product-content">
+
                                                 <div className="price">
+                                                    {data.discountPrice != "undefined" ?
+                                                        <>
+                                                            ${data.discountPrice} <span>${data.price}</span>
+                                                        </>
+                                                        :
+                                                        `$${data.price}`
+                                                    }
+                                                </div>
+
+                                                {/* <div className="price">
                                                     {data.discountPrice != 'undefined' ? (
                                                         <>
                                                             <p className='' style={{ display: 'flex' }}><BiShekel style={{ color: '#000' }} size={30} />
@@ -275,7 +286,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                                     ) : (
                                                         `$${data.price}`
                                                     )}
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </Col>
                                         {data.discountPrice != 'undefined' ? (
@@ -303,7 +314,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     md={data.discountPrice !== 'undefined' ? 12 : 12}
                                     lg={data.discountPrice !== 'undefined' ? 12 : 12}
                                     xl={data.discountPrice !== 'undefined' ? 12 : 12}
-                                    xxl={data.discountPrice !== 'undefined' ? 24 : 12}
+                                    xxl={data.discountPrice !== 'undefined' ? 12 : 12}
                                 >
                                     <Link href='' onClick={() => handleChat(data.createdBy)} className='imageChat'>
                                         <Tooltip
