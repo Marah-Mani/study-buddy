@@ -152,7 +152,56 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
-
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
+		getItem(
+			'',
+			'9',
+			<span></span>
+		),
 		getItem(
 			'Logout',
 			'7',

@@ -1,10 +1,14 @@
-.loginMain {
-  padding: 16% 17%;
+/* .loginMain {
+  padding: 8% 17%;
+} */
+.login-style {
+  position: relative;
+  top: -20px;
 }
 .login {
   max-width: 500px;
   border-radius: 20px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: 3px solid #efa24b;
   background-color: #fff;
   padding: 5% 5% 5% 5%;
   margin: 0 auto;
@@ -41,12 +45,12 @@
 }
 
 @media (max-width: 991px) {
-  .login {
-    padding: 5%;
-    max-width: 100%;
-    height: auto;
+  .login-style {
+    position: relative;
+    top: 0px;
   }
-  .loginMain {
-    padding: 4%;
+  .login {
+    max-width: 100%;
+    margin: 30px;
   }
 }
