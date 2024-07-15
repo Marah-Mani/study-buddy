@@ -9,25 +9,43 @@ class Zoom {
 	}
 
 	async generateAccessToken() {
-		try {
-			const response = await axios.post(
-				`https://zoom.us/oauth/token`,
-				{
-					grant_type: 'account_credentials',
-					account_id: 'Ixt2K9r4QoOOldcZiG2ntQ'
-				},
-				{
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-						Authorization: 'Basic YW1sbjJDV1I0bTRvbFNGMkN3UDNBOmF4cnFJRm1CbUtkd1BmRGJvbjBtbGk2RTM1Nkg2dFh3'
-					}
-				}
-			);
+		const retryCount = 2; // Reduced retry count
+		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-			return response.data.access_token;
-		} catch (error) {
-			console.error('Error getting access token:', error.response ? error.response.data : error.message);
-			throw new Error('Failed to generate access token');
+		for (let attempt = 1; attempt <= retryCount; attempt++) {
+			try {
+				const response = await axios.post(
+					'https://zoom.us/oauth/token',
+					new URLSearchParams({
+						grant_type: 'account_credentials',
+						account_id: 'Ixt2K9r4QoOOldcZiG2ntQ'
+					}).toString(),
+					{
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+							Authorization:
+								'Basic YW1sbjJDV1I0bTRvbFNGMkN3UDNBOmF4cnFJRm1CbUtkd1BmRGJvbjBtbGk2RTM1Nkg2dFh3'
+						}
+					}
+				);
+
+				return response.data.access_token;
+			} catch (error) {
+				const errorMsg = error.response ? error.response.data : error.message;
+				console.error(`Error getting access token on attempt ${attempt}:`, errorMsg);
+
+				// Abort quickly if the error is due to invalid credentials or critical issues
+				if (error.response && error.response.status === 401) {
+					throw new Error('Invalid credentials. Aborting.');
+				}
+
+				if (attempt < retryCount) {
+					console.log(`Retrying... (${attempt}/${retryCount})`);
+					await delay(1000); // Short delay before retrying
+				} else {
+					throw new Error('Failed to generate access token after multiple attempts');
+				}
+			}
 		}
 	}
 

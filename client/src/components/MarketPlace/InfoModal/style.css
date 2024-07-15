@@ -11,3 +11,12 @@
   margin-left: 5px;
   display: inline-block;
 }
+.offer {
+  padding: 4px 10px !important;
+  border-radius: 30px !important;
+  color: #000 !important;
+  font-size: 12px !important;
+}
+.imageChat img {
+  width: 30px;
+}

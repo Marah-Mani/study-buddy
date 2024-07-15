@@ -1,6 +1,6 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Avatar, Tooltip, Modal, Result, Image, Timeline } from 'antd';
+import { Row, Col, Form, Button, Avatar, Tooltip, Modal, Result, Image, Timeline, Input } from 'antd';
 import './style.css'
 import ErrorHandler from '@/lib/ErrorHandler';
 import { forumQuestionViews, submitForumComment, submitForumReply, submitForumVote, deleteComment } from '@/lib/frontendApi';
@@ -13,7 +13,8 @@ import RelativeTime from '@/app/commonUl/RelativeTime';
 import { FaRegMessage } from 'react-icons/fa6';
 import { validationRules } from '@/lib/validations';
 import RightSection from './RightSection';
-
+import { IoSendSharp } from "react-icons/io5";
+import { MdOutlineArrowBack } from "react-icons/md";
 
 interface Props {
    forumData?: any;
@@ -198,119 +199,127 @@ export default function SingleForum({ forumData }: Props) {
       <>
          <div className='contentBody'>
             <Row style={{ padding: '20px' }} gutter={[12, 12]}>
-               <Col md={1}>
+               <Col xs={24} sm={24} md={1} lg={1} xl={1} xxl={1}>
                   <div style={{ padding: '7px' }}>
-                     <ArrowLeftOutlined className='backArrowIcon' onClick={() => {
+                     <MdOutlineArrowBack size={30} className='backArrowIcon' onClick={() => {
                         router.back()
                      }} />
                   </div>
                </Col>
-               <Col md={15}>
-                  <div style={{ padding: "4px" }}>
-                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <div>
-                           {forumData.userId.image ?
-                              <Image
-                                 src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${forumData.userId.image}`
+               <Col xs={24} sm={24} md={2415} lg={15} xl={15} xxl={15}>
+                  <div className='question'>
+                     <Row gutter={[16, 16]}>
+                        <Col xl={1}>
+                           <div style={{ display: 'flex', gap: '8px' }}>
+                              <div>
+                                 {forumData.userId.image ?
+                                    <Image
+                                       src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${forumData.userId.image}`
+                                       }
+                                       alt="Avatar"
+                                       width="40px"
+                                       height="40px"
+                                       style={{ borderRadius: '50px' }}
+                                       preview={false}
+                                    />
+                                    :
+                                    <Avatar icon={<UserOutlined />} />
                                  }
-                                 alt="Avatar"
-                                 width="40px"
-                                 height="40px"
-                                 style={{ borderRadius: '50px' }}
-                                 preview={false}
-                              />
-                              :
-                              <Avatar icon={<UserOutlined />} />
-                           }
-                        </div>
-                        <div>
-                           <span style={{ fontSize: '14px' }}>
-                              {forumData.userId.name}
-
-                           </span>
-                           <br />
-                           <span style={{ color: '#F2A638' }}><RelativeTime date={forumData.createdAt} /></span>
-                        </div>
-                     </div>
-                     <ParaText size="large" fontWeightBold={600} color="black">
-                        {forumData.title}
-                     </ParaText>
-                     <div className="smallTopMargin"></div>
-                     <div dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
-                     <div className="mediumTopMargin"></div>
-
-                     {/* FORUM LIKES & DISLIKES */}
-                     <div style={{ display: 'flex', gap: '10px' }}>
-                        <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'like')}>
-                           <span className='orange-color'>
-                              {
-                                 dataSource.likes.includes(user?._id)
-                                    ? <LikeFilled />
-                                    : <LikeOutlined />
-                              }
-                           </span>
-                           {dataSource.likes.length}
-                        </div>
-                        <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'dislike')}>
-                           <span className='orange-color'>
-                              {
-                                 dataSource.dislikes.includes(user?._id)
-                                    ? <DislikeFilled />
-                                    : <DislikeOutlined />
-                              } </span> {dataSource.dislikes.length}
-                        </div>
-                        <div style={{ cursor: 'pointer' }} >
-                           <span className='orange-color'>
-                              <MessageOutlined />
-                           </span>
-                           {dataSource?.comments?.length}
-                        </div>
-                        <div className="smallTopMargin"></div>
-                     </div>
-
-                     {/* COMMENT TEXTBOX */}
-                     <div className='replyDivBorder'>
-                        <div className='customTextArea'>
-                           <TextArea rows={1} value={comment} onChange={(e) => {
-                              if (!user) {
-                                 setModal(true);
-                                 return;
-                              }
-                              setComment(e.target.value);
-                           }
-                           }
-                              placeholder='Add a comment ...'
-                              maxLength={validationRules.textEditor.maxLength}
-                              minLength={validationRules.textEditor.minLength}
-                           />
-                        </div>
-
-                     </div>
-                     <div>
-                        {comment &&
-                           <div style={{ paddingTop: '4px' }}>
-                              <div style={{ display: 'flex', gap: '10px', justifyContent: 'end' }} className="textEnd">
-                                 <div>
-                                    <Button htmlType="submit" color='primary' onClick={() => handleSubmit()}>
-                                       Submit
-                                    </Button>
-                                 </div>
-                                 <div>
-                                    <Button htmlType="submit" color='primary' onClick={() => { setCommentBox(false), setComment('') }}>
-                                       Cancel
-                                    </Button>
-                                 </div>
                               </div>
                            </div>
-                        }
-                     </div>
-                     {dataSource?.comments?.length > 0 &&
-                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                           Comments
-                        </ParaText>
-                     }
+                        </Col>
+                        <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23}>
+                           <div>
+                              <span style={{ fontSize: '14px' }}>
+                                 {forumData.userId.name}
+                              </span>
+                              <br />
+                              <span style={{ color: '#F2A638' }}><RelativeTime date={forumData.createdAt} /></span>
+                           </div>
+                           <div className="smallTopMargin"></div>
+                           <div dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
+                           <ParaText size="extraSmall" fontWeightBold={400} color="black">
+                              {forumData.title}
+                           </ParaText>
+                           {/* FORUM LIKES & DISLIKES */}
+                           <div className="smallTopMargin"></div>
+                           <div style={{ display: 'flex', gap: '10px' }}>
+                              <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'like')}>
+                                 <span className='orange-color'>
+                                    {
+                                       dataSource.likes.includes(user?._id)
+                                          ? <LikeFilled />
+                                          : <LikeOutlined />
+                                    }
+                                 </span>
+                                 &nbsp;
+                                 &nbsp;
+                                 {dataSource.likes.length}
+                              </div>
+                              {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'dislike')}>
+                                 <span className='orange-color'>
+                                    {
+                                       dataSource.dislikes.includes(user?._id)
+                                          ? <DislikeFilled />
+                                          : <DislikeOutlined />
+                                    } </span> {dataSource.dislikes.length}
+                              </div> */}
+                              <div style={{ cursor: 'pointer' }} >
+                                 <span className='orange-color'>
+                                    <MessageOutlined />
+                                 </span>
+                                 &nbsp;
+                                 &nbsp;
+                                 {dataSource?.comments?.length}
+                              </div>
+                              <div className="smallTopMargin"></div>
+                           </div>
+
+                           {/* COMMENT TEXTBOX */}
+                           <div>
+                              {comment &&
+                                 <div style={{ paddingTop: '4px' }}>
+                                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'end' }} className="textEnd">
+                                       <div>
+                                          <Button htmlType="submit" color='primary' onClick={() => handleSubmit()}>
+                                             Submit
+                                          </Button>
+                                       </div>
+                                       <div>
+                                          <Button htmlType="submit" color='primary' onClick={() => { setCommentBox(false), setComment('') }}>
+                                             Cancel
+                                          </Button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              }
+                           </div>
+                           {dataSource?.comments?.length > 0 &&
+                              <ParaText size="large" fontWeightBold={600} color="primaryColor">
+                                 Comments
+                              </ParaText>
+                           }
+                        </Col>
+                     </Row>
                   </div>
+                  <Input
+                     className='replyDivBorder'
+                     value={comment} onChange={(e) => {
+                        if (!user) {
+                           setModal(true);
+                           return;
+                        }
+                        setComment(e.target.value);
+                     }
+                     }
+                     placeholder='Add a comment ...'
+                     maxLength={validationRules.textEditor.maxLength}
+                     minLength={validationRules.textEditor.minLength}
+                     suffix={<IoSendSharp />} />
+
                   {/* COMMENTS LOOP */}
+
+
                   <Row>
                      {dataSource?.comments?.map((comment: any, index: any) => {
                         return (
@@ -569,7 +578,7 @@ export default function SingleForum({ forumData }: Props) {
                   }
                />
             </Modal>
-         </div>
+         </div >
       </>
    )
 }

@@ -5,7 +5,7 @@ import { Button, message, Popconfirm, Table } from 'antd'
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import { DeleteOutlined } from '@ant-design/icons';
 
 interface Props {
@@ -24,7 +24,6 @@ interface DataType {
     tags: string[];
 }
 export default function ForumData({ activeKey, onEdit, reload, getData, filterData }: Props) {
-
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [selectedforumId, setSelectedforumId] = useState<string[]>([]);
     const { user } = useContext(AuthContext);
@@ -124,7 +123,7 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
     }
     return (
         <>
-            {selectedRowKeys.length > 0 && <Popconfirm
+            {/* {selectedRowKeys.length > 0 && <Popconfirm
                 style={{ height: '40px' }}
                 title="Are you sure to delete selected Forums?"
                 onConfirm={confirmDelete}
@@ -136,11 +135,8 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
                     ghost>
                     Delete
                 </Button>
-            </Popconfirm>}
-            <Table columns={columns} bordered dataSource={data} rowSelection={{
-                type: 'checkbox',
-                ...rowSelection
-            }} />
+            </Popconfirm>} */}
+            <Table columns={columns} bordered dataSource={data} />
         </>
     )
 }
