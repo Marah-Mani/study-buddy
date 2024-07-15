@@ -137,7 +137,7 @@ export default function TopBar() {
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
 							<Link href="/">
-								<Titles level={4} color='primaryColor'>Study Buddy</Titles>
+								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Link>
 					</Col>
@@ -331,7 +331,7 @@ export default function TopBar() {
 					</div>
 				</Row>
 				<Drawer
-					title="Study Buddy"
+					title="StudyBuddy"
 					className="paddingRemoveBody"
 					onClose={onClose}
 					open={open}

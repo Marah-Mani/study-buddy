@@ -174,15 +174,17 @@ export default function Page() {
                                     <Space wrap>
                                         <Dropdown
                                             overlay={
-                                                <Menu onClick={handleDepartmentChange}>
-                                                    <Menu.Item key="all">All</Menu.Item>
-                                                    {AllDepartments &&
-                                                        AllDepartments.map((item: any) => (
-                                                            <Menu.Item key={item._id}>
-                                                                {capitalizeFirstLetterOfEachWord(item?.departmentName)}
-                                                            </Menu.Item>
-                                                        ))}
-                                                </Menu>
+                                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                    <Menu onClick={handleDepartmentChange}>
+                                                        <Menu.Item key="all" className='hovercolor'>All</Menu.Item>
+                                                        {AllDepartments &&
+                                                            AllDepartments.map((item: any) => (
+                                                                <Menu.Item key={item._id} className='hovercolor'>
+                                                                    {capitalizeFirstLetterOfEachWord(item?.departmentName)}
+                                                                </Menu.Item>
+                                                            ))}
+                                                    </Menu>
+                                                </div>
                                             }
                                         >
                                             <Button
@@ -211,12 +213,14 @@ export default function Page() {
                                         </Dropdown>
                                         <Dropdown
                                             overlay={
-                                                <Menu onClick={handleSubjectsChange}>
-                                                    <Menu.Item key="all">All</Menu.Item>
-                                                    {AllSubjects.map((subject) => (
-                                                        <Menu.Item key={subject}>{subject}</Menu.Item>
-                                                    ))}
-                                                </Menu>
+                                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                    <Menu onClick={handleSubjectsChange}>
+                                                        <Menu.Item key="all" className='hovercolor'>All</Menu.Item>
+                                                        {AllSubjects.map((subject) => (
+                                                            <Menu.Item key={subject} className='hovercolor'>{subject}</Menu.Item>
+                                                        ))}
+                                                    </Menu>
+                                                </div>
                                             }
                                         >
                                             <Button

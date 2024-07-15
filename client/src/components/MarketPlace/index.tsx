@@ -39,7 +39,6 @@ export default function MarketPlace({ activeKey }: Props) {
     useEffect(() => {
         fetchData();
     }, [user, activeKey, searchInput, selectedCategory, subCategory, currentPage, pageSize]);
-    console.log(user?.role, 'user role');
 
     useEffect(() => {
         fetchCategories();
