@@ -39,7 +39,6 @@ export default function MarketPlace({ activeKey }: Props) {
     useEffect(() => {
         fetchData();
     }, [user, activeKey, searchInput, selectedCategory, subCategory, currentPage, pageSize]);
-    console.log(user?.role, 'user role');
 
     useEffect(() => {
         fetchCategories();
@@ -158,8 +157,8 @@ export default function MarketPlace({ activeKey }: Props) {
     return (
         <>
             <Row>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}></Col>
-                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className="textEnd markitPlace">
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12}></Col>
+                <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className="textEnd markitPlace">
                     <Space wrap>
                         <Select
                             style={{ height: '35px', borderRadius: '30px' }}
@@ -230,7 +229,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                             className="title"
                                             fontWeightBold={600}
                                         >
-                                            <ShortFileName fileName={data.title} short={35} />{' '}
+                                            <ShortFileName fileName={data.title} short={35} />
                                         </ParaText>
                                     </div>
                                 </Col>
@@ -246,7 +245,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                         className="title"
                                         fontWeightBold={600}
                                     >
-                                        Category : {data.categoryId.name}
+                                        Category : <ParaText size="extraSmall" color='primaryColor'>{data.categoryId.name}</ParaText>
                                     </ParaText>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -256,55 +255,61 @@ export default function MarketPlace({ activeKey }: Props) {
                                         className="title"
                                         fontWeightBold={600}
                                     >
-                                        Sub-category : {data.subCategoryId?.name}
+                                        Sub-category :  <ParaText size="extraSmall" color='primaryColor'>{data.subCategoryId?.name} </ParaText>
                                     </ParaText>
                                 </Col>
                             </Row>
                             <br />
                             <Row align="middle">
-                                <Col xs={8} sm={8} md={8} lg={8} xl={8} xxl={8} onClick={() => handleDetail(data)}>
-                                    <div className="product-content">
-                                        <div className="price">
-                                            {data.discountPrice != 'undefined' ? (
-                                                <>
-                                                    <BiShekel style={{ color: 'green' }} />
-                                                </>
-                                            ) : (
-                                                `$${data.price}`
-                                            )}
-                                        </div>
-                                    </div>
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                    <Row>
+                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} onClick={() => handleDetail(data)}>
+                                            <div className="product-content">
+                                                <div className="price">
+                                                    {data.discountPrice != 'undefined' ? (
+                                                        <>
+                                                            <p className='' style={{ display: 'flex' }}><BiShekel style={{ color: '#000' }} size={30} />
+                                                                20</p>
+                                                        </>
+                                                    ) : (
+                                                        `$${data.price}`
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Col>
+                                        {data.discountPrice != 'undefined' ? (
+                                            <Col
+                                                xs={24}
+                                                sm={24}
+                                                md={24}
+                                                lg={24}
+                                                xl={24}
+                                                xxl={24}
+                                                className=""
+                                                onClick={() => handleDetail(data)}
+                                            >
+                                                <span color="default" style={{ backgroundColor: '#f1a638' }} className='offer'>
+                                                    {calculatePercentageOff(data.price, data.discountPrice)}% off
+                                                </span>
+                                            </Col>
+                                        ) : null}
+                                    </Row>
                                 </Col>
-                                {data.discountPrice != 'undefined' ? (
-                                    <Col
-                                        xs={8}
-                                        sm={8}
-                                        md={8}
-                                        lg={8}
-                                        xl={8}
-                                        xxl={8}
-                                        className="textEnd"
-                                        onClick={() => handleDetail(data)}
-                                    >
-                                        <Tag color="default" style={{ backgroundColor: '#f1a638' }}>
-                                            {calculatePercentageOff(data.price, data.discountPrice)}% off
-                                        </Tag>
-                                    </Col>
-                                ) : null}
                                 <Col
-                                    xs={8}
-                                    sm={8}
-                                    md={data.discountPrice !== 'undefined' ? 8 : 12}
-                                    lg={data.discountPrice !== 'undefined' ? 8 : 12}
-                                    xl={data.discountPrice !== 'undefined' ? 8 : 12}
-                                    xxl={data.discountPrice !== 'undefined' ? 8 : 12}
+                                    xs={24}
+                                    className='textEnd'
+                                    sm={24}
+                                    md={data.discountPrice !== 'undefined' ? 12 : 12}
+                                    lg={data.discountPrice !== 'undefined' ? 12 : 12}
+                                    xl={data.discountPrice !== 'undefined' ? 12 : 12}
+                                    xxl={data.discountPrice !== 'undefined' ? 24 : 12}
                                 >
-                                    <Link href={``} onClick={() => handleChat(data.createdBy)}>
+                                    <Link href='' onClick={() => handleChat(data.createdBy)} className='imageChat'>
                                         <Tooltip
                                             title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                             color={'#EDF1F5'}
                                         >
-                                            <Image preview={false} src="/icons/yellowbubble-chat.png" alt='' />
+                                            <img src="/icons/yellowbubble-chat.png" alt='' />
                                         </Tooltip>
                                     </Link>
                                 </Col>

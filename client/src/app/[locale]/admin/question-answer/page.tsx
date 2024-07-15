@@ -210,12 +210,12 @@ export default function Page() {
                                                                 </div>
                                                             </div>
                                                             <div className='likeCommentRadius'>
-                                                                <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}>
+                                                                <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/admin/questions/${forum.slug}`}>
                                                                     <MessageOutlined style={{ fontSize: '16px' }} /> {forum.comments.length}
                                                                 </Link>
                                                             </div>
                                                             <div className='likeCommentRadius'>
-                                                                <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}>
+                                                                <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/admin/questions/${forum.slug}`}>
                                                                     Views {forum.viewCount}
                                                                 </Link>
                                                             </div>

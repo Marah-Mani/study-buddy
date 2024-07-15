@@ -229,10 +229,10 @@ export default function SingleForum({ forumData }: Props) {
 
                            </span>
                            <br />
-                           <span><RelativeTime date={forumData.createdAt} /></span>
+                           <span style={{ color: '#F2A638' }}><RelativeTime date={forumData.createdAt} /></span>
                         </div>
                      </div>
-                     <ParaText size="large" fontWeightBold={600} color="primaryColor">
+                     <ParaText size="large" fontWeightBold={600} color="black">
                         {forumData.title}
                      </ParaText>
                      <div className="smallTopMargin"></div>
@@ -242,22 +242,28 @@ export default function SingleForum({ forumData }: Props) {
                      {/* FORUM LIKES & DISLIKES */}
                      <div style={{ display: 'flex', gap: '10px' }}>
                         <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'like')}>
-                           {
-                              dataSource.likes.includes(user?._id)
-                                 ? <LikeFilled />
-                                 : <LikeOutlined />
-                           }
+                           <span className='orange-color'>
+                              {
+                                 dataSource.likes.includes(user?._id)
+                                    ? <LikeFilled />
+                                    : <LikeOutlined />
+                              }
+                           </span>
                            {dataSource.likes.length}
                         </div>
                         <div style={{ cursor: 'pointer' }} onClick={() => handleVote('', '', 'dislike')}>
-                           {
-                              dataSource.dislikes.includes(user?._id)
-                                 ? <DislikeFilled />
-                                 : <DislikeOutlined />
-                           } {dataSource.dislikes.length}
+                           <span className='orange-color'>
+                              {
+                                 dataSource.dislikes.includes(user?._id)
+                                    ? <DislikeFilled />
+                                    : <DislikeOutlined />
+                              } </span> {dataSource.dislikes.length}
                         </div>
                         <div style={{ cursor: 'pointer' }} >
-                           <MessageOutlined /> {dataSource?.comments?.length}
+                           <span className='orange-color'>
+                              <MessageOutlined />
+                           </span>
+                           {dataSource?.comments?.length}
                         </div>
                         <div className="smallTopMargin"></div>
                      </div>
@@ -332,7 +338,7 @@ export default function SingleForum({ forumData }: Props) {
                                           {comment.userId.name}
                                        </span>
                                        <br />
-                                       <span><RelativeTime date={comment.createdAt} /></span>
+                                       <span style={{ color: '#F2A638' }}><RelativeTime date={comment.createdAt} /></span>
                                     </div>
                                  </div>
                                  <div className="smallTopMargin"></div>
@@ -344,25 +350,29 @@ export default function SingleForum({ forumData }: Props) {
                                     <div className="smallTopMargin"></div>
                                     <div style={{ display: 'flex', gap: '10px' }}>
                                        <div style={{ cursor: 'pointer' }} onClick={() => handleVote(comment._id, '', 'like')}>
-                                          {
-                                             comment.likes.includes(user?._id)
-                                                ? <LikeFilled />
-                                                : <LikeOutlined />
-                                          }
+                                          <span className='orange-color'>
+                                             {
+                                                comment.likes.includes(user?._id)
+                                                   ? <LikeFilled />
+                                                   : <LikeOutlined />
+                                             }
+                                          </span>
                                           {comment.likes.length}
                                        </div>
                                        <div style={{ cursor: 'pointer' }} onClick={() => handleVote(comment._id, '', 'dislike')}>
-                                          {
-                                             comment.dislikes.includes(user?._id)
-                                                ? <DislikeFilled />
-                                                : <DislikeOutlined />
-                                          } {comment.dislikes.length}
+                                          <span className='orange-color'>
+                                             {
+                                                comment.dislikes.includes(user?._id)
+                                                   ? <DislikeFilled />
+                                                   : <DislikeOutlined />
+                                             }</span> {comment.dislikes.length}
                                        </div>
                                        <div style={{ cursor: 'pointer' }} onClick={() => handleComment(comment._id)}>
+                                          <span className='orange-color'>
 
-                                          <FaRegMessage /> {comment.replies.length} { }
-
-
+                                             <FaRegMessage />
+                                          </span>
+                                          {comment.replies.length} { }
                                        </div>
 
                                        {!commentBox && forumId == comment._id &&
