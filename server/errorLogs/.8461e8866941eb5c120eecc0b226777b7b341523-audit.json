@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 90
+    },
+    "auditLog": "/opt/lampp/htdocs/StuddyBuddy/study-buddy/server/errorLogs/.8461e8866941eb5c120eecc0b226777b7b341523-audit.json",
+    "files": [
+        {
+            "date": 1721020553060,
+            "name": "/opt/lampp/htdocs/StuddyBuddy/study-buddy/server/errorLogs/error-2024-07-15.log",
+            "hash": "40fb3aac0d4bc4c5d086c28982e18769d07bc49d566ea5f101b71c13adbda8bf"
+        }
+    ],
+    "hashType": "sha256"
+}
