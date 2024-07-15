@@ -200,6 +200,7 @@ export default function Brands({ activeKey }: Props) {
                                     }
                                 >
                                     <PhoneInput
+                                        inputStyle={{ width: '100%' }}
                                         country={'us'}
                                         value={phone}
                                         onChange={handlePhoneChange}

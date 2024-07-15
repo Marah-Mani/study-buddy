@@ -109,6 +109,15 @@ li {
   border-bottom-width: 2px;
   border-bottom-color: #b98845 !important;
 }
+.ant-input-outlined:hover {
+  border: 1px solid #b98845 !important;
+}
+.ant-select-selector:hover {
+  border: 1px solid #b98845 !important;
+}
+.ant-pagination .ant-pagination-item-active {
+  border-color: #efa24b !important;
+}
 
 .hovercolor:hover {
   background-color: #f1a638 !important;
