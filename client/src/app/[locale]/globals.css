@@ -109,8 +109,8 @@ li {
   border-bottom-width: 2px;
   border-bottom-color: #b98845 !important;
 }
-span.ant-input-affix-wrapper.css-dev-only-do-not-override-t8jlqa.ant-input-outlined:hover {
-  border: 1px solid #b98845;
+.ant-input-outlined:hover {
+  border: 1px solid #b98845 !important;
 }
 .ant-select-selector:hover {
   border: 1px solid #b98845 !important;
