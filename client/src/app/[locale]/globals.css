@@ -109,3 +109,12 @@ li {
   border-bottom-width: 2px;
   border-bottom-color: #b98845 !important;
 }
+span.ant-input-affix-wrapper.css-dev-only-do-not-override-t8jlqa.ant-input-outlined:hover {
+  border: 1px solid #b98845;
+}
+.ant-select-selector:hover {
+  border: 1px solid #b98845 !important;
+}
+.ant-pagination .ant-pagination-item-active {
+  border-color: #efa24b !important;
+}

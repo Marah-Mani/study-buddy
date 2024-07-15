@@ -1,10 +1,10 @@
-.login-container {
+.login-container-login {
   background-color: #fff;
   width: 100%;
   transition-property: border-radius, height;
   transition-duration: 1s;
   transition-timing-function: linear;
-  background: #344734;
+  background: transparent;
 }
 .background-color {
   background-color: #344734;
@@ -14,9 +14,9 @@
   padding-top: 12%;
 }
 @media (max-width: 767px) {
-  .login-container {
+  .login-container-login {
     height: auto;
-    background-color: #344734;
+    background: transparent;
   }
   .login-style {
     padding-top: 0%;
@@ -24,10 +24,9 @@
 }
 
 @media (min-width: 1200px) {
-  .waves {
+  .waves1 {
     position: absolute;
     top: 0;
-    z-index: 2;
     width: 100%;
     height: 300px;
     overflow: hidden;
