@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 import { Drawer } from 'antd';
 import { Col, Row } from 'antd';
@@ -12,6 +12,7 @@ import Titles from '@/app/commonUl/Titles';
 export default function Header() {
 	const [open, setOpen] = useState(false);
 	const params = usePathname();
+	const [activeIndex, setActiveIndex] = useState(0);
 
 	const showDrawer = () => {
 		setOpen(true);
@@ -20,12 +21,29 @@ export default function Header() {
 	const onClose = () => {
 		setOpen(false);
 	};
-	const [activeIndex, setActiveIndex] = useState(null);
+
+	useEffect(() => {
+		switch (params) {
+			case '/':
+				setActiveIndex(0);
+				break;
+			case '/en/about':
+				setActiveIndex(1);
+				break;
+			case '/en/contact':
+				setActiveIndex(2);
+				break;
+			case '/en/login':
+				setActiveIndex(3);
+				break;
+			default:
+				setActiveIndex(0);
+				break;
+		}
+	}, [params]);
 
 	const handleClick = (index: any) => {
-		console.log(index, '===')
 		setActiveIndex(index);
-		setOpen(false);
 	};
 	return (
 		<>
@@ -34,21 +52,29 @@ export default function Header() {
 					<Row align="middle" gutter={[16, 16]}>
 						<Col xl={12} md={12} xs={0} sm={0}>
 							<ul className="listItem nav">
-								{[
-									{ href: "/", label: "Home" },
-									{ href: "/en/about", label: "About us" },
-									{ href: "/en/contact", label: "Contact us" },
-									{ href: "/en/login", label: "Login" },
-								].map((item, index) => (
-									<li key={index} >
-										<Link href={item.href} onClick={() => handleClick(index)} className={activeIndex === index ? 'active' : ''}>
-											<ParaText size="small" fontWeightBold={500} color="primaryColor">
-												{item.label}
-											</ParaText>
-										</Link>
-									</li>
-								))}
+								<li>
+									<Link href="/" onClick={() => handleClick(0)} className={activeIndex === 0 ? 'active' : ''}>
+										<ParaText size="small" fontWeightBold={500} color="primaryColor">
+											Home
+										</ParaText>
+									</Link>
+								</li>
+								<li>
+									<Link href="/en/about" onClick={() => handleClick(1)} className={activeIndex === 1 ? 'active' : ''}>
+										<ParaText size="small" fontWeightBold={500} color="primaryColor">
+											About us
+										</ParaText>
+									</Link>
+								</li>
+								<li>
+									<Link href="/en/contact" onClick={() => handleClick(2)} className={activeIndex === 2 ? 'active' : ''}>
+										<ParaText size="small" fontWeightBold={500} color="primaryColor">
+											Contact us
+										</ParaText>
+									</Link>
+								</li>
 							</ul>
+
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} >
 
@@ -69,11 +95,13 @@ export default function Header() {
 								)}
 							</Link>
 						</Col>
-						{/* <Col xl={6} md={6} xs={0} sm={0} className='textEnd' >
-							<Link href="/en/login">
-								<ParaText size="small" fontWeightBold={500} color="primaryColor">Login</ParaText>
-							</Link>
-						</Col> */}
+						<Col xl={6} md={6} xs={0} sm={0} className='textEnd nav' >
+							<li style={{ padding: '0px' }}>
+								<Link href="/en/login" onClick={() => handleClick(3)} className={activeIndex === 3 ? 'active' : ''}>
+									<ParaText size="small" fontWeightBold={500} color="primaryColor">Login</ParaText>
+								</Link>
+							</li>
+						</Col>
 					</Row>
 
 					<Row align='middle'>

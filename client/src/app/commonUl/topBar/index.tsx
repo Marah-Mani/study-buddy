@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useContext } from 'react';
-import './style.css'
+import './style.css';
 import { Col, Divider, Drawer, Image, Row, Badge, Avatar, Button } from 'antd';
 import { FaRegBell } from 'react-icons/fa6';
 import AuthContext from '@/contexts/AuthContext';
@@ -16,7 +16,7 @@ import LastLoginDateTime from '@/components/frontend/LastLoginDateTime';
 import { getHeaderMenus } from '@/lib/frontendApi';
 import { CiDark } from 'react-icons/ci';
 import { MdDarkMode } from 'react-icons/md';
-import { IoMenuSharp } from "react-icons/io5";
+import { IoMenuSharp } from 'react-icons/io5';
 import MenuUserMobile from '../MenuUserMobile';
 import MenuAdminMobile from '../MenuAdminMobile';
 import Titles from '../Titles';
@@ -26,7 +26,7 @@ export default function TopBar() {
 	const { user } = useContext(AuthContext);
 	const [notificationData, setNotificationData] = useState<any[]>([]);
 	const [latestBell, setLatestBell]: any = useState('');
-	const [headerMenu, setHeaderMenu] = useState<any>([])
+	const [headerMenu, setHeaderMenu] = useState<any>([]);
 	const pathName = usePathname();
 
 	const router = useRouter();
@@ -52,7 +52,7 @@ export default function TopBar() {
 		} catch (error) {
 			ErrorHandler.showNotification(error);
 		}
-	}
+	};
 
 	const fetchAllNotifications = async () => {
 		try {
@@ -90,10 +90,7 @@ export default function TopBar() {
 		}
 	}, []);
 
-
-
 	const handleNavigation = async () => {
-
 		try {
 			const data = {
 				userId: user?._id,
@@ -135,61 +132,78 @@ export default function TopBar() {
 
 	return (
 		<>
-			<div className='topBar'>
+			<div className="topBar">
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<Titles level={4} color="white">Study Buddy</Titles>
+							<Link href="/">
+								<Titles level={4} color='primaryColor'>Study Buddy</Titles>
+							</Link>
 						</Link>
 					</Col>
 					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
 						{headerMenu.length > 0 &&
 							headerMenu.map((menu: any, index: any) => {
 								return (
-									<Link style={{ paddingLeft: '10px' }} key={index} href={`${menu.link}`} >
+									<Link style={{ paddingLeft: '10px' }} key={index} href={`${menu.link}`}>
 										<ParaText size="small" color="secondaryColor">
 											{menu.title}
 										</ParaText>
 									</Link>
-								)
-							})
-						}
-						<div>
-
-						</div>
+								);
+							})}
+						<div></div>
 					</Col>
-					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4} >
+					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
-							<div className='mobileMenu'>
-								<div className='menuIcon' onClick={showDrawer}>
-									<IoMenuSharp color='#000' size={20} />
+							<div className="mobileMenu">
+								<div className="menuIcon" onClick={showDrawer}>
+									<IoMenuSharp color="#000" size={20} />
 								</div>
 							</div>
-							<div>	<Button onChange={handleToggle} defaultChecked type="text" onClick={handleToggle} icon={darkMode ? < MdDarkMode color='#fff' size={20} /> : <CiDark color='#fff' size={20} />} /></div>
+							<div>
+								<Button
+									onChange={handleToggle}
+									defaultChecked
+									type="text"
+									onClick={handleToggle}
+									icon={
+										darkMode ? (
+											<MdDarkMode color="#fff" size={20} />
+										) : (
+											<CiDark color="#fff" size={20} />
+										)
+									}
+								/>
+							</div>
 							<div onClick={handleDivClickBell}>
 								{latestBell.isRead === '' ? (
-									<FaRegBell size={20} color='#fff' />
+									<FaRegBell size={20} color="#fff" />
 								) : (
 									<div
-										className='bell'
+										className="bell"
 										onClick={(e) => {
 											handleDivClickBell(e);
 										}}
 									>
-										<FaRegBell color='#fff' size={20} />
+										<FaRegBell color="#fff" size={20} />
 									</div>
 								)}
 							</div>
 
 							{showNotificationBell && (
 								<Drawer
-									title={<div><ParaText size="small" color="white">Notifications</ParaText></div>}
+									title={
+										<div>
+											<ParaText size="small" color="primaryColor">
+												Notifications
+											</ParaText>
+										</div>
+									}
 									footer={
 										<div className="textCenter">
 											<ParaText size="small" color="secondaryColor">
-												<b style={{ cursor: 'pointer' }} onClick={handleNavigation}>
-
-												</b>
+												<b style={{ cursor: 'pointer' }} onClick={handleNavigation}></b>
 											</ParaText>
 										</div>
 									}
@@ -230,22 +244,33 @@ export default function TopBar() {
 																)}
 															</Col>
 															<Col xs={18} sm={18} md={18} lg={18} xl={18} xxl={18}>
-																<div key={index}
-																>
-																	<ParaText size="extraSmall" color="white">
-
-																		{
-																			notification.url ?
-																				<Link href={notification.url} >
-
-																					<div dangerouslySetInnerHTML={{ __html: notification?.notification }} style={{ cursor: 'pointer', fontSize: '13px' }} />
-
-																				</Link>
-																				:
-																				<div style={{ cursor: 'pointer', fontSize: '13px' }} dangerouslySetInnerHTML={{ __html: notification.notification }} />
-																		}
-
-																	</ParaText></div>
+																<div key={index}>
+																	<ParaText size="extraSmall" color="black">
+																		{notification.url ? (
+																			<Link href={notification.url}>
+																				<div
+																					dangerouslySetInnerHTML={{
+																						__html: notification?.notification
+																					}}
+																					style={{
+																						cursor: 'pointer',
+																						fontSize: '13px'
+																					}}
+																				/>
+																			</Link>
+																		) : (
+																			<div
+																				style={{
+																					cursor: 'pointer',
+																					fontSize: '13px'
+																				}}
+																				dangerouslySetInnerHTML={{
+																					__html: notification.notification
+																				}}
+																			/>
+																		)}
+																	</ParaText>
+																</div>
 																<span style={{ fontSize: '10px', color: 'white' }}>
 																	{notification?.createdAt && (
 																		<span style={{ fontSize: '11px' }}>
@@ -256,7 +281,9 @@ export default function TopBar() {
 																				minute: 'numeric',
 																				hour12: true
 																			})
-																				.format(new Date(notification.createdAt))
+																				.format(
+																					new Date(notification.createdAt)
+																				)
 																				.replace('at', ',')}
 																		</span>
 																	)}
@@ -281,7 +308,7 @@ export default function TopBar() {
 										</>
 									) : (
 										<div className="textCenter marginTopThree">
-											<IoNotificationsOffOutline className='notificationsNone' />
+											<IoNotificationsOffOutline className="notificationsNone" />
 											<br />
 											<ParaText size="small" color="defaultColor" className="weight700">
 												No New Notifications
@@ -297,20 +324,23 @@ export default function TopBar() {
 							<div className="textCenter">
 								<UserAvatarForHeader />
 							</div>
-
 						</div>
 					</Col>
 					<div>
 						<LastLoginDateTime />
 					</div>
 				</Row>
-				<Drawer title="Study Buddy" className='paddingRemoveBody' onClose={onClose} open={open} placement='left' width='300'>
-					{user?.role == 'admin' ?
-						<MenuAdminMobile /> :
-						<MenuUserMobile />}
+				<Drawer
+					title="Study Buddy"
+					className="paddingRemoveBody"
+					onClose={onClose}
+					open={open}
+					placement="left"
+					width="300"
+				>
+					{user?.role == 'admin' ? <MenuAdminMobile /> : <MenuUserMobile />}
 				</Drawer>
 			</div>
-
 		</>
 	);
 }
