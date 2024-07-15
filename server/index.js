@@ -5,8 +5,6 @@ const cors = require('cors');
 const logError = require('./logger');
 const routes = require('./src/routes');
 const path = require('path');
-const { protect } = require('./src/middleware/authMiddleware');
-const fileController = require('./src/controllers/common/fileController');
 const webSocket = require('./src/utils/webSocket');
 const { subscribeNotification } = require('./src/utils/subscribeNotification');
 const rateLimit = require('express-rate-limit');
@@ -80,8 +78,6 @@ app.use(routes);
 app.get('/', async (req, res) => {
 	res.send('Welcome to the Api');
 });
-
-app.post('/api/chat/upload', protect, fileController.uploadFile);
 
 app.use('/images', express.static(path.join(__dirname, 'src', 'storage')));
 
