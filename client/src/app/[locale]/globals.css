@@ -109,3 +109,12 @@ li {
   border-bottom-width: 2px;
   border-bottom-color: #b98845 !important;
 }
+
+.hovercolor:hover {
+  background-color: #f1a638 !important;
+  border-radius: 15px !important;
+}
+
+.ant-select-item-option:hover {
+  background-color: #f1a638 !important;
+}

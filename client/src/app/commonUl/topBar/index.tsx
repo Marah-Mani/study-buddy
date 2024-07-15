@@ -139,7 +139,7 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<Titles level={4} color="white">Study Buddy</Titles>
+							<Titles level={4} color="white">StudyBuddy</Titles>
 						</Link>
 					</Col>
 					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
@@ -304,7 +304,7 @@ export default function TopBar() {
 						<LastLoginDateTime />
 					</div>
 				</Row>
-				<Drawer title="Study Buddy" className='paddingRemoveBody' onClose={onClose} open={open} placement='left' width='300'>
+				<Drawer title="StudyBuddy" className='paddingRemoveBody' onClose={onClose} open={open} placement='left' width='300'>
 					{user?.role == 'admin' ?
 						<MenuAdminMobile /> :
 						<MenuUserMobile />}

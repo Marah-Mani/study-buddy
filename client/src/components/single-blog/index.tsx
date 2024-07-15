@@ -180,7 +180,7 @@ export default function SingleBlog({ blogData, blogViewCount }: Props) {
                                     <Image preview={false} src={item.image ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/blogs/medium/${item.image}` : '/homes/default.png'} alt="card__image" className="card__image" />
                                  </div>
                                  <div className="card__body">
-                                    <span className="tag tag-blue">Study Buddy</span>
+                                    <span className="tag tag-blue">StudyBuddy</span>
                                     <Titles level={5} color='black'>{item.title}</Titles>
                                     <ParaText size='extraSmall' color='black'> {item.description ? (
                                        <div dangerouslySetInnerHTML={{ __html: item.description.trim().slice(0, 100) }}></div>

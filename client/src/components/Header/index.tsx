@@ -64,7 +64,7 @@ export default function Header() {
 									null
 								) : (
 									<Link href="/">
-										<Titles level={4} color='primaryColor'>Study Buddy</Titles>
+										<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 									</Link>
 								)}
 							</Link>
@@ -80,7 +80,7 @@ export default function Header() {
 						<Col xl={0} md={0} xs={18} sm={12} >
 							<Link href="/">
 								<Link href="/">
-									{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+									{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
 									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
 								</Link>
 							</Link>
@@ -92,7 +92,7 @@ export default function Header() {
 
 					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
 						<Link href="/" onClick={onClose}>
-							{/* <Titles level={3} color="primaryColor">Study Buddy</Titles> */}
+							{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
 							<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
 						</Link>
 						<br />
