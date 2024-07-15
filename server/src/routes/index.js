@@ -7,6 +7,10 @@ const verifyToken = require('../middleware/verifyToken');
 const checkRole = require('../middleware/checkRole');
 const checkCommonRole = require('../middleware/checkCommonRole');
 const router = express.Router();
+const { protect } = require('../middleware/authMiddleware');
+const fileController = require('../controllers/common/fileController');
+
+router.use('/api/chat/upload', protect, fileController.uploadFile);
 
 router.use('/api', frontendRoutes);
 router.use('/api/admin', verifyToken, checkRole('admin'), adminRoutes);

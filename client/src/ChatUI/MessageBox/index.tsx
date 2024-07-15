@@ -162,7 +162,9 @@ export default function MessageBox({
                     </Message.CustomContent>
                     {message.attachment &&
                         (
-                            message.attachment.type == 'image/jpeg' ?
+                            message.attachment.type === 'image/jpeg' ||
+                                message.attachment.type === 'image/jpg' ||
+                                message.attachment.type === 'image/png' ?
                                 <Message.ImageContent src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${message.attachment.path}`} alt="Akane avatar" width={200} />
                                 :
                                 <Message.CustomContent>
