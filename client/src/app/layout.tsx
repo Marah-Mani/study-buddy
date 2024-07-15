@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Props) {
 					theme={{
 						token: {
 							fontFamily: 'Lato, sans-serif',
-							colorPrimary: '#0253b3',
+							colorPrimary: '#f1a638',
 							borderRadius: 7
 						}
 					}}

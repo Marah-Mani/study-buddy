@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Space, Table, Image, message, Popconfirm, Tag, Col, Rate, Row, Tooltip } from 'antd';
 import type { TableColumnsType } from 'antd';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { RiDeleteBin5Fill } from 'react-icons/ri';
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { deleteProduct } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -106,7 +106,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             width: '10%',
             render: (text, record) => (
                 <Space size="middle">
-                    <span className='edit'>  <AiOutlineEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>
+                    <span className='edit'>  <FaEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>
                     <span className='delete'>
                         <Popconfirm
                             title="Delete Product"
@@ -116,7 +116,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                             cancelText="No"
                             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         >
-                            <RiDeleteBin5Fill style={{ cursor: 'pointer' }} />
+                            <RiDeleteBin6Line style={{ cursor: 'pointer' }} />
                         </Popconfirm>
                     </span>
                 </Space>

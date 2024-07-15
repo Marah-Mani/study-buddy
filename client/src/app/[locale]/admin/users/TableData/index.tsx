@@ -3,8 +3,8 @@ import { Space, Table, Image, message, Popconfirm, Switch, Drawer } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { deleteUser, getAllUsers, getSingleUserDetail, updateUserStatus } from '@/lib/adminApi';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { RiDeleteBin5Fill } from 'react-icons/ri';
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import TextCapitalize from '@/app/commonUl/TextCapitalize';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import EditUser from '../EditUser';
@@ -95,7 +95,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             dataIndex: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <span className='edit'><AiOutlineEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>
+                    <span className='edit'><FaEdit style={{ cursor: 'pointer' }} onClick={() => handleEdit(record.key)} /></span>
                     <span className='delete'>
                         <Popconfirm
                             title="Delete User"
@@ -105,7 +105,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                             cancelText="No"
                             icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         >
-                            <RiDeleteBin5Fill style={{ cursor: 'pointer' }} />
+                            <RiDeleteBin6Line style={{ cursor: 'pointer' }} />
                         </Popconfirm>
                     </span>
                 </Space>
@@ -146,11 +146,12 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                     : `/images/avatar.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
         </Space>,
         email: data.email,
-        department: data.departmentId?.departmentName,
+        department: data.departmentId?.departmentName || 'N/A',
         interestedIn: <TextCapitalize text={data.interestedIn} />,
         gender: <TextCapitalize text={data.gender} />,
         status: (
             <Switch
+                style={{ backgroundColor: data.status == 'active' ? '#f1a638' : '' }}
                 checkedChildren="Active"
                 unCheckedChildren="Inactive"
                 defaultChecked={data.status == 'active' ? true : false}

@@ -118,3 +118,12 @@ li {
 .ant-pagination .ant-pagination-item-active {
   border-color: #efa24b !important;
 }
+
+.hovercolor:hover {
+  background-color: #f1a638 !important;
+  border-radius: 15px !important;
+}
+
+.ant-select-item-option:hover {
+  background-color: #f1a638 !important;
+}

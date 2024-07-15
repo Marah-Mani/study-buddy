@@ -37,14 +37,14 @@ export default function Home() {
 							<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
 								<div className="textSection">
 									<Titles level={2} color="primaryColor">
-										Find Your Perfect Study Buddy Today!
+										Find Your Perfect StudyBuddy Today!
 									</Titles>
 									<div className="gapPaddingTopOTwo"></div>
 									<ParaText size="medium" color="primaryColor">
 										StudyBuddy is your one-stop platform designed to enhance your college
 										experience. Join our community of learners to connect with study partners who
 										share your interests and goals. Improve your skills, stay motivated, and make
-										learning more fun with a study buddy.
+										learning more fun with a studyBuddy.
 									</ParaText>
 									<div className="gapPaddingTopOTwo"></div>
 									<Link href="/en/contact">
@@ -59,7 +59,7 @@ export default function Home() {
 									<Image
 										src="/images/imgpsh_fullsize_anim (5).png"
 										layout="responsive"
-										alt="Study Buddy Banner"
+										alt="StudyBuddy Banner"
 										width={800}
 										height={700}
 									/>
