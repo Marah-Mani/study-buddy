@@ -77,14 +77,14 @@ const Payment = () => {
 					style={{ paddingTop: '20px' }}
 				>
 					<Form.Item name="price" rules={[{ required: true, message: 'Please input a random number!' }]}>
-						<Input prefix={<UserOutlined />} placeholder="Enter Random Number" />
+						<Input prefix={<UserOutlined />} placeholder="Enter Random Number" style={{ borderRadius: '30px' }} />
 					</Form.Item>
 					<Form.Item
 						name="currency"
 						rules={[{ required: true, message: 'Please select a currency!' }]}
 						initialValue="inr"
 					>
-						<Select placeholder="Select Currency" onChange={handleCurrencyChange}>
+						<Select placeholder="Select Currency" onChange={handleCurrencyChange} style={{ borderRadius: '30px' }}>
 							<Select.Option value="usd">USD</Select.Option>
 							<Select.Option value="eur">EUR</Select.Option>
 							<Select.Option value="gbp">GBP</Select.Option>
@@ -93,7 +93,7 @@ const Payment = () => {
 						</Select>
 					</Form.Item>
 					<Form.Item>
-						<Button type="primary" htmlType="submit" loading={loading} style={{ width: '100%' }}>
+						<Button type="primary" htmlType="submit" loading={loading} style={{ width: '100%', borderRadius: '30px' }}>
 							Pay with Stripe
 						</Button>
 					</Form.Item>

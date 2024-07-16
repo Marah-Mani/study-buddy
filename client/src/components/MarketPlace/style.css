@@ -4,6 +4,10 @@
 .product-grid {
   height: 100%;
   border: 2px solid #f1a058;
+  border-radius: 16px;
+}
+.body.dark-mode .product-grid {
+  border: 2px solid #686868;
 }
 body.dark-mode .product-grid {
   border: 1px solid #343434 !important;
@@ -16,4 +20,5 @@ body.dark-mode .product-grid {
   border-radius: 30px;
   color: #000;
   font-size: 12px;
+  background-color: #facca4;
 }
