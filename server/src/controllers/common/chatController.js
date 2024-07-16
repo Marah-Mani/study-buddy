@@ -5,15 +5,15 @@ const User = require('../../models/Users');
 const asyncHandler = require('express-async-handler');
 const StickyMessage = require('../../models/stickyMessage');
 const File = require('../../models/File');
-const { getAdminDataByRole } = require('../../common/functions');
 
 const chatController = {
 	accessChat: asyncHandler(async (req, res) => {
 		const { userId } = req.body;
+
 		if (!userId) {
 			return res.sendStatus(400);
 		}
-		// Check if a chat exists and was previously deleted
+
 		var isChat = await Chat.find({
 			isGroupChat: false,
 			$and: [{ users: { $elemMatch: { $eq: req.user._id } } }, { users: { $elemMatch: { $eq: userId } } }]
@@ -21,34 +21,25 @@ const chatController = {
 			.populate('users', '-password')
 			.populate('latestMessage');
 
-		// Remove 'deleteFor' field if it exists
+		isChat = await User.populate(isChat, {
+			path: 'latestMessage.sender',
+			select: 'name pic email'
+		});
+
 		if (isChat.length > 0) {
-			const existingChat = isChat[0];
-
-			if (existingChat.deleteFor && existingChat.deleteFor.includes(req.user._id)) {
-				existingChat.deleteFor = existingChat.deleteFor.filter(
-					(user) => user.toString() !== req.user._id.toString()
-				);
-				await existingChat.save();
-			}
-			isChat = await User.populate(isChat, {
-				path: 'latestMessage.sender',
-				select: 'name pic email'
-			});
-
-			return res.send(existingChat);
+			res.send(isChat[0]);
 		} else {
-			// Create new chat
-			const chatData = {
+			var chatData = {
 				chatName: 'sender',
 				isGroupChat: false,
-				users: [req.user._id, userId]
+				users: [req.user._id, userId],
+				createdBy: req.user._id
 			};
 
 			try {
 				const createdChat = await Chat.create(chatData);
-				const fullChat = await Chat.findOne({ _id: createdChat._id }).populate('users', '-password');
-				return res.status(200).json(fullChat);
+				const FullChat = await Chat.findOne({ _id: createdChat._id }).populate('users', '-password');
+				res.status(200).json(FullChat);
 			} catch (error) {
 				res.status(400);
 				throw new Error(error.message);
@@ -113,11 +104,6 @@ const chatController = {
 		}
 
 		var users = JSON.parse(req.body.users);
-
-		if (req.body.type == 'marketChat') {
-			const adminId = await getAdminDataByRole('users');
-			users.push(adminId);
-		}
 
 		if (users.length < 2) {
 			return res.status(400).send('More than 2 users are required to form a group chat');
@@ -217,13 +203,22 @@ const chatController = {
 				return res.status(400).json({ error: 'User ID and Chat ID are required.' });
 			}
 
-			const chat = await Chat.findByIdAndUpdate(chatId, { $addToSet: { favourites: userId } }, { new: true });
+			const chat = await Chat.findById(chatId);
 
 			if (!chat) {
 				return res.status(404).json({ error: 'Chat not found.' });
 			}
+			const index = chat.favourites.indexOf(userId);
 
-			res.json(chat);
+			if (index === -1) {
+				chat.favourites.push(userId);
+			} else {
+				chat.favourites.splice(index, 1);
+			}
+
+			const updatedChat = await chat.save();
+
+			res.json(updatedChat);
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
@@ -243,7 +238,19 @@ const chatController = {
 	clearChat: asyncHandler(async (req, res) => {
 		try {
 			const { chatId } = req.params;
-			const chat = await Message.updateMany({ chat: chatId }, { $addToSet: { deleteFor: req.user._id } });
+			const currentTime = new Date();
+
+			const chat = await Message.updateMany(
+				{
+					chat: chatId,
+					$or: [
+						{ meetingStartTime: null }, // Handle case where meetingStartTime is null
+						{ meetingStartTime: { $lt: currentTime } } // Handle case where meetingStartTime is less than currentTime
+					]
+				},
+				{ $addToSet: { deleteFor: req.user._id } }
+			);
+
 			return res.json(chat);
 		} catch (error) {
 			res.status(400).json({ error: error.message });
@@ -253,8 +260,23 @@ const chatController = {
 	deleteChat: asyncHandler(async (req, res) => {
 		try {
 			const { chatId } = req.params;
+
+			// Update the Chat document
 			const chat = await Chat.findByIdAndUpdate(chatId, { $addToSet: { deleteFor: req.user._id } });
-			await Message.updateMany({ chatId: chatId }, { $addToSet: { deleteFor: req.user._id } });
+
+			// Update the Message documents
+			const currentTime = new Date();
+			await Message.updateMany(
+				{
+					chat: chatId,
+					$or: [
+						{ meetingStartTime: null }, // Handle case where meetingStartTime is null
+						{ meetingStartTime: { $lt: currentTime } } // Handle case where meetingStartTime is less than currentTime
+					]
+				},
+				{ $addToSet: { deleteFor: req.user._id } }
+			);
+
 			return res.json(chat);
 		} catch (error) {
 			res.status(400).json({ error: error.message });
@@ -264,19 +286,20 @@ const chatController = {
 	blockUser: asyncHandler(async (req, res) => {
 		try {
 			const { userId } = req.body;
-			const { _id: currentUserId } = req.user;
+			// const { _id: currentUserId } = req.user;
 
-			const currentUser = await User.findById(currentUserId);
+			const currentUser = await User.findById(req.user._id);
 
 			const isBlocked = currentUser.block.includes(userId);
 
 			if (isBlocked) {
-				await User.findByIdAndUpdate(currentUserId, { $pull: { block: userId } });
+				await User.findByIdAndUpdate(req.user._id, { $pull: { block: userId } });
 			} else {
-				await User.findByIdAndUpdate(currentUserId, { $addToSet: { block: userId } });
+				await User.findByIdAndUpdate(req.user._id, { $addToSet: { block: userId } });
 			}
+			const updatedData = await User.findById(currentUser);
 
-			res.json(currentUser);
+			res.json(updatedData);
 		} catch (error) {
 			res.status(400).json({ error: error.message });
 		}
@@ -300,6 +323,40 @@ const chatController = {
 			);
 
 			return res.json(chat);
+		} catch (error) {
+			res.status(400).json({ error: error.message });
+		}
+	}),
+
+	continueChat: asyncHandler(async (req, res) => {
+		try {
+			const { id } = req.params;
+			const chat = await Chat.findByIdAndUpdate(id, { isApproved: true }, { new: true });
+
+			return res.json(chat);
+		} catch (error) {
+			res.status(400).json({ error: error.message });
+		}
+	}),
+
+	muteUnMuteChat: asyncHandler(async (req, res) => {
+		try {
+			const { userId, chatId } = req.body;
+
+			// Find the chat by ID
+			let chat = await Chat.findById(chatId);
+			if (!chat) {
+				return res.status(404).json({ error: 'Chat not found' });
+			}
+
+			// Toggle the mute state
+			chat.isMute.mute = !chat.isMute.mute;
+			chat.isMute.user = userId;
+
+			// Save the chat with the updated mute state
+			await chat.save();
+
+			res.status(200).json(chat);
 		} catch (error) {
 			res.status(400).json({ error: error.message });
 		}

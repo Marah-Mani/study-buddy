@@ -3,6 +3,10 @@ import axios from 'axios'
 import { Button, Flex, Form, FormProps, Input, Select, message } from 'antd'
 import { User } from '@/lib/types'
 import AuthContext from '@/contexts/AuthContext';
+import { CHAT } from '@/constants/API/chatApi';
+import { API_BASE_URL } from '@/constants/ENV';
+const baseURL = API_BASE_URL;
+const { common } = CHAT;
 
 interface MyAccountProps {
     config?: any;
@@ -12,7 +16,7 @@ interface MyAccountProps {
 export default function MyAccount({ config, user }: MyAccountProps) {
     const { setUser } = useContext(AuthContext)
     const onFinish: FormProps<User>['onFinish'] = async (values) => {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/user/update/${user._id}`, values, config);
+        const { data } = await axios.post(`${baseURL}${common.updateUser(user._id)}`, values, config);
         setUser(data.data)
         message.success('Saved.')
     }

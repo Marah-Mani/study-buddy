@@ -17,7 +17,13 @@ const chatModel = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Message'
 		},
-		groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: 'users' }
+		groupAdmin: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+		createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+		isApproved: { type: Boolean, default: false },
+		isMute: {
+			user: { type: mongoose.Schema.Types.ObjectId, ref: 'users', default: null },
+			mute: { type: Boolean, default: false }
+		}
 	},
 	{ timestamps: true }
 );

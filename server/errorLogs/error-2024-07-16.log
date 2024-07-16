@@ -1,0 +1,4 @@
+{"level":"error","message":"ReferenceError: JWT_SECRET is not defined","stack":"at checkSession (/home/bpl11/Documents/study-buddy/server/src/controllers/frontend/authController.js:279:4)","timestamp":"2024-07-16T09:00:13.577Z"}
+{"level":"error","message":"ReferenceError: JWT_SECRET is not defined","stack":"at checkSession (/home/bpl11/Documents/study-buddy/server/src/controllers/frontend/authController.js:279:4)","timestamp":"2024-07-16T09:00:13.613Z"}
+{"level":"error","message":"ReferenceError: JWT_SECRET is not defined","stack":"at checkSession (/home/bpl11/Documents/study-buddy/server/src/controllers/frontend/authController.js:279:4)","timestamp":"2024-07-16T09:00:13.656Z"}
+{"level":"error","message":"ReferenceError: JWT_SECRET is not defined","stack":"at checkSession (/home/bpl11/Documents/study-buddy/server/src/controllers/frontend/authController.js:279:4)","timestamp":"2024-07-16T09:00:13.679Z"}

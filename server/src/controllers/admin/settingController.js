@@ -12,6 +12,7 @@ const { getAdminDataByRole, trackUserActivity } = require('../../common/function
 const Forum = require('../../models/forums');
 const ForumViewCount = require('../../models/ForumViewCount');
 const unlinkImage = require('../../utils/unlinkImage');
+const ChatSetting = require('../../models/chatSettings');
 
 const settingController = {
 	updateBrandDetails: async (req, res) => {
@@ -445,6 +446,36 @@ const settingController = {
 
 			await forum.save();
 			res.status(200).json({ status: true, message: 'Forum attachment deleted successfully' });
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
+	},
+	getAllChatSettings: async (req, res) => {
+		try {
+			const chatSettings = await ChatSetting.find();
+			res.status(200).json({ status: true, data: chatSettings });
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
+	},
+	updateChatSettings: async (req, res) => {
+		try {
+			const { _id, key, value } = req.body;
+
+			const chatSettings = await ChatSetting.findById(_id);
+			if (!chatSettings) {
+				return res.status(404).json({ status: false, message: 'Chat settings not found' });
+			}
+			chatSettings[String(key)] = value;
+			await chatSettings.save();
+			const updatedData = await ChatSetting.findById(_id);
+			res.status(200).json({
+				status: true,
+				message: 'Chat settings updated successfully',
+				updatedData
+			});
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });

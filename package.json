@@ -73,6 +73,7 @@
 		"react-responsive": "^9.0.2",
 		"react-select": "^5.8.0",
 		"react-slick": "^0.29.0",
+		"react-speech-recognition": "^3.10.0",
 		"react-timeago": "^7.2.0",
 		"rrule": "^2.8.1",
 		"sharp": "^0.33.3",
