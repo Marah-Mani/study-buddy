@@ -25,9 +25,6 @@ function getItem(
 	} as MenuItem;
 }
 
-
-
-
 export default function MenuAdmin() {
 	const [isActive, setIsActive] = useState(true);
 	const { logout } = useContext(AuthContext);
@@ -153,53 +150,63 @@ export default function MenuAdmin() {
 			</Link>
 		),
 		getItem(
-			'',
+			'StudyBuddy',
 			'9',
+			<Link href="/en/admin/studybuddy">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '9' ? (
+						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'',
+			'10',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'11',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'12',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'13',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'14',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'15',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'16',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
+			'17',
 			<span></span>
 		),
 		getItem(
 			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
+			'18',
 			<span></span>
 		),
 		getItem(
@@ -247,6 +254,9 @@ export default function MenuAdmin() {
 				break;
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('8');
+				break;
+			case pathname === '/en/admin/studybuddy':
+				setDefaultSelectedKey('9');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
