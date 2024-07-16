@@ -10,11 +10,11 @@ const chatController = {
 	allUsers: asyncHandler(async (req, res) => {
 		const keyword = req.query.search
 			? {
-				$or: [
-					{ name: { $regex: req.query.search, $options: 'i' } },
-					{ email: { $regex: req.query.search, $options: 'i' } }
-				]
-			}
+					$or: [
+						{ name: { $regex: req.query.search, $options: 'i' } },
+						{ email: { $regex: req.query.search, $options: 'i' } }
+					]
+				}
 			: {};
 
 		const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
@@ -123,6 +123,22 @@ const chatController = {
 		try {
 			const user = await userActivity.find({ userId: req.params.id }).limit(10).sort({ createdAt: -1 });
 			res.status(200).json({ status: true, data: user });
+		} catch (error) {
+			errorLogger(error);
+			res.status(500).json({ status: false, message: 'Internal Server Error' });
+		}
+	},
+	getAllUsersStudyBuddy: async (req, res) => {
+		try {
+			const { search } = req.query;
+			let query = {};
+			if (search) {
+				query = {
+					name: { $regex: search, $options: 'i' }
+				};
+			}
+			const users = await User.find(query).sort({ _id: -1 }).populate('departmentId', 'departmentName');
+			res.status(200).json({ status: true, data: users });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });

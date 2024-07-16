@@ -33,16 +33,16 @@ export const validationRules = {
         pattern: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/
     },
     facebookURL: {
-        pattern: /^(https?:\/\/)?(www\.)?facebook\.com\/([a-zA-Z0-9._]{1,30})\/?$/i
+        pattern: /^(https?:\/\/)?(www\.)?facebook\.com\/.*$/i,
     },
     twitterURL: {
-        pattern: /^(https?:\/\/)?(www\.)?twitter\.com\/([a-zA-Z0-9_]){1,15}$/i
+        pattern: /^(https?:\/\/)?(www\.)?twitter\.com(\/\w*)?$/i
     },
     linkedinURL: {
-        pattern: /^(https?:\/\/)?(www\.)?linkedin\.com\/(in|company)\/[\w-]+$/i
+        pattern: /^(https?:\/\/)?(www\.)?linkedin\.com\/(.*)$/i
     },
     instagramURL: {
-        pattern: /^(https?:\/\/)?(www\.)?instagram\.com\/([a-zA-Z0-9._]{1,30})\/?$/i
+        pattern: /^(https?:\/\/)?(www\.)?instagram\.com\/(.*)$/i
     },
     youtubeURL: {
         pattern: /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}(\?.*)?$/
