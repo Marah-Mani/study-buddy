@@ -14,14 +14,16 @@ function getItem(
 	key: React.Key,
 	icon?: React.ReactNode,
 	children?: MenuItem[],
-	type?: 'group'
+	type?: 'group',
+	customClass?: string
 ): MenuItem {
 	return {
 		key,
 		icon,
 		label,
 		type,
-		children
+		children,
+		customClass
 	} as MenuItem;
 }
 
@@ -165,51 +167,6 @@ export default function MenuAdmin() {
 			</Link>
 		),
 		getItem(
-			'',
-			'10',
-			<span></span>
-		),
-		getItem(
-			'',
-			'11',
-			<span></span>
-		),
-		getItem(
-			'',
-			'12',
-			<span></span>
-		),
-		getItem(
-			'',
-			'13',
-			<span></span>
-		),
-		getItem(
-			'',
-			'14',
-			<span></span>
-		),
-		getItem(
-			'',
-			'15',
-			<span></span>
-		),
-		getItem(
-			'',
-			'16',
-			<span></span>
-		),
-		getItem(
-			'',
-			'17',
-			<span></span>
-		),
-		getItem(
-			'',
-			'18',
-			<span></span>
-		),
-		getItem(
 			'Logout',
 			'7',
 			<Link href="/en/login">
@@ -222,7 +179,10 @@ export default function MenuAdmin() {
 							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
-			</Link>
+			</Link>,
+			undefined,
+			undefined,
+			'logout-bottom'
 		),
 
 	];

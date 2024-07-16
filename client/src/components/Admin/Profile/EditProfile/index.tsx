@@ -275,7 +275,7 @@ export default function Brands({ activeKey }: Props) {
                             <Col md={12} style={{ textAlign: 'end' }}>
                                 <div className="largeTopMargin"></div>
                                 <div style={{ paddingTop: '50px' }}>
-                                    <Button type='primary' htmlType='submit'>Submit</Button>
+                                    <Button type='primary' htmlType='submit' style={{ borderRadius: '30px' }}>Submit</Button>
                                 </div>
                             </Col>
                         </Row>
