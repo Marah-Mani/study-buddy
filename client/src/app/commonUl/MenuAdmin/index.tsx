@@ -15,12 +15,13 @@ function getItem(
 	icon?: React.ReactNode,
 	children?: MenuItem[],
 	type?: 'group',
-	customClass?: string
+	customClass?: string,
+	className?: string // Include custom class name here
 ): MenuItem {
 	return {
 		key,
 		icon,
-		label,
+		label: <div className={className}>{label}</div>, // Apply custom class here
 		type,
 		children,
 		customClass

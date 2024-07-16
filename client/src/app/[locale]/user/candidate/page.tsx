@@ -229,7 +229,7 @@ export default function Page() {
                                                     display: 'flex',
                                                     justifyContent: 'space-between',
                                                     alignItems: 'center',
-                                                    borderRadius: '30px'
+                                                    borderRadius: '30px 30px 30px 30px'
                                                 }}
                                             >
                                                 <span
@@ -246,18 +246,12 @@ export default function Page() {
                                                 <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                                             </Button>
                                         </Dropdown>
-                                        <Input.Search
+                                        <Input
+                                            suffix={<CiSearch />}
                                             placeholder="Search with name"
-                                            style={{ width: '100%', borderRadius: '30px 0px 0px 30px' }}
                                             value={searchQuery}
+                                            style={{ borderRadius: '0' }}
                                             onChange={handleInputChange}
-                                            enterButton={
-                                                <Button
-                                                    icon={<CiSearch />}
-                                                    style={{ borderRadius: '0px 30px 30px 0px' }}
-                                                    type="primary"
-                                                ></Button>
-                                            }
                                         />
                                     </Space>
                                 </div>
@@ -275,7 +269,7 @@ export default function Page() {
                         {AllCandidates.map((item: any) => (
                             <>
                                 <div style={{ padding: ' 15px 15px 25px 15px' }} >
-                                    <Row gutter={[16, 16]}>
+                                    <Row gutter={[16, 16]} justify='center'>
                                         <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                             <div className="candidates-details">
                                                 <Row >
@@ -449,9 +443,9 @@ export default function Page() {
                                                                         />
                                                                     </Tooltip>
                                                                     &nbsp;
-                                                                    <span>
+                                                                    {/* <span>
                                                                         <CiHeart size={30} />
-                                                                    </span>
+                                                                    </span> */}
                                                                 </div>
                                                                 <div className="candidates-details-chat">
                                                                     <ParaText size="textGraf" color="black">

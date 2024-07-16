@@ -2,6 +2,8 @@
   color: #344734;
   font-size: 17px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .product-content .price span {
@@ -9,7 +11,8 @@
   font-weight: 500;
   text-decoration: line-through;
   margin-left: 5px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 .offer {
   padding: 4px 10px !important;

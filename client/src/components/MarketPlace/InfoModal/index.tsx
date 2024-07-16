@@ -10,6 +10,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
+import { BiShekel } from 'react-icons/bi';
 interface Props {
     product: any;
 }
@@ -145,11 +146,20 @@ export default function InfoModal({ product }: Props) {
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Row>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <div className="product-content">
+                                    <div className="product-content" style={{ display: 'flex' }}>
                                         <div className="price">
                                             {product.discountPrice != 'undefined' ? (
                                                 <>
-                                                    ${product.discountPrice} <span>${product.price}</span>
+                                                    <BiShekel
+                                                        size={20}
+                                                    />
+                                                    <p>  {product.discountPrice}</p>
+                                                    <span>
+                                                        <BiShekel
+                                                            size={20}
+                                                        />
+                                                        {product.price}
+                                                    </span>
                                                 </>
                                             ) : (
                                                 `$${product.price}`

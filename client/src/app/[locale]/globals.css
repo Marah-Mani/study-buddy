@@ -133,8 +133,12 @@ li {
 .ant-select-item-option:hover {
   background-color: #f1a638 !important;
 }
-.ant-input,
-span.ant-input-affix-wrapper,
+.ant-input {
+  border-radius: 30px !important;
+}
+span.ant-input-affix-wrapper {
+  border-radius: 30px !important;
+}
 input.form-control {
   border-radius: 30px !important;
 }
