@@ -46,3 +46,7 @@
   margin-bottom: 20px;
   border-radius: 16px;
 }
+
+.body.dark-mode .question {
+  border: 2px solid #686868;
+}

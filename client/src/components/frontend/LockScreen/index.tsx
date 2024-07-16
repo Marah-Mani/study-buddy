@@ -87,12 +87,12 @@ const LockScreen = () => {
 							type="password"
 							placeholder="Password"
 							maxLength={20}
-							style={{ height: "40px" }}
+							style={{ height: "40px", borderRadius: '30px' }}
 						/>
 					</Form.Item>
 
 					<Form.Item>
-						<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
+						<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px', borderRadius: '30px' }}>
 							{loading ? 'Please wait...' : 'Unlock'}
 						</Button>
 					</Form.Item>

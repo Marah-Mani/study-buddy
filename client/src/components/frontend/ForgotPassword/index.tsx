@@ -44,16 +44,16 @@ const ForgotPassword = () => {
 				style={{ paddingTop: '20px' }}
 			>
 				<Form.Item name="email" rules={[{ required: true, message: 'Please input your Email!' }]} >
-					<Input style={{ height: '40px' }} prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
+					<Input style={{ height: '40px', borderRadius: '30px' }} prefix={<UserOutlined className="site-form-item-icon" />} type={'email'} placeholder="Email" maxLength={30} />
 				</Form.Item>
 				<Form.Item>
-					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
+					<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px', borderRadius: '30px' }}>
 						{loading ? 'Please wait...' : 'Send me the link'}
 					</Button>
 				</Form.Item>
 				<Link href="/en/login" passHref style={{ color: '#f1a638' }}>
 					<Button type="link" style={{
-						width: '100%', height: '40px', display: 'flex', color: '#f1a638', alignItems: 'center', justifyContent: 'center'
+						width: '100%', borderRadius: '30px', height: '40px', display: 'flex', color: '#f1a638', alignItems: 'center', justifyContent: 'center'
 					}} icon={<FaArrowLeft style={{ display: 'flex', alignItems: 'center' }} />}>
 						Back to login
 					</Button>
