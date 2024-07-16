@@ -7,9 +7,6 @@ export default function settings() {
     return (
         <>
             <div className=''>
-                <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                    Profile
-                </ParaText>
                 <EditProfile />
             </div>
         </>

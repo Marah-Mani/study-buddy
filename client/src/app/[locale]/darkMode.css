@@ -94,7 +94,8 @@ body.dark-mode .ant-input-group-addon,
 body.dark-mode .ant-btn-icon svg,
 body.dark-mode .ant-card .ant-card-extra,
 body.dark-mode .ant-timeline-item-label,
-body.dark-mode .ant-timeline-item-content {
+body.dark-mode .ant-timeline-item-content,
+body.dark-dark .ant-input-show-count-suffix {
   color: white !important;
 }
 body.dark-mode .ant-timeline-item-head,
