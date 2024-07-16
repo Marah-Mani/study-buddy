@@ -1,16 +1,12 @@
 'use client'
 import React, { useContext, useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
 import { Avatar, MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
+import { Dropdown } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import AuthContext from '@/contexts/AuthContext';
-import { FaRegUserCircle } from "react-icons/fa";
 import { MdLock } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
-import { MdSpaceDashboard } from "react-icons/md";
-import ImageWithFallback from '@/components/ImageWithFallback';
 import { FaUserEdit } from "react-icons/fa";
 
 export default function UserAvatarForHeader() {
@@ -42,13 +38,13 @@ export default function UserAvatarForHeader() {
    const items: MenuProps['items'] = [
       {
          label: (
-            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+            <div style={{ display: 'flex', cursor: 'pointer' }}>
                {/* <ImageWithFallback
                   src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user?.image || ''}`}
                   fallbackSrc={`${process.env.NEXT_PUBLIC_IMAGE_URL}/avatar.png`}
                   alt="Profile"
                   style={{ width: 35, height: 35, objectFit: 'cover', borderRadius: '30px' }} shouldPreview={false} /> */}
-               <div ><span style={{ marginLeft: '10px' }}>{user?.name}</span></div>
+               <div ><span >{user?.name}</span></div>
             </div>
          ),
          key: '0',
@@ -61,8 +57,8 @@ export default function UserAvatarForHeader() {
             >
                <>
                   <div style={{ display: 'flex' }}>
-                     <FaUserEdit size={20} style={{ marginRight: '10px', marginLeft: '6px', color: '#F1A638' }} />
-                     <span style={{ fontWeight: '500' }} onClick={handleDashboard} >Profile</span>
+                     <FaUserEdit size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
+                     <span style={{ fontWeight: '500' }} onClick={handleDashboard}  >Profile</span>
                   </div>
                </>
             </div>
@@ -74,7 +70,7 @@ export default function UserAvatarForHeader() {
          label: (
             <>
                <div style={{ display: 'flex' }}>
-                  <MdLock size={20} style={{ marginRight: '10px', marginLeft: '6px', color: '#F1A638' }} />
+                  <MdLock size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
                   <span onClick={handleLockScreen} style={{ fontWeight: '500' }} >Lock Screen</span>
                </div>
 
@@ -89,7 +85,7 @@ export default function UserAvatarForHeader() {
          label: (
             <>
                <div style={{ display: 'flex' }}>
-                  <BiLogOut size={20} style={{ marginRight: '10px', marginLeft: '6px', color: '#F1A638' }} />
+                  <BiLogOut size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
                   <span onClick={handleLogout} style={{ fontWeight: '500' }} >Logout</span>
                </div>
             </>
@@ -101,7 +97,7 @@ export default function UserAvatarForHeader() {
    return (
       <Dropdown menu={{ items }} trigger={['click']}>
          <a onClick={(e) => e.preventDefault()}>
-            <div style={{ marginRight: '10px', marginLeft: '6px', color: '#F1A638' }}>
+            <div style={{ marginRight: '10px', color: '#F1A638' }}>
                {user && user.image ? (
                   <img
                      src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${user.image}`}
@@ -121,7 +117,7 @@ export default function UserAvatarForHeader() {
                )}
             </div>
          </a>
-      </Dropdown>
+      </Dropdown >
    )
 }
 

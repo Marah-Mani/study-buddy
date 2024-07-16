@@ -4,15 +4,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoFolderOpenOutline, IoHome, IoSettings } from 'react-icons/io5';
-import { FaProductHunt } from 'react-icons/fa';
+import { IoFolderOpenOutline } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getAllRoles } from '@/lib/commonApi';
-import { AiOutlineUser } from "react-icons/ai";
 import { Roles } from '@/lib/types';
-import { BiSolidFileArchive } from 'react-icons/bi';
-import { QuestionCircleOutlined, WechatOutlined, LogoutOutlined } from '@ant-design/icons';
+
 type MenuItem = {
 	key: string;
 	link?: string; // Change to optional if not all items have link
@@ -66,7 +63,7 @@ export default function MenuAUser() {
 	};
 
 	function handleClick(href: any) {
-		if (href.key == 9) {
+		if (href.key == 10) {
 			logout();
 		}
 	}
@@ -185,6 +182,21 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
+			'StuddyBuddy',
+			'9',
+			<Link href="/en/user/studybuddy">
+				<span onClick={() => setIsActive(true)} >
+					{defaultSelectedKey === '8' ? (
+						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
 			'Logout',
 			'7',
 			<Link href="/en/login">
@@ -214,7 +226,7 @@ export default function MenuAUser() {
 			case pathname === '/en/user/market-place':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/user/forums':
+			case pathname.includes('/en/user/question-answer') || pathname.includes('/en/user/question'):
 				setDefaultSelectedKey('4');
 				break;
 			case pathname === '/en/user/edit-profile':
@@ -228,6 +240,9 @@ export default function MenuAUser() {
 				break;
 			case pathname === '/en/user/file-manager':
 				setDefaultSelectedKey('8');
+				break;
+			case pathname === '/en/user/studybuddy':
+				setDefaultSelectedKey('9');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
