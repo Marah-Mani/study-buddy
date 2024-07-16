@@ -134,14 +134,14 @@ export default function TopBar() {
 		<>
 			<div className="topBar">
 				<Row align="middle" gutter={[10, 10]}>
-					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
 							<Link href="/">
 								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Link>
 					</Col>
-					<Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
+					{/* <Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
 						{headerMenu.length > 0 &&
 							headerMenu.map((menu: any, index: any) => {
 								return (
@@ -153,8 +153,8 @@ export default function TopBar() {
 								);
 							})}
 						<div></div>
-					</Col>
-					<Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+					</Col> */}
+					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
 						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
 							<div className="mobileMenu">
 								<div className="menuIcon" onClick={showDrawer}>

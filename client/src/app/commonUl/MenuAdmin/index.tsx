@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { IoFolderOpenOutline } from 'react-icons/io5';
+import ParaText from '../ParaText';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -14,19 +15,19 @@ function getItem(
 	key: React.Key,
 	icon?: React.ReactNode,
 	children?: MenuItem[],
-	type?: 'group',
-	customClass?: string,
-	className?: string // Include custom class name here
+	type?: 'group'
 ): MenuItem {
 	return {
 		key,
 		icon,
-		label: <div className={className}>{label}</div>, // Apply custom class here
+		label,
 		type,
-		children,
-		customClass
+		children
 	} as MenuItem;
 }
+
+
+
 
 export default function MenuAdmin() {
 	const [isActive, setIsActive] = useState(true);
@@ -152,89 +153,21 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
-		getItem(
-			'StudyBuddy',
-			'9',
-			<Link href="/en/admin/studybuddy">
-				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '9' ? (
-						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
-					)
-						:
-						(
-							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
-						)}
-				</span>
-			</Link>
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'',
-			'20',
-
-		),
-		getItem(
-			'Logout',
-			'7',
-			<Link href="/en/login">
-				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '7' ? (
-						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
-					)
-						:
-						(
-							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
-						)}
-				</span>
-			</Link>,
-			undefined,
-			undefined,
-			'logout-bottom'
-		),
+		// getItem(
+		// 	'Logout',
+		// 	'7',
+		// 	<Link href="/en/login">
+		// 		<span onClick={() => setIsActive(true)}>
+		// 			{defaultSelectedKey === '7' ? (
+		// 				<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+		// 			)
+		// 				:
+		// 				(
+		// 					<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+		// 				)}
+		// 		</span>
+		// 	</Link>
+		// ),
 
 	];
 
@@ -266,9 +199,6 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('8');
 				break;
-			case pathname === '/en/admin/studybuddy':
-				setDefaultSelectedKey('9');
-				break;
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');
@@ -278,7 +208,7 @@ export default function MenuAdmin() {
 	return (
 		<>
 			<div id="menuId">
-				<div className="dddd">
+				<div className="adminSideMain">
 					<div className="menuDash darkMenuDash" id="menuDash">
 						<div className="textCenter">
 							<Link href="/"></Link>
@@ -291,6 +221,20 @@ export default function MenuAdmin() {
 							items={items}
 							onClick={handleClick}
 						/>
+						<div className='loginBottom'>
+							<Link href="/en/login" style={{ display: 'flex', gap: '5px' }}>
+								<span onClick={() => setIsActive(true)}>
+									{defaultSelectedKey === '7' ? (
+										<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+									)
+										:
+										(
+											<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+										)}
+								</span>
+								<ParaText size='extraSmall' color='white'>Logout</ParaText>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
