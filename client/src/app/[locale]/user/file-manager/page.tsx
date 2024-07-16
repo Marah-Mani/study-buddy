@@ -57,11 +57,7 @@ export default function Page() {
     return (
         <>
             <div id='fileManagerPage'>
-                <div className='boxInbox'>
-                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                        File Manager
-                    </ParaText>
-                    <div className="largeTopMargin"></div>
+                <div className=''>
                     <Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
                 </div>
             </div>

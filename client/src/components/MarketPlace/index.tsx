@@ -234,9 +234,9 @@ export default function MarketPlace({ activeKey }: Props) {
                                     </div>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <span>
-                                        <ShortFileName fileName={data.description} short={90} />
-                                    </span>
+                                    <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
+                                        Machine Tools : <span style={{ color: '#f1a058', fontWeight: '400' }}> <ShortFileName fileName={data.description} short={90} /></span>
+                                    </ParaText>
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <ParaText
@@ -299,7 +299,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                                 className=""
                                                 onClick={() => handleDetail(data)}
                                             >
-                                                <span color="default" style={{ backgroundColor: '#f1a638' }} className='offer'>
+                                                <span color="default" className='offer'>
                                                     {calculatePercentageOff(data.price, data.discountPrice)}% off
                                                 </span>
                                             </Col>
@@ -340,7 +340,7 @@ export default function MarketPlace({ activeKey }: Props) {
                 />
             </div>
             <Modal
-                title={'Item details'}
+                title={' '}
                 open={infoModal}
                 onCancel={() => setInfoModal(false)}
                 footer={null}

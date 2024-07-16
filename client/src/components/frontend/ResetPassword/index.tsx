@@ -60,7 +60,7 @@ export default function ResetPassword() {
 							type="password"
 							placeholder="Enter new password"
 							minLength={8}
-							style={{ height: '40px' }}
+							style={{ height: '40px', borderRadius: '30px' }}
 							maxLength={15} />
 					</Form.Item>
 					<Form.Item
@@ -81,7 +81,7 @@ export default function ResetPassword() {
 						<Input.Password
 							prefix={<LockOutlined className="site-form-item-icon" />}
 							type="password"
-							style={{ height: '40px' }}
+							style={{ height: '40px', borderRadius: '30px' }}
 							placeholder="Enter confirm Password"
 							maxLength={20} />
 					</Form.Item>
@@ -90,13 +90,13 @@ export default function ResetPassword() {
 							type="primary"
 							htmlType="submit"
 							className="register-form-button"
-							style={{ width: '100%', height: '40px' }}
+							style={{ width: '100%', height: '40px', borderRadius: '30px' }}
 						>
 							{loading ? 'Please wait...' : 'Reset Password'}
 						</Button>
 					</Form.Item>
 					<Link href="/en/login" passHref>
-						<Button type="primary" style={{ width: '100%', height: '40px' }}>
+						<Button type="primary" style={{ width: '100%', height: '40px', borderRadius: '30px' }}>
 							Back To Login
 						</Button>
 					</Link>

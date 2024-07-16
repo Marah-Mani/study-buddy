@@ -378,7 +378,7 @@ export default function Brands() {
                             </Col>
                         </Row>
                         <Col md={24} className='textEnd'>
-                            <Button type='primary' htmlType='submit'>Update Profile</Button>
+                            <Button type='primary' htmlType='submit' style={{ borderRadius: '30px' }}>Update Profile</Button>
                         </Col>
                     </Form>
                 </div>
