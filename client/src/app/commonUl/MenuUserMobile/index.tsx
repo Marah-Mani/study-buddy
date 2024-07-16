@@ -1,7 +1,7 @@
 'use client';
 import './style.css';
 import React, { useContext, useEffect, useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoDocumentText, IoHome } from 'react-icons/io5';
@@ -16,6 +16,7 @@ import { MdOutlineCalendarMonth } from 'react-icons/md';
 import { Roles } from '@/lib/types';
 import { BiSolidFileArchive } from 'react-icons/bi';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import ParaText from '../ParaText';
 type MenuItem = {
 	key: string;
 	link?: string; // Change to optional if not all items have link
@@ -177,9 +178,13 @@ export default function MenuUserMobile() {
 		items = dynamicItems;
 	}
 
+	function setIsActive(arg0: boolean): void {
+		throw new Error('Function not implemented.');
+	}
+
 	return (
 		<>
-			<div id="menuIdMobile">
+			<div id="menuIdMobile" className='adminSideMain'>
 				<div className="menuDashMobile darkMenuDash">
 					<div className="textCenter">
 						<Link href="/"></Link>
@@ -192,6 +197,20 @@ export default function MenuUserMobile() {
 						items={items}
 						onClick={handleClick}
 					/>
+					<div className='loginBottom'>
+						<Link href="/en/login" style={{ display: 'flex', gap: '5px' }}>
+							<span onClick={() => setIsActive(true)}>
+								{defaultSelectedKey === '7' ? (
+									<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+								)
+									:
+									(
+										<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+									)}
+							</span>
+							<ParaText size='extraSmall' color='white'>Logout</ParaText>
+						</Link>
+					</div>
 				</div>
 			</div>
 		</>

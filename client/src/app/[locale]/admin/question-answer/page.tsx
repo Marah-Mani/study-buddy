@@ -223,18 +223,8 @@ export default function Page() {
                                                                                 ></div>
                                                                             )}
                                                                         </ParaText>
-                                                                        <div className="smallTopMargin"></div>
-                                                                        {forum.attachment ? (
-                                                                            <Image
-                                                                                src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
-                                                                                alt="Avatar"
-                                                                                width={'30%'}
-                                                                                height={'250px'}
-                                                                                style={{ borderRadius: '5px' }}
-                                                                                preview={false}
-                                                                            />
-                                                                        ) : null}
-                                                                        <div className="smallTopMargin"></div>
+
+
                                                                         <ParaText
                                                                             size="textGraf"
                                                                             fontWeightBold={400}
@@ -248,6 +238,17 @@ export default function Page() {
                                                                                     : forum.title}
                                                                             </Link>
                                                                         </ParaText>
+                                                                        <div className="smallTopMargin"></div>
+                                                                        {forum.attachment ? (
+                                                                            <Image
+                                                                                src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
+                                                                                alt="Avatar"
+                                                                                width={'30%'}
+                                                                                height={'250px'}
+                                                                                style={{ borderRadius: '5px' }}
+                                                                                preview={false}
+                                                                            />
+                                                                        ) : null}
                                                                         <div className="smallTopMargin"></div>
                                                                         <div style={{ display: 'flex', gap: '10px' }}>
                                                                             <div
@@ -275,7 +276,7 @@ export default function Page() {
                                                                                             color: '#000'
                                                                                         }}
                                                                                     >
-                                                                                        {forum.likes.length}
+                                                                                        &nbsp; {forum.likes.length}
                                                                                     </span>
                                                                                 </div>
                                                                                 {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote(forum._id, 'dislike')}>
@@ -292,14 +293,14 @@ export default function Page() {
                                                                                 >
                                                                                     <MessageOutlined
                                                                                         style={{ fontSize: '16px' }}
-                                                                                    />{' '}
+                                                                                    />&nbsp;
                                                                                     <span
                                                                                         style={{
                                                                                             fontSize: '12px',
                                                                                             color: '#000'
                                                                                         }}
                                                                                     >
-                                                                                        {forum.comments.length}
+                                                                                        &nbsp; {forum.comments.length}
                                                                                     </span>
                                                                                 </Link>
                                                                             </div>
@@ -311,7 +312,7 @@ export default function Page() {
                                                                             <Link
                                                                                 href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}
                                                                             >
-                                                                                <FaRegEye /> {forum.viewCount}
+                                                                                <FaRegEye /> &nbsp;{forum.viewCount}
                                                                             </Link>
                                                                         </div>
                                                                     </Col>

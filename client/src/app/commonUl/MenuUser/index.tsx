@@ -9,6 +9,7 @@ import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { getAllRoles } from '@/lib/commonApi';
 import { Roles } from '@/lib/types';
+import ParaText from '../ParaText';
 
 type MenuItem = {
 	key: string;
@@ -197,24 +198,24 @@ export default function MenuAUser() {
 				</span>
 			</Link>
 		),
-		getItem(
-			'Logout',
-			'7',
-			<Link href="/en/login">
-				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '7' ? (
-						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
-					)
-						:
-						(
-							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
-						)}
-				</span>
-			</Link>,
-			undefined,
-			undefined,
-			'logout-bottom',
-		),
+		// getItem(
+		// 	'Logout',
+		// 	'7',
+		// 	<Link href="/en/login">
+		// 		<span onClick={() => setIsActive(true)}>
+		// 			{defaultSelectedKey === '7' ? (
+		// 				<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+		// 			)
+		// 				:
+		// 				(
+		// 					<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+		// 				)}
+		// 		</span>
+		// 	</Link>,
+		// 	undefined,
+		// 	undefined,
+		// 	'logout-bottom',
+		// ),
 	];
 
 	const pathname = usePathname();
@@ -282,6 +283,21 @@ export default function MenuAUser() {
 							items={items}
 							onClick={handleClick}
 						/>
+
+						<div className='loginBottom'>
+							<Link href="/en/login" style={{ display: 'flex', gap: '5px' }}>
+								<span onClick={() => setIsActive(true)}>
+									{defaultSelectedKey === '7' ? (
+										<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+									)
+										:
+										(
+											<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+										)}
+								</span>
+								<ParaText size='extraSmall' color='white'>Logout</ParaText>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -86,6 +86,9 @@ body.dark-mode .ant-table-tbody > tr > td {
   color: #fff;
   border: 1px solid #343434;
 }
+body.dark-mode .iconColorChange svg {
+  color: #f1a638;
+}
 
 body.dark-mode .ant-drawer-body,
 body.dark-mode .ant-tabs-tab,
@@ -94,7 +97,8 @@ body.dark-mode .ant-input-group-addon,
 body.dark-mode .ant-btn-icon svg,
 body.dark-mode .ant-card .ant-card-extra,
 body.dark-mode .ant-timeline-item-label,
-body.dark-mode .ant-timeline-item-content {
+body.dark-mode .ant-timeline-item-content,
+body.dark-mode .ant-input-show-count-suffix {
   color: white !important;
 }
 body.dark-mode .ant-timeline-item-head,
@@ -124,18 +128,22 @@ body.dark-mode .ant-collapse-header {
 }
 
 body.dark-mode .ant-btn-primary,
-body.dark-mode .ant-select-selector,
 body.dark-mode .ant-dropdown-menu-item {
   background-color: #fff !important;
   border-color: #2a2a2a !important;
   color: #2a2a2a !important;
+}
+body.dark-mode .ant-select-selector,
+body.dark-mode .ant-input-affix-wrapper {
+  border: 1px solid #343434 !important;
 }
 body.dark-mode svg,
 body.dark-mode span.anticon.anticon-close.ant-modal-close-icon svg,
 body.dark-mode label,
 body.dark-mode .ant-empty-description,
 body.dark-mode textarea::placeholder,
-body.dark-mode .ant-input-data-count {
+body.dark-mode .ant-input-data-count,
+body.dark-mode span.ant-select-selection-placeholder {
   color: #fff;
 }
 body.dark-mode .topBar {

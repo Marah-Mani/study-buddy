@@ -7,6 +7,14 @@
   overflow-y: scroll;
   position: fixed;
 }
+.adminSideMain {
+  position: relative;
+}
+.loginBottom {
+  position: absolute;
+  bottom: 60px;
+  left: 30px;
+}
 body.dark-mode .menuDash {
   border: 1px solid #343434;
 }

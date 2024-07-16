@@ -253,11 +253,10 @@ export default function SingleForum({ forumData }: Props) {
                                  <RelativeTime date={forumData.createdAt} />
                               </span>
                            </div>
-                           <div className="smallTopMargin"></div>
-                           <div dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
                            <ParaText size="extraSmall" fontWeightBold={400} color="black">
                               {forumData.title}
                            </ParaText>
+                           <div style={{ wordBreak: 'break-all' }} dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
                            {/* FORUM LIKES & DISLIKES */}
                            <div className="smallTopMargin"></div>
                            <div style={{ display: 'flex', gap: '10px' }}>
@@ -426,9 +425,9 @@ export default function SingleForum({ forumData }: Props) {
                                           onClick={() => handleComment(comment._id)}
                                        >
                                           <span className="orange-color">
-                                             <FaRegMessage />
+                                             <MessageOutlined />
                                           </span>
-                                          &nbsp; {comment.replies.length} { }
+                                          &nbsp; {comment.replies.length}
                                        </div>
                                        <br />
 
@@ -451,37 +450,35 @@ export default function SingleForum({ forumData }: Props) {
                                     <Col md={3}></Col>
                                     <Col md={21}>
                                        {commentBox && (
-                                          <div className="replyDivBorder">
-                                             <div className="customTextArea">
-                                                <TextArea
-                                                   rows={1}
-                                                   value={reply}
-                                                   onChange={(e) => {
-                                                      if (!user) {
-                                                         setModal(true);
-                                                         return;
-                                                      }
-                                                      setReply(e.target.value);
-                                                   }}
-                                                   placeholder="Add a reply ..."
-                                                   maxLength={validationRules.textEditor.maxLength}
-                                                   minLength={validationRules.textEditor.minLength}
-                                                />
-                                             </div>
-                                             <div></div>
+                                          <div className="">
+                                             <TextArea
+                                                rows={1}
+                                                value={reply}
+                                                onChange={(e) => {
+                                                   if (!user) {
+                                                      setModal(true);
+                                                      return;
+                                                   }
+                                                   setReply(e.target.value);
+                                                }}
+                                                placeholder="Add a reply ..."
+                                                maxLength={validationRules.textEditor.maxLength}
+                                                minLength={validationRules.textEditor.minLength}
+                                             />
                                           </div>
                                        )}
                                     </Col>
                                     <div>
                                        {reply && (
-                                          <div style={{ paddingTop: '4px' }}>
+                                          <div style={{ paddingTop: '4px', marginTop: '10px' }}>
                                              <div
                                                 style={{
                                                    display: 'flex',
                                                    gap: '10px',
-                                                   justifyContent: 'end'
+                                                   justifyContent: 'end',
+                                                   float: 'right'
                                                 }}
-                                                className="textEnd"
+
                                              >
                                                 <div>
                                                    <Button
@@ -621,7 +618,7 @@ export default function SingleForum({ forumData }: Props) {
                                                                   {reply.userId?.name}
                                                                </span>
                                                                <br />
-                                                               <span>
+                                                               <span className="orange-color">
                                                                   <RelativeTime
                                                                      date={reply.createdAt}
                                                                   />
@@ -644,6 +641,7 @@ export default function SingleForum({ forumData }: Props) {
                                                                }}
                                                             >
                                                                <div
+                                                                  className="orange-color"
                                                                   style={{ cursor: 'pointer' }}
                                                                   onClick={() =>
                                                                      handleVote(
@@ -660,7 +658,7 @@ export default function SingleForum({ forumData }: Props) {
                                                                   ) : (
                                                                      <LikeOutlined />
                                                                   )}{' '}
-                                                                  {reply.likes.length}
+                                                                  <span style={{ color: '#424242' }}> {reply.likes.length}</span>
                                                                </div>
                                                                <div
                                                                   style={{ cursor: 'pointer' }}
@@ -672,14 +670,11 @@ export default function SingleForum({ forumData }: Props) {
                                                                      )
                                                                   }
                                                                >
-                                                                  {reply.dislikes.includes(
-                                                                     user?._id
-                                                                  ) ? (
-                                                                     <DislikeFilled />
-                                                                  ) : (
-                                                                     <DislikeOutlined />
-                                                                  )}{' '}
-                                                                  {reply.dislikes.length}
+                                                                  <span className="orange-color">
+                                                                     <MessageOutlined />
+                                                                  </span>
+                                                                  &nbsp; {comment.replies.length}
+
                                                                </div>
                                                             </div>
                                                          </div>
