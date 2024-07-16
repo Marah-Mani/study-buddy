@@ -337,9 +337,7 @@ export default function SingleForum({ forumData }: Props) {
                      placeholder="Add a comment ..."
                      maxLength={validationRules.textEditor.maxLength}
                      minLength={validationRules.textEditor.minLength}
-                     suffix={<IoSendSharp />}
-                  />
-
+                     suffix={<IoSendSharp onClick={() => handleSubmit()} />} />
                   {/* COMMENTS LOOP */}
 
                   <Row>

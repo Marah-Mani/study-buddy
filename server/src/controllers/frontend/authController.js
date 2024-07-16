@@ -16,6 +16,8 @@ const { sendVerificationOtp } = require('../../utils/auth');
 const { createNotification } = require('../../common/notifications');
 const { getAdminDataByRole, trackUserActivity } = require('../../common/functions');
 const { newAccountEmail, resetPasswordEmail, passwordConfirmationEmail } = require('../../services/auth');
+const ChatSetting = require('../../models/chatSettings');
+const { JWT_SECRET } = require('../../config/envConfig');
 
 const generateOTP = () => {
 	return Math.floor(1000 + Math.random() * 9000).toString();
@@ -225,16 +227,19 @@ const authController = {
 
 			const userRole = user.role;
 
-			const token = jwt.sign({ userId: user._id, role: userRole }, process.env.JWT_SECRET, {
+			const token = jwt.sign({ userId: user._id, role: userRole }, JWT_SECRET, {
 				expiresIn: '12h'
 			});
+			//Fetch Chat Settings
+			const chatSettings = await ChatSetting.findOne();
+
 			// eslint-disable-next-line no-unused-vars
 			const { password: userPassword, otp, ...sanitizedUser } = user.toJSON();
 
 			// Track user activity
 			await trackUserActivity(user._id, 'Logged in');
 
-			res.json({ status: true, token, user: sanitizedUser });
+			res.json({ status: true, token, user: sanitizedUser, chatSettings });
 		} catch (error) {
 			logError(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
@@ -249,7 +254,7 @@ const authController = {
 				return res.status(401).json({ message: 'Unauthorized - Token not provided' });
 			}
 
-			jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+			jwt.verify(token, JWT_SECRET, async (err, decoded) => {
 				if (err) {
 					if (err.name === 'TokenExpiredError') {
 						return res.status(401).json({ message: 'Unauthorized - Token expired' });
@@ -264,18 +269,18 @@ const authController = {
 				}
 
 				// Check if the token is still valid
-				const refreshedToken = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
+				const refreshedToken = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, {
 					expiresIn: '12h'
 				});
+				const chatSettings = await ChatSetting.findOne();
 
-				res.status(200).json({ message: 'Session is valid', user: user, refreshedToken });
+				res.status(200).json({ message: 'Session is valid', user: user, refreshedToken, chatSettings });
 			});
 		} catch (error) {
 			logError(error);
 			res.status(500).json({ message: 'Internal Server Error' });
 		}
 	},
-
 	matchOtp: async (req, res) => {
 		try {
 			const { userId, otp } = req.body;

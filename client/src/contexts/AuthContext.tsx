@@ -17,6 +17,8 @@ interface AuthContextDefaults {
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	logout: () => Promise<void>;
 	login: (email: string, password: string, url: string) => Promise<string>;
+	chatSettings?: any;
+	setChatSettings: React.Dispatch<React.SetStateAction<any>>;
 }
 
 interface AuthContextProp {
@@ -26,13 +28,16 @@ interface AuthContextProp {
 const AuthContext = createContext<AuthContextDefaults>({
 	logout: () => Promise.resolve(),
 	login: () => Promise.resolve(''),
-	setUser: () => { }
+	setUser: () => { },
+	chatSettings: undefined,
+	setChatSettings: () => { }
 });
 
 const AuthContextProvider = ({ children }: AuthContextProp) => {
 	const router = useRouter();
 	const [user, setUser] = useState<User | undefined>();
 	const [initialized, setInitialized] = useState<boolean>(false);
+	const [chatSettings, setChatSettings] = useState<any>(undefined)
 
 	useEffect(() => {
 		const token = Cookies.get('session_token');
@@ -59,6 +64,7 @@ const AuthContextProvider = ({ children }: AuthContextProp) => {
 							Cookies.set('session_token', response.data.refreshedToken);
 							// router.push('/');
 						}
+						setChatSettings(response.data.chatSettings)
 
 					} else {
 						Cookies.remove('session_token');
@@ -107,6 +113,7 @@ const AuthContextProvider = ({ children }: AuthContextProp) => {
 				axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 				Cookies.set('session_token', token);
 				setUser(loggedInUser);
+				setChatSettings(response.data.chatSettings);
 				message.success('You are logged In!');
 				if (url) {
 					router.push(url);
@@ -144,7 +151,9 @@ const AuthContextProvider = ({ children }: AuthContextProp) => {
 				user,
 				logout,
 				setUser,
-				login
+				login,
+				chatSettings,
+				setChatSettings
 			}}
 		>
 			{children}

@@ -98,6 +98,13 @@ const messageController = {
 			const chat = await Chat.findById(chatId);
 			const receiverId = chat.users.find((user) => String(user._id) !== String(req.user._id));
 
+			// Check if the receiver has blocked the sender
+			const receiver = await User.findById(receiverId);
+			if (receiver.block.includes(String(req.user._id))) {
+				message.deleteFor.push(receiverId);
+				await message.save();
+			}
+
 			// Check if the sender has blocked the receiver
 			if (req.user.block.includes(String(receiverId))) {
 				// Push receiver's ID to deleteFor

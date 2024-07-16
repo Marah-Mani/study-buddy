@@ -8,6 +8,7 @@ const path = require('path');
 const webSocket = require('./src/utils/webSocket');
 const { subscribeNotification } = require('./src/utils/subscribeNotification');
 const rateLimit = require('express-rate-limit');
+const { PORT } = require('./src/config/envConfig');
 const fs = require('fs');
 require('dotenv').config();
 // require('./src/cron');
@@ -84,7 +85,7 @@ app.use('/images', express.static(path.join(__dirname, 'src', 'storage')));
 app.post('/subscribe', subscribeNotification);
 
 // Start server
-const PORT = process.env.PORT || 3001;
-const server = app.listen(PORT);
+const port = PORT || 3001;
+const server = app.listen(port);
 
 webSocket(server);

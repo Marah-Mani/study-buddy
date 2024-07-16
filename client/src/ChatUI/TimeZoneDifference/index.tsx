@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment-timezone';
 
 interface TimeZoneDifferenceProps {
-    timeZone1: string; // Your current user's time zone
-    timeZone2: string; // Time zone of the other user in the chat
+    timeZone1: any; // Your current user's time zone
+    timeZone2: any; // Time zone of the other user in the chat
 }
 
 const TimeZoneDifference = ({ timeZone1, timeZone2 }: TimeZoneDifferenceProps) => {
@@ -23,7 +23,7 @@ const TimeZoneDifference = ({ timeZone1, timeZone2 }: TimeZoneDifferenceProps) =
 
     const getTimeDifferenceMessage = () => {
         if (offsetDifference === 0) {
-            return "You and the other user are in the same time zone.";
+            return "Same time zone.";
         } else if (offsetDifference > 0) {
             return `${differenceInHours} hours and ${differenceInMinutes} minutes ahead.`;
         } else {

@@ -160,7 +160,7 @@ export interface User {
 	subscriptionExpiryDate?: Date | null;
 	stripeCustomerId?: string | null;
 	stickyNote?: string | null;
-	timeZone?: string | null;
+	timeZone?: any;
 	paymentMethod?: string | null;
 	lastSeen?: Date;
 	isOnline: 'yes' | 'no';
@@ -181,6 +181,8 @@ export interface User {
 	arrival: string;
 	token: string;
 	image: string;
+	chatStatus: string;
+	block?: string | null;
 }
 
 export type Country = {

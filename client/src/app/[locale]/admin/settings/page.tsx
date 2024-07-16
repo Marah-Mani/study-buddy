@@ -11,6 +11,7 @@ import EmailSignature from '@/components/Admin/Settings/EmailSignature';
 import EmailTemplate from '@/components/Admin/Settings/EmailTemplate';
 import HeaderMenu from '@/components/Admin/Settings/HeaderMenu';
 import FooterMenu from '@/components/Admin/Settings/FooterMenu';
+import ChatSetting from '@/components/Admin/ChatSetting';
 
 export default function Page() {
 	const [key, setKey] = useState('1');
@@ -24,6 +25,7 @@ export default function Page() {
 		{ label: 'Email Templates', component: <EmailTemplate activeKey={key} /> },
 		{ label: 'Header Setting', component: <HeaderMenu activeKey={key} /> },
 		{ label: 'Footer Setting', component: <FooterMenu activeKey={key} /> },
+		{ label: 'Chat Setting', component: <ChatSetting activeKey={key} /> },
 	].map((item, index) => ({
 		label: item.label,
 		key: String(index + 1),
