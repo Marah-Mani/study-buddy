@@ -185,7 +185,7 @@ export default function MenuAUser() {
 			'StuddyBuddy',
 			'9',
 			<Link href="/en/user/studybuddy">
-				<span onClick={() => setIsActive(true)}>
+				<span onClick={() => setIsActive(true)} >
 					{defaultSelectedKey === '8' ? (
 						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
 					)
@@ -216,8 +216,6 @@ export default function MenuAUser() {
 	const pathname = usePathname();
 	useEffect(() => {
 		let defaultSelectedKey;
-		console.log('Current Pathname:', pathname);
-
 		switch (true) {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
