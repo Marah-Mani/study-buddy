@@ -229,7 +229,7 @@ export default function Page() {
                                                     display: 'flex',
                                                     justifyContent: 'space-between',
                                                     alignItems: 'center',
-                                                    borderRadius: '30px'
+                                                    borderRadius: '30px 30px 30px 30px'
                                                 }}
                                             >
                                                 <span
@@ -246,18 +246,12 @@ export default function Page() {
                                                 <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                                             </Button>
                                         </Dropdown>
-                                        <Input.Search
+                                        <Input
+                                            suffix={<CiSearch />}
                                             placeholder="Search with name"
-                                            style={{ width: '100%', borderRadius: '30px 0px 0px 30px' }}
                                             value={searchQuery}
+                                            style={{ borderRadius: '0' }}
                                             onChange={handleInputChange}
-                                            enterButton={
-                                                <Button
-                                                    icon={<CiSearch />}
-                                                    style={{ borderRadius: '0px 30px 30px 0px' }}
-                                                    type="primary"
-                                                ></Button>
-                                            }
                                         />
                                     </Space>
                                 </div>
@@ -275,16 +269,16 @@ export default function Page() {
                         {AllCandidates.map((item: any) => (
                             <>
                                 <div style={{ padding: ' 15px 15px 25px 15px' }} >
-                                    <Row gutter={[16, 16]}>
+                                    <Row gutter={[16, 16]} justify='center'>
                                         <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                             <div className="candidates-details">
                                                 <Row >
-                                                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={2} className="">
+                                                    <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1} className="">
                                                         <Image
                                                             src={
                                                                 item?.image
                                                                     ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
-                                                                    : '/images/users.jpg'
+                                                                    : '/images/users.png'
                                                             }
                                                             width={50}
                                                             height={50}
@@ -293,7 +287,7 @@ export default function Page() {
                                                             style={{ borderRadius: '50px' }}
                                                         />
                                                     </Col>
-                                                    <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
+                                                    <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23} className='custom-col'>
                                                         <Row gutter={[16, 16]}>
                                                             <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                                                                 <Flex align="center">
@@ -309,28 +303,28 @@ export default function Page() {
                                                                     {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
                                                                 </Tag> */}
                                                                 </Flex>
-                                                                <ParaText size="textGraf" fontWeightBold={600} color="black">
+                                                                {/* <ParaText size="textGraf" fontWeightBold={600} color="black">
                                                                     {item?.profileTitle &&
                                                                         capitalizeFirstLetterOfEachWord(item?.profileTitle)}
-                                                                </ParaText>
-
+                                                                </ParaText> */}
+                                                                <div className='gapPaddingTopOne'></div>
                                                                 <ParaText size="textGraf" className="dBlock" color="black">
                                                                     <span>
-                                                                        <strong> Department :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}> Department :</strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
-                                                                        <span>{item?.departmentId?.departmentName}</span>
+                                                                        <span style={{ fontWeight: '400' }}>{item?.departmentId?.departmentName}</span>
                                                                     </ParaText>
                                                                 </ParaText>
 
                                                                 <ParaText size="textGraf" color="black" className="dBlock">
                                                                     <span>
-                                                                        <strong> Subjects :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}> Subjects :</strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
-                                                                        <span>
+                                                                        <span style={{ fontWeight: '400' }}>
                                                                             {item.subjects.length > 0
                                                                                 ? item.subjects.map((subject: string, index: number) => (
                                                                                     <React.Fragment key={index}>
@@ -351,7 +345,7 @@ export default function Page() {
                                                                 </Tag> */}
                                                                     <ParaText size="textGraf" color="black">
                                                                         <span>
-                                                                            <strong> Skills :</strong> &nbsp;
+                                                                            <strong style={{ fontWeight: '400' }}> Skills :</strong> &nbsp;
                                                                         </span>
                                                                     </ParaText>
 
@@ -360,16 +354,16 @@ export default function Page() {
                                                                         {item.skills.map((skill: string, index: number) => (
                                                                             <Tag key={index}>{capitalizeFirstLetterOfEachWord(skill)}</Tag>
                                                                         ))}
-                                                                        {item.skills.length === 0 && <span>No skills specified</span>}
+                                                                        {item.skills.length === 0 && <span style={{ fontWeight: '400' }}>No skills specified</span>}
                                                                     </ParaText>
                                                                 </Flex>
                                                                 <ParaText size="textGraf" color="black">
                                                                     <span>
-                                                                        <strong> Languages :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}> Languages :</strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
-                                                                        <span>
+                                                                        <span style={{ fontWeight: '400' }}>
                                                                             {item.languages.length > 0
                                                                                 ? item.languages.map((language: string, index: number) => (
                                                                                     <React.Fragment key={index}>
@@ -449,9 +443,9 @@ export default function Page() {
                                                                         />
                                                                     </Tooltip>
                                                                     &nbsp;
-                                                                    <span>
+                                                                    {/* <span>
                                                                         <CiHeart size={30} />
-                                                                    </span>
+                                                                    </span> */}
                                                                 </div>
                                                                 <div className="candidates-details-chat">
                                                                     <ParaText size="textGraf" color="black">

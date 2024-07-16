@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { IoFolderOpenOutline } from 'react-icons/io5';
+import ParaText from '../ParaText';
 type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
@@ -152,71 +153,21 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'',
-			'9',
-			<span></span>
-		),
-		getItem(
-			'Logout',
-			'7',
-			<Link href="/en/login">
-				<span onClick={() => setIsActive(true)}>
-					{defaultSelectedKey === '7' ? (
-						<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
-					)
-						:
-						(
-							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
-						)}
-				</span>
-			</Link>
-		),
+		// getItem(
+		// 	'Logout',
+		// 	'7',
+		// 	<Link href="/en/login">
+		// 		<span onClick={() => setIsActive(true)}>
+		// 			{defaultSelectedKey === '7' ? (
+		// 				<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+		// 			)
+		// 				:
+		// 				(
+		// 					<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+		// 				)}
+		// 		</span>
+		// 	</Link>
+		// ),
 
 	];
 
@@ -257,7 +208,7 @@ export default function MenuAdmin() {
 	return (
 		<>
 			<div id="menuId">
-				<div className="dddd">
+				<div className="adminSideMain">
 					<div className="menuDash darkMenuDash" id="menuDash">
 						<div className="textCenter">
 							<Link href="/"></Link>
@@ -270,6 +221,20 @@ export default function MenuAdmin() {
 							items={items}
 							onClick={handleClick}
 						/>
+						<div className='loginBottom'>
+							<Link href="/en/login" style={{ display: 'flex', gap: '5px' }}>
+								<span onClick={() => setIsActive(true)}>
+									{defaultSelectedKey === '7' ? (
+										<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
+									)
+										:
+										(
+											<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+										)}
+								</span>
+								<ParaText size='extraSmall' color='white'>Logout</ParaText>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,17 +1,18 @@
-import ParaText from '@/app/commonUl/ParaText'
-import { Col, Image, notification, Row, Tag, Tooltip } from 'antd'
-import React, { useContext } from 'react'
+import ParaText from '@/app/commonUl/ParaText';
+import { Col, Image, notification, Row, Tag, Tooltip } from 'antd';
+import React, { useContext } from 'react';
 import { WechatOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './style.css'
+import './style.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
+import { BiShekel } from 'react-icons/bi';
 interface Props {
-    product: any
+    product: any;
 }
 
 export default function InfoModal({ product }: Props) {
@@ -58,7 +59,6 @@ export default function InfoModal({ product }: Props) {
 
     const router = useRouter();
 
-
     const getFirstName = (fullName: any) => {
         const nameParts = fullName.trim().split(' ');
         return nameParts[0];
@@ -69,13 +69,13 @@ export default function InfoModal({ product }: Props) {
             const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
             const selectedUsers = [
                 {
-                    _id: data.createdBy._id,
+                    _id: data.createdBy._id
                 }
-            ]
+            ];
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                },
+                    Authorization: `Bearer ${token}`
+                }
             };
             await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
@@ -87,10 +87,9 @@ export default function InfoModal({ product }: Props) {
                 config
             );
             router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
-
         } catch (error) {
             notification.error({
-                message: "Failed to Create the Chat!"
+                message: 'Failed to Create the Chat!'
             });
         }
     };
@@ -122,13 +121,22 @@ export default function InfoModal({ product }: Props) {
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <div className="product-content">
-                                <ParaText size='small' color='black' className="title" fontWeightBold={600}>{product.title}</ParaText>
+                                <ParaText size="small" color="black" className="title" fontWeightBold={600}>
+                                    {product.title}
+                                </ParaText>
                                 <div className="gapMarginTopOne"></div>
-                                <span>{product.description}</span>
+                                <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
+                                    Machine Tools : <span style={{ color: '#f1a058', fontWeight: '400' }}>{product.description}</span>
+                                </ParaText>
                                 <div className="gapMarginTopOne"></div>
-                                <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Category : <span style={{ color: '#f1a058' }}>{product?.categoryId?.name}</span> </ParaText>
+                                <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
+                                    Category : <span style={{ color: '#f1a058', fontWeight: '400' }}>{product?.categoryId?.name}</span>
+                                </ParaText>
                                 <div className="gapMarginTopOne"></div>
-                                <ParaText size='textGraf' color='black' className="title" fontWeightBold={600}>Sub-category : <span style={{ color: '#f1a058' }}> {product?.subCategoryId?.name}</span> </ParaText>
+                                <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
+                                    Sub-category :
+                                    <span style={{ color: '#f1a058', fontWeight: '400' }}> {product?.subCategoryId?.name}</span>
+                                </ParaText>
                                 <div className="gapMarginTopOne"></div>
                             </div>
                         </Col>
@@ -138,32 +146,40 @@ export default function InfoModal({ product }: Props) {
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Row>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <div className="product-content">
+                                    <div className="product-content" style={{ display: 'flex' }}>
                                         <div className="price">
-                                            {product.discountPrice != "undefined" ?
+                                            {product.discountPrice != 'undefined' ? (
                                                 <>
-                                                    ${product.discountPrice} <span>${product.price}</span>
+                                                    <BiShekel
+                                                        size={20}
+                                                    />
+                                                    <p>  {product.discountPrice}</p>
+                                                    <span>
+                                                        <BiShekel
+                                                            size={20}
+                                                        />
+                                                        {product.price}
+                                                    </span>
                                                 </>
-                                                :
+                                            ) : (
                                                 `$${product.price}`
-                                            }
+                                            )}
                                         </div>
-
                                     </div>
                                 </Col>
-                                {product.discountPrice != "undefined" ?
-                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className=''>
+                                {product.discountPrice != 'undefined' ? (
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className="">
                                         <br />
-                                        <Tag style={{ backgroundColor: '#f1a638' }} className='offer'>
+                                        <Tag className="offer">
                                             {calculatePercentageOff(product.price, product.discountPrice)}% off
                                         </Tag>
                                     </Col>
-                                    : null}
+                                ) : null}
                             </Row>
                         </Col>
                         <Col
                             xs={24}
-                            className='textCenter'
+                            className="textCenter"
                             sm={24}
                             md={product.discountPrice !== 'undefined' ? 12 : 12}
                             lg={product.discountPrice !== 'undefined' ? 12 : 12}
@@ -172,18 +188,18 @@ export default function InfoModal({ product }: Props) {
                         >
                             <br />
                             <Tooltip
-                                className='imageChat'
+                                className="imageChat"
                                 title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                 color={'#EDF1F5'}
-                                placement='left'
+                                placement="left"
                             >
                                 <br />
-                                <img src="/icons/yellowbubble-chat.png" alt='chat' />
+                                <img src="/icons/yellowbubble-chat.png" alt="chat" />
                             </Tooltip>
                         </Col>
                     </Row>
                 </Col>
             </Row>
         </>
-    )
+    );
 }

@@ -121,7 +121,7 @@ export default function ResetPassword({ activeKey }: Props) {
                                 </Form.Item>
                             </Col>
                             <Col md={24} style={{ textAlign: 'end' }}>
-                                <Button type='primary' htmlType='submit'>Submit</Button>
+                                <Button type='primary' htmlType='submit' style={{ borderRadius: '30px' }}>Submit</Button>
                             </Col>
                         </Row>
                     </Col>

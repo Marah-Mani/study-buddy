@@ -167,9 +167,6 @@
   .dashBody .ant-space {
     display: block !important;
   }
-  .boxInbox {
-    padding-top: 10%;
-  }
 }
 
 @media only screen and (max-width: 767px) {

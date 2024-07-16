@@ -51,8 +51,17 @@
   .userMenuLogo {
     display: block !important;
   }
-
+  /*
   .darkMenuDash {
     display: none !important;
-  }
+  } */
+}
+
+.adminSideMain {
+  position: relative;
+}
+.loginBottom {
+  position: absolute;
+  bottom: 60px;
+  left: 30px;
 }

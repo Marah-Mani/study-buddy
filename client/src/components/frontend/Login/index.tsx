@@ -112,19 +112,26 @@ const Login = () => {
 							}, { validator: validateEmail }
 						]}>
 							<Input
-								prefix={<UserOutlined className="site-form-item-icon" />} style={{ height: "40px" }} type={'email'} placeholder="Email" maxLength={30} />
+								prefix={<UserOutlined className="site-form-item-icon" />} style={{ height: "40px", borderRadius: '30px' }} type={'email'} placeholder="Email" maxLength={30} />
 						</Form.Item>
-						<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+						<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]} style={{ marginBottom: '0px' }}>
 							<Input.Password
 								prefix={<LockOutlined className="site-form-item-icon" />}
 								type="password"
 								placeholder="Password"
-								style={{ height: "40px" }}
+								style={{ height: "40px", borderRadius: '30px' }}
 								maxLength={15}
 							/>
 						</Form.Item>
+						<div style={{ textAlign: 'end', marginBottom: '20px', marginTop: '10px' }}>
+							<span>
+								<Link href="/en/forgot-password" passHref>
+									<ParaText color="primaryColor" size="textGraf" fontWeightBold={700}>Forgot Password?</ParaText>
+								</Link>
+							</span>
+						</div>
 						<Form.Item>
-							<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px' }}>
+							<Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%', height: '40px', borderRadius: '30px' }}>
 								{loading ? 'Please wait...' : 'Log in'}
 							</Button>
 
@@ -140,7 +147,7 @@ const Login = () => {
 							<div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', gap: '10px' }}>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
+									style={{ display: 'flex', borderRadius: '30px', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
 									icon={<FcGoogle style={{ display: 'flex', alignItems: "center", justifyContent: 'center' }} />}
 									onClick={handleGoogleLogin}
 								>
@@ -148,7 +155,7 @@ const Login = () => {
 								</Button>
 								<Button
 									// type="primary"
-									style={{ display: 'flex', width: '50%', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
+									style={{ display: 'flex', width: '50%', borderRadius: '30px', height: "40px", alignItems: "center", justifyContent: 'center', color: '#000' }}
 									icon={<ImFacebook2 style={{ display: 'flex', alignItems: "center", justifyContent: 'center', color: '#0866ff' }} />}
 									onClick={handleFacebookLogin}
 								>
@@ -164,14 +171,7 @@ const Login = () => {
 								<ParaText color="primaryColor" size="textGraf" fontWeightBold={700}> Register here</ParaText></Link>
 						</span>
 					</div>
-					<div style={{ textAlign: 'center', marginTop: '20px' }}>
-						<span>
-							Forgot Password?{' '}
-							<Link href="/en/forgot-password" passHref>
-								<ParaText color="primaryColor" size="textGraf" fontWeightBold={700}> Click here</ParaText>
-							</Link>
-						</span>
-					</div>
+
 				</div>
 			</div>
 		</>

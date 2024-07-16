@@ -38,7 +38,7 @@ export default function CreateOrEditFolder({ folderRename, action, setFolderRena
 
     return (
         <>
-            <Button icon={<AiOutlinePlusCircle />} style={{ background: '#845adf', display: 'flex', alignItems: 'center' }} type='primary' onClick={modelOpen}>
+            <Button icon={<AiOutlinePlusCircle />} style={{ background: '#845adf', display: 'flex', alignItems: 'center', borderRadius: '30px' }} type='primary' onClick={modelOpen}>
                 Create Folder
             </Button>
             <Modal

@@ -57,12 +57,7 @@ export default function Page() {
     return (
         <>
             <div id='fileManagerPage'>
-                <div className="gapMarginTopTwo"></div>
                 <div className=''>
-                    <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                        File Manager
-                    </ParaText>
-                    <div className="largeTopMargin"></div>
                     <Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
                 </div>
             </div>
