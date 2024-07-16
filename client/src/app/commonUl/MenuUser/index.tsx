@@ -36,7 +36,8 @@ function getItem(
 		icon,
 		children,
 		label,
-		type // Include the type property here
+		type,
+		customClass,
 	} as MenuItem;
 }
 
@@ -197,7 +198,10 @@ export default function MenuAUser() {
 							<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
 						)}
 				</span>
-			</Link>
+			</Link>,
+			undefined,
+			undefined,
+			'logout-bottom',
 		),
 	];
 

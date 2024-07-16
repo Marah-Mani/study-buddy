@@ -170,8 +170,12 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
             title: data.title,
             category: data.categoryId.name,
             subCategory: data.subCategoryId?.name,
-            price: <> <BiShekel style={{ color: 'green' }} />{data?.price}</>,
-            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <> <BiShekel style={{ color: 'green' }} />{data?.discountPrice}</>,
+            price: <> <div style={{ display: 'flex', alignItems: 'center' }}> <span><BiShekel size={20} style={{ color: 'green', display: 'flex', alignItems: 'center' }} /></span>
+                <span>{data?.price}</span>
+            </div> </>,
+            discountPrice: data.discountPrice === 'undefined' ? 'N/A' : <> <div style={{ display: 'flex', alignItems: 'center' }}> <span><BiShekel size={20} style={{ color: 'green', display: 'flex', alignItems: 'center' }} /></span>
+                <span>{data?.discountPrice}</span>
+            </div> </>,
             status: (
                 data.status == 'active' ?
                     <Tag color="green">Active</Tag>
