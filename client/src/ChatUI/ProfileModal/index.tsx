@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Button, Image, Typography } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 

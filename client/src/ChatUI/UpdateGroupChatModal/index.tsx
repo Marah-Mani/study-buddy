@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Modal, Button, Input, Form, Spin, List, Typography, Avatar, Tag, notification, Space } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
+import { Modal, Button, Input, Form, List, Avatar, Tag, notification } from 'antd';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import ChatContext from '@/contexts/ChatContext';
 import { User } from '@/lib/types';
 import ErrorHandler from '@/lib/ErrorHandler';
 const { Search } = Input;
+import { CHAT } from '@/constants/API/chatApi';
+import { API_BASE_URL } from '@/constants/ENV';
+const baseURL = API_BASE_URL;
+const { common } = CHAT;
 
 interface UpdateGroupChatModalProps {
     open: any;
@@ -37,7 +40,7 @@ const UpdateGroupChatModal = ({ open, setOpen }: UpdateGroupChatModalProps) => {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/user?search=${search}`, config);
+            const { data } = await axios.get(`${baseURL}${common.searchChat}${search}`, config);
             setLoading(false);
             setSearchResult(data);
         } catch (error) {
@@ -94,7 +97,7 @@ const UpdateGroupChatModal = ({ open, setOpen }: UpdateGroupChatModalProps) => {
                 },
             };
             const { data } = await axios.put(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/groupremove`,
+                `${baseURL}${common.groupRemove}`,
                 {
                     chatId: selectedChat._id,
                     userId: user1._id,
@@ -103,8 +106,6 @@ const UpdateGroupChatModal = ({ open, setOpen }: UpdateGroupChatModalProps) => {
             );
 
             user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
-            // setFetchAgain(!fetchAgain);
-            // fetchMessages();
             setLoading(false);
         } catch (error) {
             new ErrorHandler(error)

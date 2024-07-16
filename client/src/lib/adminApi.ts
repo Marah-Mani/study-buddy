@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+
 export const getAllBlogs = async (searchTerm: string = ''): Promise<any> => {
 	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
@@ -722,6 +723,35 @@ export const getDashboardData = async (): Promise<any> => {
 			}
 		});
 
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+export const getAllChatSettings = async (): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/settings/get-chat-setting`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+export const updateChatSettings = async (data: any): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/admin/settings/update-chat-setting`,
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token} `
+			},
+			data
+		});
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
 	});
 };

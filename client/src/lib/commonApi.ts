@@ -1037,4 +1037,22 @@ export const getUserActivities = async (id: any): Promise<any> => {
 
 		req.then((res) => resolve(res.data)).catch((err) => reject(err));
 	});
+
 };
+export const getAllUsersStudyBuddy = async (query: any = {}): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/user/getAllUsersStudyBuddy`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			},
+			params: query
+		});
+
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	});
+};
+

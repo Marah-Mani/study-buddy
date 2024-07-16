@@ -22,7 +22,6 @@ export default function MeetingItem(
     {
         key,
         chat,
-        selectedChat,
         setSelectedChat,
         handleSelectChat,
         onlineUsers,
@@ -50,7 +49,6 @@ export default function MeetingItem(
                                     <Avatar
                                         name={chat.name}
                                         src={chat.image}
-                                    // status={onlineUsers.some((userData: any) => userData.userId == getSenderFull(user, chat.users)._id) ? 'available' : 'unavailable'}
                                     />
                                     :
                                     <StringAvatar

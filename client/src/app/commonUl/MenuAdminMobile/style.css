@@ -49,7 +49,15 @@
     display: block !important;
   }
 
-  .darkMenuDashMobileMobile {
+  .darkMenuDashMobile {
     display: block !important;
   }
+}
+.adminSideMain {
+  position: relative;
+}
+.loginBottom {
+  position: absolute;
+  bottom: 60px;
+  left: 30px;
 }
