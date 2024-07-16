@@ -118,7 +118,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <Space size="middle">
+                <Space size="middle" className='iconColorChange'>
                     {user?.role !== 'user' && (
                         <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
                     )}

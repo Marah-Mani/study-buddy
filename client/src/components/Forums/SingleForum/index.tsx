@@ -256,7 +256,7 @@ export default function SingleForum({ forumData }: Props) {
                            <ParaText size="extraSmall" fontWeightBold={400} color="black">
                               {forumData.title}
                            </ParaText>
-                           <div dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
+                           <div style={{ wordBreak: 'break-all' }} dangerouslySetInnerHTML={{ __html: forumData?.description }}></div>
                            {/* FORUM LIKES & DISLIKES */}
                            <div className="smallTopMargin"></div>
                            <div style={{ display: 'flex', gap: '10px' }}>

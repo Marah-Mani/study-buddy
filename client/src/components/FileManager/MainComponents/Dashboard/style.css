@@ -162,34 +162,6 @@
   cursor: pointer;
 }
 
-.delete {
-  height: 2.313rem !important;
-  width: 2.313rem !important;
-  font-size: 0.95rem !important;
-  color: #e44e4d;
-  background-color: #fcecec;
-  border-radius: 2.313rem;
-  padding: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.favorite {
-  height: 2.313rem !important;
-  width: 2.313rem !important;
-  font-size: 0.95rem !important;
-  color: #07483e;
-  background-color: #e6f0f3;
-  border-radius: 2.313rem;
-  padding: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
 @media (max-width: 1200px) {
   .fixedFile {
     position: unset;
