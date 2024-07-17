@@ -17,7 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				</Col>
 				<Col xs={24} sm={24} md={24} lg={24} xl={20} xxl={20}>
 					<>
-						<div className="layOutStyle">{children}</div>
+						<div className="layOutStyle chat-remove">{children}</div>
 					</>
 				</Col>
 			</Row>
