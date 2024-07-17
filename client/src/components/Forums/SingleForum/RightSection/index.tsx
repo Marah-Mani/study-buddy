@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Card, Col, Divider, Image, Input, MenuProps, Row } from 'antd';
 import { Menu } from 'antd';
 import { getRelatedForums } from '@/lib/frontendApi';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { getForumCategories } from '@/lib/commonApi';
 import './style.css'
 import { usePathname } from 'next/navigation'
+import AuthContext from '@/contexts/AuthContext';
 
 interface Props {
     categoryId: string;
@@ -45,6 +46,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
     const [relatedData, setRelatedData] = useState<any>([]);
     const [categories, setCategories] = useState<any>([]);
     const pathname = usePathname()
+    const { user } = useContext(AuthContext)
     const targetUrl = '/en/user/forums';
     const isTargetMatched = pathname === targetUrl;
 
@@ -209,7 +211,7 @@ export default function RightSection({ categoryId, onCallBack, onSearch }: Props
                                                 </Col>
                                                 <Col md={21}>
                                                     <ParaText size="extraSmall" fontWeightBold={600} color="primaryColor">
-                                                        <Link target={'blank'} href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${data.slug}`} >
+                                                        <Link target={'blank'} href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${data.slug}`} >
                                                             {data.title.length > 65 ? `${data.title.slice(0, 65)}...` : data.title}
                                                         </Link>
                                                     </ParaText>
