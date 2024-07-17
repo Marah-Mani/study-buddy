@@ -218,15 +218,15 @@ export default function MarketPlace({ activeKey }: Props) {
                                     />
                                 </a>
                             </div>
-
+                            <br />
                             <Row align="middle" onClick={() => handleDetail(data)}>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} style={{ marginBottom: '10px' }}>
                                     <div className="product-content">
                                         <ParaText
-                                            size="textGraf"
+                                            size="small"
                                             color="secondaryColor"
                                             className="title"
-                                            fontWeightBold={600}
+                                            fontWeightBold={900}
                                         >
                                             <ShortFileName fileName={data.title} short={35} />
                                         </ParaText>
@@ -234,9 +234,8 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                        Machine Tools :{' '}
-                                        <span style={{ color: '#f1a058', fontWeight: '400' }}>
-                                            {' '}
+                                        Machine Tools :&nbsp;
+                                        <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>
                                             <ShortFileName fileName={data.description} short={90} />
                                         </span>
                                     </ParaText>
@@ -248,13 +247,13 @@ export default function MarketPlace({ activeKey }: Props) {
                                         className="title"
                                         fontWeightBold={600}
                                     >
-                                        Category :{' '}
+                                        Category :
                                         <ParaText size="extraSmall" color="primaryColor">
-                                            {data.categoryId.name}
+                                            <span style={{ fontWeight: '400', fontSize: '14px' }}>  {data.categoryId.name}</span>
                                         </ParaText>
                                     </ParaText>
                                 </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} className='marginFixed'>
                                     <ParaText
                                         size="textGraf"
                                         color="secondaryColor"
@@ -269,51 +268,10 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                             </Row>
                             <br />
-                            <Row align="middle">
-                                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                    <Row>
-                                        <Col
-                                            xs={24}
-                                            sm={24}
-                                            md={24}
-                                            lg={24}
-                                            xl={24}
-                                            xxl={24}
-                                            onClick={() => handleDetail(data)}
-                                        >
-                                            <div className="product-content" style={{ display: 'flex' }}>
-                                                <div className="price">
-                                                    {data.discountPrice != 'undefined' ? (
-                                                        <>
-                                                            <BiShekel
-                                                                size={20}
-                                                            />
-                                                            <p>{data.discountPrice}</p>
-                                                            <span>
-                                                                <BiShekel
-                                                                    size={20}
-                                                                />
-                                                                {data.price}
-                                                            </span>
-                                                        </>
-                                                    ) : (
-                                                        `$${data.price}`
-                                                    )}
-                                                </div>
-
-                                                {/* <div className="price">
-                                                    {data.discountPrice != 'undefined' ? (
-                                                        <>
-                                                            <p className='' style={{ display: 'flex' }}><BiShekel style={{ color: '#000' }} size={30} />
-                                                                20</p>
-                                                        </>
-                                                    ) : (
-                                                        `$${data.price}`
-                                                    )}
-                                                </div> */}
-                                            </div>
-                                        </Col>
-                                        {data.discountPrice != 'undefined' ? (
+                            <div className='bottomFixed'>
+                                <Row align="middle">
+                                    <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                        <Row>
                                             <Col
                                                 xs={24}
                                                 sm={24}
@@ -321,35 +279,70 @@ export default function MarketPlace({ activeKey }: Props) {
                                                 lg={24}
                                                 xl={24}
                                                 xxl={24}
-                                                className=""
                                                 onClick={() => handleDetail(data)}
                                             >
-                                                <span color="default" className="offer">
-                                                    {calculatePercentageOff(data.price, data.discountPrice)}% off
-                                                </span>
+                                                <div className="product-content" style={{ display: 'flex' }}>
+                                                    <div className="price">
+                                                        {data.discountPrice != 'undefined' ? (
+                                                            <>
+                                                                <BiShekel
+                                                                    size={25}
+                                                                />
+                                                                <p>{data.discountPrice}</p>
+                                                                &nbsp;
+                                                                &nbsp;
+                                                                <span>
+                                                                    <BiShekel
+                                                                        size={25}
+                                                                    />
+                                                                    {data.price}
+                                                                </span>
+                                                            </>
+                                                        ) : (
+                                                            `$${data.price}`
+                                                        )}
+                                                    </div>
+                                                </div>
                                             </Col>
-                                        ) : null}
-                                    </Row>
-                                </Col>
-                                <Col
-                                    xs={24}
-                                    className="textEnd"
-                                    sm={24}
-                                    md={data.discountPrice !== 'undefined' ? 12 : 12}
-                                    lg={data.discountPrice !== 'undefined' ? 12 : 12}
-                                    xl={data.discountPrice !== 'undefined' ? 12 : 12}
-                                    xxl={data.discountPrice !== 'undefined' ? 12 : 12}
-                                >
-                                    <Link href="" onClick={() => handleChat(data.createdBy)} className="imageChat">
-                                        <Tooltip
-                                            title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
-                                            color={'#EDF1F5'}
-                                        >
-                                            <img src="/icons/yellowbubble-chat.png" alt="" />
-                                        </Tooltip>
-                                    </Link>
-                                </Col>
-                            </Row>
+                                            {data.discountPrice != 'undefined' ? (
+                                                <Col
+                                                    xs={24}
+                                                    sm={24}
+                                                    md={24}
+                                                    lg={24}
+                                                    xl={24}
+                                                    xxl={24}
+                                                    style={{ marginTop: '10px' }}
+                                                    className=""
+                                                    onClick={() => handleDetail(data)}
+                                                >
+                                                    <span color="default" className="offerPopup">
+                                                        {calculatePercentageOff(data.price, data.discountPrice)}% off
+                                                    </span>
+                                                </Col>
+                                            ) : null}
+                                        </Row>
+                                    </Col>
+                                    <Col
+                                        xs={24}
+                                        className="textEnd"
+                                        sm={24}
+                                        md={data.discountPrice !== 'undefined' ? 12 : 12}
+                                        lg={data.discountPrice !== 'undefined' ? 12 : 12}
+                                        xl={data.discountPrice !== 'undefined' ? 12 : 12}
+                                        xxl={data.discountPrice !== 'undefined' ? 12 : 12}
+                                    >
+                                        <Link href="" onClick={() => handleChat(data.createdBy)} className="imageChat">
+                                            <Tooltip
+                                                title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                                color={'#EDF1F5'}
+                                            >
+                                                <img src="/icons/yellowbubble-chat.png" alt="" />
+                                            </Tooltip>
+                                        </Link>
+                                    </Col>
+                                </Row>
+                            </div>
                         </div>
                     </Col>
                 ))}
@@ -364,7 +357,7 @@ export default function MarketPlace({ activeKey }: Props) {
                     showSizeChanger
                 />
             </div>
-            <Modal title={' '} open={infoModal} onCancel={() => setInfoModal(false)} footer={null} width={890}>
+            <Modal title={' '} className='popupStyle' open={infoModal} onCancel={() => setInfoModal(false)} footer={null} width={890}>
                 <InfoModal product={selectedProduct} />
             </Modal>
         </>

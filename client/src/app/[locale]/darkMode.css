@@ -75,7 +75,7 @@ body.dark-mode .ant-form-item {
 body.dark-mode .ant-input {
   color: #fff;
   background-color: transparent;
-  border: 1px solid #343434;
+  /* border: 1px solid #343434; */
 }
 body.dark-mode .ant-float-btn-icon svg,
 body.dark-mode .ant-btn-block .ant-btn-icon svg {
@@ -95,7 +95,6 @@ body.dark-mode .ant-drawer-body,
 body.dark-mode .ant-tabs-tab,
 body.dark-mode .ant-form-item-label > label,
 body.dark-mode .ant-input-group-addon,
-body.dark-mode .ant-btn-icon svg,
 body.dark-mode .ant-card .ant-card-extra,
 body.dark-mode .ant-timeline-item-label,
 body.dark-mode .ant-timeline-item-content,
@@ -399,7 +398,13 @@ body.dark-mode td.ant-table-cell {
   color: #fff !important;
   background-color: #2a2a2a !important;
 }
-
+body.dark-mode .colorWhite,
+body.dark-mode .ant-btn-icon svg {
+  color: #efa24b !important;
+}
+.colorWhite {
+  color: #fff;
+}
 td.ant-table-cell {
   color: #2a2a2a !important;
 }

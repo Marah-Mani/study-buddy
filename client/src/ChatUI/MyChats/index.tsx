@@ -251,7 +251,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         <Sidebar
             position="left"
         >
-            <Flex justify='space-between' align='center' style={{ padding: '10px' }}>
+            <Flex justify='space-between' align='center' style={{ padding: '10px', backgroundColor: '#f6cc9c' }}>
                 <Conversation.Content>
                     <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
                         <div style={{ position: 'relative' }}>

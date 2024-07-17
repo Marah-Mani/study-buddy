@@ -178,18 +178,18 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                                 window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${items.filePath}`, 'blank');
                             }
                         }}
-                        style={{ color: `${fileId}` === items._id ? 'rgb(1 140 255)' : 'inherit', cursor: 'pointer' }}
+                        style={{ color: `${fileId}` === items._id ? '#efa24b' : 'inherit', cursor: 'pointer' }}
                     >
                         <ShortFileName fileName={items.fileName} short={30} />
                     </div>
                 </Col>
             </Row>,
             fileSize: (
-                <div style={{ color: `${fileId}` === items._id ? 'rgb(1 140 255)' : 'inherit', cursor: 'pointer' }} onClick={() => { handleFile(items._id) }} >
+                <div style={{ color: `${fileId}` === items._id ? '#efa24b' : 'inherit', cursor: 'pointer' }} onClick={() => { handleFile(items._id) }} >
                     <GetFileSize fileSize={items.fileSize} />
                 </div>),
             createdAt: (
-                <div style={{ color: `${fileId}` === items._id ? 'rgb(1 140 255)' : 'inherit', cursor: 'pointer' }} onClick={() => { handleFile(items._id) }} >
+                <div style={{ color: `${fileId}` === items._id ? '#efa24b' : 'inherit', cursor: 'pointer' }} onClick={() => { handleFile(items._id) }} >
                     <DateFormat date={items.createdAt} />
                 </div>),
             isFavorite: items.isFavorite,

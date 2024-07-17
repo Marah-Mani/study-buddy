@@ -138,10 +138,10 @@
 .product-grid .social li a:hover:after {
   display: block;
 }
-
+/*
 .product-grid .product-content {
   padding: 4px 0;
-}
+} */
 
 .product-grid .title {
   font-size: 16px;
