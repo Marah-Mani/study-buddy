@@ -1,72 +1,61 @@
-'use client'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import './style.css'
+'use client';
+import React, { lazy, Suspense, useContext, useEffect, useState } from 'react';
 import {
     MainContainer,
     ChatContainer,
     MessageList,
     MessageInput,
     ConversationHeader,
-    Sidebar,
-    MessageSeparator,
-    ExpansionPanel,
     TypingIndicator,
-    InputToolbox
+    InputToolbox,
+    Search
 } from '@chatscope/chat-ui-kit-react';
 import moment from 'moment-timezone';
 import MyChats from '../MyChats';
 import ChatContext from '@/contexts/ChatContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import io from "socket.io-client";
+import { bannedWords, getSender, getSenderFull } from '@/lib/chatLogics';
+import io from 'socket.io-client';
 import ErrorHandler from '@/lib/ErrorHandler';
 import MessageBox from '../MessageBox';
-import { Button, DatePicker, Form, Image, Input, List, Modal, Tooltip, Avatar as AntdAvatar, Dropdown, MenuProps, Popover, Col, Card, Row, Tag, Popconfirm, message } from 'antd';
-import { GrDocumentCsv } from 'react-icons/gr';
-import { BiDownload, BiTrash, BiVideo } from 'react-icons/bi';
+import { TiPlus } from 'react-icons/ti';
+import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image } from 'antd';
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
-import { FaEllipsisV, FaInfo, FaStar, FaVideo } from 'react-icons/fa';
-import TimeAgo from 'react-timeago'
-const ENDPOINT = "http://13.201.57.69:3001";
+import { FaEllipsisV, FaInfo, FaSearch, FaStar, FaRegArrowAltCircleRight, FaVideo, FaTrash } from 'react-icons/fa';
+import TimeAgo from 'react-timeago';
+// const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = 'http://13.201.57.69:3001';
 var socket: any, selectedChatCompare: any;
-import dateFormat from "dateformat";
-import Link from 'next/link';
 import StringAvatar from '@/app/commonUl/StringAvatar';
 import CreateMeetingModal from '@/components/CreateMeetingModal';
-import AuthContext from '@/contexts/AuthContext';
 import TimeZoneDifference from '../TimeZoneDifference';
-import { BsEmojiFrown } from 'react-icons/bs';
+import { BsEmojiSmile } from 'react-icons/bs';
 import CreateTodoModal from '@/components/CreateTodoModal';
-import { deleteTodo, getAllTodo } from '@/lib/commonApi';
-import Filter from 'bad-words'
-import { bannedWords, getSender, getSenderFull } from '@/lib/chatLogics';
-import { validationRules } from '@/lib/validations';
-import { FaRocketchat } from "react-icons/fa6";
+import Filter from 'bad-words';
+import './style.css';
+import Rightbar from '../RightBar';
+import AuthContext from '@/contexts/AuthContext';
+import { FieldTimeOutlined } from '@ant-design/icons';
+import VoiceToText from '../VoiceToText';
+import ForwardMessageModal from '../ForwardMessageModal';
+import { CloseOutlined } from '@ant-design/icons';
+import VoiceRecorder from '../VoiceRecorder';
+import { CHAT } from '@/constants/API/chatApi';
+import { API_BASE_URL } from '@/constants/ENV';
 
-const { TextArea } = Input;
-interface DataType {
-    content: string,
-    sentTime: any,
-    _id: string
-}
-
-interface BookmarkDataType {
-    content: string,
-    createdAt: any,
-    _id: string
-}
-
+const baseURL = API_BASE_URL;
+const { common, chat } = CHAT;
 export default function Chat() {
     const [messages, setMessages] = useState<any>([]);
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState('');
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState<boolean>(false);
     const [isTyping, setIsTyping] = useState(false);
-    const [showCreateMeetingForm, setShowCreateMeetingForm] = useState<boolean>(false)
-    const [isModalVisible, setIsModalVisible] = useState(false)
-    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [showCreateMeetingForm, setShowCreateMeetingForm] = useState<boolean>(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const {
         selectedChat,
         setSelectedChat,
@@ -74,255 +63,170 @@ export default function Chat() {
         notification,
         setOnlineUsers,
         onlineUsers,
-        user,
         setFetchAgain,
         setChats,
         chats,
-        setFavourite,
-        favourites,
-        fetchAgain,
-    }: any = useContext(ChatContext)
-    const { setUser } = useContext(AuthContext)
-    const [prevDate, setPrevDate] = useState<any>('')
-    const [prevIndex, setPrevIndex] = useState<any>()
-    const [viewInfo, setViewInfo] = useState<boolean>(true)
-    const [viewProfile, setViewProfile] = useState(false)
-    const [loadingComplete, setLoadingComplete] = useState(false)
-    const [editMessage, setEditMessage] = useState<any>([])
-    const [showEditMessage, setShowEditMessage] = useState<any>(false)
-    const [ScheduledMessages, setScheduledMessages] = useState<DataType[]>([]);
-    const [reload, setReload] = useState(false)
-    const [stickyNote, setStickyNote] = useState('')
-    const [stickyNoteId, setStickyNoteId] = useState('')
-    const [files, setFiles] = useState<any>([])
-    const getListRef = () => document.querySelector("[data-cs-message-list]");
-    const token = Cookies.get('session_token')
-    const [form] = Form.useForm()
+        fetchAgain
+    }: any = useContext(ChatContext);
+    const { user, setUser } = useContext(AuthContext);
+    const [prevDate, setPrevDate] = useState<any>('');
+    const [prevIndex, setPrevIndex] = useState<any>();
+    const [viewInfo, setViewInfo] = useState<boolean>(true);
+    const [viewProfile, setViewProfile] = useState(false);
+    const [loadingComplete, setLoadingComplete] = useState(false);
+    const [editMessage, setEditMessage] = useState<any>([]);
+    const [showEditMessage, setShowEditMessage] = useState<any>(false);
+    const [reload, setReload] = useState(false);
+    const token = Cookies.get('session_token');
     const [counter, setCounter] = useState<number>(0);
     const [loadingMore, setLoadingMore] = useState(false);
-    const [bookmarkMessages, setBookmarkMessages] = useState<BookmarkDataType[]>()
     const [eventType, setEventType] = useState('');
-    const [allTask, setAllTask] = useState([]);
-    const [loading, setLoading] = useState(false)
-    const [meetings, setMeetings] = useState<any>();
-
-    const handleDelete = async (taskId: string) => {
-        const deleteData = {
-            userId: user?._id,
-            id: taskId
-        }
-        const res = await deleteTodo(deleteData);
-        if (res.status == true) {
-            message.success(res.message);
-            fetchAllTask();
-        } else {
-            message.error(res.message);
-        }
-    };
-
-    useEffect(() => {
-        selectedChat && fetchAllTask();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [reload, selectedChat]);
-
-
-    const fetchAllTask = async () => {
-        try {
-            const response = await getAllTodo({ chatId: selectedChat._id });
-            setAllTask(response.data);
-            setLoading(false)
-        } catch (error) {
-            console.error('Error fetching authors:', error);
-        }
-    };
+    const { chatSettings } = useContext(AuthContext);
+    const [search, setSearch] = useState<any>('');
+    const [searchInput, setSearchInput] = useState(false);
+    const [enableSelect, setEnableSelect] = useState(false);
+    const [idArray, setIdArray] = useState<any>([]);
+    const [userModalVisible, setIsUserModalVisible] = useState(false);
+    const [emoji, setEmoji] = useState(false);
+    const [options, setOptions] = useState(false);
+    const [meetings, setMeetings] = useState<any>([]);
+    const [previewModal, setPreviewModal] = useState(false);
+    const [previewFiles, setPreviewFiles] = useState<any>([]);
+    const [plainFiles, setPlainFiles] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     const config = {
         headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    };
-
-    const heightRef: any = useRef(null);
-
-    useEffect(() => {
-        if (loadingComplete) return
-        const list: any = getListRef();
-
-        if (heightRef.current !== null && !loadingMore) {
-            list.scrollTop = list.scrollHeight - heightRef.current;
-            heightRef.current = 0;
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${token}`
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadingMore]);
-
+    };
     const { openFilePicker } = useFilePicker({
         readAs: 'DataURL',
         accept: ['.json', '.pdf', '.jpg', '.jpeg', '.png'],
-        multiple: true,
-        onFilesSuccessfullySelected: async ({ plainFiles }) => {
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                },
-            };
-
-            const formData = new FormData();
-            plainFiles.forEach(file => {
-                formData.append('sampleFile', file);
-            });
-
-            try {
-                const { data } = await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/chat/upload`,
-                    formData,
-                    config
-                );
-                sendMessage(data._id, data.name)
-            } catch (error) {
-                console.error('Error uploading files:', error);
-            }
-        },
+        multiple: false,
+        onFilesSuccessfullySelected: async ({ plainFiles, filesContent }) => {
+            setPreviewFiles(filesContent);
+            setPlainFiles(plainFiles);
+            setPreviewModal(true);
+        }
     });
+
+    const handleUpload = async () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+        const formData = new FormData();
+        plainFiles.forEach((file: any) => {
+            formData.append('sampleFile', file);
+        });
+
+        try {
+            const { data } = await axios.post(`${baseURL}${chat.upload}`, formData, config);
+            sendMessage(data._id, data.name);
+            setPreviewModal(false);
+            setPreviewFiles([]);
+        } catch (error) {
+            console.error('Error uploading files:', error);
+        }
+    };
 
     const fetchMessages = async () => {
         if (!selectedChat && loadingComplete) return;
         try {
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`
                 },
                 params: {
                     count: counter
                 }
             };
 
-            // setLoading(true);
-
-            let { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/message/${selectedChat._id}`,
-                config
-            );
-            // data = data.reverse();
+            let { data } = await axios.get(`${baseURL}${common.fetchMessages(selectedChat._id)}`, config);
             if (data.length === 0) setLoadingComplete(true);
-            const bookmarkMessage: any = []
-            const meetingData: any = []
+            const bookmarkMessage: any = [];
+            const meetingData: any = [];
             data.map((item: any) => {
                 if (item.bookmark.includes(user?._id)) {
-                    bookmarkMessage.push(item)
+                    bookmarkMessage.push(item);
                 }
                 if (item.meetingId !== null) {
-                    meetingData.push(item)
+                    meetingData.push(item);
                 }
-            })
-            setMeetings(meetingData)
-            setBookmarkMessages(bookmarkMessage)
+            });
+            setMeetings(meetingData);
             setMessages(data);
-            // setLoading(false);
-            setLoadingMore(false)
-            socket.emit("join chat", selectedChat._id);
+            setLoadingMore(false);
+            socket.emit('join chat', selectedChat._id);
         } catch (error) {
-            new ErrorHandler(error)
+            new ErrorHandler(error);
         }
     };
 
-    const fetchMessageOnScroll = async () => {
-        if (!selectedChat && loadingComplete) return;
+    const sendMessage = async (
+        attachmentId: any = null,
+        name: any = null,
+        values: any = null,
+        status: string = 'sent'
+    ) => {
+        socket.emit('stop typing', selectedChat._id);
         try {
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                params: {
-                    count: counter
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
             };
-
-            // setLoading(true);
-
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/message/${selectedChat._id}`,
-                config
-            );
-            if (data.length === 0) setLoadingComplete(true);
-            setMessages([...data.reverse(), ...messages]);
-            // setLoading(false);
-            setLoadingMore(false)
-            socket.emit("join chat", selectedChat._id);
-        } catch (error) {
-            new ErrorHandler(error)
-        }
-    };
-
-    const handleScheduledMessage = (values: any) => {
-        values.createdAt = values.sentTime
-        sendMessage(null, null, values, 'scheduled')
-    }
-
-    const sendMessage = async (attachmentId: any = null, name: any = null, values: any = null, status: string = 'sent') => {
-        socket.emit("stop typing", selectedChat._id);
-        try {
-            const config = {
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            setNewMessage("");
+            setNewMessage('');
             const filter = new Filter();
             filter.addWords(...bannedWords);
 
-            const content = filter.clean(name ? name : newMessage);
+            let content = name ? filter.clean(name) : filter.clean(newMessage);
+            content = content.replace(/~(.*?)~/g, '<s>$1</s>');
+            content = content.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+            content = content.replace(/_(.*?)_/g, '<i>$1</i>');
             const formData = {
                 content: content,
                 chatId: selectedChat,
                 attachmentId: attachmentId,
                 status: status,
                 ...values
-            }
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/message`,
-                formData,
-                config
-            );
-            socket.emit("new message", data);
+            };
+            const { data } = await axios.post(`${baseURL}${common.sendMessage}`, formData, config);
+            socket.emit('new message', data);
             if (data.status !== 'scheduled') {
                 setMessages([...messages, data]);
-                setFetchAgain(!fetchAgain)
-                setSelectedChat({ ...selectedChat, unreadCount: 0 })
+                setFetchAgain(!fetchAgain);
+                setSelectedChat({ ...selectedChat, unreadCount: 0 });
             }
 
-            setReload(!reload)
+            setReload(!reload);
+            setShowCreateMeetingForm(false);
         } catch (error) {
-            new ErrorHandler(error)
+            new ErrorHandler(error);
         }
     };
 
     useEffect(() => {
         if (user) {
             socket = io(ENDPOINT);
-            socket.emit("setup", user);
-            socket.on("connected", () => setSocketConnected(true));
-            socket.on("new-user-add", user._id);
-            socket.on("typing", () => setIsTyping(true));
-            socket.on("stop typing", () => setIsTyping(false));
-            socket.emit("new-user-add", user._id);
-            socket.on("get-users", (users: any) => {
+            socket.emit('setup', user);
+            socket.on('connected', () => setSocketConnected(true));
+            socket.on('new-user-add', user?._id);
+            socket.on('typing', () => setIsTyping(true));
+            socket.on('stop typing', () => setIsTyping(false));
+            socket.emit('new-user-add', user?._id);
+            socket.on('get-users', (users: any) => {
                 setOnlineUsers(users);
             });
         }
         // eslint-disable-next-line
     }, [user]);
-
-    useEffect(() => {
-        if (selectedChat) {
-            setStickyNote(selectedChat.stickyMessage?.message)
-            setStickyNoteId(selectedChat.stickyMessage?._id)
-        }
-        selectedChatCompare = selectedChat;
-        // eslint-disable-next-line
-    }, [selectedChat]);
 
     useEffect(() => {
         fetchMessages();
@@ -331,7 +235,7 @@ export default function Chat() {
 
     const handleSelectChat = async (chat: any) => {
         if (selectedChat && chat._id == selectedChat._id) {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/common/chat/seen`, { chatId: chat._id, userId: user?._id }, config);
+            await axios.put(`${baseURL}${common.chatSeen}`, { chatId: chat._id, userId: user?._id }, config);
             const updatedChats = chats.map((c: any) => {
                 if (c._id === chat._id) {
                     return { ...c, unreadCount: 0 };
@@ -340,26 +244,23 @@ export default function Chat() {
             });
             setChats(updatedChats);
         }
-    }
+    };
 
     useEffect(() => {
-        if (user && socketConnected) {
-            socket.on("message received", (newMessageReceived: any) => {
-                if (
-                    !selectedChatCompare ||
-                    selectedChatCompare._id !== newMessageReceived.chat._id
-                ) {
+        if (user && selectedChat && socketConnected) {
+            socket.on('message received', (newMessageReceived: any) => {
+                if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
                     if (!notification.includes(newMessageReceived)) {
                         setNotification([newMessageReceived, ...notification]);
                     }
                 } else {
-                    handleSelectChat(newMessageReceived.chat)
                     setMessages([...messages, newMessageReceived]);
                 }
+                handleSelectChat(newMessageReceived.chat);
                 setFetchAgain(!fetchAgain);
             });
 
-            socket.on("message deleted", (messageDeleted: any) => {
+            socket.on('message deleted', (messageDeleted: any) => {
                 setMessages((prevMessages: any) =>
                     prevMessages.map((m: any) => {
                         if (m._id === messageDeleted._id) {
@@ -374,16 +275,13 @@ export default function Chat() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     });
 
-    const maxLength = validationRules.chatInput.maxLength
-
     const typingHandler = (value: string) => {
-        if (value.length > maxLength) return;
         setNewMessage(value);
         if (!socketConnected) return;
 
         if (!typing) {
             setTyping(true);
-            socket.emit("typing", selectedChat._id);
+            socket.emit('typing', selectedChat._id);
         }
         let lastTypingTime = new Date().getTime();
         var timerLength = 3000;
@@ -391,23 +289,23 @@ export default function Chat() {
             var timeNow = new Date().getTime();
             var timeDiff = timeNow - lastTypingTime;
             if (timeDiff >= timerLength && typing) {
-                socket.emit("stop typing", selectedChat._id);
+                socket.emit('stop typing', selectedChat._id);
                 setTyping(false);
             }
         }, timerLength);
     };
 
     const handleEditMessage = async (values: any) => {
-        socket.emit("stop typing", selectedChat._id);
+        socket.emit('stop typing', selectedChat._id);
         try {
             const config = {
                 headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
             };
             const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/message`,
+                `${baseURL}${common.sendMessage}`,
                 {
                     content: values.content,
                     chatId: selectedChat,
@@ -416,7 +314,7 @@ export default function Chat() {
                 config
             );
 
-            socket.emit("new message", data);
+            socket.emit('new message', data);
             setMessages((prevMessages: any) =>
                 prevMessages.map((m: any) => {
                     if (m._id === data._id) {
@@ -427,16 +325,16 @@ export default function Chat() {
             );
             setFetchAgain(!fetchAgain);
             setEditMessage(null);
-            setShowEditMessage(false)
+            setShowEditMessage(false);
         } catch (error) {
-            new ErrorHandler(error)
+            new ErrorHandler(error);
         }
-    }
+    };
 
     const handleDeleteForMe = async (message: any, deleteFor: any[], deleteForEveryone: boolean = false) => {
         try {
             const { data } = await axios.put(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/message/delete`,
+                `${baseURL}${common.messageDelete}`,
                 {
                     messageId: message._id,
                     deleteFor: deleteFor,
@@ -445,7 +343,7 @@ export default function Chat() {
                 config
             );
 
-            socket.emit("delete message", data);
+            socket.emit('delete message', data);
 
             setMessages((prevMessages: any) =>
                 prevMessages.map((m: any) => {
@@ -461,202 +359,121 @@ export default function Chat() {
         }
     };
 
-    if (selectedChat) {
-        setInterval(() => {
-            socket.emit("scheduled message", selectedChat);
-        }, 30000)
-    }
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get(
-                    `${process.env.NEXT_PUBLIC_API_URL}/common/message/scheduled/${selectedChat._id}`,
-                    config
-                );
-                setScheduledMessages(data)
-                form.resetFields()
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        selectedChat && chatFiles(selectedChat._id)
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [viewInfo, reload, selectedChat])
-
-    const deleteScheduledMessage = async (id: string) => {
-        const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/common/message/delete/${id}`,
-            config
-        );
-        setReload(!reload)
-    }
-
-    const chatFiles = async (chatId: string) => {
-        const { data } = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/common/chat/files/${chatId}`,
-            config
-        );
-        setFiles(data)
-    }
-
-    const storeStickyNote = async (value: string) => {
+    const handleFavourite = async () => {
         try {
-            const { data } = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/sticky-note`,
+            const { data } = await axios.put(
+                `${baseURL}${common.favoriteChat}`,
                 {
-                    stickyNoteId: stickyNoteId,
-                    userId: user._id,
-                    chatId: selectedChat._id,
-                    message: value
+                    userId: user?._id,
+                    chatId: selectedChat._id
                 },
                 config
             );
-            setStickyNoteId(data._id);
+            setReload(!reload);
+            setFetchAgain(!fetchAgain);
+        } catch (error) {
+            new ErrorHandler(error);
+        }
+    };
+    let items: MenuProps['items'] = [];
 
-            const updatedChats = chats.map((chat: any) => {
-                if (chat._id == selectedChat._id) {
-                    return { ...chat, stickyMessage: data };
-                } else {
-                    return chat;
-                }
-            });
+    if (chatSettings?.allowClearChat) {
+        items.push({
+            label: 'Clear chat',
+            key: '0',
+            onClick: () => {
+                handleClearChat();
+            }
+        });
+    }
+    if (chatSettings?.allowDeleteChat) {
+        items.push({
+            label: 'Delete chat',
+            key: '1',
+            onClick: () => {
+                handleDeleteChat();
+            }
+        });
+    }
 
-            const updatedFavChats = favourites.map((chat: any) => {
-                if (chat._id == selectedChat._id) {
-                    return { ...chat, stickyMessage: data };
-                } else {
-                    return chat;
-                }
-            });
+    items.push({
+        label: selectedChat && user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ? 'Unblock' : 'Block',
+        key: '2',
+        onClick: () => {
+            handleBlockUser();
+        }
+    });
 
-            setChats(updatedChats);
-            setFavourite(updatedFavChats);
+    items.push({
+        label: selectedChat?.isMute?.mute ? 'Unmute' : 'Mute',
+        key: '3',
+        onClick: () => {
+            handleMuteUnMute();
+        }
+    });
 
-            setSelectedChat({ ...selectedChat, stickyMessage: data });
+    const handleClearChat = async () => {
+        try {
+            const { data } = await axios.get(`${baseURL}${common.clearChat(selectedChat._id)}`, config);
+            if (data) setMessages([]);
         } catch (error) {
             new ErrorHandler(error);
         }
     };
 
-    const handleFavourite = async () => {
+    const handleDeleteChat = async () => {
         try {
-            const { data } = await axios.put(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/favourite`,
+            const { data } = await axios.get(`${baseURL}${common.deleteChat(selectedChat._id)}`, config);
+            if (data) {
+                setMessages(undefined);
+                setSelectedChat(undefined);
+                setFetchAgain(!fetchAgain);
+            }
+        } catch (error) {
+            new ErrorHandler(error);
+        }
+    };
+
+    const handleMuteUnMute = async () => {
+        try {
+            const { data } = await axios.post(
+                `${baseURL}${common.muteUnMute}`,
                 {
-                    userId: user._id,
+                    userId: user?._id,
                     chatId: selectedChat._id
                 },
                 config
             );
-            setReload(!reload)
-        } catch (error) {
-            new ErrorHandler(error)
-        }
-    }
-
-    const items: MenuProps['items'] = [
-        {
-            label: 'Clear chat',
-            key: '0',
-            onClick: () => {
-                handleClearChat();
-            },
-        },
-        {
-            label: 'Delete chat',
-            key: '1',
-            onClick: () => {
-                handleDeleteChat();
-            },
-        },
-        {
-            label: selectedChat && user.block.includes(getSenderFull(user, selectedChat.users)._id) ? 'Unblock' : 'Block',
-            key: '2',
-            onClick: () => {
-                handleBlockUser();
-            },
-        },
-        {
-            label: 'Default read',
-            key: '3',
-            onClick: () => {
-                handleMarkRead();
-            },
-        },
-    ];
-
-    const handleClearChat = async () => {
-        try {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/clear-chat/${selectedChat._id}`,
-                config
-            );
-            if (data) setMessages([])
-        } catch (error) {
-            new ErrorHandler(error)
-        }
-    }
-
-    const handleDeleteChat = async () => {
-        try {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/delete-chat/${selectedChat._id}`,
-                config
-            );
             if (data) {
-                setMessages(undefined)
-                setSelectedChat(undefined)
-                setFetchAgain(!fetchAgain)
-            }
-        } catch (error) {
-            new ErrorHandler(error)
-        }
-    }
-
-    const handleMarkRead = async () => {
-        try {
-            const { data } = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/mark-read/?read=${true}&chatId=${selectedChat._id}`,
-                config
-            );
-            if (data) {
-                setMessages(undefined)
-                setSelectedChat(undefined)
-                setFetchAgain(!fetchAgain)
-            }
-            message.success('Saved.')
-        } catch (error) {
-            new ErrorHandler(error)
-        }
-    }
-
-    const handleBlockUser = async () => {
-        try {
-            const senderId = getSenderFull(user, selectedChat.users)._id
-
-            if (!senderId) {
-                throw new Error("Sender ID not found");
-            }
-
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/block`,
-                { userId: senderId },
-                config
-            );
-
-            if (response.data) {
                 setFetchAgain(!fetchAgain);
             }
         } catch (error) {
-            console.error("Error blocking user:", error);
+            new ErrorHandler(error);
+        }
+    };
+
+    const handleBlockUser = async () => {
+        try {
+            const senderId = getSenderFull(user, selectedChat.users)._id;
+
+            if (!senderId) {
+                throw new Error('Sender ID not found');
+            }
+
+            const response = await axios.post(`${baseURL}${common.blockChat}`, { userId: senderId }, config);
+
+            if (response) {
+                setUser(response.data);
+                setFetchAgain(!fetchAgain);
+            }
+        } catch (error) {
+            console.error('Error blocking user:', error);
             new ErrorHandler(error);
         }
     };
 
     const onEmojiClick = (emojiObject: any, event: any) => {
         setNewMessage((prevInput: any) => prevInput + emojiObject.emoji);
-        console.log(emojiObject)
     };
 
     const handleCancel = () => {
@@ -664,412 +481,479 @@ export default function Chat() {
         setEventType('');
     };
 
-    const onYReachStart = () => {
-        if (loadingMore === true || heightRef.current > 0) {
-            return;
+    const handleAction = (data: any) => {
+        if (data.key === 'information') {
+            setViewInfo(true);
+        } else if (data.key === 'meeting') {
+            setShowCreateMeetingForm(true);
         }
-        setLoadingMore(true);
-        setCounter(counter + 40)
-        const list: any = getListRef();
-        heightRef.current = list.scrollHeight;
     };
 
-    return (
-        <MainContainer
-            responsive
-            style={{
-                height: '90vh', marginTop: ''
-            }}
-        >
-            <MyChats />
-            {
-                selectedChat &&
-                <ChatContainer data-message-list-container>
-                    <ConversationHeader>
-                        <ConversationHeader.Back />
-                        <ConversationHeader.Content>
-                            <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
-                                <div style={{ position: 'relative' }}>
-                                    <StringAvatar
-                                        email={getSender(user, selectedChat.users).email}
-                                        key={`chat-${selectedChat._id}`}
-                                        name={`${selectedChat &&
-                                            !selectedChat.isGroupChat ?
-                                            getSender(user, selectedChat.users)
-                                            :
-                                            selectedChat.chatName}`}
-                                        user={getSenderFull(user, selectedChat.users)}
-                                    />
-                                </div>
-                                <div>
-                                    <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
-                                        {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
-                                        &nbsp;<span style={{ fontSize: "12px", fontWeight: '400' }}>
-                                            {onlineUsers?.some((userData: any) => userData.userId == getSenderFull(user, selectedChat.users)._id) ?
-                                                'Online' :
-                                                <>Online <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} /></>}</span>
-                                    </p>
-                                    <p style={{ fontSize: "12px", fontWeight: '400' }}>
-                                        {
-                                            user.block.includes(getSenderFull(user, selectedChat.users)._id) ? (
-                                                <p>You blocked this user.</p>
-                                            ) :
-                                                !selectedChat.isGroupChat &&
-                                                <span>
-                                                    Current time: {moment().tz(user.timeZone).format('hh:mm a')}&nbsp;
-                                                    {selectedChat && <TimeZoneDifference timeZone1={user?.timeZone} timeZone2={getSenderFull(user, selectedChat.users).timeZone} />}
-                                                </span>
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </ConversationHeader.Content>
-                        <ConversationHeader.Actions>
-                            <Button icon={<FaInfo />} onClick={() => setViewInfo(!viewInfo)} />&nbsp;
-                            <Button onClick={() => setShowCreateMeetingForm(true)} icon={<FaVideo />} />&nbsp;
-                            <Button icon={<FaStar color={`${selectedChat.favourites.includes(user?._id) ? '#000' : '#ccc'}`} />} onClick={handleFavourite} />&nbsp;
-                            <Dropdown menu={{ items }} placement='bottomRight' trigger={['click']}>
-                                <Button icon={<FaEllipsisV />} />
-                            </Dropdown>
-                        </ConversationHeader.Actions>
-                    </ConversationHeader>
-                    <MessageList
-                        loadingMore={loadingMore}
-                        // onYReachStart={onYReachStart}
-                        // style={{ height: "500px" }}
-                        typingIndicator={isTyping && <TypingIndicator content={`${getSenderFull(user, selectedChat.users).name} is typing`} />}
-                    >
-                        {messages &&
-                            messages.map((m: any, i: number) => (
-                                (!m.deleteFor.includes(user._id) && !m.deleteForEveryone) && (
-                                    <MessageBox
-                                        key={m._id}
-                                        messages={messages}
-                                        message={m}
-                                        index={i}
-                                        user={user}
-                                        prevDate={prevDate}
-                                        setPrevDate={setPrevDate}
-                                        prevIndex={prevIndex}
-                                        setPrevIndex={setPrevIndex}
-                                        selectedChat={selectedChat}
-                                        setEditMessage={setEditMessage}
-                                        setShowEditMessage={setShowEditMessage}
-                                        handleDeleteForMe={handleDeleteForMe}
-                                    />
-                                )
-                            ))
-                        }
-                    </MessageList>
-                    <MessageInput
-                        onAttachClick={() => openFilePicker()}
-                        // attachButton={false}
-                        onChange={typingHandler}
-                        placeholder={user.block.includes(getSenderFull(user, selectedChat.users)._id) ? 'You blocked this user' : 'Type message here'}
-                        onSend={() => sendMessage(null, newMessage)}
-                        disabled={user.block.includes(getSenderFull(user, selectedChat.users)._id)}
-                        value={newMessage}
-                    />
-                    {/* <InputToolbox>
-                        <Popover content={<EmojiPicker
-                            onEmojiClick={onEmojiClick}
-                        />} title="Title" trigger="click">
-                            <Button icon={<BsEmojiFrown />} />
-                        </Popover>
-                    </InputToolbox> */}
-                </ChatContainer>
+    const continueChat = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${baseURL}${common.continueChat(selectedChat._id)}`, config);
+
+            if (response.data) {
+                setFetchAgain(!fetchAgain);
+                sendMessage(null, 'Request accepted.');
+                setLoading(false);
             }
-            {selectedChat &&
-                !selectedChat?.isGroupChat ?
-                <Sidebar position="right">
-                    <div>
-                        <div
-                            className="right-profile-box"
-                            style={{
-                                marginTop: '40px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: "100%",
-                                flexDirection: 'column'
-                            }}
-                        >
-                            <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
-                                {selectedChat &&
-                                    !selectedChat?.isGroupChat ?
+        } catch (error) {
+            setLoading(false);
+            console.error('Error blocking user:', error);
+            new ErrorHandler(error);
+        }
+    };
+    const handleRefresh = () => {
+        setFetchAgain(!fetchAgain);
+        setEnableSelect(false);
+        setIsUserModalVisible(false);
+        setIdArray([]);
+    };
+
+    const handleSendVoiceMessage = async (audioBlob: Blob) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+        const formData = new FormData();
+        formData.append('sampleFile', audioBlob, 'voice-message.webm');
+
+        try {
+            const { data } = await axios.post(`${baseURL}${chat.upload}`, formData, config);
+            sendMessage(data._id, data.name);
+        } catch (error) {
+            console.error('Error uploading files:', error);
+        }
+    };
+
+    const handleCheckedId = (message: any, isChecked: boolean) => {
+        setIdArray((prevIdArray: any[]) => {
+            if (isChecked) {
+                // Add the messageId if it's not already in the array
+                return [...prevIdArray, message];
+            } else {
+                // Remove the message from the array
+                return prevIdArray.filter((id) => id !== message);
+            }
+        });
+    };
+
+    const handleUserModal = () => {
+        setIsUserModalVisible(true);
+    };
+
+    const handleDeleteMessage = () => {
+        idArray.map(async (message: any) => {
+            try {
+                const { data } = await axios.put(
+                    `${baseURL}${common.messageDelete}`,
+                    {
+                        messageId: message._id,
+                        deleteFor: message.sender._id,
+                        deleteForEveryone: false
+                    },
+                    config
+                );
+
+                socket.emit('delete message', data);
+
+                setMessages((prevMessages: any) =>
+                    prevMessages.map((m: any) => {
+                        if (m._id === data._id) {
+                            return data;
+                        }
+                        return m;
+                    })
+                );
+                setFetchAgain(!fetchAgain);
+                setEnableSelect(false);
+                setIsUserModalVisible(false);
+                setIdArray([]);
+            } catch (error) {
+                console.error('Error deleting message:', error);
+            }
+        });
+    };
+
+    // Lazy load the EmojiPicker component
+    const EmojiPicker = lazy(() => import('emoji-picker-react'));
+
+    return (
+        <div className="headerMain">
+            <MainContainer
+                responsive
+                style={{
+                    height: '88vh'
+                }}
+            >
+                <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} />
+                {selectedChat && (
+                    <ChatContainer data-message-list-container className="chatBox">
+                        <ConversationHeader>
+                            <ConversationHeader.Back />
+                            <ConversationHeader.Content>
+                                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                                     <div style={{ position: 'relative' }}>
                                         <StringAvatar
                                             email={getSender(user, selectedChat.users).email}
                                             key={`chat-${selectedChat._id}`}
-                                            name={selectedChat && !selectedChat.isGroupChat ?
-                                                getSender(user, selectedChat.users) :
-                                                selectedChat.chatName}
+                                            name={`${selectedChat && !selectedChat.isGroupChat
+                                                ? getSender(user, selectedChat.users)
+                                                : selectedChat.chatName
+                                                }`}
+                                            user={getSenderFull(user, selectedChat.users)}
                                         />
-                                        <div
-                                            style={{
-                                                width: '13px',
-                                                height: '13px',
-                                                position: 'absolute',
-                                                bottom: 0,
-                                                right: 0,
-                                                background:
-                                                    onlineUsers.includes(getSenderFull(user, selectedChat.users)._id) ?
-                                                        'radial-gradient(circle at 3px 3px,#00d5a6,#00a27e)' :
-                                                        'radial-gradient(circle at 3px 3px,#fffccc,#ffee00)',
-                                                borderRadius: '50px',
-                                                border: '2px solid #fff'
-                                            }}></div>
                                     </div>
-                                    :
-                                    <AntdAvatar.Group
-                                        maxCount={2}
-                                        size="large"
-                                        maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
-                                    >
-                                        {selectedChat &&
-                                            selectedChat.users.map((userData: any, index: number) => (
-                                                <>
-                                                    <Tooltip
-                                                        color={'#fff'}
-                                                        placement="bottom"
-                                                        title={
-                                                            <>
-                                                                <p style={{ color: '#000' }}>{userData.name}</p>
-                                                                <p style={{ color: '#000' }}>
-                                                                    {onlineUsers.some((onlineUser: any) => onlineUser.userId == userData._id)
-                                                                        ? 'Online'
-                                                                        : <TimeAgo date={getSenderFull(user, selectedChat.users)?.lastSeen} />
-                                                                    }
-                                                                </p>
-                                                                <p style={{ color: '#000' }}>Current time: {moment().tz(user.timeZone).format('hh:mm a')}</p>
-                                                            </>
-                                                        }
-                                                        arrow={true}
-                                                        key={`group-user-${index}`}
-                                                    >
-                                                        <AntdAvatar style={{ backgroundColor: '#f56a00' }}>
-                                                            {userData.name.toUpperCase().split(' ').map((part: any) => part[0]).join('')}
-                                                        </AntdAvatar>
-                                                    </Tooltip>
+                                    <div className="userName">
+                                        <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
+                                            {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
+                                            &nbsp;
+                                            <span style={{ fontSize: '12px', fontWeight: '400' }}>
+                                                {onlineUsers.some(
+                                                    (userData: any) =>
+                                                        userData.userId == getSenderFull(user, selectedChat.users)._id
+                                                ) ? (
+                                                    'Online'
+                                                ) : (
+                                                    <>
+                                                        Online{' '}
+                                                        <TimeAgo
+                                                            date={getSenderFull(user, selectedChat.users)?.lastSeen}
+                                                        />
+                                                    </>
+                                                )}
+                                            </span>
+                                        </p>
+                                        <p style={{ fontSize: '12px', fontWeight: '400' }}>
+                                            {user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ? (
+                                                <p>You blocked this user?.</p>
+                                            ) : (
+                                                !selectedChat.isGroupChat && (
+                                                    <span>
+                                                        <FieldTimeOutlined />{' '}
+                                                        {moment().tz(user?.timeZone).format('hh:mm a')}&nbsp;
+                                                        {selectedChat && (
+                                                            <TimeZoneDifference
+                                                                timeZone1={user?.timeZone}
+                                                                timeZone2={
+                                                                    getSenderFull(user, selectedChat.users).timeZone
+                                                                }
+                                                            />
+                                                        )}
+                                                    </span>
+                                                )
+                                            )}
+                                        </p>
+                                    </div>
+                                </div>
+                                {searchInput && (
+                                    <div style={{ marginTop: '15px' }}>
+                                        <Search
+                                            placeholder={'Find message in current conversation'}
+                                            onChange={(v) => setSearch(v)}
+                                            onClearClick={() => setSearch('')}
+                                        />
+                                    </div>
+                                )}
+                            </ConversationHeader.Content>
+                            <ConversationHeader.Actions>
+                                {enableSelect ? (
+                                    <>
+                                        <Button
+                                            icon={
+                                                <FaRegArrowAltCircleRight
+                                                    color={idArray.length > 0 ? '#efa24b' : '#efa24b'}
+                                                />
+                                            }
+                                            onClick={idArray.length > 0 ? handleUserModal : () => { }}
+                                        />
+                                        &nbsp;
+                                        <Button
+                                            icon={<FaTrash color={idArray.length > 0 ? '#efa24b' : '#efa24b'} />}
+                                            onClick={idArray.length > 0 ? handleDeleteMessage : () => { }}
+                                        />
+                                        &nbsp;
+                                        <Button icon={<CloseOutlined />} onClick={() => setEnableSelect(false)} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button
+                                            icon={<FaSearch />}
+                                            onClick={() => {
+                                                setSearchInput(!searchInput);
+                                                setSearch('');
+                                            }}
+                                        />
+                                        &nbsp;
+                                        {chatSettings?.showInformation && (
+                                            <Button icon={<FaInfo />} onClick={() => setViewInfo(!viewInfo)} />
+                                        )}
+                                        &nbsp;
+                                        {chatSettings?.showZoomCall && (
+                                            <Button
+                                                onClick={() => {
+                                                    if (selectedChat.isApproved) {
+                                                        setShowCreateMeetingForm(true);
+                                                    }
+                                                }}
+                                                icon={
+                                                    <FaVideo color={selectedChat.isApproved ? '#efa24b' : '#efa24b'} />
+                                                }
+                                            />
+                                        )}
+                                        &nbsp;
+                                        {chatSettings.showFavorite && (
+                                            <Button
+                                                icon={
+                                                    <FaStar
+                                                        color={`${selectedChat.favourites.includes(user?._id) ? '#efa24b' : '#efa24b'}`}
+                                                    />
+                                                }
+                                                onClick={handleFavourite}
+                                            />
+                                        )}
+                                        &nbsp;
+                                        <Dropdown menu={{ items }} placement="bottomRight" trigger={['click']}>
+                                            <Button icon={<FaEllipsisV />} />
+                                        </Dropdown>
+                                    </>
+                                )}
+                            </ConversationHeader.Actions>
+                        </ConversationHeader>
 
-                                                </>
-                                            ))
-                                        }
-                                    </AntdAvatar.Group>
-                                }
-                            </div>
-                            <h4>{selectedChat && !selectedChat.isGroupChat
-                                ? getSender(user, selectedChat.users)
-                                : selectedChat?.chatName}</h4>
-                            <p>{selectedChat && !selectedChat.isGroupChat && getSenderFull(user, selectedChat.users).email}</p>
+                        <MessageList
+                            loadingMore={loadingMore}
+                            typingIndicator={
+                                isTyping && (
+                                    <TypingIndicator
+                                        content={`${getSenderFull(user, selectedChat.users).name} is typing`}
+                                    />
+                                )
+                            }
+                        >
+                            {messages &&
+                                messages.map(
+                                    (m: any, i: number) =>
+                                        !m.deleteFor.includes(user?._id) &&
+                                        !m.deleteForEveryone && (
+                                            <MessageBox
+                                                key={m._id}
+                                                messages={messages}
+                                                message={m}
+                                                index={i}
+                                                user={user}
+                                                prevDate={prevDate}
+                                                setPrevDate={setPrevDate}
+                                                prevIndex={prevIndex}
+                                                setPrevIndex={setPrevIndex}
+                                                selectedChat={selectedChat}
+                                                setEditMessage={setEditMessage}
+                                                setShowEditMessage={setShowEditMessage}
+                                                handleDeleteForMe={handleDeleteForMe}
+                                                search={search}
+                                                onReload={handleRefresh}
+                                                enableSelect={enableSelect}
+                                                onEnableCheck={() => setEnableSelect(true)}
+                                                onCheckedId={handleCheckedId}
+                                            />
+                                        )
+                                )}
+                            {selectedChat &&
+                                user &&
+                                selectedChat.createdBy !== user?._id &&
+                                !selectedChat.isApproved && (
+                                    <div
+                                        className="chat-not-approved"
+                                        style={{ textAlign: 'center', marginTop: '35%' }}
+                                    >
+                                        <Typography.Paragraph>This chat is not approved.</Typography.Paragraph>
+                                        <Space>
+                                            <Button
+                                                loading={loading}
+                                                disabled={loading}
+                                                type="primary"
+                                                className="continue-button"
+                                                onClick={continueChat}
+                                            >
+                                                Continue Message
+                                            </Button>
+                                            <Button className="block-button" onClick={handleBlockUser}>
+                                                Block User
+                                            </Button>
+                                        </Space>
+                                    </div>
+                                )}
+                        </MessageList>
+                        <MessageInput
+                            className="chatInput"
+                            onAttachClick={() => openFilePicker()}
+                            onChange={typingHandler}
+                            placeholder={
+                                !selectedChat.isApproved && messages.length > 0
+                                    ? 'You cannot message before accept chat request.'
+                                    : user?.block?.includes(getSenderFull(user, selectedChat.users)._id)
+                                        ? 'You blocked this user'
+                                        : 'Type message here'
+                            }
+                            onSend={() => sendMessage(null, newMessage)}
+                            disabled={
+                                (!selectedChat.isApproved && messages.length > 0) ||
+                                user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ||
+                                false
+                            }
+                            value={newMessage}
+                            autoFocus={true}
+                            sendDisabled={false}
+                        />
+                        <InputToolbox>
+                            <Space>
+                                <Popover
+                                    content={<VoiceRecorder onSendVoiceMessage={handleSendVoiceMessage} />}
+                                    trigger={selectedChat.isApproved && 'click'}
+                                    open={options}
+                                    onOpenChange={() => setOptions(!options)}
+                                >
+                                    <TiPlus
+                                        style={{
+                                            cursor: 'pointer',
+                                            fontSize: '23px',
+                                            color: selectedChat.isApproved ? '#efa24b' : '#efa24b'
+                                        }}
+                                    />
+                                </Popover>
+                                <Popover
+                                    content={
+                                        <Suspense fallback={<div>Loading...</div>}>
+                                            <EmojiPicker onEmojiClick={onEmojiClick} width={300} height={390} />
+                                        </Suspense>
+                                    }
+                                    trigger={selectedChat.isApproved && 'click'}
+                                    open={emoji}
+                                    onOpenChange={() => setEmoji(!emoji)}
+                                >
+                                    <BsEmojiSmile
+                                        style={{
+                                            cursor: 'pointer',
+                                            fontSize: '20px',
+                                            color: selectedChat.isApproved ? '#efa24b' : '#efa24b'
+                                        }}
+                                    />
+                                </Popover>
+                                <VoiceToText
+                                    selectedChat={selectedChat}
+                                    onSetMessage={(data: any) => {
+                                        typingHandler(data);
+                                    }}
+                                />
+                            </Space>
+                        </InputToolbox>
+                    </ChatContainer>
+                )}
+                {viewInfo && (
+                    <Rightbar
+                        selectedChat={selectedChat}
+                        user={user}
+                        onlineUsers={onlineUsers}
+                        viewInfo={viewInfo}
+                        messages={messages}
+                        meetings={meetings}
+                        onRefresh={handleRefresh}
+                        onClose={() => {
+                            setViewInfo(false);
+                            setSearch('');
+                        }}
+                        sendMessage={sendMessage}
+                    />
+                )}
+                <Modal
+                    footer=""
+                    title={'Edit message'}
+                    centered
+                    open={showEditMessage}
+                    onCancel={() => setShowEditMessage(false)}
+                >
+                    <Form layout="vertical" onFinish={handleEditMessage}>
+                        <Form.Item label="Message" name={'content'} initialValue={editMessage?.content}>
+                            <Input />
+                        </Form.Item>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
                         </div>
-                        <div className="right-profile-box" style={{ marginBottom: '20px' }}></div>
-                        <MessageSeparator />
-                        <div className="right-profile-box" style={{ marginBottom: '20px' }}></div>
-                        <ExpansionPanel
-                            title="Shared file"
-                        >
-                            <div className="right-profile-box" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: "100%" }}>
-                                {
-                                    files.length > 0 &&
-                                    files.map((file: any) => (
-                                        file.type != 'image/jpeg' &&
-                                        <>
-                                            <div style={{ display: 'flex', gap: '10px', width: "100%" }}>
-                                                <Button icon={<GrDocumentCsv />} />
-                                                <span>
-                                                    <h5>{file?.name}</h5>
-                                                    <p style={{ fontSize: '12px' }}>24 oct 2024 - 14:32 </p>
-                                                </span>
-                                            </div>
-                                            <Link href={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${file.path}`} target='_blank'>
-                                                <Button icon={<BiDownload />} />
-                                            </Link>
-                                        </>
-                                    ))
-                                }
-                            </div>
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            title="Photos & Media"
-                        >
-                            <div className="right-profile-box" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-start', width: "100%" }}>
-                                {
-                                    files.length > 0 &&
-                                    files.map((file: any) => (
-                                        file.type == 'image/jpeg' &&
-                                        <div key={file._id} style={{ width: 'calc(33.33% - 10px)', marginRight: '10px', marginBottom: '10px' }}>
-                                            <Image style={{ objectFit: 'cover' }} key={file._id} src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${file.path}`} alt='' height={100} />
-                                        </div>
-                                    ))
-                                }
-                            </div>
-
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            title="Scheduled messages"
-                        >
-                            <Form layout='vertical' form={form} size='middle' onFinish={handleScheduledMessage}>
-                                <Form.Item name={'content'}>
-                                    <TextArea rows={4} placeholder="Click to save and send this message to a single click in future" />
-                                </Form.Item>
-                                <Form.Item name={'sentTime'}>
-                                    <DatePicker
-                                        style={{ width: '100%' }}
-                                        showTime={{ format: 'HH:mm' }}
-                                        format="YYYY-MM-DD HH:mm" />
-                                </Form.Item>
-                                <Button type='primary' htmlType='submit' style={{ width: "100%" }}>
-                                    Save Scheduled message
-                                </Button>
-                            </Form>
-                            <List
-                                className="demo-loadmore-list"
-                                itemLayout="horizontal"
-                                dataSource={ScheduledMessages}
-                                renderItem={(item) => (
-                                    <List.Item
-                                        actions={[<Button type='link' key="list-loadmore-more" onClick={() => deleteScheduledMessage(item._id)}><BiTrash /></Button>]}
-                                    >
-                                        <List.Item.Meta
-                                            title={item.content}
-                                            description={dateFormat(item.sentTime, "dd/mm/yyyy, h:MM tt")}
-                                        />
-
-                                    </List.Item>
-                                )}
+                    </Form>
+                </Modal>
+                {selectedChat &&
+                    (!selectedChat.isGroupChat ? (
+                        <>
+                            <ProfileModal
+                                user={getSenderFull(user, selectedChat.users)}
+                                open={viewProfile}
+                                setOpen={setViewProfile}
                             />
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            title="Bookmark message"
-                        >
-                            <List
-                                className="demo-loadmore-list"
-                                itemLayout="horizontal"
-                                dataSource={messages}
-                                renderItem={(item: any) => (
-                                    <List.Item
-                                        actions={[<Button type='link' key="list-loadmore-more" onClick={() => deleteScheduledMessage(item._id)}><BiTrash /></Button>]}
-                                    >
-                                        <List.Item.Meta
-                                            title={item.content}
-                                            description={dateFormat(item.createdAt, "dd/mm/yyyy, h:MM tt")}
-                                        />
-
-                                    </List.Item>
-                                )}
-                            />
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            style={{ borderBottom: '1px solid #ccc' }}
-                            title="Meeting"
-                        >
-                            <List
-                                className="demo-loadmore-list"
-                                itemLayout="horizontal"
-                                dataSource={meetings}
-                                renderItem={(item: any) => (
-                                    <List.Item
-                                        actions={[<Link key="list-loadmore-more" target='_blank' href={`${item.senderId === user._id ? item.startUrl : item.joinUrl}`}><Button type='link'><BiVideo style={{ fontSize: '22px' }} /></Button></Link>]}
-                                    >
-                                        <List.Item.Meta
-                                            title={item.content}
-                                            description={dateFormat(item.meetingStartTime, "dd/mm/yyyy, h:MM tt")}
-                                        />
-
-                                    </List.Item>
-                                )}
-                            />
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            title="Todo"
-                        >
-                            <List
-                                className="demo-loadmore-list"
-                                itemLayout="horizontal"
-                                dataSource={allTask}
-                                renderItem={(task: any) => (
-                                    <List.Item
-                                        actions={[<Button type='link' key="list-loadmore-more" onClick={() => handleDelete(task._id)}><BiTrash /></Button>]}
-                                    >
-                                        <List.Item.Meta
-                                            title={<>{task.title}  <Tag color={
-                                                task.priority === 'High' ? "gold" :
-                                                    task.priority === 'Medium' ? 'blue' :
-                                                        task.priority === "Low" ? "green" :
-                                                            task.priority === "Critical" ? "red" :
-                                                                'green'
-                                            }>
-                                                {task.priority}
-                                            </Tag></>}
-                                            description={`${new Date(task.assignedDate).toLocaleDateString()} - ${new Date(task.targetDate).toLocaleDateString()}
-                                            ${new Date(task.targetDate) < new Date() && (
-                                                    <span style={{ color: 'red' }}> Expired</span>
-                                                )}`}
-                                        />
-
-                                    </List.Item>
-                                )}
-                            />
-                            <Button onClick={() => setIsModalVisible(true)}>Add todo</Button>
-                        </ExpansionPanel>
-                        <ExpansionPanel
-                            title="Personal notes"
-                            open={true}
-                        >
-                            <TextArea rows={15} value={stickyNote} onChange={(e: any) => setStickyNote(e.target.value)} onBlur={(e: any) => storeStickyNote(e.target.value)} placeholder="This is personal note for this chat. This note is visible to you only." />
-                        </ExpansionPanel>
-                    </div>
-                </Sidebar >
-                :
-                <div style={{ height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto' }}>
-                    <div className='colorBg'>
-                        <FaRocketchat size={100} />
-                    </div>
-                </div>
-
-            }
-            <Modal footer='' title={'Edit message'} centered open={showEditMessage} onCancel={() => setShowEditMessage(false)}>
-                <Form layout='vertical' onFinish={handleEditMessage}>
-                    <Form.Item label="Message" name={'content'} initialValue={editMessage?.content}>
-                        <Input />
-                    </Form.Item>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </div>
-                </Form>
+                        </>
+                    ) : (
+                        <>
+                            <UpdateGroupChatModal open={viewProfile} setOpen={setViewProfile} />
+                        </>
+                    ))}
+                <CreateMeetingModal
+                    open={showCreateMeetingForm}
+                    sendMessage={sendMessage}
+                    setOpen={setShowCreateMeetingForm}
+                />
+                <CreateTodoModal
+                    handleCancel={handleCancel}
+                    eventType={eventType}
+                    isModalVisible={isModalVisible}
+                    chatId={selectedChat?._id}
+                    setReload={setReload}
+                    reload={reload}
+                    setIsModalVisible={setIsModalVisible}
+                />
+            </MainContainer>
+            <Modal
+                title={`Forward ${idArray.length} message`}
+                centered
+                open={userModalVisible}
+                onCancel={() => setIsUserModalVisible(false)}
+                footer={false}
+            >
+                <ForwardMessageModal messages={idArray} onRefresh={handleRefresh} />
             </Modal>
-            {
-                selectedChat &&
-                (!selectedChat.isGroupChat ? (
-                    <>
-                        <ProfileModal
-                            user={getSenderFull(user, selectedChat.users)}
-                            open={viewProfile}
-                            setOpen={setViewProfile}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <UpdateGroupChatModal
-                            open={viewProfile}
-                            setOpen={setViewProfile}
-                        />
-                    </>
-                ))
-            }
-            <CreateMeetingModal open={showCreateMeetingForm} sendMessage={sendMessage} setOpen={setShowCreateMeetingForm} />
-            <CreateTodoModal
-                handleCancel={handleCancel}
-                eventType={eventType}
-                isModalVisible={isModalVisible}
-                chatId={selectedChat?._id}
-                setReload={setReload}
-                reload={reload}
-                setIsModalVisible={setIsModalVisible}
-            />
-        </MainContainer >
-    )
+            <Modal
+                title="Preview Files"
+                open={previewModal}
+                onCancel={() => {
+                    setPreviewModal(false), setPreviewFiles([]);
+                }}
+                footer={[
+                    <Button key="upload" type="primary" onClick={handleUpload}>
+                        Upload
+                    </Button>
+                ]}
+            >
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Row>
+                        {previewFiles.map((file: any, index: any) => (
+                            <Col md={24} key={index}>
+                                <Image
+                                    key={index}
+                                    src={file.content}
+                                    alt={`file-preview-${index}`}
+                                    style={{ marginBottom: '10px' }}
+                                    preview={false}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                </div>
+            </Modal>
+        </div>
+    );
 }

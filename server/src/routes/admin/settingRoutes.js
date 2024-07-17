@@ -18,4 +18,7 @@ router.get('/get-footer-menu/', settingController.getFooterMenus);
 router.post('/delete-header-menu/', settingController.deleteHeaderMenu);
 router.post('/delete-footer-menu/', settingController.deleteFooterMenu);
 
+router.get('/get-chat-setting/', settingController.getAllChatSettings);
+router.post('/update-chat-setting/', settingController.updateChatSettings);
+
 module.exports = router;

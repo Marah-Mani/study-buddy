@@ -5,7 +5,6 @@ import {
     Sidebar,
     Search,
     ConversationList,
-    AddUserButton,
     Conversation
 } from '@chatscope/chat-ui-kit-react';
 // eslint-disable-next-line import/no-unresolved
@@ -20,10 +19,18 @@ import StringAvatar from '@/app/commonUl/StringAvatar';
 import { FaEllipsisVertical } from 'react-icons/fa6';
 import ErrorHandler from '@/lib/ErrorHandler';
 import MyAccount from '../MyAccount';
-import { getSender, getSenderFull } from '@/lib/chatLogics';
 import MeetingItem from '../MeetingItem';
+import { CHAT } from '@/constants/API/chatApi';
+import { API_BASE_URL } from '@/constants/ENV';
+const baseURL = API_BASE_URL;
+const { common } = CHAT;
 
-export default function MyChats() {
+interface Props {
+    handleRightClickOption: any;
+    hardRefresh: any;
+}
+
+export default function MyChats({ handleRightClickOption, hardRefresh }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
     const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
@@ -32,8 +39,6 @@ export default function MyChats() {
     const [viewProfile, setViewProfile] = useState<boolean>(false)
     const [blocks, setBlocks] = useState<any>([])
     const [meetings, setMeetings] = useState<any>([])
-    const [currentId, setCurrentId] = useState('');
-
 
     const config = {
         headers: {
@@ -43,7 +48,7 @@ export default function MyChats() {
 
     const getBlockedUser = async () => {
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/user/block/${user._id}`, config);
+            const { data } = await axios.get(`${baseURL}${common.blockUser(user._id)}`, config);
             setBlocks(data.data.block)
             return data;
         } catch (error) {
@@ -55,23 +60,16 @@ export default function MyChats() {
 
     const fetchChats = async () => {
         try {
-            let urlId: any = null
-            if (typeof window !== 'undefined') {
-                const url = window.location.href;
-                const urlParts = url.split('?');
-                if (urlParts.length > 1 && urlParts[1]) {
-                    urlId = urlParts[1];
-                    setCurrentId(urlId);
-                }
-            }
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             };
 
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, config);
-            setSelectedChat(selectedChat || data[0])
+            const { data } = await axios.get(`${baseURL}${common.fetchChats}`, config);
+            if (!selectedChat || !data.find((chat: any) => chat._id === selectedChat._id)) {
+                setSelectedChat(data.length > 0 ? data[0] : null);
+            }
             const favouriteChats: any = [];
             const nonFavouriteChats: any = [];
             const allMeetings: any = [];
@@ -81,9 +79,6 @@ export default function MyChats() {
                     allMeetings.push(chatData)
                 }
                 if (selectedChat && selectedChat._id === chatData._id) {
-                    setSelectedChat(chatData)
-                }
-                if (chatData._id == urlId) {
                     setSelectedChat(chatData)
                 }
                 if (chatData.favourites.includes(user?._id)) {
@@ -104,7 +99,7 @@ export default function MyChats() {
 
     const handleSelectChat = async (chat: any) => {
         if (chat.unreadCount > 0) {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/common/chat/seen`, { chatId: chat._id, userId: user?._id }, config);
+            await axios.put(`${baseURL}${common.chatSeen}`, { chatId: chat._id, userId: user?._id }, config);
             const updatedChats = chats.map((c: any) => {
                 if (c._id === chat._id) {
                     return { ...c, unreadCount: 0 };
@@ -129,6 +124,14 @@ export default function MyChats() {
         // eslint-disable-next-line
     }, [reload, fetchAgain]);
 
+    const handleAction = async (data: any) => {
+        handleRightClickOption(data)
+    }
+
+    const handleRefresh = () => {
+        hardRefresh()
+    }
+
     const tabItems: TabsProps['items'] = [
         {
             key: '1',
@@ -146,6 +149,8 @@ export default function MyChats() {
                         setSelectedChat={setSelectedChat}
                         handleSelectChat={handleSelectChat}
                         user={user}
+                        handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
+                        search={search}
                     />
                 ))}
                 {chats.length > 0 &&
@@ -160,6 +165,8 @@ export default function MyChats() {
                         setSelectedChat={setSelectedChat}
                         handleSelectChat={handleSelectChat}
                         user={user}
+                        handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
+                        search={search}
                     />
                 ))}
             </div>,
@@ -170,7 +177,6 @@ export default function MyChats() {
             children: <SearchUser
                 setShowGroupChatModal={setShowGroupChatModal}
                 showGroupChatModal={showGroupChatModal}
-            // onlineUsers={onlineUsers}
             />,
         },
         {
@@ -200,7 +206,7 @@ export default function MyChats() {
             }
 
             const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/block`,
+                `${baseURL}${common.blockChat}`,
                 { userId: id },
                 config
             );
@@ -209,7 +215,6 @@ export default function MyChats() {
                 setReload(!reload)
             }
         } catch (error) {
-            console.error("Error blocking user:", error);
             new ErrorHandler(error);
         }
     };
@@ -257,7 +262,7 @@ export default function MyChats() {
                                 user={user}
                             />
                         </div>
-                        <div>
+                        <div className='userName'>
                             <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>{user.name}
                             </p>
                             <p style={{ fontSize: "12px", fontWeight: '400' }}>
@@ -268,7 +273,7 @@ export default function MyChats() {
                 </Conversation.Content>
                 <Button type='link' onClick={() => setViewProfile(!viewProfile)}><FaEllipsisVertical /></Button>
             </Flex>
-            <Flex justify='space-between'>
+            {/* <Flex justify='space-between'>
                 <Search
                     style={{ width: '100%' }}
                     value={search}
@@ -276,7 +281,7 @@ export default function MyChats() {
                     onClearClick={() => { setSearch(""); setReload(!reload) }}
                     placeholder="Search..."
                 />
-            </Flex>
+            </Flex> */}
             <div>
                 <ConversationList>
                     <Tabs type='card' style={{ margin: 0, padding: 0 }} className='chat-tabs' defaultActiveKey="1" items={tabItems} />

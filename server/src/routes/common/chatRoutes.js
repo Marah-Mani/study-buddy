@@ -15,5 +15,6 @@ router.route('/clear-chat/:chatId').get(protect, chatController.clearChat);
 router.route('/delete-chat/:chatId').get(protect, chatController.deleteChat);
 router.route('/block').post(protect, chatController.blockUser);
 router.route('/mark-read').get(protect, chatController.markRead);
-
+router.route('/continue/:id').get(protect, chatController.continueChat);
+router.route('/mute-unmute').post(protect, chatController.muteUnMuteChat);
 module.exports = router;

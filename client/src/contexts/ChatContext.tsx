@@ -15,6 +15,7 @@ interface ChatContextDefaults {
     setFetchAgain: any;
     favourites?: any;
     setFavourite?: any;
+    config?: any;
 }
 
 interface ChatContextProp {
@@ -25,6 +26,7 @@ import { User } from "@/lib/types";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import Cookies from "js-cookie";
 
 const api = axios.create({
     baseURL: process.env['NEXT_PUBLIC_API_URL'] || ''
@@ -47,6 +49,7 @@ const ChatContext = createContext<ChatContextDefaults>({
     setFetchAgain: () => { },
     favourites: [],
     setFavourite: () => { },
+    config: null
 });
 
 const ChatContentProvider = ({ children }: ChatContextProp) => {
@@ -58,6 +61,13 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
     const [onlineUsers, setOnlineUsers] = useState<any>([])
     const [fetchAgain, setFetchAgain] = useState(false)
     const [favourites, setFavourite] = useState<any>([])
+    const token = Cookies.get('session_token')
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     if (!user) {
         return 'Loading';
     }
@@ -79,7 +89,8 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
                 fetchAgain,
                 setFetchAgain,
                 favourites,
-                setFavourite
+                setFavourite,
+                config
             }}
         >
             {children}

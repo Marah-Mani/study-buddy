@@ -13,6 +13,10 @@ import { notification } from 'antd';
 import Cookies from 'js-cookie';
 import { User } from '@/lib/types';
 import { getSenderFull } from '@/lib/chatLogics';
+import { CHAT } from '@/constants/API/chatApi';
+import { API_BASE_URL } from '@/constants/ENV';
+const baseURL = API_BASE_URL;
+const { common } = CHAT;
 
 interface SearchUserProps {
     showGroupChatModal: boolean;
@@ -20,7 +24,7 @@ interface SearchUserProps {
     selectedChat?: any;
 }
 
-export default function SearchUser({ showGroupChatModal, setShowGroupChatModal, selectedChat }: SearchUserProps) {
+export default function SearchUser({ setShowGroupChatModal, selectedChat }: SearchUserProps) {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState<any>([]);
     const { setSelectedChat, user, chats, setChats }: any = useContext(ChatContext);
@@ -33,7 +37,7 @@ export default function SearchUser({ showGroupChatModal, setShowGroupChatModal, 
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/common/user?search=${search}`, config);
+            const { data } = await axios.get(`${baseURL}${common.searchChat}${search}`, config);
             setSearchResult(data);
         } catch (error) {
             notification.error({
@@ -55,7 +59,7 @@ export default function SearchUser({ showGroupChatModal, setShowGroupChatModal, 
                     Authorization: `Bearer ${token}`,
                 },
             };
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
+            const { data } = await axios.post(`${baseURL}${common.fetchChats}`, { userId }, config);
 
             if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
             setSelectedChat(data);

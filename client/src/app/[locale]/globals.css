@@ -133,6 +133,18 @@ li {
 .ant-select-item-option:hover {
   background-color: #f1a638 !important;
 }
+.cs-message-input__content-editor-wrapper {
+  background-color: #efa24b !important;
+}
+.cs-message-input__content-editor {
+  background-color: #efa24b !important;
+}
+.cs-conversation.cs-conversation--active {
+  background-color: #efa24b !important;
+}
+.ant-space-item svg {
+  color: #efa24b;
+}
 .ant-input {
   border-radius: 30px !important;
 }

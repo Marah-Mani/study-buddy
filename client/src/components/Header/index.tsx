@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import { Drawer } from 'antd';
 import { Col, Row } from 'antd';
@@ -8,14 +8,43 @@ import Link from 'next/link';
 import ParaText from '@/app/commonUl/ParaText';
 import { useParams, usePathname } from 'next/navigation';
 import Titles from '@/app/commonUl/Titles';
+import AuthContext from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
 	const params = usePathname();
 	const [activeIndex, setActiveIndex] = useState(0);
+	const { user, logout } = useContext(AuthContext);
+	const [url, setUrl] = useState('');
+	const router = useRouter();
 
 	const showDrawer = () => {
 		setOpen(true);
+	};
+
+	const handleLogout = async () => {
+		try {
+			await logout();
+		} catch (error) {
+			console.log(error)
+			// Handle error, if any
+		}
+	};
+
+	const redirectBasedOnRole = (role: string) => {
+
+		switch (role) {
+			case 'admin':
+				setUrl('/en/admin/dashboard')
+				break;
+			case 'user':
+				setUrl('/en/user/appointments')
+				break;
+			default:
+				router.push('/en/login');
+				break;
+		}
 	};
 
 	const onClose = () => {
@@ -96,11 +125,37 @@ export default function Header() {
 							</Link>
 						</Col>
 						<Col xl={6} md={6} xs={0} sm={0} className='textEnd nav' >
-							<li style={{ padding: '0px' }}>
+							{/* <li style={{ padding: '0px' }}>
 								<Link href="/en/login" onClick={() => handleClick(3)} className={activeIndex === 3 ? 'active' : ''}>
 									<ParaText size="small" fontWeightBold={500} color="primaryColor">Login</ParaText>
 								</Link>
-							</li>
+							</li> */}
+
+							{user?._id && (
+								<><li style={{ padding: '0px' }}>
+									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+										<ParaText size="small" fontWeightBold={500} color="primaryColor">Dashboard</ParaText>
+									</Link>
+								</li>
+									<li style={{ padding: '0px' }}>
+										<Link
+											onClick={handleLogout}
+											style={{ cursor: 'pointer' }} href={''}>
+											<ParaText size="small" fontWeightBold={500} color="primaryColor">Logout</ParaText>
+										</Link>
+									</li>
+								</>
+							)}
+
+							{user?._id ? null : (
+								<>
+									<li style={{ padding: '0px' }}>
+										<Link href="/en/login" onClick={() => handleClick(3)} className={activeIndex === 3 ? 'active' : ''}>
+											<ParaText size="small" fontWeightBold={500} color="primaryColor">Login</ParaText>
+										</Link>
+									</li>
+								</>
+							)}
 						</Col>
 					</Row>
 
@@ -146,11 +201,22 @@ export default function Header() {
 							</li>
 							<br />
 							<br />
-							<li>
-								<Link href="/en/login" onClick={onClose}>
-									<ParaText size="small" color="primaryColor">Login</ParaText>
-								</Link>
-							</li>
+							{user?._id && (
+								<>
+									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+										Dashboard
+									</Link>
+									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href={''}>
+										Logout
+									</Link>
+								</>
+							)}
+
+							{user?._id ? null : (
+								<>
+									<Link href="/en/login">Loginss</Link>
+								</>
+							)}
 							<br />
 							<br />
 						</ul>

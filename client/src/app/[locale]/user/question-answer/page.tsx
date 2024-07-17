@@ -225,7 +225,7 @@ export default function Page() {
                                                                                 style={{
                                                                                     display: 'flex', alignItems: 'center', float: 'right'
                                                                                 }}
-                                                                                href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}
+                                                                                href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                             >
                                                                                 <IoIosEye size={20} />  &nbsp; {forum.viewCount}
                                                                             </Link>
@@ -261,7 +261,7 @@ export default function Page() {
                                                                                 color="black"
                                                                             >
                                                                                 <Link
-                                                                                    href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}
+                                                                                    href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                 >
                                                                                     {forum.title.length > 95
                                                                                         ? `${forum.title.slice(0, 95)}...`
@@ -316,7 +316,7 @@ export default function Page() {
                                                                                 </div>
                                                                                 <div className="likeCommentRadius">
                                                                                     <Link
-                                                                                        href={`${process.env.NEXT_PUBLIC_SITE_URL}/user/questions/${forum.slug}`}
+                                                                                        href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                     >
                                                                                         <MessageOutlined
                                                                                             style={{ fontSize: '16px' }}
