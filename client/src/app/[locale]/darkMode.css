@@ -66,6 +66,7 @@ body.dark-mode .ant-select-selector,
 body.dark-mode .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
   color: #2a2a2a !important;
   border: 1px solid #343434 !important;
+  background-color: transparent;
 }
 body.dark-mode .ant-form-item {
   background-color: transparent !important;

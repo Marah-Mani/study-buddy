@@ -11,7 +11,7 @@
   box-shadow: none;
 }
 body.dark-mode .menuStyle .ant-btn-default {
-  border-color: #2a2828 !important;
+  border-color: #343434 !important;
   box-shadow: none;
 }
 .menuStyle .ant-btn {
@@ -40,7 +40,7 @@ body.dark-mode .menuStyle .ant-btn-default {
 }
 
 body.dark-mode .candidates-details {
-  border: 1px solid #686868;
+  border: 1px solid #343434;
 }
 .candidates-details .ant-typography ul li,
 .candidates-details .ant-typography ol li {
@@ -64,7 +64,7 @@ body.dark-mode .candidates-details {
   position: relative;
 }
 body.dark-mode .candidates-details-chat {
-  border: 1px solid #686868;
+  border: 1px solid #343434;
 }
 .custom-col {
   padding-left: 20px;

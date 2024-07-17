@@ -273,7 +273,7 @@ export default function Page() {
                                         <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                             <div className="candidates-details">
                                                 <Row >
-                                                    <Col xs={24} sm={24} md={24} lg={1} xl={1} xxl={1} className="">
+                                                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1} className="">
                                                         <Image
                                                             src={
                                                                 item?.image
@@ -287,7 +287,7 @@ export default function Page() {
                                                             style={{ borderRadius: '50px' }}
                                                         />
                                                     </Col>
-                                                    <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23} className='custom-col'>
+                                                    <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={23} className='custom-col'>
                                                         <Row gutter={[16, 16]}>
                                                             <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                                                                 <Flex align="center">
