@@ -51,7 +51,6 @@ export default function Rightbar({ selectedChat, user, onlineUsers, sendMessage,
                 <div
                     className="right-profile-box"
                     style={{
-                        paddingTop: '40px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',

@@ -47,7 +47,7 @@ export default function Home() {
 										learning more fun with a studyBuddy.
 									</ParaText>
 									<div className="gapPaddingTopOTwo"></div>
-									<Link href="/en/contact">
+									<Link href="/en/login">
 										<button className="button-67" role="button">
 											Get Started
 										</button>

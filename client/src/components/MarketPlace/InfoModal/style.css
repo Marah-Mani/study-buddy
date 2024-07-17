@@ -1,9 +1,8 @@
 .product-content .price {
   color: #344734;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   display: flex;
-  align-items: center;
 }
 
 .product-content .price span {
@@ -12,7 +11,6 @@
   text-decoration: line-through;
   margin-left: 5px;
   display: flex;
-  align-items: center;
 }
 .offer {
   padding: 4px 10px !important;
@@ -23,4 +21,8 @@
 }
 .imageChat img {
   width: 30px;
+}
+.product-content p,
+span {
+  font-family: 'Helvetica', sans-serif !important;
 }

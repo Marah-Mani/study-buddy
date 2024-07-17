@@ -5,7 +5,6 @@ import { Layout, Row, Col, notification } from 'antd';
 import ParaText from '@/app/commonUl/ParaText';
 import AuthContext from '@/contexts/AuthContext';
 import { deleteFolder, getFileTypes, getFolder } from '@/lib/commonApi';
-
 import Folders from '@/components/FileManager/folders';
 import FilesData from '@/components/FileManager/filesData';
 import GetFiles from '../../commonComponents/GetFiles';

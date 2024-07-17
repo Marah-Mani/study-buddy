@@ -156,7 +156,7 @@ export default function Page() {
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                                     <div className="question">
                                                         <Row>
-                                                            <Col xs={24} sm={24} md={1} lg={1} xl={1} xxl={1}>
+                                                            <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={1}>
                                                                 <div>
                                                                     {forum.userId.attachment ? (
                                                                         <Image
