@@ -378,11 +378,18 @@ export default function Chat() {
 
     if (chatSettings?.allowClearChat) {
         items.push({
-            label: 'Clear chat',
+            label: (
+                <Popconfirm
+                    title='Are you sure you want to clear this chat?'
+                    onConfirm={() => handleClearChat()}
+                >
+                    Clear chat
+                </Popconfirm>
+            ),
             key: '0',
-            onClick: () => {
-                handleClearChat();
-            }
+            // onClick: () => {
+            //     handleClearChat();
+            // }
         });
     }
     if (chatSettings?.allowDeleteChat) {
@@ -478,6 +485,7 @@ export default function Chat() {
 
     const onEmojiClick = (emojiObject: any, event: any) => {
         setNewMessage((prevInput: any) => prevInput + emojiObject.emoji);
+        sendMessage(selectedChat._id, (prevInput: any) => prevInput + emojiObject.emoji);
     };
 
     const handleCancel = () => {
@@ -875,8 +883,9 @@ export default function Chat() {
                     />
                 ) : (
                     <>
-                        {/* here chat design issue */}
-                        <span>Select a chat to start the conversation.</span>
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', height: '100vh', marginTop: '20%' }}>
+                            <span>Select a chat to start the conversation.</span>
+                        </div>
                     </>
                 )}
                 <Modal
