@@ -92,7 +92,7 @@ export default function MenuAUser() {
 			</Link>
 		),
 		getItem(
-			'Users',
+			'All Users',
 			'2',
 			<Link href="/en/user/candidate">
 				<span onClick={() => setIsActive(true)}>

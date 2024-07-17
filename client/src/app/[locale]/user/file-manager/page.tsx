@@ -11,6 +11,7 @@ import Dashboard from '@/components/FileManager/MainComponents/Dashboard';
 import FavoriteFiles from '@/components/FileManager/MainComponents/FavoriteFiles';
 import RecycleBin from '@/components/FileManager/MainComponents/RecycleBin';
 import RecentFiles from '@/components/FileManager/MainComponents/RecentFiles';
+import MyFiles from '@/components/FileManager/MainComponents/MyFiles';
 
 export default function Page() {
     const [initialState, setInitialState] = useState('');
@@ -28,11 +29,11 @@ export default function Page() {
                 }}><HomeOutlined /> Dashboard</p>
             ), component: <Dashboard activeKey={key} initialState={initialState} />
         },
-        // {
-        //     label: (
-        //         <p><HomeOutlined /> My Files</p>
-        //     ), component: <MyFiles activeKey={key} />
-        // },
+        {
+            label: (
+                <p><HomeOutlined /> My Files</p>
+            ), component: <MyFiles activeKey={key} />
+        },
         {
             label: (
                 <p><ProfileOutlined /> Favorites</p>

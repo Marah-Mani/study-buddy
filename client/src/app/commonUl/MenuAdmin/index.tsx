@@ -62,7 +62,7 @@ export default function MenuAdmin() {
 			</Link>
 		),
 		getItem(
-			'Users',
+			'All Users',
 			'2',
 			<Link href="/en/admin/users">
 				<span onClick={() => setIsActive(true)}>
