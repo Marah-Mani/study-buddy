@@ -1,7 +1,7 @@
 'use client';
 import { getAllForums } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { Avatar, Badge, Col, Divider, Empty, Image, Row } from 'antd';
+import { Avatar, Badge, Button, Col, Divider, Empty, Image, Row, Space } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import RelativeTime from '@/app/commonUl/RelativeTime';
@@ -19,7 +19,8 @@ import {
 } from '@ant-design/icons';
 import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
-import { FaRegEye } from "react-icons/fa6";
+import { FaPlus, FaRegEye } from "react-icons/fa6";
+import Forums from '@/components/Admin/Forums';
 interface Forum {
     _id: string;
     title: string;
@@ -39,6 +40,8 @@ export default function Page() {
     const [modal, setModal] = useState(false);
     const [forumResult, setForumResult] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState<any>();
+    const [allDataType, setAllDataType] = useState(true);
+    const [newRecord, setNewRecord] = useState(false);
 
     useEffect(() => {
         fetchData(searchQuery);
@@ -140,6 +143,23 @@ export default function Page() {
     function handleCallback(data: any) {
         throw new Error('Function not implemented.');
     }
+    const handleQuestions = (type: string) => {
+        if (allDataType) {
+            setAllDataType(false);
+        } else {
+            setAllDataType(true);
+            fetchData(searchQuery);
+        }
+    };
+
+    const handleQuestionssss = (type: string) => {
+        if (type === 'new') {
+            setNewRecord(true);
+        }
+        if (allDataType) {
+            setAllDataType(false);
+        }
+    };
 
     return (
         <>
@@ -147,200 +167,231 @@ export default function Page() {
             <div className="">
                 <div>
                     <Row>
-                        <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
-                            {forums.length > 0 ? (
-                                <Row>
-                                    {forums.map((forum: any) => {
-                                        return (
-                                            <>
-                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                                    <div className="question">
-                                                        <Row>
-                                                            <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={1}>
-                                                                <div>
-                                                                    {forum.userId.attachment ? (
-                                                                        <Image
-                                                                            src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${forum.userId.attachment}`}
-                                                                            alt="Avatar"
-                                                                            width={40}
-                                                                            height={40}
-                                                                            style={{ borderRadius: '50px' }}
-                                                                            preview={false}
-                                                                        />
-                                                                    ) : (
-                                                                        <Avatar size={30} icon={<UserOutlined />} />
-                                                                    )}
-                                                                </div>
-                                                            </Col>
-                                                            <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                            <Space wrap className="floatEnd">
+                                {/* <Input type='search' placeholder='search' value={searchQuery} onChange={handleSearch} style={{ height: '40px' }} /> */}
+                                <Button
+                                    type="primary"
+                                    onClick={() => handleQuestions('')}
+                                    style={{ height: '40px', borderRadius: '30px' }}
+                                >
+                                    {allDataType ? 'My Questions' : 'All Questions'}
+                                </Button>
+                                <Button
+                                    icon={<FaPlus />}
+                                    type={'primary'}
+                                    onClick={() => handleQuestionssss('new')}
+                                    style={{ height: '40px', borderRadius: '30px' }}
+                                >
+                                    Ask Question
+                                </Button>
+                            </Space>
+                        </Col>
+                        <>
+                            {allDataType ? (
+                                <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
+                                    {forums.length > 0 ? (
+                                        <Row>
+                                            {forums.map((forum: any) => {
+                                                return (
+                                                    <>
+                                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                                            <div className="question">
                                                                 <Row>
-                                                                    <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
-                                                                        <div
-                                                                            style={{
-                                                                                display: 'flex',
-                                                                                gap: '8px',
-                                                                                alignItems: 'center'
-                                                                            }}
-                                                                        >
-                                                                            <div>
-                                                                                <span
-                                                                                    style={{
-                                                                                        fontSize: '14px',
-                                                                                        gap: '5px',
-                                                                                        display: 'flex'
-                                                                                    }}
-                                                                                >
-                                                                                    <span style={{
-                                                                                        fontWeight: '900'
-                                                                                    }}>{forum.userId.name}</span>
-                                                                                    <span>
-                                                                                        <Badge status="default" />
-                                                                                    </span>
-                                                                                </span>
-                                                                                <div className="smallTopMargin"></div>
-                                                                                <div
-                                                                                    style={{
-                                                                                        fontSize: '12px',
-                                                                                        color: '#f1a638'
-                                                                                    }}
-                                                                                >
-                                                                                    <RelativeTime date={forum.createdAt} />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="smallTopMargin"></div>
-                                                                        <ParaText
-                                                                            size="textGraf"
-                                                                            fontWeightBold={400}
-                                                                            color="black"
-                                                                        >
-                                                                            {!forum.attachment && (
-                                                                                <div
-                                                                                    dangerouslySetInnerHTML={{
-                                                                                        __html: truncateDescription(
-                                                                                            forum?.description,
-                                                                                            200
-                                                                                        )
-                                                                                    }}
-                                                                                ></div>
+                                                                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={1}>
+                                                                        <div>
+                                                                            {forum.userId.attachment ? (
+                                                                                <Image
+                                                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${forum.userId.attachment}`}
+                                                                                    alt="Avatar"
+                                                                                    width={40}
+                                                                                    height={40}
+                                                                                    style={{ borderRadius: '50px' }}
+                                                                                    preview={false}
+                                                                                />
+                                                                            ) : (
+                                                                                <Avatar size={30} icon={<UserOutlined />} />
                                                                             )}
-                                                                        </ParaText>
-
-
-                                                                        <ParaText
-                                                                            size="textGraf"
-                                                                            fontWeightBold={400}
-                                                                            color="black"
-                                                                        >
-                                                                            <Link
-                                                                                href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
-                                                                            >
-                                                                                {forum.title.length > 95
-                                                                                    ? `${forum.title.slice(0, 95)}...`
-                                                                                    : forum.title}
-                                                                            </Link>
-                                                                        </ParaText>
-                                                                        <div className="smallTopMargin"></div>
-                                                                        {forum.attachment ? (
-                                                                            <Image
-                                                                                src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
-                                                                                alt="Avatar"
-                                                                                width={'30%'}
-                                                                                height={'250px'}
-                                                                                style={{ borderRadius: '5px' }}
-                                                                                preview={false}
-                                                                            />
-                                                                        ) : null}
-                                                                        <div className="smallTopMargin"></div>
-                                                                        <div style={{ display: 'flex', gap: '10px' }}>
-                                                                            <div
-                                                                                style={{ display: 'flex', gap: '10px' }}
-                                                                                className="likeCommentRadius"
-                                                                            >
+                                                                        </div>
+                                                                    </Col>
+                                                                    <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23}>
+                                                                        <Row>
+                                                                            <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
                                                                                 <div
-                                                                                    style={{ cursor: 'pointer' }}
-                                                                                    onClick={() =>
-                                                                                        handleVote(forum._id, 'like')
-                                                                                    }
+                                                                                    style={{
+                                                                                        display: 'flex',
+                                                                                        gap: '8px',
+                                                                                        alignItems: 'center'
+                                                                                    }}
                                                                                 >
-                                                                                    {forum.likes.includes(user?._id) ? (
-                                                                                        <LikeFilled
-                                                                                            style={{ fontSize: '16px' }}
-                                                                                        />
-                                                                                    ) : (
-                                                                                        <LikeOutlined
-                                                                                            style={{ fontSize: '16px' }}
-                                                                                        />
-                                                                                    )}
-                                                                                    <span
-                                                                                        style={{
-                                                                                            fontSize: '12px',
-                                                                                            color: '#000'
-                                                                                        }}
-                                                                                    >
-                                                                                        &nbsp; {forum.likes.length}
-                                                                                    </span>
+                                                                                    <div>
+                                                                                        <span
+                                                                                            style={{
+                                                                                                fontSize: '14px',
+                                                                                                gap: '5px',
+                                                                                                display: 'flex'
+                                                                                            }}
+                                                                                        >
+                                                                                            <span>{forum.userId.name}</span>
+                                                                                            <span>
+                                                                                                <Badge status="default" />
+                                                                                            </span>
+                                                                                        </span>
+                                                                                        <div className="smallTopMargin"></div>
+                                                                                        <div
+                                                                                            style={{
+                                                                                                fontSize: '12px',
+                                                                                                color: '#f1a638'
+                                                                                            }}
+                                                                                        >
+                                                                                            <RelativeTime date={forum.createdAt} />
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                                {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote(forum._id, 'dislike')}>
+                                                                                <div className="smallTopMargin"></div>
+                                                                                <ParaText
+                                                                                    size="textGraf"
+                                                                                    fontWeightBold={400}
+                                                                                    color="black"
+                                                                                >
+                                                                                    {!forum.attachment && (
+                                                                                        <div
+                                                                                            dangerouslySetInnerHTML={{
+                                                                                                __html: truncateDescription(
+                                                                                                    forum?.description,
+                                                                                                    200
+                                                                                                )
+                                                                                            }}
+                                                                                        ></div>
+                                                                                    )}
+                                                                                </ParaText>
+
+
+                                                                                <ParaText
+                                                                                    size="textGraf"
+                                                                                    fontWeightBold={400}
+                                                                                    color="black"
+                                                                                >
+                                                                                    <Link
+                                                                                        href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
+                                                                                    >
+                                                                                        {forum.title.length > 95
+                                                                                            ? `${forum.title.slice(0, 95)}...`
+                                                                                            : forum.title}
+                                                                                    </Link>
+                                                                                </ParaText>
+                                                                                <div className="smallTopMargin"></div>
+                                                                                {forum.attachment ? (
+                                                                                    <Image
+                                                                                        src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
+                                                                                        alt="Avatar"
+                                                                                        width={'30%'}
+                                                                                        height={'250px'}
+                                                                                        style={{ borderRadius: '5px' }}
+                                                                                        preview={false}
+                                                                                    />
+                                                                                ) : null}
+                                                                                <div className="smallTopMargin"></div>
+                                                                                <div style={{ display: 'flex', gap: '10px' }}>
+                                                                                    <div
+                                                                                        style={{ display: 'flex', gap: '10px' }}
+                                                                                        className="likeCommentRadius"
+                                                                                    >
+                                                                                        <div
+                                                                                            style={{ cursor: 'pointer' }}
+                                                                                            onClick={() =>
+                                                                                                handleVote(forum._id, 'like')
+                                                                                            }
+                                                                                        >
+                                                                                            {forum.likes.includes(user?._id) ? (
+                                                                                                <LikeFilled
+                                                                                                    style={{ fontSize: '16px' }}
+                                                                                                />
+                                                                                            ) : (
+                                                                                                <LikeOutlined
+                                                                                                    style={{ fontSize: '16px' }}
+                                                                                                />
+                                                                                            )}
+                                                                                            <span
+                                                                                                style={{
+                                                                                                    fontSize: '12px',
+                                                                                                    color: '#000'
+                                                                                                }}
+                                                                                            >
+                                                                                                &nbsp; {forum.likes.length}
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote(forum._id, 'dislike')}>
                                                                             {
                                                                                 forum.dislikes.includes(user?._id)
                                                                                     ? <DislikeFilled style={{ fontSize: '16px' }} />
                                                                                     : <DislikeOutlined style={{ fontSize: '16px' }} />
                                                                             } {forum.dislikes.length}
                                                                         </div> */}
-                                                                            </div>
-                                                                            <div className="likeCommentRadius">
-                                                                                <Link
-                                                                                    href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
-                                                                                >
-                                                                                    <MessageOutlined
-                                                                                        style={{ fontSize: '16px' }}
-                                                                                    />&nbsp;
-                                                                                    <span
-                                                                                        style={{
-                                                                                            fontSize: '12px',
-                                                                                            color: '#000'
-                                                                                        }}
+                                                                                    </div>
+                                                                                    <div className="likeCommentRadius">
+                                                                                        <Link
+                                                                                            href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
+                                                                                        >
+                                                                                            <MessageOutlined
+                                                                                                style={{ fontSize: '16px' }}
+                                                                                            />&nbsp;
+                                                                                            <span
+                                                                                                style={{
+                                                                                                    fontSize: '12px',
+                                                                                                    color: '#000'
+                                                                                                }}
+                                                                                            >
+                                                                                                &nbsp; {forum.comments.length}
+                                                                                            </span>
+                                                                                        </Link>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Col>
+                                                                            <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={2} className='textEnd'>
+                                                                                {' '}
+                                                                                <div className="likeCommentRadius">
+                                                                                    <Link
+                                                                                        href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                     >
-                                                                                        &nbsp; {forum.comments.length}
-                                                                                    </span>
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Col>
-                                                                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={2} className='textEnd'>
-                                                                        {' '}
-                                                                        <div className="likeCommentRadius">
-                                                                            <Link
-                                                                                href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
-                                                                            >
-                                                                                <FaRegEye /> &nbsp;{forum.viewCount}
-                                                                            </Link>
-                                                                        </div>
+                                                                                        <FaRegEye /> &nbsp;{forum.viewCount}
+                                                                                    </Link>
+                                                                                </div>
+                                                                            </Col>
+                                                                        </Row>
                                                                     </Col>
                                                                 </Row>
-                                                            </Col>
-                                                        </Row>
-                                                    </div>
-                                                </Col>
-                                            </>
-                                        );
-                                    })}
-                                </Row>
+                                                            </div>
+                                                        </Col>
+                                                    </>
+                                                );
+                                            })}
+                                        </Row>
+                                    ) : (
+                                        <div className="textCenter">
+                                            <Image
+                                                width={'50%'}
+                                                height={'100%'}
+                                                preview={false}
+                                                src={'http://localhost:3000/images/Nodata-amico.png'}
+                                                alt="card__image"
+                                                className="card__image"
+                                                fallback="/images/Nodata-amico.png"
+                                            />
+                                        </div>
+                                    )}
+                                </Col>
                             ) : (
-                                <div className="textCenter">
-                                    <Image
-                                        width={'50%'}
-                                        height={'100%'}
-                                        preview={false}
-                                        src={'http://localhost:3000/images/Nodata-amico.png'}
-                                        alt="card__image"
-                                        className="card__image"
-                                        fallback="/images/Nodata-amico.png"
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                    <Forums
+                                        activeKey={''}
+                                        newRecord={newRecord}
+                                        onBack={handleQuestions}
+                                        setNewRecord={setNewRecord}
                                     />
-                                </div>
+                                </Col>
                             )}
-                        </Col>
+                        </>
                         <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
                             <RightSection
                                 categoryId={''}

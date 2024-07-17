@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
-import ShortFileTitleName from '@/app/commonUl/ShortFileTitleName';
+import ShortFileTitleName from '@/app/commonUl/ShortFileName copy';
 interface Props {
     product: any;
 }

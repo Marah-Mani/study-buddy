@@ -26,8 +26,6 @@ import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
 import { FaEllipsisV, FaInfo, FaSearch, FaStar, FaRegArrowAltCircleRight, FaVideo, FaTrash } from 'react-icons/fa';
 import TimeAgo from 'react-timeago';
-// const ENDPOINT = 'http://localhost:3001';
-const ENDPOINT = 'http://13.201.57.69:3001';
 var socket: any, selectedChatCompare: any;
 import StringAvatar from '@/app/commonUl/StringAvatar';
 import CreateMeetingModal from '@/components/CreateMeetingModal';
@@ -94,6 +92,7 @@ export default function Chat() {
     const [previewFiles, setPreviewFiles] = useState<any>([]);
     const [plainFiles, setPlainFiles] = useState<any>([]);
     const [loading, setLoading] = useState(false);
+    const ENDPOINT = `${process.env['NEXT_PUBLIC_SOCKET_ENDPOINT']}`;
 
     const config = {
         headers: {
@@ -854,7 +853,7 @@ export default function Chat() {
                         </InputToolbox>
                     </ChatContainer>
                 )}
-                {viewInfo && (
+                {selectedChat ? (
                     <Rightbar
                         selectedChat={selectedChat}
                         user={user}
@@ -869,6 +868,11 @@ export default function Chat() {
                         }}
                         sendMessage={sendMessage}
                     />
+                ) : (
+                    <>
+                        {/* here chat design issue */}
+                        <span>Select a chat to start the conversation.</span>
+                    </>
                 )}
                 <Modal
                     footer=""

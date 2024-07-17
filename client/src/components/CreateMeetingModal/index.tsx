@@ -29,7 +29,7 @@ const CreateMeetingModal = ({ open, setOpen, sendMessage }: CreateMeetingModalPr
         console.log('00000')
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:3001/api/common/zoom', values, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/zoom`, values, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${Cookies.get('session_token')}`,
