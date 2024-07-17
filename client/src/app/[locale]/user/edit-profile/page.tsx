@@ -38,9 +38,6 @@ export default function Page() {
 	return (
 		<>
 			<div className='boxInbox'>
-				<ParaText size="large" fontWeightBold={600} color="primaryColor">
-					Profile Details
-				</ParaText>
 				<Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
 			</div>
 		</>

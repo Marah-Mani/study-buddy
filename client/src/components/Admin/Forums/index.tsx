@@ -310,7 +310,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                         </Col>
                         <Col md={12} className={'textEnd'}>
                             <div style={{ textAlign: 'end', paddingTop: '50px' }}>
-                                <Button type='primary' loading={loading} htmlType='submit'>
+                                <Button type='primary' loading={loading} htmlType='submit' style={{ borderRadius: '30px' }}>
                                     {loading ? 'Submitting' : 'Submit Item'}
                                 </Button>
                             </div>

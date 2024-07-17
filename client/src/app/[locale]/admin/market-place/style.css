@@ -138,10 +138,10 @@
 .product-grid .social li a:hover:after {
   display: block;
 }
-
+/*
 .product-grid .product-content {
   padding: 4px 0;
-}
+} */
 
 .product-grid .title {
   font-size: 16px;
@@ -162,6 +162,12 @@
   color: #344734;
   font-size: 17px;
   font-weight: 700;
+}
+.product-grid .price svg {
+  color: #344734;
+}
+.product-grid .price span svg {
+  color: #999;
 }
 
 .product-grid .price span {

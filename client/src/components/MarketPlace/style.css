@@ -5,6 +5,7 @@
   height: 100%;
   border: 2px solid #f1a058;
   border-radius: 16px;
+  position: relative;
 }
 .body.dark-mode .product-grid {
   border: 2px solid #686868;
@@ -15,10 +16,25 @@ body.dark-mode .product-grid {
 .imageChat img {
   width: 30px;
 }
-.offer {
-  padding: 4px 10px;
-  border-radius: 30px;
-  color: #000;
-  font-size: 12px;
-  background-color: #facca4;
+.offerPopup {
+  padding: 7px 10px 5px !important;
+  border-radius: 30px !important;
+  color: #000 !important;
+  font-size: 12px !important;
+  background-color: #facca4 !important;
+}
+.bottomFixed {
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+}
+.marginFixed {
+  margin-bottom: 60px;
+}
+.popupStyle .ant-modal-content {
+  border: 2px solid #f1a058 !important;
+}
+.product-grid p,
+span {
+  font-family: 'Helvetica', sans-serif;
 }

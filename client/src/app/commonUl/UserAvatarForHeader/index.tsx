@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useState } from 'react';
 import { Avatar, MenuProps } from 'antd';
-import { Dropdown } from 'antd';
+import { Dropdown, Image } from 'antd';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import AuthContext from '@/contexts/AuthContext';
@@ -31,7 +31,7 @@ export default function UserAvatarForHeader() {
    }
 
    function redirectToPage() {
-      const page = user?.role === 'admin' ? '/en/admin/dashboard' : '/en/user/dashboard';
+      const page = user?.role === 'admin' ? '/en/admin/profile' : '/en/user/profile';
       router.push(page);
    }
 
@@ -52,12 +52,14 @@ export default function UserAvatarForHeader() {
       {
          label: (
             <div
-               className={` ${activeTab === '/en/admin/dashboard' || activeTab === '/en/user/dashboard' ? 'activeTab' : ''}`}
+               className={` ${activeTab === '/en/admin/profile' || activeTab === '/en/user/profile' ? 'activeTab' : ''}`}
                onClick={redirectToPage}
             >
                <>
                   <div style={{ display: 'flex' }}>
-                     <FaUserEdit size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
+                     <Image preview={false} src="/icons/yellowedit.png" alt="Inactive User" width={20} height={20} />
+                     &nbsp;
+                     &nbsp;
                      <span style={{ fontWeight: '500' }} onClick={handleDashboard}  >Profile</span>
                   </div>
                </>
@@ -70,7 +72,7 @@ export default function UserAvatarForHeader() {
          label: (
             <>
                <div style={{ display: 'flex' }}>
-                  <MdLock size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
+                  <MdLock size={20} style={{ marginRight: '10px', color: '#f0a551', fontWeight: '400' }} />
                   <span onClick={handleLockScreen} style={{ fontWeight: '500' }} >Lock Screen</span>
                </div>
 
@@ -85,7 +87,10 @@ export default function UserAvatarForHeader() {
          label: (
             <>
                <div style={{ display: 'flex' }}>
-                  <BiLogOut size={20} style={{ marginRight: '10px', color: '#F1A638' }} />
+                  <Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
+                  {/* <BiLogOut size={20} style={{ marginRight: '10px', color: '#F1A638' }} /> */}
+                  &nbsp;
+                  &nbsp;
                   <span onClick={handleLogout} style={{ fontWeight: '500' }} >Logout</span>
                </div>
             </>

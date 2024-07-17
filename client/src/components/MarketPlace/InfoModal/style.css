@@ -1,9 +1,14 @@
 .product-content .price {
   color: #344734;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   display: flex;
-  align-items: center;
+}
+.product-content .price svg {
+  color: #344734;
+}
+.product-content .price span svg {
+  color: #999;
 }
 
 .product-content .price span {
@@ -12,10 +17,9 @@
   text-decoration: line-through;
   margin-left: 5px;
   display: flex;
-  align-items: center;
 }
 .offer {
-  padding: 4px 10px !important;
+  padding: 2px 10px 0px !important;
   border-radius: 30px !important;
   color: #000 !important;
   font-size: 12px !important;
@@ -23,4 +27,8 @@
 }
 .imageChat img {
   width: 30px;
+}
+.product-content p,
+span {
+  font-family: 'Helvetica', sans-serif !important;
 }

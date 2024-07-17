@@ -179,7 +179,7 @@ export default function Page() {
                                     {allDataType ? 'My Questions' : 'All Questions'}
                                 </Button>
                                 <Button
-                                    icon={<FaPlus />}
+                                    icon={<FaPlus className='iconColorChange' />}
                                     type={'primary'}
                                     onClick={() => handleQuestionssss('new')}
                                     style={{ height: '40px', borderRadius: '30px' }}
@@ -197,10 +197,10 @@ export default function Page() {
                                             {forums.map((forum: any) => {
                                                 return (
                                                     <>
-                                                        <Col xs={24} sm={24} md={1248} lg={24} xl={24} xxl={24}>
+                                                        <Col xs={24} sm={24} md={12} lg={24} xl={24} xxl={24}>
                                                             <div className="question">
                                                                 <Row>
-                                                                    <Col xl={1}>
+                                                                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1}>
                                                                         <div>
                                                                             {forum.userId.attachment ? (
                                                                                 <Image
@@ -219,7 +219,7 @@ export default function Page() {
                                                                             )}
                                                                         </div>
                                                                     </Col>
-                                                                    <Col xl={23}>
+                                                                    <Col xs={24} sm={24} md={12} lg={22} xl={22} xxl={23}>
                                                                         <div className="likeCommentRadius">
                                                                             <Link
                                                                                 style={{

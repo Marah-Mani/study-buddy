@@ -9,7 +9,7 @@ interface Props {
 export default function ShortFileName({ fileName, short, onClick }: Props) {
     return (
         <>
-            <p style={{ wordBreak: 'break-all', overflow: 'break-word' }} onClick={onClick}>{fileName.length > short ? fileName.slice(0, short) + '...' : fileName}</p>
+            <span style={{ wordBreak: 'break-all', overflow: 'break-word', fontWeight: '400' }} onClick={onClick}>{fileName.length > short ? fileName.slice(0, short) + '...' : fileName}</span>
         </>
     );
 }

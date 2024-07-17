@@ -17,7 +17,6 @@ img {
 a {
   color: inherit !important;
   background-color: transparent;
-  font-family: 'PT Serif', serif !important;
 }
 
 * {
@@ -43,22 +42,21 @@ h6 {
   font-weight: 900;
 }
 
-p {
-  margin: 0px !important;
-  font-family: 'PT Serif', serif !important;
-}
-
 span,
 a {
-  font-family: 'PT Serif', serif !important;
-  font-weight: 600;
+  font-family: 'Helvetica';
 }
 
 ul {
   padding: 0px;
   margin: 0px;
 }
-
+.ant-input-lg {
+  font-size: 14px !important;
+}
+::placeholder {
+  font-size: 14px !important;
+}
 li {
   list-style: none;
   font-family: 'PT Serif', serif !important;
@@ -68,18 +66,29 @@ li {
   color: #fff;
   background: #f1a638 !important;
   box-shadow: 0 2px 0 rgba(8, 108, 168, 0.15);
-  border-radius: 30px;
+  border-radius: 30px !important;
 }
 .ant-btn-default {
   border: 1px solid #efa24b !important;
   border-radius: 30px;
 }
+
+@font-face {
+  font-family: 'Helvetica';
+  src:
+    url('/fonts/Helvetica.ttf') format('ttf'),
+    url('/fonts/Helvetica.ttf') format('ttf'),
+    url('/fonts/Helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* @font-face {
   font-family: 'New Spirit SemiBold Condensed';
   src: url('./fonts/New-Spirit-SemiBold-Condensed.eot');
   src:
     url('./fonts/New-Spirit-SemiBold-Condensed.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/New-Spirit-SemiBold-Condensed.woff2') format('woff2'),
+    url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('ttf'),
     url('./fonts/New-Spirit-SemiBold-Condensed.woff') format('woff'),
     url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('truetype'),
     url('./fonts/New-Spirit-SemiBold-Condensed.svg#New Spirit SemiBold Condensed') format('svg');
@@ -130,33 +139,40 @@ li {
   border-radius: 15px !important;
 }
 
-.ant-select-item-option:hover {
-  background-color: #f1a638 !important;
+.cs-conversation-header,
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor,
+.cs-conversation.cs-conversation--active,
+.cs-expansion-panel__header,
+.ps__thumb-y,
+.cs-search,
+.cs-search__input,
+.cs-message-separator::before,
+.cs-message-separator::after {
+  background-color: #f6cc9c !important;
 }
-.cs-message-input__content-editor-wrapper {
-  background-color: #efa24b !important;
-}
-.cs-message-input__content-editor {
-  background-color: #efa24b !important;
-}
-.cs-conversation.cs-conversation--active {
-  background-color: #efa24b !important;
-}
-.ant-space-item svg {
+
+svg {
   color: #efa24b;
 }
 .ant-input {
-  border-radius: 30px !important;
+  border-radius: 16px !important;
 }
 span.ant-input-affix-wrapper {
-  border-radius: 30px !important;
+  border-radius: 16px !important;
 }
 input.form-control {
-  border-radius: 30px !important;
+  border-radius: 16px !important;
 }
 .flag-dropdown {
   border-radius: 30px 0px 0px 30px !important;
 }
 .menuIcon svg {
   color: #fff !important;
+}
+.cs-message.cs-message--incoming.cs-message--first .cs-message__content {
+  background-color: #ffe7c4;
+}
+.cs-message-input__content-editor[data-placeholder]:empty:before {
+  color: #000 !important;
 }

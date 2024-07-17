@@ -224,10 +224,10 @@ export default function SingleForum({ forumData }: Props) {
                      />
                   </div>
                </Col>
-               <Col xs={24} sm={24} md={2415} lg={15} xl={15} xxl={15}>
+               <Col xs={24} sm={24} md={24} lg={15} xl={15} xxl={15}>
                   <div className="question">
                      <Row gutter={[16, 16]}>
-                        <Col xl={1}>
+                        <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1}>
                            <div style={{ display: 'flex', gap: '8px' }}>
                               <div>
                                  {forumData.userId.image ? (
@@ -245,11 +245,11 @@ export default function SingleForum({ forumData }: Props) {
                               </div>
                            </div>
                         </Col>
-                        <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23}>
+                        <Col xs={24} sm={24} md={23} lg={22} xl={22} xxl={23}>
                            <div>
                               <span style={{ fontSize: '14px' }}>{forumData.userId.name}</span>
                               <br />
-                              <span style={{ color: '#F2A638' }}>
+                              <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
                                  <RelativeTime date={forumData.createdAt} />
                               </span>
                            </div>
@@ -340,19 +340,20 @@ export default function SingleForum({ forumData }: Props) {
                      suffix={<IoSendSharp onClick={() => handleSubmit()} />} />
                   {/* COMMENTS LOOP */}
 
-                  <Row>
+                  <div>
+                     <ParaText
+                        size="extraSmall"
+                        fontWeightBold={600}
+                        className="dBlock"
+                        color="primaryColor"
+                     >
+                        Comments
+                     </ParaText>
                      {dataSource?.comments?.map((comment: any, index: any) => {
                         return (
                            <>
                               {dataSource?.comments?.length > 0 && (
-                                 <ParaText
-                                    size="extraSmall"
-                                    fontWeightBold={600}
-                                    className="dBlock"
-                                    color="primaryColor"
-                                 >
-                                    Comments
-                                 </ParaText>
+                                 <></>
                               )}
                               <Col md={24} key={index}>
                                  <div
@@ -376,7 +377,7 @@ export default function SingleForum({ forumData }: Props) {
                                     <div>
                                        <span style={{ fontSize: '14px' }}>{comment.userId.name}</span>
                                        <br />
-                                       <span style={{ color: '#F2A638' }}>
+                                       <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
                                           <RelativeTime date={comment.createdAt} />
                                        </span>
                                     </div>
@@ -689,7 +690,7 @@ export default function SingleForum({ forumData }: Props) {
                            </>
                         );
                      })}
-                  </Row>
+                  </div >
                </Col>
                <Col md={7}>
                   <RightSection categoryId={forumData.categoryId} />

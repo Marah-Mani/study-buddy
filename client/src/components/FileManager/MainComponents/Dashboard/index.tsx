@@ -5,7 +5,6 @@ import { Layout, Row, Col, notification } from 'antd';
 import ParaText from '@/app/commonUl/ParaText';
 import AuthContext from '@/contexts/AuthContext';
 import { deleteFolder, getFileTypes, getFolder } from '@/lib/commonApi';
-
 import Folders from '@/components/FileManager/folders';
 import FilesData from '@/components/FileManager/filesData';
 import GetFiles from '../../commonComponents/GetFiles';
@@ -93,7 +92,8 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 <div>
                                     <Row align='middle'>
                                         <Col xs={24} sm={14} md={14} lg={14} xl={14} xxl={14}>
-                                            <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText>
+                                            <ParaText size='extraSmall' color='black' fontWeightBold={500}> You can download and upload the file in the particular folder </ParaText> <br />
+                                            {/* <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText> */}
                                         </Col>
                                         {user?.role == 'admin' &&
                                             <Col className='textEnd' xs={24} sm={9} md={9} lg={9} xl={9} xxl={9}>
@@ -112,11 +112,11 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 </div>
                                 <div className="mediumTopMargin"></div>
                                 <div className='siteLayoutBackground'>
-                                    {user?.role !== 'user' && (
+                                    {/* {user?.role !== 'user' && (
                                         <FilesData myFiles={myFiles} />
-                                    )}
-                                    <div className='gapMarginTop'></div>
-
+                                    )} */}
+                                    {/* <div className='gapMarginTop'></div> */}
+                                    <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText>
                                     <Folders folderData={folderData} handleUpdate={handleUpdate}
                                         handleDoubleClick={handleDoubleClick} handleClick={handleClick}
                                     />
