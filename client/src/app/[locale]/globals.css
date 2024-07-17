@@ -146,9 +146,12 @@ li {
 .cs-expansion-panel__header,
 .ps__thumb-y,
 .cs-search,
-.cs-search__input {
+.cs-search__input,
+.cs-message-separator::before,
+.cs-message-separator::after {
   background-color: #f6cc9c !important;
 }
+
 svg {
   color: #efa24b;
 }

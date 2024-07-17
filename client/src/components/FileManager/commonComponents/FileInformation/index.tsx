@@ -10,7 +10,7 @@ import GetFileTypeName from '../GetFileTypeName';
 import { UserOutlined } from '@ant-design/icons';
 import DropdownMenu from '../DropdownMenu';
 import { FcOpenedFolder } from 'react-icons/fc';
-
+import { FaFile } from "react-icons/fa";
 interface Props {
     fileId: string;
     folder: any;
@@ -63,7 +63,7 @@ export default function FileInformation({ fileId, folder }: Props) {
                     </div>
                     <div className='upgradeBox1'>
                         {folder ?
-                            <FcOpenedFolder size={75} />
+                            <FaFile size={75} />
                             :
                             <GetFileTypeIcon fileType={fileDetails?.fileType} size={100} />
                         }

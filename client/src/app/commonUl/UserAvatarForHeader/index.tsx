@@ -31,7 +31,7 @@ export default function UserAvatarForHeader() {
    }
 
    function redirectToPage() {
-      const page = user?.role === 'admin' ? '/en/admin/dashboard' : '/en/user/dashboard';
+      const page = user?.role === 'admin' ? '/en/admin/profile' : '/en/user/profile';
       router.push(page);
    }
 
@@ -52,7 +52,7 @@ export default function UserAvatarForHeader() {
       {
          label: (
             <div
-               className={` ${activeTab === '/en/admin/dashboard' || activeTab === '/en/user/dashboard' ? 'activeTab' : ''}`}
+               className={` ${activeTab === '/en/admin/profile' || activeTab === '/en/user/profile' ? 'activeTab' : ''}`}
                onClick={redirectToPage}
             >
                <>
