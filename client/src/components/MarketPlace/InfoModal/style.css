@@ -4,6 +4,12 @@
   font-weight: 700;
   display: flex;
 }
+.product-content .price svg {
+  color: #344734;
+}
+.product-content .price span svg {
+  color: #999;
+}
 
 .product-content .price span {
   color: #999;
@@ -13,7 +19,7 @@
   display: flex;
 }
 .offer {
-  padding: 4px 10px !important;
+  padding: 2px 10px 0px !important;
   border-radius: 30px !important;
   color: #000 !important;
   font-size: 12px !important;

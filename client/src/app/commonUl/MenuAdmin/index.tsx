@@ -232,7 +232,7 @@ export default function MenuAdmin() {
 											<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
 										)}
 								</span>
-								<ParaText size='extraSmall' color='white'>Logout</ParaText>
+								<ParaText size='extraSmall' color='white'><span> Logout</span></ParaText>
 							</Link>
 						</div>
 					</div>

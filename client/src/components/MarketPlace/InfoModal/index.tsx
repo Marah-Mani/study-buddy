@@ -11,6 +11,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
+import ShortFileTitleName from '@/app/commonUl/ShortFileTitleName';
+
 interface Props {
     product: any;
 }
@@ -122,19 +124,21 @@ export default function InfoModal({ product }: Props) {
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <div className="product-content">
                                 <ParaText size="small" color="black" className="title" fontWeightBold={600}>
-                                    {product.title}
+                                    <ShortFileTitleName fileName={product.title} short={35} />
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    Machine Tools : &nbsp; <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>{product.description}</span>
+                                    <span style={{ color: '#344734' }}> Description:</span>  &nbsp; <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>{product.description}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    Category : <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}>{product?.categoryId?.name}</span>
+                                    <span style={{ color: '#344734' }}>  Category :</span>
+                                    <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}>{product?.categoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    Sub-category :
+                                    <span style={{ color: '#344734' }}>   Sub-category :</span>
+
                                     <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}> {product?.subCategoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
@@ -151,12 +155,12 @@ export default function InfoModal({ product }: Props) {
                                             {product.discountPrice != 'undefined' ? (
                                                 <>
                                                     <BiShekel
-                                                        size={20}
+                                                        size={25}
                                                     />
                                                     <p>  {product.discountPrice}</p>
                                                     <span>
                                                         <BiShekel
-                                                            size={20}
+                                                            size={25}
                                                         />
                                                         {product.price}
                                                     </span>
@@ -179,7 +183,7 @@ export default function InfoModal({ product }: Props) {
                         </Col>
                         <Col
                             xs={24}
-                            className="textCenter"
+                            className="textEnd"
                             sm={24}
                             md={product.discountPrice !== 'undefined' ? 12 : 12}
                             lg={product.discountPrice !== 'undefined' ? 12 : 12}
