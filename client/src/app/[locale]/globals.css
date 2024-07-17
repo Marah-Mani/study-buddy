@@ -44,7 +44,7 @@ h6 {
 
 span,
 a {
-  font-family: 'PT Serif', serif;
+  font-family: 'Helvetica';
 }
 
 ul {
@@ -72,10 +72,7 @@ li {
   border: 1px solid #efa24b !important;
   border-radius: 30px;
 }
-p,
-span {
-  font-family: 'Helvetica', sans-serif;
-}
+
 @font-face {
   font-family: 'Helvetica';
   src:
@@ -149,9 +146,12 @@ span {
 .cs-expansion-panel__header,
 .ps__thumb-y,
 .cs-search,
-.cs-search__input {
+.cs-search__input,
+.cs-message-separator::before,
+.cs-message-separator::after {
   background-color: #f6cc9c !important;
 }
+
 svg {
   color: #efa24b;
 }

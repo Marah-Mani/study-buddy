@@ -87,8 +87,11 @@ body.dark-mode .ant-table-tbody > tr > td {
   color: #fff;
   border: 1px solid #343434;
 }
-body.dark-mode .iconColorChange svg {
+body.dark-mode .iconColorChange {
   color: #f1a638;
+}
+.iconColorChange {
+  color: #fff !important;
 }
 
 body.dark-mode .ant-drawer-body,

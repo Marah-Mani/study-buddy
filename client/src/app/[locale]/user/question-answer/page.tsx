@@ -179,6 +179,7 @@ export default function Page() {
                                     {allDataType ? 'My Questions' : 'All Questions'}
                                 </Button>
                                 <Button
+                                    icon={<FaPlus className='iconColorChange' />}
                                     type={'primary'}
                                     onClick={() => handleQuestionssss('new')}
                                     style={{ height: '40px', borderRadius: '30px' }}

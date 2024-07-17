@@ -17,7 +17,7 @@ body.dark-mode .product-grid {
   width: 30px;
 }
 .offerPopup {
-  padding: 4px 10px !important;
+  padding: 7px 10px 5px !important;
   border-radius: 30px !important;
   color: #000 !important;
   font-size: 12px !important;
@@ -33,4 +33,8 @@ body.dark-mode .product-grid {
 }
 .popupStyle .ant-modal-content {
   border: 2px solid #f1a058 !important;
+}
+.product-grid p,
+span {
+  font-family: 'Helvetica', sans-serif;
 }

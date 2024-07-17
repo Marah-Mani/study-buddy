@@ -25,7 +25,7 @@ const GetFileTypeIcon = ({ fileType, size }: Props) => {
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
             return <FcDocument style={{ fontSize: `${size}` }} />;
         case 'application/zip':
-            return <PiFileZipFill style={{ fontSize: `${size}`, color: '#90caf9' }} />;
+            return <PiFileZipFill style={{ fontSize: `${size}` }} />;
         case 'image/png':
         case 'image/jpeg':
         case 'image/jpg':
@@ -38,7 +38,7 @@ const GetFileTypeIcon = ({ fileType, size }: Props) => {
         case 'Image':
             return <FcImageFile style={{ fontSize: `${size}px` }} />;
         case 'Zip':
-            return <PiFileZipFill style={{ fontSize: `${size}px`, color: '#90caf9' }} />;
+            return <PiFileZipFill style={{ fontSize: `${size}px` }} />;
         case 'Other':
 
         default:

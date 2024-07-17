@@ -39,7 +39,7 @@ export default function Header() {
 				setUrl('/en/admin/dashboard')
 				break;
 			case 'user':
-				setUrl('/en/user/appointments')
+				setUrl('/en/user/dashboard')
 				break;
 			default:
 				router.push('/en/login');

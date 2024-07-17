@@ -44,7 +44,7 @@ export default function VoiceToText({ onSetMessage, selectedChat }: Props) {
                 <Tooltip
                     title={'Speak to text message'}
                 >
-                    <AudioFilled style={{ cursor: 'pointer', fontSize: '19px', color: selectedChat.isApproved ? '#6ea9d7' : '#ccc' }} onClick={selectedChat.isApproved ? listening ? handleStop : handleStart : () => { }} />
+                    <AudioFilled style={{ cursor: 'pointer', fontSize: '19px', color: selectedChat.isApproved ? '#6ea9d7' : '#f9dcbb' }} onClick={selectedChat.isApproved ? listening ? handleStop : handleStart : () => { }} />
                 </Tooltip>
             </div>
         </div>
