@@ -258,6 +258,7 @@ export default function Page() {
                             </Col>
                         </Row>
                     </div>
+
                     <br />
                     <InfiniteScroll
                         dataLength={AllCandidates.length}

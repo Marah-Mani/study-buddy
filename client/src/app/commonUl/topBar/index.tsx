@@ -271,7 +271,7 @@ export default function TopBar() {
 																		)}
 																	</ParaText>
 																</div>
-																<span style={{ fontSize: '10px', color: 'white' }}>
+																<span style={{ fontSize: '10px' }}>
 																	{notification?.createdAt && (
 																		<span style={{ fontSize: '11px' }}>
 																			{new Intl.DateTimeFormat('en-US', {

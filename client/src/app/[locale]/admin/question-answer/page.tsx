@@ -187,9 +187,8 @@ export default function Page() {
                                 </Button>
                             </Space>
                         </Col>
-
-                        {allDataType ? (
-                            <>
+                        <>
+                            {allDataType ? (
                                 <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
                                     {forums.length > 0 ? (
                                         <Row>
@@ -199,7 +198,7 @@ export default function Page() {
                                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                                             <div className="question">
                                                                 <Row>
-                                                                    <Col xs={24} sm={24} md={1} lg={1} xl={1} xxl={1}>
+                                                                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={1}>
                                                                         <div>
                                                                             {forum.userId.attachment ? (
                                                                                 <Image
@@ -382,9 +381,7 @@ export default function Page() {
                                         </div>
                                     )}
                                 </Col>
-                            </>
-                        ) : (
-                            <>
+                            ) : (
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <Forums
                                         activeKey={''}
@@ -393,8 +390,8 @@ export default function Page() {
                                         setNewRecord={setNewRecord}
                                     />
                                 </Col>
-                            </>
-                        )}
+                            )}
+                        </>
                         <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
                             <RightSection
                                 categoryId={''}

@@ -100,7 +100,7 @@ export default function InfoModal({ product }: Props) {
                 <Col md={12}>
                     <Slider {...settings}>
                         {product.images.map((image: any, index: any) => (
-                            <div key={index}>
+                            <div key={index} className='' >
                                 <Image
                                     src={
                                         product.images.length > 0
@@ -110,7 +110,7 @@ export default function InfoModal({ product }: Props) {
                                     alt="item-images"
                                     preview={false}
                                     height={300}
-                                    style={{ width: '100%', borderRadius: '10px' }}
+                                    style={{ width: '100%', borderRadius: '10px', border: '2px solid #344734' }}
                                 />
                             </div>
                         ))}
@@ -126,16 +126,16 @@ export default function InfoModal({ product }: Props) {
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    Machine Tools : <span style={{ color: '#f1a058', fontWeight: '400' }}>{product.description}</span>
+                                    Machine Tools : &nbsp; <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>{product.description}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    Category : <span style={{ color: '#f1a058', fontWeight: '400' }}>{product?.categoryId?.name}</span>
+                                    Category : <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}>{product?.categoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
                                     Sub-category :
-                                    <span style={{ color: '#f1a058', fontWeight: '400' }}> {product?.subCategoryId?.name}</span>
+                                    <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}> {product?.subCategoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                             </div>

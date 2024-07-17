@@ -20,7 +20,7 @@ import io from 'socket.io-client';
 import ErrorHandler from '@/lib/ErrorHandler';
 import MessageBox from '../MessageBox';
 import { TiPlus } from 'react-icons/ti';
-import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image } from 'antd';
+import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image, Popconfirm } from 'antd';
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
@@ -200,7 +200,7 @@ export default function Chat() {
             socket.emit('new message', data);
             if (data.status !== 'scheduled') {
                 setMessages([...messages, data]);
-                setFetchAgain(!fetchAgain);
+                // setFetchAgain(!fetchAgain);
                 setSelectedChat({ ...selectedChat, unreadCount: 0 });
             }
 
@@ -387,11 +387,18 @@ export default function Chat() {
     }
     if (chatSettings?.allowDeleteChat) {
         items.push({
-            label: 'Delete chat',
+            label: (
+                <Popconfirm
+                    title='Are you sure you want to delete this chat?'
+                    onConfirm={() => handleDeleteChat()}
+                >
+                    Delete chat
+                </Popconfirm>
+            ),
             key: '1',
-            onClick: () => {
-                handleDeleteChat();
-            }
+            // onClick: () => {
+            //     handleDeleteChat();
+            // }
         });
     }
 
@@ -424,8 +431,6 @@ export default function Chat() {
         try {
             const { data } = await axios.get(`${baseURL}${common.deleteChat(selectedChat._id)}`, config);
             if (data) {
-                setMessages(undefined);
-                setSelectedChat(undefined);
                 setFetchAgain(!fetchAgain);
             }
         } catch (error) {
@@ -587,7 +592,7 @@ export default function Chat() {
             <MainContainer
                 responsive
                 style={{
-                    height: '88vh'
+                    height: '80vh'
                 }}
             >
                 <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} />
@@ -821,7 +826,7 @@ export default function Chat() {
                                         style={{
                                             cursor: 'pointer',
                                             fontSize: '23px',
-                                            color: selectedChat.isApproved ? '#efa24b' : '#efa24b'
+                                            color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
                                         }}
                                     />
                                 </Popover>
@@ -839,7 +844,7 @@ export default function Chat() {
                                         style={{
                                             cursor: 'pointer',
                                             fontSize: '20px',
-                                            color: selectedChat.isApproved ? '#efa24b' : '#efa24b'
+                                            color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
                                         }}
                                     />
                                 </Popover>

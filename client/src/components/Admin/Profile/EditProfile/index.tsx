@@ -138,9 +138,6 @@ export default function Brands({ activeKey }: Props) {
     );
     return (
         <>
-            <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                Profile Details
-            </ParaText>
             <div className="smallTopMargin"></div>
             <Form layout='vertical' form={form} size='large' onFinish={onfinish} >
                 <Row>
