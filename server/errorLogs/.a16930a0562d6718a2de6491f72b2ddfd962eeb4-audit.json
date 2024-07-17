@@ -44,6 +44,11 @@
             "date": 1721101094477,
             "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-07-16.log",
             "hash": "c93683dd1b8936234b51e0b966653babea11a370ac543e0e55889b865741bac8"
+        },
+        {
+            "date": 1721186576336,
+            "name": "/home/bpl11/Documents/study-buddy/server/errorLogs/error-2024-07-17.log",
+            "hash": "98b5e75aed5d09dac711e975ca0bd3e2a6e5b5e3cfc024a867b9a46ee94accbd"
         }
     ],
     "hashType": "sha256"

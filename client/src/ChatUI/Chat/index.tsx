@@ -26,7 +26,8 @@ import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
 import { FaEllipsisV, FaInfo, FaSearch, FaStar, FaRegArrowAltCircleRight, FaVideo, FaTrash } from 'react-icons/fa';
 import TimeAgo from 'react-timeago';
-const ENDPOINT = 'http://localhost:3001';
+// const ENDPOINT = 'http://localhost:3001';
+const ENDPOINT = 'http://13.201.57.69:3001';
 var socket: any, selectedChatCompare: any;
 import StringAvatar from '@/app/commonUl/StringAvatar';
 import CreateMeetingModal from '@/components/CreateMeetingModal';
@@ -602,8 +603,8 @@ export default function Chat() {
                                             email={getSender(user, selectedChat.users).email}
                                             key={`chat-${selectedChat._id}`}
                                             name={`${selectedChat && !selectedChat.isGroupChat
-                                                    ? getSender(user, selectedChat.users)
-                                                    : selectedChat.chatName
+                                                ? getSender(user, selectedChat.users)
+                                                : selectedChat.chatName
                                                 }`}
                                             user={getSenderFull(user, selectedChat.users)}
                                         />
