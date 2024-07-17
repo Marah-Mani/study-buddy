@@ -163,6 +163,12 @@
   font-size: 17px;
   font-weight: 700;
 }
+.product-grid .price svg {
+  color: #344734;
+}
+.product-grid .price span svg {
+  color: #999;
+}
 
 .product-grid .price span {
   color: #999;

@@ -49,7 +49,7 @@ const RelativeTime = ({ date }: Props) => {
     const { value, unit } = calculateRelativeTime(date);
     return (
         <span>
-            <span style={{ fontWeight: 'bold' }}>{value}</span> <span style={{ fontWeight: 'normal' }}>{unit} ago</span>
+            <span style={{ fontWeight: '400' }}>{value}</span> <span style={{ fontWeight: 'normal' }}>{unit} ago</span>
         </span>
     );
 };

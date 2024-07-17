@@ -258,6 +258,9 @@ export default function Page() {
                             </Col>
                         </Row>
                     </div>
+                    {/*half code  */}
+
+
                     <br />
                     <InfiniteScroll
                         dataLength={AllCandidates.length}
@@ -268,7 +271,7 @@ export default function Page() {
                     >
                         {AllCandidates.map((item: any) => (
                             <>
-                                <div style={{ padding: ' 15px 15px 25px 15px' }} >
+                                <div>
                                     <Row gutter={[16, 16]} justify='center'>
                                         <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                             <div className="candidates-details">
@@ -290,7 +293,7 @@ export default function Page() {
                                                     <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={23} className='custom-col'>
                                                         <Row gutter={[16, 16]}>
                                                             <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                                                <Flex align="center">
+                                                                <Flex align="center" style={{ paddingTop: '12px' }}>
                                                                     <ParaText
                                                                         size="small"
                                                                         color="black"

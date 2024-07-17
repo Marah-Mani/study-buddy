@@ -128,7 +128,7 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                             <CreateOrEditFolder currentInnerFolderId={folderId} folderRename={folderRename} action={action} getFolderData={handleReload} setFolderRename={setFolderRename} />
                         </div>
                         <div>
-                            <Button icon={<AiOutlinePlusCircle />} style={{ background: '#23b7e5', display: 'flex', alignItems: 'center', borderRadius: '30px' }}
+                            <Button icon={<AiOutlinePlusCircle className="iconColorChange" />} style={{ background: '#23b7e5', display: 'flex', alignItems: 'center', borderRadius: '30px' }}
                                 type='primary' onClick={fileModal}>
                                 Upload File
                             </Button>

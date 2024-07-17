@@ -588,7 +588,7 @@ export default function Chat() {
             <MainContainer
                 responsive
                 style={{
-                    height: '82vh'
+                    height: '80vh'
                 }}
             >
                 <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} />

@@ -190,7 +190,9 @@ export default function Page() {
                                                                                         display: 'flex'
                                                                                     }}
                                                                                 >
-                                                                                    <span>{forum.userId.name}</span>
+                                                                                    <span style={{
+                                                                                        fontWeight: '900'
+                                                                                    }}>{forum.userId.name}</span>
                                                                                     <span>
                                                                                         <Badge status="default" />
                                                                                     </span>

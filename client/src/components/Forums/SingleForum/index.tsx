@@ -249,7 +249,7 @@ export default function SingleForum({ forumData }: Props) {
                            <div>
                               <span style={{ fontSize: '14px' }}>{forumData.userId.name}</span>
                               <br />
-                              <span style={{ color: '#F2A638' }}>
+                              <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
                                  <RelativeTime date={forumData.createdAt} />
                               </span>
                            </div>
@@ -377,7 +377,7 @@ export default function SingleForum({ forumData }: Props) {
                                     <div>
                                        <span style={{ fontSize: '14px' }}>{comment.userId.name}</span>
                                        <br />
-                                       <span style={{ color: '#F2A638' }}>
+                                       <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
                                           <RelativeTime date={comment.createdAt} />
                                        </span>
                                     </div>
