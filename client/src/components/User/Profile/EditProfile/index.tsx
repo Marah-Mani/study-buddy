@@ -84,10 +84,18 @@ export default function Brands() {
             formData.append('profileTitle', values.profileTitle);
             formData.append('higherEducation', values.higherEducation);
             formData.append('profileDescription', values.profileDescription);
-            formData.append('instagram', values.instagram);
-            formData.append('linkedIn', values.linkedIn);
-            formData.append('facebook', values.facebook);
-            formData.append('twitter', values.twitter);
+            if (values.facebook) {
+                formData.append('facebook', values.facebook);
+            }
+            if (values.twitter) {
+                formData.append('twitter', values.twitter);
+            }
+            if (values.linkedIn) {
+                formData.append('linkedIn', values.linkedIn);
+            }
+            if (values.instagram) {
+                formData.append('instagram', values.instagram);
+            }
 
             const res = await updateProfileDetails(formData);
 
@@ -197,8 +205,14 @@ export default function Brands() {
                                         </Form.Item>
                                     </Col>
                                     <Col span={24}>
-                                        <Form.Item name={'profileDescription'} label={'Profile Description'}>
-                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                        <Form.Item name={'profileDescription'} label={'Profile Description'}
+                                            rules={[
+                                                {
+                                                    max: 200, // Maximum 200 characters
+                                                    message: 'Profile description must be less than 200 characters',
+                                                },
+                                            ]}>
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} showCount />
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12} md={12} sm={12} xs={12}>
