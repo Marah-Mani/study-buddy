@@ -13,12 +13,12 @@ export default function Page() {
             <div className="dashBody">
                 <div className='gapMarginTopTwo'></div>
                 <Row align='middle' gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} >
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} >
                         <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Users
                         </ParaText>
                     </Col>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
                         <Space>
                             <Input placeholder="Search" style={{ height: '38px', width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                         </Space>

@@ -95,6 +95,7 @@ body.dark-mode .cs-message-input__content-editor-wrapper {
 
 body.dark-mode .cs-message-input__content-editor {
   background-color: #2a2a2a !important;
+  color: #fff !important;
 }
 
 body.dark-mode .cs-message-separator::before,

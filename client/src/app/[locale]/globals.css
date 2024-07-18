@@ -133,6 +133,9 @@ li {
 .ant-pagination .ant-pagination-item-active {
   border-color: #efa24b !important;
 }
+.ant-select-item-option:hover {
+  background-color: #f1a638 !important;
+}
 
 .hovercolor:hover {
   background-color: #facca4 !important;
@@ -175,4 +178,7 @@ input.form-control {
 }
 .cs-message-input__content-editor[data-placeholder]:empty:before {
   color: #000 !important;
+}
+.description {
+  color: #344734;
 }
