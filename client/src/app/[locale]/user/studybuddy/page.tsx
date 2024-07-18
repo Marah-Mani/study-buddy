@@ -448,7 +448,7 @@ export default function Page() {
                                                                         <CiHeart size={30} />
                                                                     </span> */}
                                                                 </div>
-                                                                <div className="candidates-details-chat">
+                                                                <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
                                                                     <ParaText size="textGraf" color="black">
                                                                         {item?.profileDescription}
                                                                     </ParaText>

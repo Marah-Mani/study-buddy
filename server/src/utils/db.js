@@ -8,7 +8,7 @@ const connectDB = async () => {
 		// eslint-disable-next-line no-console
 		console.log(`MongoDB Connected: ${connection.connection.host}`);
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		throw new Error('Unable to connect to MongoDB');
 	}
 };
