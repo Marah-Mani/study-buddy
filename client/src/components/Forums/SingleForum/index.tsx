@@ -290,7 +290,7 @@ export default function SingleForum({ forumData }: Props) {
                            </div>
 
                            {/* COMMENT TEXTBOX */}
-                           <div>
+                           {/* <div>
                               {comment && (
                                  <div style={{ paddingTop: '4px' }}>
                                     <div
@@ -320,7 +320,7 @@ export default function SingleForum({ forumData }: Props) {
                                     </div>
                                  </div>
                               )}
-                           </div>
+                           </div> */}
                         </Col>
                      </Row>
                   </div>
