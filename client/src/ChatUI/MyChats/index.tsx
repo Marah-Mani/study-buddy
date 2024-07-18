@@ -28,9 +28,11 @@ const { common } = CHAT;
 interface Props {
     handleRightClickOption: any;
     hardRefresh: any;
+    viewInfo: boolean;
+    changeView: any;
 }
 
-export default function MyChats({ handleRightClickOption, hardRefresh }: Props) {
+export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
     const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
@@ -132,6 +134,10 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         hardRefresh()
     }
 
+    const handleView = (data: any) => {
+        changeView(data);
+    }
+
     const tabItems: TabsProps['items'] = [
         {
             key: '1',
@@ -151,6 +157,8 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
                         user={user}
                         handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
                         search={search}
+                        viewInfo={viewInfo}
+                        changeInfo={handleView}
                     />
                 ))}
                 {chats.length > 0 &&
@@ -167,6 +175,9 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
                         user={user}
                         handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
                         search={search}
+                        viewInfo={viewInfo}
+                        changeInfo={handleView}
+
                     />
                 ))}
             </div>,
@@ -213,6 +224,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
 
             if (response.data) {
                 setReload(!reload)
+                setViewProfile(!viewProfile);
             }
         } catch (error) {
             new ErrorHandler(error);
@@ -223,7 +235,9 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         {
             key: '1',
             label: 'My account',
-            children: <MyAccount config={config} user={user} />
+            children: <MyAccount config={config} user={user} onSuccess={() => {
+                setViewProfile(!viewProfile)
+            }} />
         },
         {
             key: '2',

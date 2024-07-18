@@ -300,7 +300,8 @@ export default function MarketPlace({ activeKey }: Props) {
                                                                 </span>
                                                             </>
                                                         ) : (
-                                                            `$${data.price}`
+
+                                                            `${data.price}`
                                                         )}
                                                     </div>
                                                 </div>

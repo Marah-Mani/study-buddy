@@ -82,7 +82,7 @@ export default function Dashboard() {
                         <Card
                             extra={
                                 <Link
-                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/admin/forums`}
+                                    href={`${process.env['NEXT_PUBLIC_SITE_URL']}/admin/question-answer`}
                                     style={{ color: 'rgb(134 93 224) ' }}
                                 >
                                     View all

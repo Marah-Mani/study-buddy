@@ -39,3 +39,11 @@
     opacity: 0;
   }
 }
+
+.buttonApproved svg {
+  color: #efa24b !important;
+}
+
+.buttonNotApproved svg {
+  color: #f9dcbb !important;
+}
