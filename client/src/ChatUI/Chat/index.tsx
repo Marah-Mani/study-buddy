@@ -20,7 +20,7 @@ import io from 'socket.io-client';
 import ErrorHandler from '@/lib/ErrorHandler';
 import MessageBox from '../MessageBox';
 import { TiPlus } from 'react-icons/ti';
-import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image, Popconfirm } from 'antd';
+import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image, Popconfirm, Tooltip } from 'antd';
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
@@ -69,7 +69,7 @@ export default function Chat() {
     const { user, setUser } = useContext(AuthContext);
     const [prevDate, setPrevDate] = useState<any>('');
     const [prevIndex, setPrevIndex] = useState<any>();
-    const [viewInfo, setViewInfo] = useState<boolean>(true);
+    const [viewInfo, setViewInfo] = useState<boolean>(!!selectedChat);
     const [viewProfile, setViewProfile] = useState(false);
     const [loadingComplete, setLoadingComplete] = useState(false);
     const [editMessage, setEditMessage] = useState<any>([]);
@@ -175,20 +175,35 @@ export default function Chat() {
     ) => {
         socket.emit('stop typing', selectedChat._id);
         try {
+            // Prepare the configuration for the API request
             const config = {
                 headers: {
                     'Content-type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
             };
-            setNewMessage('');
-            const filter = new Filter();
-            filter.addWords(...bannedWords);
 
-            let content = name ? filter.clean(name) : filter.clean(newMessage);
+            // Regular expression to detect emojis
+            const emojiRegex = /[\uD83C-\uDBFF\uDC00-\uDFFF]+/g;
+
+            // Determine if the message contains emojis
+            const containsEmoji = emojiRegex.test(newMessage);
+
+            // Prepare the content of the message
+            let content = name ? name : newMessage;
+            if (!containsEmoji) {
+                // Use a filter to clean the message content
+                const filter = new Filter();
+                filter.addWords(...bannedWords);
+                content = filter.clean(content);
+            }
+
+            // Apply text formatting
             content = content.replace(/~(.*?)~/g, '<s>$1</s>');
             content = content.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
             content = content.replace(/_(.*?)_/g, '<i>$1</i>');
+
+            // Prepare the form data for the API request
             const formData = {
                 content: content,
                 chatId: selectedChat,
@@ -196,16 +211,25 @@ export default function Chat() {
                 status: status,
                 ...values
             };
+
+            // Make the API request to send the message
             const { data } = await axios.post(`${baseURL}${common.sendMessage}`, formData, config);
+
+            // Emit the new message event through the socket
             socket.emit('new message', data);
+
+            // Update the messages and chat state if the message is not scheduled
             if (data.status !== 'scheduled') {
                 setMessages([...messages, data]);
-                // setFetchAgain(!fetchAgain);
                 setSelectedChat({ ...selectedChat, unreadCount: 0 });
             }
 
+            // Reload the component state
             setReload(!reload);
             setShowCreateMeetingForm(false);
+
+            // Clear the input field after the message is successfully sent
+            setNewMessage('');
         } catch (error) {
             new ErrorHandler(error);
         }
@@ -484,8 +508,7 @@ export default function Chat() {
     };
 
     const onEmojiClick = (emojiObject: any, event: any) => {
-        setNewMessage((prevInput: any) => prevInput + emojiObject.emoji);
-        sendMessage(selectedChat._id, (prevInput: any) => prevInput + emojiObject.emoji);
+        setNewMessage((prevInput: string) => prevInput + emojiObject.emoji);
     };
 
     const handleCancel = () => {
@@ -507,9 +530,9 @@ export default function Chat() {
             const response = await axios.get(`${baseURL}${common.continueChat(selectedChat._id)}`, config);
 
             if (response.data) {
-                setFetchAgain(!fetchAgain);
                 sendMessage(null, 'Request accepted.');
                 setLoading(false);
+                setFetchAgain(!fetchAgain);
             }
         } catch (error) {
             setLoading(false);
@@ -603,7 +626,7 @@ export default function Chat() {
                     height: '82vh'
                 }}
             >
-                <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} />
+                <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} />
                 {selectedChat && (
                     <ChatContainer data-message-list-container className="chatBox">
                         <ConversationHeader>
@@ -720,14 +743,22 @@ export default function Chat() {
                                         )}
                                         &nbsp;
                                         {chatSettings.showFavorite && (
-                                            <Button
-                                                icon={
-                                                    <FaStar
-                                                        color={`${selectedChat.favourites.includes(user?._id) ? '#efa24b' : '#efa24b'}`}
-                                                    />
+                                            <Tooltip
+                                                title={
+                                                    <span>
+                                                        {`${selectedChat.favourites.includes(user?._id) ? 'Remove from favorites' : 'Add to favorites'}`}
+                                                    </span>
                                                 }
-                                                onClick={handleFavourite}
-                                            />
+                                            >
+                                                <Button
+                                                    icon={
+                                                        <FaStar
+                                                            color={`${selectedChat.favourites.includes(user?._id) ? '#efa24b' : 'rgb(255 210 158)'}`}
+                                                        />
+                                                    }
+                                                    onClick={handleFavourite}
+                                                />
+                                            </Tooltip>
                                         )}
                                         &nbsp;
                                         <Dropdown menu={{ items }} placement="bottomRight" trigger={['click']}>
@@ -866,7 +897,7 @@ export default function Chat() {
                         </InputToolbox>
                     </ChatContainer>
                 )}
-                {selectedChat ? (
+                {viewInfo &&
                     <Rightbar
                         selectedChat={selectedChat}
                         user={user}
@@ -881,13 +912,14 @@ export default function Chat() {
                         }}
                         sendMessage={sendMessage}
                     />
-                ) : (
+                }
+                {!selectedChat &&
                     <>
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', height: '100vh', marginTop: '20%' }}>
                             <span>Select a chat to start the conversation.</span>
                         </div>
                     </>
-                )}
+                }
                 <Modal
                     footer=""
                     title={'Edit message'}

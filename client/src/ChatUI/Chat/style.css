@@ -22,16 +22,16 @@ body.dark-mode .cs-conversation-header {
   border-bottom: solid 1px #393939;
 }
 
-body.dark-mode .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-body.dark-mode .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+body.dark-mode .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+body.dark-mode .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
   background: #2a2a2a;
   border: 1px solid #393939;
 }
 
-body.dark-mode .ant-tabs-top > .ant-tabs-nav::before,
-body.dark-mode .ant-tabs-bottom > .ant-tabs-nav::before,
-body.dark-mode .ant-tabs-top > div > .ant-tabs-nav::before,
-body.dark-mode .ant-tabs-bottom > div > .ant-tabs-nav::before {
+body.dark-mode .ant-tabs-top>.ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom>.ant-tabs-nav::before,
+body.dark-mode .ant-tabs-top>div>.ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom>div>.ant-tabs-nav::before {
   border-bottom: 1px solid #393939;
 }
 
@@ -71,7 +71,7 @@ body.dark-mode .colordarkMode svg {
   color: #fff !important;
 }
 
-body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--left,
+body.dark-mode .cs-main-container>.cs-sidebar.cs-sidebar--left,
 body.dark-mode .cs-expansion-panel {
   border: solid 1px #393939;
 }
@@ -95,6 +95,7 @@ body.dark-mode .cs-message-input__content-editor-wrapper {
 
 body.dark-mode .cs-message-input__content-editor {
   background-color: #2a2a2a !important;
+  color: #fff !important;
 }
 
 body.dark-mode .cs-message-separator::before,
@@ -102,7 +103,7 @@ body.dark-mode .cs-message-separator::after {
   background-color: #393939 !important;
 }
 
-body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--right {
+body.dark-mode .cs-main-container>.cs-sidebar.cs-sidebar--right {
   border-left: solid 1px #393939;
 }
 
@@ -170,9 +171,11 @@ canvas.sound-wave {
   .headerMain .cs-conversation-header {
     display: block;
   }
+
   .cs-input-toolbox {
     justify-content: left;
   }
+
   .headerMain .cs-input-toolbox {
     position: unset;
     bottom: 14px;
@@ -198,7 +201,12 @@ canvas.sound-wave {
   .headerMain .cs-conversation-header__content {
     margin-top: 10px;
   }
+
   button.cs-button.cs-button--attachment {
     margin-left: 0px !important;
   }
+}
+
+.cs-search {
+  border: 1px solid #efa24b;
 }
