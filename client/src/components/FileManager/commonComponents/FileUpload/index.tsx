@@ -80,9 +80,9 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
                     banned files.
                 </p>
             </Dragger>
-            <div className='gapMarginTop'></div>
+            <div className="smallTopMargin"></div>
             <Button key="submit" type="primary" onClick={handleUploadFile} >
-                {/* {loading ? 'Uploading' : 'Upload Identity'} */}file upload
+                {/* {loading ? 'Uploading' : 'Upload Identity'} */}File upload
             </Button>
         </>
     )

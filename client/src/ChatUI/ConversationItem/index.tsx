@@ -296,13 +296,13 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                                 }
                             </div>
                             <div className='userName'>
-                                <p
+                                {/* <p
                                     style={{
                                         fontWeight: '600',
                                         textTransform: 'capitalize'
                                     }}>
                                     {!chat.isGroupChat ? getSender(user, chat.users) : chat.chatName}
-                                </p>
+                                </p> */}
                                 <p style={{
                                     fontSize: '12px',
                                     fontWeight: '400'
@@ -312,12 +312,12 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                                         :
                                         !chat.isGroupChat ? getSender(user, chat.users) : chat.chatName
                                     }
-                                    <span dangerouslySetInnerHTML={{
+                                    <p dangerouslySetInnerHTML={{
                                         __html: !user.block.includes(getSenderFull(user, chat.users)._id) && chat.latestMessage &&
-                                            `: ${chat.latestMessage.content.length > 50
+                                            ` ${chat.latestMessage.content.length > 50
                                                 ? `${chat.latestMessage.content.substring(0, 51)}...`
                                                 : chat.latestMessage.content}`
-                                    }}></span>
+                                    }}></p>
                                 </p>
                             </div>
                         </div>
