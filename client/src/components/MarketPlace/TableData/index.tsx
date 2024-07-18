@@ -162,7 +162,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 >
                     <Image src={
                         data?.images.length > 0
-                            ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/small/${data?.images[0]?.name}`
+                            ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
                             : `/images/avatar.png`
                     } width={50} height={50} alt='product' preview={false} style={{ borderRadius: '5px' }} />
                 </Tooltip>
