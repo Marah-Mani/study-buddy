@@ -128,23 +128,23 @@ export default function InfoModal({ product }: Props) {
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    <span style={{ color: '#344734' }}> Description:</span>  &nbsp; <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>{product.description}</span>
+                                    <span className='description'> Description:</span>  &nbsp; <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>{product.description}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    <span style={{ color: '#344734' }}>  Category :</span>
+                                    <span className='description'>  Category :</span>
                                     <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}>{product?.categoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                                 <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                    <span style={{ color: '#344734' }}>   Sub-category :</span>
+                                    <span className='description'>   Sub-category :</span>
 
                                     <span style={{ color: '#f1a058', fontWeight: '400', fontSize: '14px' }}> {product?.subCategoryId?.name}</span>
                                 </ParaText>
                                 <div className="gapMarginTopOne"></div>
                             </div>
                         </Col>
-                    </Row>
+                    </Row >
 
                     <Row align="middle">
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
@@ -202,8 +202,8 @@ export default function InfoModal({ product }: Props) {
                             </Tooltip>
                         </Col>
                     </Row>
-                </Col>
-            </Row>
+                </Col >
+            </Row >
         </>
     );
 }

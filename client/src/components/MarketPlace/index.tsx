@@ -235,7 +235,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                        <span style={{ color: '#344734' }}> description :</span>  &nbsp;
+                                        <span className='description'> description :</span>  &nbsp;
                                         <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>
                                             <ShortFileName fileName={data.description} short={90} />
                                         </span>
