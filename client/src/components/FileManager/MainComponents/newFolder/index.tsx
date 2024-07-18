@@ -145,9 +145,6 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                         </div>
                     </div>
                 </Col>
-                {/* <Col xs={12} sm={2} md={2} lg={2} xl={2} xxl={2} className='textEnd'>
-                    <span className='viewAll'>View All</span>
-                </Col> */}
             </Row >
             <div className='gapMarginTopOne'></div>
 

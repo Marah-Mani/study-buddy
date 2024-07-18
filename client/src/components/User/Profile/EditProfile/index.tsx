@@ -16,16 +16,11 @@ import { handleFileCompression } from '@/lib/commonServices';
 
 export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
-    const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
     const { user, setUser } = useContext(AuthContext);
     const [form] = Form.useForm();
-    const [isEmailDisabled, setIsEmailDisabled] = useState(false);
     const [phone, setPhone] = useState('');
     const token = Cookies.get('session_token');
-
-
-
 
     const handlePhoneChange = (value: any, countryData: any) => {
         setPhone(value);
@@ -49,12 +44,14 @@ export default function Brands() {
                 facebook: user.socialLinks?.facebook,
                 twitter: user.socialLinks?.twitter,
                 higherEducation: user.higherEducation,
+                interest: user.interestedIn,
             });
             setFileList([{
                 uid: '-1',
                 name: user.image,
                 status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`,
+                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`
+                ,
             }])
 
         }
@@ -72,7 +69,6 @@ export default function Brands() {
                     formData.append('image', file as string);
                 }
             }
-
             formData.append('name', values.name);
             formData.append('email', values.email);
             formData.append('phoneNumber', values.phoneNumber);
@@ -84,6 +80,7 @@ export default function Brands() {
             formData.append('profileTitle', values.profileTitle);
             formData.append('higherEducation', values.higherEducation);
             formData.append('profileDescription', values.profileDescription);
+            formData.append('interestedIn', values.interest);
             if (values.facebook) {
                 formData.append('facebook', values.facebook);
             }
@@ -212,7 +209,7 @@ export default function Brands() {
                                                     message: 'Profile description must be less than 200 characters',
                                                 },
                                             ]}>
-                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} showCount />
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12} md={12} sm={12} xs={12}>
@@ -220,8 +217,6 @@ export default function Brands() {
                                             <Upload
                                                 listType="picture-card"
                                                 fileList={fileList}
-                                                // onPreview={handlePreview}
-                                                // onChange={handleChange}
                                                 beforeUpload={handleBeforeUpload}
                                                 onRemove={handleRemove}
                                                 accept=".jpg,.jpeg,.png"
@@ -233,7 +228,6 @@ export default function Brands() {
                                             </Upload>
                                         </Form.Item>
                                     </Col>
-
                                 </Row>
                             </Col>
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
@@ -283,6 +277,18 @@ export default function Brands() {
                                                 <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
                                                 <Select.Option value='master degree'>Master Degree</Select.Option>
                                                 <Select.Option value='doctorate'>Doctorate</Select.Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                        <Form.Item
+                                            label='Interest'
+                                            name="interest"
+                                            rules={[{ required: true, message: 'Please select your interest!' }]}
+                                        >
+                                            <Select placeholder="Select interest" style={{ height: '40px', borderRadius: '30px' }}>
+                                                <Select.Option value="tutor">Tutor</Select.Option>
+                                                <Select.Option value="student">Student</Select.Option>
                                             </Select>
                                         </Form.Item>
                                     </Col>

@@ -530,9 +530,9 @@ export default function Chat() {
             const response = await axios.get(`${baseURL}${common.continueChat(selectedChat._id)}`, config);
 
             if (response.data) {
+                setFetchAgain(!fetchAgain);
                 sendMessage(null, 'Request accepted.');
                 setLoading(false);
-                setFetchAgain(!fetchAgain);
             }
         } catch (error) {
             setLoading(false);

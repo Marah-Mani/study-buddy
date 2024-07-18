@@ -66,17 +66,18 @@ body.dark-mode .candidates-details {
 body.dark-mode .candidates-details-chat {
   border: 1px solid #343434;
 }
-.custom-col {
-  padding-left: 20px;
-}
+
 @media (max-width: 767px) {
-  .custom-col {
-    padding-left: 0;
-  }
   .dNone {
     display: none;
   }
   .menuStyle {
     padding: 2px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .custom-col {
+    padding-left: 20px;
   }
 }

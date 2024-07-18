@@ -94,9 +94,6 @@ li {
     url('./fonts/New-Spirit-SemiBold-Condensed.svg#New Spirit SemiBold Condensed') format('svg');
 } */
 
-.layOutStyle {
-  padding: 4% 2%;
-}
 .ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar,
 .ant-tabs-bottom > .ant-tabs-nav .ant-tabs-ink-bar,
 .ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar,
@@ -127,9 +124,13 @@ li {
 .ant-select-selector {
   border-radius: 30px !important;
 }
-.ant-select-selector:hover {
+.ant-select-selector:hover,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-open .ant-select-selector {
   border: 1px solid #efa24b !important;
 }
+
 .ant-pagination .ant-pagination-item-active {
   border-color: #efa24b !important;
 }
@@ -138,7 +139,7 @@ li {
 }
 
 .hovercolor:hover {
-  background-color: #facca4 !important;
+  background-color: #ffcda0 !important;
   border-radius: 15px !important;
 }
 
@@ -181,4 +182,15 @@ input.form-control {
 }
 .description {
   color: #344734;
+}
+.ant-modal {
+  padding-bottom: 0px !important;
+  border-radius: 16px;
+}
+
+.ant-table-content {
+  overflow-x: auto !important;
+}
+.cs-conversation.cs-conversation--active {
+  color: #344734 !important;
 }

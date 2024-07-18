@@ -45,3 +45,9 @@
 .body.dark-mode .question {
   border: 2px solid #686868;
 }
+
+@media (max-width: 991px) {
+  .question {
+    margin-top: 10px;
+  }
+}

@@ -136,7 +136,7 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<Link href="/">
+							<Link href="/about">
 								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Link>

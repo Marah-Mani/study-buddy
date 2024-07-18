@@ -30,7 +30,7 @@ export default function Page() {
         },
         {
             label: (
-                <p><HomeOutlined /> My Files</p>
+                <p><HomeOutlined /> Files</p>
             ), component: <MyFiles activeKey={key} />
         },
         {
