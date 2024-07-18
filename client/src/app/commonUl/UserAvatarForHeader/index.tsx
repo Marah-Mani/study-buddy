@@ -31,7 +31,7 @@ export default function UserAvatarForHeader() {
    }
 
    function redirectToPage() {
-      const page = user?.role === 'admin' ? '/en/admin/profile' : '/en/user/profile';
+      const page = user?.role === 'admin' ? '/en/admin/profile' : '/en/user/edit-profile';
       router.push(page);
    }
 

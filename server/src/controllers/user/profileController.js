@@ -16,6 +16,14 @@ const profileController = {
 				}
 
 				try {
+					let imageValue = null;
+					if (req.file && req.file.filename) {
+						imageValue = req.file.filename;
+					} else if (req.body.image && req.body.image !== 'null') {
+						imageValue = req.body.image;
+					} else {
+						imageValue = null; // Ensure imageValue is set to null if no image is provided
+					}
 					const profileData = {
 						name: req.body.name,
 						email: req.body.email,
@@ -36,7 +44,7 @@ const profileController = {
 							instagram: req.body.instagram || null,
 							website: req.body.website || null
 						},
-						image: req.file && req.file.filename ? req.file.filename : req.body.image || null
+						image: imageValue
 					};
 
 					try {

@@ -9,15 +9,12 @@ import ParaText from '@/app/commonUl/ParaText';
 import { useParams, usePathname } from 'next/navigation';
 import Titles from '@/app/commonUl/Titles';
 import AuthContext from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
 	const params = usePathname();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { user, logout } = useContext(AuthContext);
-	const [url, setUrl] = useState('');
-	const router = useRouter();
 
 	const showDrawer = () => {
 		setOpen(true);
@@ -31,22 +28,6 @@ export default function Header() {
 			// Handle error, if any
 		}
 	};
-
-	const redirectBasedOnRole = (role: string) => {
-
-		switch (role) {
-			case 'admin':
-				setUrl('/en/admin/dashboard')
-				break;
-			case 'user':
-				setUrl('/en/user/dashboard')
-				break;
-			default:
-				router.push('/en/login');
-				break;
-		}
-	};
-
 	const onClose = () => {
 		setOpen(false);
 	};
@@ -132,8 +113,8 @@ export default function Header() {
 							</li> */}
 
 							{user?._id && (
-								<><li style={{ padding: '0px' }}>
-									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+								<><li style={{ padding: '0px' }} >
+									<Link style={{ cursor: 'pointer' }} href={`/en/${user.role}/dashboard`}>
 										<ParaText size="small" fontWeightBold={500} color="primaryColor">Dashboard</ParaText>
 									</Link>
 								</li>
@@ -203,7 +184,7 @@ export default function Header() {
 							<br />
 							{user?._id && (
 								<>
-									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+									<Link style={{ cursor: 'pointer' }} href={`/en/${user.role}/dashboard`}>
 										Dashboard
 									</Link>
 									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href='/en/login'>
