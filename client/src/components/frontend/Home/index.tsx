@@ -33,7 +33,7 @@ export default function Home() {
 						</svg>
 					</div>
 					<div className="customContainer">
-						<Row>
+						<Row align='middle'>
 							<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
 								<div className="textSection">
 									<Titles level={2} color="primaryColor">

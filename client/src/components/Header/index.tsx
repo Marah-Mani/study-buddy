@@ -206,17 +206,17 @@ export default function Header() {
 									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
 										Dashboard
 									</Link>
-									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href={''}>
+									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href='/en/login'>
 										Logout
 									</Link>
 								</>
 							)}
-
+							{/*
 							{user?._id ? null : (
 								<>
-									<Link href="/en/login">Loginss</Link>
+									<Link href="/en/login">Login</Link>
 								</>
-							)}
+							)} */}
 							<br />
 							<br />
 						</ul>
