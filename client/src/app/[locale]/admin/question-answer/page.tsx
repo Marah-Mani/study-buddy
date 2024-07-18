@@ -163,7 +163,6 @@ export default function Page() {
 
     return (
         <>
-            <div className="gapMarginTopTwo"></div>
             <div className="">
                 <div>
                     <Row>
@@ -197,8 +196,8 @@ export default function Page() {
                                                     <>
                                                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                                             <div className="question">
-                                                                <Row>
-                                                                    <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={1}>
+                                                                <Row gutter={[24, 24]}>
+                                                                    <Col xs={3} sm={2} md={2} lg={2} xl={1} xxl={1}>
                                                                         <div>
                                                                             {forum.userId.attachment ? (
                                                                                 <Image
@@ -214,7 +213,7 @@ export default function Page() {
                                                                             )}
                                                                         </div>
                                                                     </Col>
-                                                                    <Col xs={24} sm={24} md={23} lg={23} xl={23} xxl={23}>
+                                                                    <Col xs={21} sm={22} md={22} lg={22} xl={23} xxl={23} style={{ paddingTop: '10px' }}>
                                                                         <Row>
                                                                             <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
                                                                                 <div

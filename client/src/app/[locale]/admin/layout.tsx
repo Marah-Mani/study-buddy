@@ -10,7 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		<section>
 			<TopBar />
 			<div className="largeTopMargin"></div>
-			<Row gutter={[24, 24]} className="myRow">
+			<Row className="myRow">
 				<div className="largeTopMargin"></div>
 				<Col sm={24} xs={24} md={24} lg={24} xl={4} xxl={4} className="mobileNone">
 					<MenuAdmin />
