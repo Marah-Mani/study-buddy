@@ -122,9 +122,9 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     {user?.role !== 'user' && (
                         <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
                     )}
-                    {!user?.role || user?.role !== 'user' ? (
-                        <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
-                    ) : null}
+                    {/* {!user?.role || user?.role !== 'user' ? ( */}
+                    <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
+                    {/* ) : null} */}
                     <IsFavoriteFile activeKey={activeKey}
                         onReload={(data: any) => {
                             if (data == 'favorites') {
