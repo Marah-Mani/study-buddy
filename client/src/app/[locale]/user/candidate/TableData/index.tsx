@@ -78,7 +78,7 @@ export default function TableData({ reload, searchInput }: Props) {
             <Image
                 src={data?.image ?
                     `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${data?.image}`
-                    : `/images/avatar.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
+                    : `/images/users.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
         </Space>,
         email: data.email,
         department: data.departmentId?.departmentName || 'N/A',

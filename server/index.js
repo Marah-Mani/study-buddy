@@ -42,7 +42,7 @@ const saveBlockedIPs = () => {
 // Configure rate limiting
 const limiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 5 minutes
-	max: 500, // limit each IP to 100 requests per windowMs
+	max: 5000, // limit each IP to 100 requests per windowMs
 	handler: (req, res) => {
 		blockedIPs.add(req.ip); // Add IP to the blocked list
 		saveBlockedIPs(); // Save to file
