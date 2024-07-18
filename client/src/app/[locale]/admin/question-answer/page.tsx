@@ -40,7 +40,7 @@ export default function Page() {
     const [modal, setModal] = useState(false);
     const [forumResult, setForumResult] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState<any>();
-    const [allDataType, setAllDataType] = useState(true);
+    const [allDataType, setAllDataType] = useState(false);
     const [newRecord, setNewRecord] = useState(false);
 
     useEffect(() => {
