@@ -82,12 +82,6 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 991px) {
-  .gapMarginTop {
-    margin-top: 20px !important;
-  }
-}
-
 @media (min-width: 1440px) {
   .customContainer {
     max-width: 1520px;
@@ -95,5 +89,17 @@
     padding-left: 0.75rem;
     margin-right: auto;
     margin-left: auto;
+  }
+  .layOutStyle {
+    padding: 4% 2% 0% 0%;
+  }
+}
+
+@media (max-width: 991px) {
+  .gapMarginTop {
+    margin-top: 20px !important;
+  }
+  .layOutStyle {
+    padding: 4% 2%;
   }
 }

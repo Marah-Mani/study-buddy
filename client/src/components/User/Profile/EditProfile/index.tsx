@@ -50,7 +50,8 @@ export default function Brands() {
                 uid: '-1',
                 name: user.image,
                 status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`,
+                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`
+                ,
             }])
 
         }

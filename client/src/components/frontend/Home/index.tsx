@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Row } from 'antd';
 import Image from 'next/image';
 import './style.css';
@@ -8,8 +8,9 @@ import ParaText from '@/app/commonUl/ParaText';
 import FaqSection from '@/components/FaqSection';
 import Features from '@/components/Features';
 import Link from 'next/link';
+import AuthContext from '@/contexts/AuthContext';
 export default function Home() {
-	// const { user, logout } = useContext(AuthContext);
+	const { user, logout } = useContext(AuthContext);
 
 	// useEffect(() => {
 	// 	async function registerAndSubscribe() {
@@ -47,7 +48,7 @@ export default function Home() {
 										learning more fun with a studyBuddy.
 									</ParaText>
 									<div className="gapPaddingTopOTwo"></div>
-									<Link href="/en/login">
+									<Link href={user?.role ? `/en/${user?.role}/dashboard` : 'en/login'}>
 										<button className="button-67" role="button">
 											Get Started
 										</button>

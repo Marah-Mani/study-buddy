@@ -102,7 +102,8 @@ body.dark-mode .ant-input-group-addon,
 body.dark-mode .ant-card .ant-card-extra,
 body.dark-mode .ant-timeline-item-label,
 body.dark-mode .ant-timeline-item-content,
-body.dark-mode .ant-input-show-count-suffix {
+body.dark-mode .ant-input-show-count-suffix,
+body.dark-mode .ant-select-selection-item {
   color: white !important;
 }
 body.dark-mode .ant-timeline-item-head,
@@ -124,7 +125,8 @@ body.dark-mode .ant-modal-header {
 }
 body.dark-mode .ant-modal .ant-modal-content {
   background-color: transparent;
-  border-color: #2a2a2a !important;
+  border-radius: 16px;
+  border-color: #efa24b !important;
 }
 body.dark-mode .ant-card-head,
 body.dark-mode .ant-collapse-header {

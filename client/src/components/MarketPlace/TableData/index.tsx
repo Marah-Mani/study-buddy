@@ -189,13 +189,14 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
 
     return (
         <div>
-            <Table
-                columns={columns}
-                bordered
-                dataSource={data}
-                scroll={{ x: 1500 }}
-                loading={loading}
-            />
+            <div className="table-container">
+                <Table
+                    columns={columns}
+                    bordered
+                    dataSource={data}
+                    loading={loading}
+                />
+            </div>
         </div>
     );
 }
