@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const archiver = require('archiver');
-const { trackUserActivity } = require('../../common/functions');
+const { getAdminDataByRole, trackUserActivity } = require('../../common/functions');
 const { createNotification } = require('../../common/notifications');
 
 const getFileCount = async (folderId) => {
@@ -239,7 +239,11 @@ const fileManagerController = {
 			if (!file) {
 				return res.status(404).json({ status: false, message: 'File not found' });
 			}
-			if (file.createdBy.toString() === userId) {
+
+			const adminId = await getAdminDataByRole('users');
+
+			if (adminId.toString() === userId) {
+				// If the user is an admin, delete the file directly
 				file.status = 'deleted';
 				file.deletedBy = userId;
 				await file.save();
@@ -253,7 +257,25 @@ const fileManagerController = {
 				createNotification(AdminNotificationData);
 				await trackUserActivity(userId, 'Your file has been deleted successfully.');
 				return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
+			}
+
+			if (file.createdBy.toString() === userId) {
+				// If the user is the creator of the file, delete the file
+				file.status = 'deleted';
+				file.deletedBy = userId;
+				await file.save();
+				const UserNotificationData = {
+					notification: `Your file has been deleted successfully.`,
+					notifyBy: userId,
+					notifyTo: userId,
+					type: 'File deleted',
+					url: ''
+				};
+				createNotification(UserNotificationData);
+				await trackUserActivity(userId, 'Your file has been deleted successfully.');
+				return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
 			} else {
+				// If the user is not the creator of the file or an admin, return a 403 error
 				return res.status(403).json({ status: false, message: 'User not authorized to delete this file' });
 			}
 		} catch (error) {

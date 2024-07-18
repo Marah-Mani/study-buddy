@@ -125,7 +125,7 @@
 	},
 	"INDEX_PAGE": {
 		"TITLE": "Fullstack Web App",
-		"DESCRIPTION": "A stayable Fullstack web app with nextjs, nodejs, mongoDB"
+		"DESCRIPTION": "A study-buddy Fullstack web app with nextjs, nodejs, mongoDB"
 	},
 	"LOGIN_PAGE": {
 		"TITLE": "Login Page"
@@ -145,7 +145,7 @@
 		"DESCRIPTION": "Please double-check the browser address bar or use the navigation to go to a known page."
 	},
 	"LOCALE_LAYOUT": {
-		"TITLE": "Stayable"
+		"TITLE": "Study Buddy"
 	},
 	"LOCALE_SWITCHER": {
 		"LABEL": "Change language",

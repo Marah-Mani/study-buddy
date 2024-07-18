@@ -29,6 +29,7 @@ const profileController = {
 						profileTitle: req.body.profileTitle,
 						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
+						interestedIn: req.body.interestedIn,
 						socialLinks: {
 							twitter: req.body.twitter || null,
 							facebook: req.body.facebook || null,

@@ -53,7 +53,7 @@ const webSocket = (server) => {
 
 				for (const subscription of subscriptions) {
 					const importantEventPayload = {
-						title: `New message from "${newMessageReceived.sender.name}" on Stayable`,
+						title: `New message from "${newMessageReceived.sender.name}" on Study Buddy`,
 						description: newMessageReceived.content,
 						image: 'https://cdn2.vectorstock.com/i/thumb-large/94/66/emoji-smile-icon-symbol-smiley-face-vector-26119466.jpg'
 					};

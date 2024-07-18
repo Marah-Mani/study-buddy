@@ -6,7 +6,6 @@ import ParaText from '@/app/commonUl/ParaText';
 import AuthContext from '@/contexts/AuthContext';
 import { deleteFolder, getFileTypes, getFolder } from '@/lib/commonApi';
 import Folders from '@/components/FileManager/folders';
-import FilesData from '@/components/FileManager/filesData';
 import GetFiles from '../../commonComponents/GetFiles';
 import FileInformation from '../../commonComponents/FileInformation';
 import CreateOrEditFolder from '../../commonComponents/CreateOrEditFolder';
@@ -93,7 +92,6 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                     <Row align='middle'>
                                         <Col xs={24} sm={14} md={14} lg={14} xl={14} xxl={14}>
                                             <ParaText size='extraSmall' color='black' fontWeightBold={500}> You can download and upload the file in the particular folder </ParaText> <br />
-                                            {/* <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText> */}
                                         </Col>
                                         {user?.role == 'admin' &&
                                             <Col className='textEnd' xs={24} sm={9} md={9} lg={9} xl={9} xxl={9}>
@@ -112,10 +110,6 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 </div>
                                 <div className="mediumTopMargin"></div>
                                 <div className='siteLayoutBackground'>
-                                    {/* {user?.role !== 'user' && (
-                                        <FilesData myFiles={myFiles} />
-                                    )} */}
-                                    {/* <div className='gapMarginTop'></div> */}
                                     <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText>
                                     <Folders folderData={folderData} handleUpdate={handleUpdate}
                                         handleDoubleClick={handleDoubleClick} handleClick={handleClick}
@@ -124,7 +118,6 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                     <div className='gapMarginTop'></div>
                                     <Row align='middle'>
                                         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}><ParaText size='textGraf' color='black' fontWeightBold={600}>Recents  </ParaText></Col>
-                                        {/* <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'><span className='viewAll'>View All</span></Col> */}
                                     </Row>
                                     <div className='gapMarginTopOne'></div>
                                     <GetFiles userId={user?._id} fileType={undefined} onSelectedId={(data: any) => { setFileId(data), setFolder(null) }} />
