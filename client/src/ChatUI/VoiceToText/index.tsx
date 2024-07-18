@@ -38,13 +38,13 @@ export default function VoiceToText({ onSetMessage, selectedChat }: Props) {
     }
 
     return (
-        <div>
+        <div className={`${selectedChat.isApproved ? 'buttonApproved' : 'buttonNotApproved'}`}>
             <div className={listening ? 'voiceButton' : ''}>
                 <div className={listening ? 'pulse-ring' : ''}></div>
                 <Tooltip
                     title={'Speak to text message'}
                 >
-                    <AudioFilled style={{ cursor: 'pointer', fontSize: '19px', color: selectedChat.isApproved ? '#6ea9d7' : '#f9dcbb' }} onClick={selectedChat.isApproved ? listening ? handleStop : handleStart : () => { }} />
+                    <AudioFilled style={{ cursor: 'pointer', fontSize: '19px' }} onClick={selectedChat.isApproved ? listening ? handleStop : handleStart : () => { }} />
                 </Tooltip>
             </div>
         </div>

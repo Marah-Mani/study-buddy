@@ -1,6 +1,0 @@
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:37:46.421Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:37:55.100Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:37:59.507Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:38:09.247Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:38:17.588Z"}
-{"level":"error","message":"ValidationError: userId: Path `userId` is required.","stack":"at trackUserActivity (/home/bpl11/Documents/study-buddy/server/src/common/functions.js:41:3)","timestamp":"2024-07-18T04:38:22.979Z"}

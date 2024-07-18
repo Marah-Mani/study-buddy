@@ -36,6 +36,8 @@ interface ConversationItemProps {
     handleRightClick: any;
     onReload: any;
     search: string;
+    viewInfo: boolean;
+    changeInfo: any
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
@@ -48,7 +50,9 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     user,
     handleRightClick,
     onReload,
-    search = ''
+    search = '',
+    viewInfo,
+    changeInfo
 }) => {
     const [selectedChatId, setSelectedChatId] = useState<any>(null);
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
@@ -66,6 +70,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     };
 
     const handleSelectChatWithContext = (chat: any) => {
+        changeInfo(!viewInfo)
         setSelectedChat(chat);
         handleSelectChat(chat);
         handleCloseContextMenu(); // Close context menu after selecting chat

@@ -11,14 +11,16 @@ const { common } = CHAT;
 interface MyAccountProps {
     config?: any;
     user?: any;
+    onSuccess: any;
 }
 
-export default function MyAccount({ config, user }: MyAccountProps) {
+export default function MyAccount({ config, user, onSuccess }: MyAccountProps) {
     const { setUser } = useContext(AuthContext)
     const onFinish: FormProps<User>['onFinish'] = async (values) => {
         const { data } = await axios.post(`${baseURL}${common.updateUser(user._id)}`, values, config);
         setUser(data.data)
         message.success('Saved.')
+        onSuccess();
     }
     return (
         <Form layout='horizontal' initialValues={user} onFinish={onFinish}>
