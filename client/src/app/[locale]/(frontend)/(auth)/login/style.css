@@ -11,7 +11,8 @@
   position: relative;
 }
 .login-style {
-  padding-top: 12%;
+  padding-top: 5%;
+  padding-bottom: 10%;
 }
 @media (max-width: 767px) {
   .login-container-login {

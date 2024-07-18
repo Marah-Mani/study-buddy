@@ -39,7 +39,7 @@ export default function Page() {
     const { user } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
 
-    console.log(AllCandidates, 'AllCandidates')
+    console.log(AllCandidates, 'AllCandidates');
 
     useEffect(() => {
         if (user) {
@@ -164,7 +164,6 @@ export default function Page() {
                         <Row gutter={[16, 16]} align="middle">
                             <Col xs={24} sm={24} md={4} lg={4} xl={6} xxl={8}>
                                 <ParaText size="small" color="primaryColor" fontWeightBold={600}>
-
                                     <strong>{AllCandidates.length}</strong>
                                     {user?.interestedIn === 'student' ? ' Tutor' : ' student'}
                                 </ParaText>
@@ -176,11 +175,15 @@ export default function Page() {
                                             overlay={
                                                 <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
                                                     <Menu onClick={handleDepartmentChange}>
-                                                        <Menu.Item key="all" className='hovercolor'>All</Menu.Item>
+                                                        <Menu.Item key="all" className="hovercolor">
+                                                            All
+                                                        </Menu.Item>
                                                         {AllDepartments &&
                                                             AllDepartments.map((item: any) => (
-                                                                <Menu.Item key={item._id} className='hovercolor'>
-                                                                    {capitalizeFirstLetterOfEachWord(item?.departmentName)}
+                                                                <Menu.Item key={item._id} className="hovercolor">
+                                                                    {capitalizeFirstLetterOfEachWord(
+                                                                        item?.departmentName
+                                                                    )}
                                                                 </Menu.Item>
                                                             ))}
                                                     </Menu>
@@ -215,9 +218,13 @@ export default function Page() {
                                             overlay={
                                                 <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
                                                     <Menu onClick={handleSubjectsChange}>
-                                                        <Menu.Item key="all" className='hovercolor'>All</Menu.Item>
+                                                        <Menu.Item key="all" className="hovercolor">
+                                                            All
+                                                        </Menu.Item>
                                                         {AllSubjects.map((subject) => (
-                                                            <Menu.Item key={subject} className='hovercolor'>{subject}</Menu.Item>
+                                                            <Menu.Item key={subject} className="hovercolor">
+                                                                {subject}
+                                                            </Menu.Item>
                                                         ))}
                                                     </Menu>
                                                 </div>
@@ -269,11 +276,11 @@ export default function Page() {
                     >
                         {AllCandidates.map((item: any) => (
                             <>
-                                <div style={{ padding: ' 15px 15px 25px 15px' }} >
-                                    <Row gutter={[16, 16]} justify='center'>
+                                <div style={{ padding: ' 15px 15px 25px 15px' }}>
+                                    <Row gutter={[16, 16]} justify="center">
                                         <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                             <div className="candidates-details">
-                                                <Row >
+                                                <Row>
                                                     <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1} className="">
                                                         <Image
                                                             src={
@@ -288,9 +295,17 @@ export default function Page() {
                                                             style={{ borderRadius: '50px' }}
                                                         />
                                                     </Col>
-                                                    <Col xs={24} sm={24} md={24} lg={22} xl={22} xxl={23} className='custom-col'>
+                                                    <Col
+                                                        xs={24}
+                                                        sm={24}
+                                                        md={24}
+                                                        lg={22}
+                                                        xl={22}
+                                                        xxl={23}
+                                                        className="custom-col"
+                                                    >
                                                         <Row gutter={[16, 16]}>
-                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} style={{ paddingTop: '10px' }}>
                                                                 <Flex align="center">
                                                                     <ParaText
                                                                         size="small"
@@ -308,31 +323,52 @@ export default function Page() {
                                                                     {item?.profileTitle &&
                                                                         capitalizeFirstLetterOfEachWord(item?.profileTitle)}
                                                                 </ParaText> */}
-                                                                <div className='gapPaddingTopOne'></div>
-                                                                <ParaText size="textGraf" className="dBlock" color="black">
+                                                                <div className="gapPaddingTopOne"></div>
+                                                                <ParaText
+                                                                    size="textGraf"
+                                                                    className="dBlock"
+                                                                    color="black"
+                                                                >
                                                                     <span>
-                                                                        <strong style={{ fontWeight: '400' }}> Department :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}>
+                                                                            {' '}
+                                                                            Department :
+                                                                        </strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
-                                                                        <span style={{ fontWeight: '400' }}>{item?.departmentId?.departmentName}</span>
+                                                                        <span style={{ fontWeight: '400' }}>
+                                                                            {item?.departmentId?.departmentName}
+                                                                        </span>
                                                                     </ParaText>
                                                                 </ParaText>
 
-                                                                <ParaText size="textGraf" color="black" className="dBlock">
+                                                                <ParaText
+                                                                    size="textGraf"
+                                                                    color="black"
+                                                                    className="dBlock"
+                                                                >
                                                                     <span>
-                                                                        <strong style={{ fontWeight: '400' }}> Subjects :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}>
+                                                                            {' '}
+                                                                            Subjects :
+                                                                        </strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
                                                                         <span style={{ fontWeight: '400' }}>
                                                                             {item.subjects.length > 0
-                                                                                ? item.subjects.map((subject: string, index: number) => (
-                                                                                    <React.Fragment key={index}>
-                                                                                        {index > 0 && ', '}
-                                                                                        {subject}
-                                                                                    </React.Fragment>
-                                                                                ))
+                                                                                ? item.subjects.map(
+                                                                                    (
+                                                                                        subject: string,
+                                                                                        index: number
+                                                                                    ) => (
+                                                                                        <React.Fragment key={index}>
+                                                                                            {index > 0 && ', '}
+                                                                                            {subject}
+                                                                                        </React.Fragment>
+                                                                                    )
+                                                                                )
                                                                                 : 'N/A'}
                                                                         </span>
                                                                     </ParaText>
@@ -346,32 +382,55 @@ export default function Page() {
                                                                 </Tag> */}
                                                                     <ParaText size="textGraf" color="black">
                                                                         <span>
-                                                                            <strong style={{ fontWeight: '400' }}> Skills :</strong> &nbsp;
+                                                                            <strong style={{ fontWeight: '400' }}>
+                                                                                {' '}
+                                                                                Skills :
+                                                                            </strong>{' '}
+                                                                            &nbsp;
                                                                         </span>
                                                                     </ParaText>
 
                                                                     <ParaText size="textGraf" color="primaryColor">
-
-                                                                        {item.skills.map((skill: string, index: number) => (
-                                                                            <Tag key={index}>{capitalizeFirstLetterOfEachWord(skill)}</Tag>
-                                                                        ))}
-                                                                        {item.skills.length === 0 && <span style={{ fontWeight: '400' }}>No skills specified</span>}
+                                                                        {item.skills.map(
+                                                                            (skill: string, index: number) => (
+                                                                                <Tag key={index}>
+                                                                                    {capitalizeFirstLetterOfEachWord(
+                                                                                        skill
+                                                                                    )}
+                                                                                </Tag>
+                                                                            )
+                                                                        )}
+                                                                        {item.skills.length === 0 && (
+                                                                            <span style={{ fontWeight: '400' }}>
+                                                                                No skills specified
+                                                                            </span>
+                                                                        )}
                                                                     </ParaText>
                                                                 </Flex>
                                                                 <ParaText size="textGraf" color="black">
                                                                     <span>
-                                                                        <strong style={{ fontWeight: '400' }}> Languages :</strong>
+                                                                        <strong style={{ fontWeight: '400' }}>
+                                                                            {' '}
+                                                                            Languages :
+                                                                        </strong>
                                                                     </span>
                                                                     &nbsp;
                                                                     <ParaText size="textGraf" color="primaryColor">
                                                                         <span style={{ fontWeight: '400' }}>
                                                                             {item.languages.length > 0
-                                                                                ? item.languages.map((language: string, index: number) => (
-                                                                                    <React.Fragment key={index}>
-                                                                                        {index > 0 && ', '}
-                                                                                        {capitalizeFirstLetterOfEachWord(language)}
-                                                                                    </React.Fragment>
-                                                                                ))
+                                                                                ? item.languages.map(
+                                                                                    (
+                                                                                        language: string,
+                                                                                        index: number
+                                                                                    ) => (
+                                                                                        <React.Fragment key={index}>
+                                                                                            {index > 0 && ', '}
+                                                                                            {capitalizeFirstLetterOfEachWord(
+                                                                                                language
+                                                                                            )}
+                                                                                        </React.Fragment>
+                                                                                    )
+                                                                                )
                                                                                 : 'N/A'}
                                                                         </span>
                                                                     </ParaText>
@@ -387,7 +446,10 @@ export default function Page() {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <FaFacebookSquare size={20} color="#000" />
+                                                                                        <FaFacebookSquare
+                                                                                            size={20}
+                                                                                            color="#000"
+                                                                                        />
                                                                                     </span>
                                                                                 </a>
                                                                             )}
@@ -399,7 +461,10 @@ export default function Page() {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <FaInstagramSquare color="#000" size={20} />
+                                                                                        <FaInstagramSquare
+                                                                                            color="#000"
+                                                                                            size={20}
+                                                                                        />
                                                                                     </span>
                                                                                 </a>
                                                                             )}
@@ -411,7 +476,10 @@ export default function Page() {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <FaTwitter size={20} color="#127eb2" />
+                                                                                        <FaTwitter
+                                                                                            size={20}
+                                                                                            color="#127eb2"
+                                                                                        />
                                                                                     </span>
                                                                                 </a>
                                                                             )}
@@ -423,7 +491,10 @@ export default function Page() {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <IoLogoLinkedin size={20} color="#127eb2" />
+                                                                                        <IoLogoLinkedin
+                                                                                            size={20}
+                                                                                            color="#127eb2"
+                                                                                        />
                                                                                     </span>
                                                                                 </a>
                                                                             )}
@@ -431,16 +502,28 @@ export default function Page() {
                                                                 </div>
                                                             </Col>
                                                             <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                                                <div className="textEnd" >
+                                                                <div className="textEnd">
                                                                     <Tooltip
                                                                         title={
-                                                                            <span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>
+                                                                            <span
+                                                                                style={{
+                                                                                    color: 'black',
+                                                                                    fontWeight: 600
+                                                                                }}
+                                                                            >
+                                                                                Chat now
+                                                                            </span>
                                                                         }
                                                                         color={'#EDF1F5'}
                                                                     >
-                                                                        <WechatOutlined
+                                                                        <Image
+                                                                            style={{ cursor: 'pointer' }}
                                                                             onClick={() => accessChat(item?._id)}
-                                                                            style={{ fontSize: '30px', cursor: 'pointer', color: '#f1a638' }}
+                                                                            preview={false}
+                                                                            src="/icons/yellowbubble-chat.png"
+                                                                            alt="Active User"
+                                                                            width={20}
+                                                                            height={20}
                                                                         />
                                                                     </Tooltip>
                                                                     &nbsp;
@@ -460,7 +543,6 @@ export default function Page() {
                                             </div>
                                         </Col>
                                     </Row>
-
                                 </div>
                             </>
                         ))}
