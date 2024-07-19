@@ -1,14 +1,16 @@
 .forgetPassword {
   max-width: 350px;
-  margin: 30% auto;
+  margin: 22% auto;
   border-radius: 20px;
   border: 3px solid #efa24b;
   background-color: #fff;
   padding: 5% 5% 5% 5%;
 }
+
 .heading {
   text-align: center;
 }
+
 .overEfact {
   text-align: center;
   position: relative;
@@ -36,6 +38,7 @@
   left: 0;
   background: #f1a638;
 }
+
 @media (max-width: 991px) {
   .forgetPassword {
     padding: 2% 2% 2% 2%;

@@ -11,7 +11,7 @@
   border: 0;
   border-radius: 50px;
   box-sizing: border-box;
-  color: #000;
+  color: #fff;
   cursor: pointer;
   display: inline;
   font-size: 1rem;
@@ -19,19 +19,23 @@
   font-family: 'IBM Plex Mono', monospace !important;
   padding: 20px 20px;
 }
+
 .bannerImage {
   animation: MoveUpDown 10s linear infinite;
 }
 
 @keyframes MoveUpDown {
+
   0%,
   100% {
     bottom: 0;
   }
+
   50% {
     bottom: 20px;
   }
 }
+
 @media (min-width: 1200px) {
   .waves {
     position: absolute;
@@ -39,10 +43,12 @@
     width: 100%;
     height: 130px;
   }
+
   .bannerImage {
     animation: MoveUpDown 10s linear infinite;
     padding-top: 100px;
   }
+
   .textSection {
     padding: 0% 8% 0px 8%;
     max-width: 800px;
@@ -56,12 +62,14 @@
     width: 100%;
     height: 130px;
   }
+
   .bannerImage {
     animation: MoveUpDown 10s linear infinite;
     padding-top: 100px;
   }
+
   .textSection {
-    padding: 10% 8% 0px 8%;
+    padding: 0% 8% 0px 0%;
     max-width: 800px;
   }
 }
