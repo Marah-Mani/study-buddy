@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 	name: { type: String, default: null },
 	email: { type: String, unique: true, required: true, index: true },
 	roleId: { type: mongoose.Schema.Types.ObjectId, ref: 'roles', default: null },
-	interestedIn: { type: String, enum: ['tutor', 'student'], default: null },
+	interestedIn: { type: String, enum: ['tutor', 'student'], default: 'student' },
 	departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'department', default: null },
 	subjects: [{ type: String }],
 	profileTitle: { type: String, default: null },
