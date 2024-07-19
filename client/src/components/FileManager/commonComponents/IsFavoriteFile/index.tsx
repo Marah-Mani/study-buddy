@@ -61,9 +61,9 @@ export default function IsFavoriteFile({ userId, fileId, isFavorite, onReload, a
             <div id='isFavoriteFile'>
                 {
                     checkFavorite ?
-                        <span className='favorite' onClick={() => handleFavorite(userId, fileId, 'unFavorite')}><IoMdStar /></span>
+                        <span style={{ cursor: 'pointer' }} className='favorite' onClick={() => handleFavorite(userId, fileId, 'unFavorite')}><IoMdStar /></span>
                         :
-                        <span className='favorite' onClick={() => handleFavorite(userId, fileId, 'favorite')}><IoMdStarOutline /></span>
+                        <span style={{ cursor: 'pointer' }} className='favorite' onClick={() => handleFavorite(userId, fileId, 'favorite')}><IoMdStarOutline /></span>
                 }
             </div>
         </>

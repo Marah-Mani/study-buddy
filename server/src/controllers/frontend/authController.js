@@ -64,7 +64,7 @@ const senOtpEmail = async (name, email, otp) => {
 const authController = {
 	register: async (req, res) => {
 		try {
-			const { email, name, phoneNumber, password, interest, departments, subjects } = req.body;
+			const { email, name, phoneNumber, password, interest, departments, subjects, gender } = req.body;
 
 			const existingEmail = await Users.findOne({ email });
 			if (existingEmail) {
@@ -91,6 +91,7 @@ const authController = {
 				email,
 				name,
 				phoneNumber,
+				gender,
 				password: hashedPassword,
 				role: 'user',
 				stickyNote: null,
@@ -104,16 +105,6 @@ const authController = {
 			});
 
 			await newUser.save();
-
-			// const folderName = `${name}-${newUser._id.toString().slice(-6)}`.replace(/\s/g, '-');
-			// const folderPath = path.join(__dirname, '..', '..', 'storage', 'fileManager', folderName);
-
-			// if (!fs.existsSync(folderPath)) {
-			// 	fs.mkdirSync(folderPath);
-			// }
-
-			// newUser.fileManagerDirectory = folderName;
-			// await newUser.save();
 
 			const newStickyMessage = new StickyMessage({
 				userId: newUser._id,

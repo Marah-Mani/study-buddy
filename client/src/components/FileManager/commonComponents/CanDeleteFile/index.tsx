@@ -39,7 +39,7 @@ export default function CanDeleteFile({ userId, fileId, reload }: Props) {
                     okText="Yes"
                     cancelText="No"
                 >
-                    <span className='delete'>  <RiDeleteBin5Fill /></span>
+                    <span style={{ cursor: 'pointer' }} className='delete'>  <RiDeleteBin5Fill /></span>
                 </Popconfirm>
             </div>
         </>
