@@ -18,7 +18,9 @@ a {
   color: inherit !important;
   background-color: transparent;
 }
-
+p {
+  word-break: break-all;
+}
 * {
   margin: 0;
   padding: 0;
@@ -82,18 +84,6 @@ li {
   font-weight: normal;
   font-style: normal;
 }
-
-/* @font-face {
-  font-family: 'New Spirit SemiBold Condensed';
-  src: url('./fonts/New-Spirit-SemiBold-Condensed.eot');
-  src:
-    url('./fonts/New-Spirit-SemiBold-Condensed.eot?#iefix') format('embedded-opentype'),
-    url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('ttf'),
-    url('./fonts/New-Spirit-SemiBold-Condensed.woff') format('woff'),
-    url('./fonts/New-Spirit-SemiBold-Condensed.ttf') format('truetype'),
-    url('./fonts/New-Spirit-SemiBold-Condensed.svg#New Spirit SemiBold Condensed') format('svg');
-} */
-
 .ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar,
 .ant-tabs-bottom > .ant-tabs-nav .ant-tabs-ink-bar,
 .ant-tabs-top > div > .ant-tabs-nav .ant-tabs-ink-bar,
@@ -127,8 +117,9 @@ li {
 .ant-select-selector:hover,
 .ant-select-selector:focus,
 .ant-select-selector:active,
-.ant-select-open .ant-select-selector {
-  border: 1px solid #efa24b !important;
+.ant-select-open .ant-select-selector,
+.ant-select-dropdown {
+  border: 2px solid #efa24b !important;
 }
 
 .ant-pagination .ant-pagination-item-active {
