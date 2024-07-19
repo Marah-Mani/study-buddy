@@ -9,8 +9,6 @@ import Titles from '@/app/commonUl/Titles';
 export default function Footer() {
 	return (
 		<>
-
-
 			<section className='footerSection'>
 				<footer className="footer">
 					<div className="customContainer">
@@ -26,8 +24,8 @@ export default function Footer() {
 							</Col>
 							<Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8} className="footer-col navBar">
 								<ul>
-									<li><a href="/en/contact"> <ParaText fontWeightBold={900} size='medium' color='primaryColor'>Navigation</ParaText></a></li>
-									<li><a href="/en/contact"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>About Us</ParaText></a></li>
+									<li><ParaText fontWeightBold={900} size='medium' color='primaryColor'>Navigation</ParaText></li>
+									<li><a href="/en/about"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>About Us</ParaText></a></li>
 									<li><a href="/en/contact"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Contact Us</ParaText> </a></li>
 									<li><a href="/en/privacy"> <ParaText fontWeightBold={500} size='small' color='primaryColor'> Privacy Policy</ParaText></a></li>
 									<li><a href="/en/terms"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Terms of Use</ParaText> </a></li>

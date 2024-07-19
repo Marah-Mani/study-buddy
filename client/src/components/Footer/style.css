@@ -1,17 +1,21 @@
 .footerSection {
   background-color: #344734;
+  border-top: 1px solid #f1a638;
   padding: 4% 0px;
 }
+
 .logoSite {
   max-width: 55%;
   height: 102px;
   object-fit: cover;
 }
+
 .flexBarMail {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .navBar ul li {
   text-align: center;
   padding: 6px 0px;
@@ -22,10 +26,18 @@
     text-align: center;
     padding: 14px 0px;
   }
+
   .flexBarMail {
     justify-content: center;
   }
+
   .footer-col {
     text-align: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .leftBar {
+    padding-left: 50px;
   }
 }

@@ -43,6 +43,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import VoiceRecorder from '../VoiceRecorder';
 import { CHAT } from '@/constants/API/chatApi';
 import { API_BASE_URL } from '@/constants/ENV';
+import GetFileTypeIcon from '@/components/FileManager/commonComponents/GetFileTypeIcon';
 
 const baseURL = API_BASE_URL;
 const { common, chat } = CHAT;
@@ -615,6 +616,10 @@ export default function Chat() {
         });
     };
 
+    const isImage = (fileContent: string) => {
+        return fileContent.startsWith('data:image/');
+    };
+
     // Lazy load the EmojiPicker component
     const EmojiPicker = lazy(() => import('emoji-picker-react'));
 
@@ -980,25 +985,34 @@ export default function Chat() {
                 title="Preview Files"
                 open={previewModal}
                 onCancel={() => {
-                    setPreviewModal(false), setPreviewFiles([]);
+                    setPreviewModal(false);
+                    setPreviewFiles([]);
                 }}
                 footer={[
                     <Button key="upload" type="primary" onClick={handleUpload}>
                         Upload
                     </Button>
                 ]}
+                centered
+                width='auto'
             >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Row>
                         {previewFiles.map((file: any, index: any) => (
                             <Col md={24} key={index}>
-                                <Image
-                                    key={index}
-                                    src={file.content}
-                                    alt={`file-preview-${index}`}
-                                    style={{ marginBottom: '10px' }}
-                                    preview={false}
-                                />
+                                {isImage(file.content) ? (
+                                    <Image
+                                        key={index}
+                                        src={file.content}
+                                        alt={`file-preview-${index}`}
+                                        style={{ marginBottom: '10px' }}
+                                        preview={false}
+                                        width={200}
+                                        height={200}
+                                    />
+                                ) : (
+                                    <GetFileTypeIcon fileType={file.type} size={200} />
+                                )}
                             </Col>
                         ))}
                     </Row>

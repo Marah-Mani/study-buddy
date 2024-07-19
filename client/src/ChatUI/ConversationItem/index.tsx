@@ -3,7 +3,7 @@ import { Conversation } from '@chatscope/chat-ui-kit-react';
 import Avatar from 'react-avatar';
 import StringAvatar from '@/app/commonUl/StringAvatar';
 import { getSender, getSenderFull } from '@/lib/chatLogics';
-import { Dropdown, Menu, Popconfirm, Tooltip } from 'antd';
+import { Dropdown, Menu, Popconfirm } from 'antd';
 import {
     InfoCircleOutlined,
     VideoCameraOutlined,
@@ -266,17 +266,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                     onClick={() => { setSelectedChat(chat); handleSelectChat(chat) }}
                     active={selectedChat?._id === chat._id}
                     unreadCnt={!chat?.isMute?.mute && chat.unreadCount}
-                    lastActivityTime={
-                        <>
-                            <span style={{ color: 'teal' }}>
-                                {onlineUsers.some((userData: any) => userData.userId === getSenderFull(user, chat.users)._id) ? 'Online' : ''}
-                                <Tooltip title={'Muted'}>
-                                    <div className='textEnd'>
-                                        {chat?.isMute?.mute && <MdOutlineVolumeOff style={{ fontSize: '18px', color: '#000' }} />}
-                                    </div>
-                                </Tooltip>
-                            </span>
-                        </>}
                 >
                     <Conversation.Content>
                         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
@@ -296,13 +285,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                                 }
                             </div>
                             <div className='userName'>
-                                {/* <p
-                                    style={{
-                                        fontWeight: '600',
-                                        textTransform: 'capitalize'
-                                    }}>
-                                    {!chat.isGroupChat ? getSender(user, chat.users) : chat.chatName}
-                                </p> */}
                                 <p style={{
                                     fontSize: '12px',
                                     fontWeight: '400'
