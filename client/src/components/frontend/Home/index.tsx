@@ -10,19 +10,7 @@ import Features from '@/components/Features';
 import Link from 'next/link';
 import AuthContext from '@/contexts/AuthContext';
 export default function Home() {
-	const { user, logout } = useContext(AuthContext);
-
-	// useEffect(() => {
-	// 	async function registerAndSubscribe() {
-	// 		try {
-	// 			const serviceWorkerReg = await regSw();
-	// 			await subscribe(serviceWorkerReg);
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	}
-	// 	registerAndSubscribe();
-	// }, []);
+	const { user } = useContext(AuthContext);
 
 	return (
 		<>
