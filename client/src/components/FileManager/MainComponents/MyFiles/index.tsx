@@ -6,9 +6,10 @@ import GetFiles from '../../commonComponents/GetFiles'
 
 interface Props {
     activeKey: string;
+    type: string;
 }
 
-export default function MyFiles({ activeKey }: Props) {
+export default function MyFiles({ activeKey, type }: Props) {
     const { user } = useContext(AuthContext);
     const [fileId, setFileId] = useState('');
 
@@ -21,7 +22,7 @@ export default function MyFiles({ activeKey }: Props) {
             <div id='favoriteFiles'>
                 <Row gutter={16}>
                     <Col md={fileId ? 18 : 24}>
-                        <GetFiles sorting={'alphaBetically'} userId={user?._id} fileType={undefined} activeKey={activeKey} onSelectedId={(id: any) => { setFileId(id) }} />
+                        <GetFiles sorting={'alphaBetically'} userId={user?._id} fileType={undefined} activeKey={activeKey} onSelectedId={(id: any) => { setFileId(id) }} type={type} />
                     </Col>
                     {fileId &&
                         <Col md={6}>

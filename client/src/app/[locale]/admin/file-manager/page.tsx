@@ -31,7 +31,7 @@ export default function Page() {
         {
             label: (
                 <p><HomeOutlined /> Files</p>
-            ), component: <MyFiles activeKey={key} />
+            ), component: <MyFiles activeKey={key} type={''} />
         },
         {
             label: (

@@ -38,6 +38,7 @@ export default function EditUser({ editData, onReload }: Props) {
                 facebook: editData.socialLinks?.facebook,
                 twitter: editData.socialLinks?.twitter,
                 higherEducation: editData.higherEducation,
+                gender: editData.gender,
             });
             setFileList([{
                 uid: '-1',
@@ -77,6 +78,7 @@ export default function EditUser({ editData, onReload }: Props) {
             formData.append('linkedIn', values.linkedIn);
             formData.append('facebook', values.facebook);
             formData.append('twitter', values.twitter);
+            formData.append('gender', values.gender);
 
             const res = await updateUserDetails(formData);
             if (res.status == true) {
@@ -179,6 +181,23 @@ export default function EditUser({ editData, onReload }: Props) {
                                         onChange={handlePhoneChange}
                                         inputStyle={{ width: '100%' }}
                                     />
+                                </Form.Item>
+                            </Col>
+                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                <Form.Item name={'gender'} label='Gender'
+                                    rules={[{
+                                        required: true,
+                                        message: 'Please select a gender'
+                                    }]}
+                                >
+                                    <Select
+                                        placeholder='Select gender'
+                                        style={{ width: '100%' }}
+                                    >
+                                        <Select.Option value="male">Male</Select.Option>
+                                        <Select.Option value="female">Female</Select.Option>
+                                        <Select.Option value="other">Other</Select.Option>
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col span={24}>

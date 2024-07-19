@@ -16,6 +16,7 @@ export default function Footer() {
 							<Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16} className="footer-col leftBar " >
 								<img src='/images/logo.png' className='logoSite' alt='Logo Site' />
 								<div className='gapMarginTopTwo'></div>
+								<br />
 								<div className='flexBarMail'
 								> <MdMailOutline color='#F1A638' />
 									<ParaText fontWeightBold={600} size='extraSmall' color='white'> Study24Buddyy@gmail.com</ParaText>

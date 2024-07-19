@@ -28,28 +28,12 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
     const [forumId, setForumId] = useState('');
     const [reload, setReload] = useState(false);
     const [attachment, setAttachment] = useState<UploadFile[]>([]);
-    const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState<DataItem[]>([]);
     const [filteredData, setFilteredData] = useState<DataItem[]>([]);
     const Getdata = (data: any) => {
         setData(data)
     }
 
-    const HandleSearch = (e: any) => {
-        setSearchQuery(e.target.value)
-    }
-
-    useEffect(() => {
-        const filterData = () => {
-            const query = searchQuery.toLowerCase();
-            const filtered = data.filter(item =>
-                item.title.toLowerCase().includes(query)
-            );
-            setFilteredData(filtered);
-        };
-
-        filterData();
-    }, [searchQuery, data]);
     const [category, setCategory] = useState<any>([]);
     const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -64,12 +48,6 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
         }
     }, [newRecord])
 
-    const handleItems = () => {
-        setDrawer(true);
-        form.resetFields();
-        setForumId('');
-        setAttachment([]);
-    }
 
     const onFinish = async (values: any) => {
         try {

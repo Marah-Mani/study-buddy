@@ -860,18 +860,35 @@ const fileManagerController = {
 				try {
 					const searchParams = JSON.parse(search);
 
-					if (isPublic) {
-						query = { status: 'active' };
+					// Extract the type from searchParams
+					const { userId, folderId, sorting, type } = searchParams;
+
+					if (type === 'myFile') {
+						// Skip isPublic check if type is 'myFile'
+						if (userId) {
+							query.createdBy = userId;
+						}
+						if (folderId) {
+							query.folderId = folderId;
+						}
+						if (sorting === 'alphaBetically') {
+							sortOption = { fileName: 1 };
+						}
 					} else {
-						if (searchParams.userId || searchParams.folderId || searchParams.sorting) {
-							if (searchParams.userId) {
-								query.createdBy = searchParams.userId;
-							}
-							if (searchParams.folderId) {
-								query.folderId = searchParams.folderId;
-							}
-							if (searchParams.sorting === 'alphaBetically') {
-								sortOption = { fileName: 1 };
+						// Include isPublic check for other types
+						if (isPublic) {
+							query = { status: 'active' };
+						} else {
+							if (userId || folderId || sorting) {
+								if (userId) {
+									query.createdBy = userId;
+								}
+								if (folderId) {
+									query.folderId = folderId;
+								}
+								if (sorting === 'alphaBetically') {
+									sortOption = { fileName: 1 };
+								}
 							}
 						}
 					}

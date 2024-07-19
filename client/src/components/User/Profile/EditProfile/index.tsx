@@ -45,6 +45,7 @@ export default function Brands() {
                 twitter: user.socialLinks?.twitter,
                 higherEducation: user.higherEducation,
                 interest: user.interestedIn,
+                gender: user.gender
             });
             setFileList([{
                 uid: '-1',
@@ -81,6 +82,7 @@ export default function Brands() {
             formData.append('higherEducation', values.higherEducation);
             formData.append('profileDescription', values.profileDescription);
             formData.append('interestedIn', values.interest);
+            formData.append('gender', values.gender);
             if (values.facebook) {
                 formData.append('facebook', values.facebook);
             }
@@ -201,16 +203,27 @@ export default function Brands() {
                                             />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={24}>
-                                        <Form.Item name={'profileDescription'} label={'Profile Description'}
-                                            rules={[
-                                                {
-                                                    max: 200, // Maximum 200 characters
-                                                    message: 'Profile description must be less than 200 characters',
-                                                },
-                                            ]}>
-                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                    <Col lg={24} xl={24} md={24} sm={24} xs={24}>
+                                        <Form.Item name={'gender'} label='Gender'
+                                            rules={
+                                                [
+                                                    {
+                                                        required: true,
+                                                        message: 'Please select gender'
+                                                    },
+                                                ]
+                                            }
+                                        >
+                                            <Select
+                                                style={{ width: '100%', height: '35px' }}
+                                                placeholder="Select gender"
+                                            >
+                                                <Select.Option value="male">Male</Select.Option>
+                                                <Select.Option value="female">Female</Select.Option>
+                                                <Select.Option value="other">Other</Select.Option>
+                                            </Select>
                                         </Form.Item>
+
                                     </Col>
                                     <Col lg={12} xl={12} md={12} sm={12} xs={12}>
                                         <Form.Item name={'image'} label='Profile Image'>
@@ -392,6 +405,17 @@ export default function Brands() {
                                                 maxLength={50}
                                                 suffix={<FaInstagram />}
                                             />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item name={'profileDescription'} label={'Profile Description'}
+                                            rules={[
+                                                {
+                                                    max: 200, // Maximum 200 characters
+                                                    message: 'Profile description must be less than 200 characters',
+                                                },
+                                            ]}>
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
                                         </Form.Item>
                                     </Col>
                                 </Row>

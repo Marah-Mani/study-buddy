@@ -213,6 +213,19 @@ const Register = () => {
 								maxLength={30}
 							/>
 						</Form.Item>
+						<Form.Item
+							name={'gender'}
+							rules={[{ required: true, message: 'Please select your gender!' }]}
+						>
+							<Select
+								placeholder="Select gender"
+								style={{ height: '40px', borderRadius: '30px' }}
+							>
+								<Select.Option value="male">Male</Select.Option>
+								<Select.Option value="female">Female</Select.Option>
+								<Select.Option value="other">Other</Select.Option>
+							</Select>
+						</Form.Item>
 
 						<Form.Item
 							name="interest"
