@@ -671,7 +671,7 @@ export default function Chat() {
                                         </p>
                                         <p style={{ fontSize: '12px', fontWeight: '400' }}>
                                             {user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ? (
-                                                <p>You blocked this user?.</p>
+                                                <p>You blocked this user.</p>
                                             ) : (
                                                 !selectedChat.isGroupChat && (
                                                     <span>

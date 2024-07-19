@@ -38,12 +38,13 @@ const profileController = {
 						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
 						interestedIn: req.body.interestedIn,
+						gender: req.body.gender,
 						socialLinks: {
-							twitter: req.body.twitter || null,
-							facebook: req.body.facebook || null,
-							linkedin: req.body.linkedIn || null,
-							instagram: req.body.instagram || null,
-							website: req.body.website || null
+							twitter: req.body.twitter || '',
+							facebook: req.body.facebook || '',
+							linkedin: req.body.linkedIn || '',
+							instagram: req.body.instagram || '',
+							website: req.body.website || ''
 						},
 						image: imageValue
 					};

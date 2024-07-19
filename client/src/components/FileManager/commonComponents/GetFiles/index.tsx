@@ -20,6 +20,7 @@ interface Props {
     activeKey?: any;
     onSelectedId?: any;
     sorting?: string;
+    type?: string;
 }
 
 interface DataType {
@@ -30,7 +31,7 @@ interface DataType {
     isFavorite: boolean;
 }
 
-export default function GetFiles({ userId, fileType, activeKey, onSelectedId, sorting }: Props) {
+export default function GetFiles({ userId, fileType, activeKey, onSelectedId, sorting, type }: Props) {
     const [files, setFiles] = useState<any>([]);
     const { user } = useContext(AuthContext);
     const [fileId, setFileId] = useState('');
@@ -40,6 +41,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
+    // let apiType = '';
 
     useEffect(() => {
         if (activeKey == '3' && user) {
@@ -48,7 +50,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             fetchFiles(page, pageSize);
         }
         setFileId('');
-    }, [activeKey, user, page, pageSize]);
+    }, [activeKey, page, pageSize]);
 
     const fetchFiles = async (page: any, pageSize: any) => {
         try {
@@ -56,10 +58,11 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             const search = {
                 ...(userId && { userId }),
                 ...(fileType && { fileType }),
+                ...(type == 'myFile' && { type }),
                 role: user?.role,
                 sorting: sorting,
                 page,
-                pageSize
+                pageSize,
             }
             const queryString = JSON.stringify(search);
             const res = await getFilesWithParams(queryString);
@@ -122,9 +125,9 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     {user?.role !== 'user' && (
                         <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
                     )}
-                    {/* {!user?.role || user?.role !== 'user' ? ( */}
-                    <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
-                    {/* ) : null} */}
+                    {!user?.role || user?.role !== 'user' ? (
+                        <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
+                    ) : null}
                     <IsFavoriteFile activeKey={activeKey}
                         onReload={(data: any) => {
                             if (data == 'favorites') {
@@ -137,6 +140,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             ),
         },
     ];
+    console.log(files)
 
     const handleFile = (fileId: any) => {
         setFileId(fileId);

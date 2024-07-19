@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
-import { Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
+import { Avatar, Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
@@ -210,13 +210,15 @@ export default function MarketPlace({ activeKey }: Props) {
                         <div className="product-grid">
                             <div className="product-image">
                                 <a className="image" onClick={() => handleDetail(data)}>
-                                    <Image
-                                        src={
-                                            data?.images.length > 0
-                                                ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
-                                                : `/images/avatar.png`
-                                        }
-                                    />
+                                    {data?.images.length ?
+                                        <Image
+                                            src={
+
+                                                `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
+                                            }
+                                        />
+                                        :
+                                        <Avatar shape={'square'} size={200} style={{ width: '100%' }}>Product</Avatar>}
                                 </a>
                             </div>
                             <br />

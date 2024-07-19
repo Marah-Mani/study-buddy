@@ -19,30 +19,18 @@
   margin-right: auto;
   margin-left: auto;
 }
-
-.textStart {
-  text-align: left;
-}
 .textEnd {
   text-align: end !important;
 }
 .textCenter {
   text-align: center;
 }
-
-.floatStart {
-  float: left;
-}
 .floatEnd {
   float: right;
-}
-.floatNone {
-  float: none;
 }
 .dBlock {
   display: block;
 }
-
 .gapMarginTop {
   margin-top: 60px !important;
 }

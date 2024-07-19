@@ -21,6 +21,7 @@ import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
 import { FaPlus, FaRegEye } from "react-icons/fa6";
 import Forums from '@/components/Admin/Forums';
+import { IoIosEye } from 'react-icons/io';
 interface Forum {
     _id: string;
     title: string;
@@ -213,7 +214,7 @@ export default function Page() {
                                                                             )}
                                                                         </div>
                                                                     </Col>
-                                                                    <Col xs={21} sm={22} md={22} lg={22} xl={23} xxl={23} style={{ paddingTop: '10px' }}>
+                                                                    <Col xs={21} sm={22} md={22} lg={22} xl={23} xxl={23} >
                                                                         <Row>
                                                                             <Col xs={24} sm={24} md={22} lg={22} xl={22} xxl={22}>
                                                                                 <div
@@ -236,7 +237,6 @@ export default function Page() {
                                                                                                 <Badge status="default" />
                                                                                             </span>
                                                                                         </span>
-                                                                                        <div className="smallTopMargin"></div>
                                                                                         <div
                                                                                             style={{
                                                                                                 fontSize: '12px',
@@ -247,28 +247,9 @@ export default function Page() {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="smallTopMargin"></div>
                                                                                 <ParaText
-                                                                                    size="textGraf"
-                                                                                    fontWeightBold={400}
-                                                                                    color="black"
-                                                                                >
-                                                                                    {!forum.attachment && (
-                                                                                        <div
-                                                                                            dangerouslySetInnerHTML={{
-                                                                                                __html: truncateDescription(
-                                                                                                    forum?.description,
-                                                                                                    200
-                                                                                                )
-                                                                                            }}
-                                                                                        ></div>
-                                                                                    )}
-                                                                                </ParaText>
-
-
-                                                                                <ParaText
-                                                                                    size="textGraf"
-                                                                                    fontWeightBold={400}
+                                                                                    size="small"
+                                                                                    fontWeightBold={600}
                                                                                     color="black"
                                                                                 >
                                                                                     <Link
@@ -289,8 +270,23 @@ export default function Page() {
                                                                                         style={{ borderRadius: '5px' }}
                                                                                         preview={false}
                                                                                     />
-                                                                                ) : null}
-                                                                                <div className="smallTopMargin"></div>
+                                                                                ) :
+                                                                                    <ParaText
+                                                                                        size="textGraf"
+                                                                                        fontWeightBold={400}
+                                                                                        color="black"
+                                                                                    >
+                                                                                        {!forum.attachment && (
+                                                                                            <div
+                                                                                                dangerouslySetInnerHTML={{
+                                                                                                    __html: truncateDescription(
+                                                                                                        forum?.description,
+                                                                                                        200
+                                                                                                    )
+                                                                                                }}
+                                                                                            ></div>
+                                                                                        )}
+                                                                                    </ParaText>}
                                                                                 <div style={{ display: 'flex', gap: '10px' }}>
                                                                                     <div
                                                                                         style={{ display: 'flex', gap: '10px' }}
@@ -351,9 +347,12 @@ export default function Page() {
                                                                                 {' '}
                                                                                 <div className="likeCommentRadius">
                                                                                     <Link
+                                                                                        style={{
+                                                                                            display: 'flex', alignItems: 'center', float: 'right'
+                                                                                        }}
                                                                                         href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                     >
-                                                                                        <FaRegEye /> &nbsp;{forum.viewCount}
+                                                                                        <IoIosEye size={20} />  &nbsp; {forum.viewCount}
                                                                                     </Link>
                                                                                 </div>
                                                                             </Col>

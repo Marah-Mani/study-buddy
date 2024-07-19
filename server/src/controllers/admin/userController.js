@@ -65,6 +65,7 @@ const userController = {
 						profileTitle: req.body.profileTitle,
 						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
+						gender: req.body.gender,
 						socialLinks: {
 							twitter: req.body.twitter || '',
 							facebook: req.body.facebook || '',
