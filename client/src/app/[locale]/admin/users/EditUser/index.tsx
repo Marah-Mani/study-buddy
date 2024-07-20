@@ -22,7 +22,7 @@ export default function EditUser({ editData, onReload }: Props) {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [phone, setPhone] = useState('');
     const [languageList, setLanguageList] = useState<any[]>([]);
-
+    console.log(editData)
     useEffect(() => {
         if (editData) {
             form.setFieldsValue({
@@ -243,7 +243,7 @@ export default function EditUser({ editData, onReload }: Props) {
                                         style={{ width: '100%' }}
                                     >
                                         {languageList.map((item, index) => (
-                                            <option key={index} value={item.id}>
+                                            <option key={index} value={item.code}>
                                                 {item.name}
                                             </option>
                                         ))}

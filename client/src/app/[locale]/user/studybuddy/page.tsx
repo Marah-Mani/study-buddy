@@ -6,21 +6,21 @@ import { Button, Col, Input, Image, Row, Space, Divider, Dropdown, Menu, message
 import { CiSearch } from 'react-icons/ci';
 import { FaTwitter } from 'react-icons/fa';
 import ParaText from '@/app/commonUl/ParaText';
-import { CiHeart } from 'react-icons/ci';
 import { FaFacebookSquare } from 'react-icons/fa';
 import { FaInstagramSquare } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
-import { FaUserGraduate } from 'react-icons/fa6';
 import { Flex, Tag } from 'antd';
 import { getAllCandidate, getAllDepartments } from '@/lib/commonApi';
 import AuthContext from '@/contexts/AuthContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { IoLogoLinkedin } from 'react-icons/io5';
-import { WechatOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import ChatContext from '@/contexts/ChatContext';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import {
+    GetLanguages, //async functions
+} from "react-country-state-city";
 
 export default function Page() {
     const [AllCandidates, setAllCandidates] = useState<any[]>([]);
@@ -38,8 +38,7 @@ export default function Page() {
     const { chats, setChats }: any = useContext(ChatContext);
     const { user } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
-
-    console.log(AllCandidates, 'AllCandidates');
+    const [languageList, setLanguageList] = useState<any[]>([]);
 
     useEffect(() => {
         if (user) {
@@ -52,6 +51,9 @@ export default function Page() {
         if (user) {
             fetchAllDepartments();
         }
+        GetLanguages().then((result: any) => {
+            setLanguageList(result);
+        });
     }, [user]);
 
     const fetchAllCandidates = async () => {
@@ -418,19 +420,17 @@ export default function Page() {
                                                                     <ParaText size="textGraf" color="primaryColor">
                                                                         <span style={{ fontWeight: '400' }}>
                                                                             {item.languages.length > 0
-                                                                                ? item.languages.map(
-                                                                                    (
-                                                                                        language: string,
-                                                                                        index: number
-                                                                                    ) => (
-                                                                                        <React.Fragment key={index}>
-                                                                                            {index > 0 && ', '}
-                                                                                            {capitalizeFirstLetterOfEachWord(
-                                                                                                language
-                                                                                            )}
-                                                                                        </React.Fragment>
-                                                                                    )
-                                                                                )
+                                                                                ? item.languages
+                                                                                    .filter((language: any) => languageList.some((lang) => lang.code.toLowerCase() === language.toLowerCase()))
+                                                                                    .map((language: any, index: any) => {
+                                                                                        const matchedLanguage = languageList.find((lang) => lang.code.toLowerCase() === language.toLowerCase());
+                                                                                        return (
+                                                                                            <React.Fragment key={index}>
+                                                                                                {index > 0 && ', '}
+                                                                                                {capitalizeFirstLetterOfEachWord(matchedLanguage.name)}
+                                                                                            </React.Fragment>
+                                                                                        );
+                                                                                    })
                                                                                 : 'N/A'}
                                                                         </span>
                                                                     </ParaText>
