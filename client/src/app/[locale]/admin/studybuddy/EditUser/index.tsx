@@ -226,7 +226,7 @@ export default function EditUser({ editData, onReload }: Props) {
                                         style={{ width: '100%' }}
                                     >
                                         {languageList.map((item, index) => (
-                                            <option key={index} value={item.id}>
+                                            <option key={index} value={item.code}>
                                                 {item.name}
                                             </option>
                                         ))}
