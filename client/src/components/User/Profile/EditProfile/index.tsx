@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Form, Input, message, Row, Select, Spin, Upload, UploadFile } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Spin, Tooltip, Upload, UploadFile } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -12,7 +12,9 @@ import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
-
+import {
+    GetLanguages, //async functions
+} from "react-country-state-city";
 
 export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -21,6 +23,7 @@ export default function Brands() {
     const [form] = Form.useForm();
     const [phone, setPhone] = useState('');
     const token = Cookies.get('session_token');
+    const [languageList, setLanguageList] = useState<any[]>([]);
 
     const handlePhoneChange = (value: any, countryData: any) => {
         setPhone(value);
@@ -57,6 +60,13 @@ export default function Brands() {
 
         }
     }, [user]);
+
+    useEffect(() => {
+        GetLanguages().then((result: any) => {
+            setLanguageList(result);
+        });
+    }, [])
+
 
     const onfinish = async (values: any) => {
         try {
@@ -252,24 +262,30 @@ export default function Brands() {
                                     </Col>
                                     <Col span={24}>
                                         <Form.Item name={'skills'} label={'Skills'}>
-                                            <Select
-                                                mode="tags"
-                                                style={{ width: '100%', height: '35px' }}
-                                                tokenSeparators={[',']}
-                                                placeholder="Enter skills"
-                                            // options={options}
+                                            <Input
+                                                placeholder='Enter skills separated by comma'
                                             />
                                         </Form.Item>
                                     </Col>
                                     <Col span={24}>
                                         <Form.Item name={'languages'} label={'Languages'}>
                                             <Select
-                                                mode="tags"
-                                                style={{ width: '100%', height: '35px' }}
-                                                tokenSeparators={[',']}
-                                                placeholder="Enter Languages"
-                                            // options={options}
-                                            />
+                                                mode='multiple'
+                                                maxTagCount="responsive"
+                                                maxTagPlaceholder={(omittedValues) => (
+                                                    <Tooltip title={omittedValues.map(({ label }) => label).join(', ')}>
+                                                        <span>...</span>
+                                                    </Tooltip>
+                                                )}
+
+                                                style={{ width: '100%' }}
+                                            >
+                                                {languageList.map((item, index) => (
+                                                    <option key={index} value={item.id}>
+                                                        {item.name}
+                                                    </option>
+                                                ))}
+                                            </Select>
                                         </Form.Item>
                                     </Col>
                                     <Col xl={24} lg={24} md={24} sm={24} xs={24}>

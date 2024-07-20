@@ -26,9 +26,7 @@ export default function FileInformation({ fileId, folder }: Props) {
         } else {
             fetchContributors();
         }
-    }, [fileId, folder])
-    console.log(folder);
-    console.log(fileId);
+    }, [fileId, folder]);
 
     const fetchContributors = async () => {
         try {
@@ -36,8 +34,11 @@ export default function FileInformation({ fileId, folder }: Props) {
             if (res.status === true) {
                 setContributors(res.data.contributors)
             }
+            if (res.status === false) {
+                setContributors([])
+            }
         } catch (error) {
-            ErrorHandler.showNotification(error)
+            // ErrorHandler.showNotification(error)
         }
     }
 
@@ -104,7 +105,7 @@ export default function FileInformation({ fileId, folder }: Props) {
                                     <div key={index} className='flexBar' style={{ justifyContent: 'space-between' }}>
                                         <div className='flexBar'>
                                             <div> {contributor?.image ?
-                                                <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${contributor?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} />
+                                                <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${contributor?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} style={{ borderRadius: '50px' }} />
                                                 :
                                                 <Avatar size={40} icon={<UserOutlined />} />
                                             }

@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Form, Input, message, Row, Select, Upload, UploadFile } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Tooltip, Upload, UploadFile } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -11,6 +11,9 @@ import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
 import { updateUserDetails } from '@/lib/adminApi';
+import {
+    GetLanguages, //async functions
+} from "react-country-state-city";
 
 interface Props {
     editData: any
@@ -20,6 +23,7 @@ export default function EditUser({ editData, onReload }: Props) {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [phone, setPhone] = useState('');
+    const [languageList, setLanguageList] = useState<any[]>([]);
 
     useEffect(() => {
         if (editData) {
@@ -48,6 +52,12 @@ export default function EditUser({ editData, onReload }: Props) {
 
         }
     }, [editData]);
+
+    useEffect(() => {
+        GetLanguages().then((result: any) => {
+            setLanguageList(result);
+        });
+    }, [])
 
     const onfinish = async (values: any) => {
         try {
@@ -197,22 +207,30 @@ export default function EditUser({ editData, onReload }: Props) {
                             </Col>
                             <Col span={24}>
                                 <Form.Item name={'skills'} label={'Skills'}>
-                                    <Select
-                                        mode="tags"
-                                        style={{ width: '100%' }}
-                                        tokenSeparators={[',']}
-                                        placeholder="Enter skills"
+                                    <Input
+                                        placeholder='Enter skills separated by comma'
                                     />
                                 </Form.Item>
                             </Col>
                             <Col span={24}>
                                 <Form.Item name={'languages'} label={'Languages'}>
                                     <Select
-                                        mode="tags"
+                                        mode='multiple'
+                                        maxTagCount="responsive"
+                                        maxTagPlaceholder={(omittedValues) => (
+                                            <Tooltip title={omittedValues.map(({ label }) => label).join(', ')}>
+                                                <span>...</span>
+                                            </Tooltip>
+                                        )}
+
                                         style={{ width: '100%' }}
-                                        tokenSeparators={[',']}
-                                        placeholder="Enter Languages"
-                                    />
+                                    >
+                                        {languageList.map((item, index) => (
+                                            <option key={index} value={item.id}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col xl={24} lg={24} md={24} sm={24} xs={24}>

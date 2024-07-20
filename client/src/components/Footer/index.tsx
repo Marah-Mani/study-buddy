@@ -29,11 +29,10 @@ export default function Footer() {
 									<li><ParaText fontWeightBold={900} size='medium' color='primaryColor'>Navigation</ParaText></li>
 									<li><Link href="/en/about"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>About Us</ParaText></Link></li>
 									<li><Link href="/en/contact"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Contact Us</ParaText> </Link></li>
-									<li><Link href="/"> <ParaText fontWeightBold={500} size='small' color='primaryColor'> Privacy Policy</ParaText></Link></li>
-									<li><Link href="/"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Terms of Use</ParaText> </Link></li>
+									{/* <li><Link href="/"> <ParaText fontWeightBold={500} size='small' color='primaryColor'> Privacy Policy</ParaText></Link></li> */}
+									{/* <li><Link href="/"> <ParaText fontWeightBold={500} size='small' color='primaryColor'>Terms of Use</ParaText> </Link></li> */}
 								</ul>
 							</Col>
-
 						</Row>
 					</div>
 				</footer>
