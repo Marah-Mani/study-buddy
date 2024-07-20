@@ -65,7 +65,7 @@ export default function Dashboard() {
                                 >
                                     View all
                                 </Link>}
-                            title={<Title level={4}>My Products</Title>}
+                            title={<Title level={4}>My Market Place</Title>}
                             className='timelineCard'
                             style={{ borderTop: '2px solid rgb(132 90 223)', cursor: 'pointer', boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.1)' }}
                         >

@@ -133,7 +133,7 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                         setNewFolderName(''),
                                             getParentId(''),
                                             getFolderData();
-
+                                        setAction('');
                                     }}
                                 />
                             </>

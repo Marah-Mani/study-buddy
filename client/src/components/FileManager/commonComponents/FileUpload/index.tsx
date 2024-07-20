@@ -38,7 +38,6 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
         action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
         fileList,
         disabled: fileList?.length == 1 ? true : false,
-        accept: '.pdf,.png,.jpg,.jpeg',
         beforeUpload: handleBeforeUpload,
         onDrop(e) {
             console.log('Dropped files', e.dataTransfer.files);

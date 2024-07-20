@@ -4,16 +4,19 @@ const logError = require('../../../logger');
 const notificationController = {
 	notification: async (req, res) => {
 		const userId = req.params.id;
-
 		try {
-			const notification = await Notification.find({ notifyTo: userId }).populate('notifyBy').sort({ _id: -1 });
+			const notifications = await Notification.find({ notifyTo: userId })
+				.populate('notifyBy', 'image')
+				.sort({ _id: -1 });
+			const unreadCount = await Notification.countDocuments({ notifyTo: userId, isRead: 'no' });
 
-			if (!notification) {
+			if (!notifications) {
 				return res.status(404).json({ status: false, message: 'Notification not found' });
 			}
-			res.status(200).json({ status: true, data: notification });
+
+			res.status(200).json({ status: true, data: notifications, unreadCount });
 		} catch (error) {
-			logError('Error fetching notification:', error);
+			logError('Error fetching notifications:', error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},

@@ -41,16 +41,15 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
-    // let apiType = '';
 
     useEffect(() => {
         if (activeKey == '3' && user) {
             fetchFavoriteFiles();
         } else {
-            fetchFiles(page, pageSize);
+            if (userId) fetchFiles(page, pageSize);
         }
         setFileId('');
-    }, [activeKey, page, pageSize]);
+    }, [activeKey, userId, page, pageSize]);
 
     const fetchFiles = async (page: any, pageSize: any) => {
         try {
@@ -125,7 +124,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     {user?.role !== 'user' && (
                         <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
                     )}
-                    {!user?.role || user?.role !== 'user' ? (
+                    {!user?.role || user?.role !== 'user' || type == 'myFile' ? (
                         <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
                     ) : null}
                     <IsFavoriteFile activeKey={activeKey}
@@ -163,17 +162,6 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             fileName: <Row align='middle' onClick={() => { handleFile(items._id) }}>
                 <Col md={2}><GetFileTypeIcon fileType={items.fileType} size={30} /></Col>
                 <Col md={22}>
-                    <Image.PreviewGroup>
-                        <Image
-                            src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${items.filePath}`}
-                            style={{ display: 'none' }}
-                            preview={{
-                                visible: false,
-                                mask: null,
-                                maskClassName: null as any,
-                            }}
-                        />
-                    </Image.PreviewGroup>
                     <div
                         onDoubleClick={() => {
                             if (items.fileType === 'image/png' || items.fileType === 'image/jpeg' || items.fileType === 'image/jpg' || items.fileType.startsWith('image/')) {

@@ -438,8 +438,8 @@ export default function Page() {
                                                                 <div>
                                                                     <br className="dNone" />
                                                                     <Space size={[8, 16]} wrap>
-                                                                        {item.socialLinks.facebook !== 'null' &&
-                                                                            item.socialLinks.facebook !== null && (
+                                                                        {item.socialLinks.facebook !== '' &&
+                                                                            (
                                                                                 <a
                                                                                     href={item.socialLinks.facebook}
                                                                                     target="_blank"
@@ -448,13 +448,14 @@ export default function Page() {
                                                                                     <span>
                                                                                         <FaFacebookSquare
                                                                                             size={20}
-                                                                                            color="#000"
+                                                                                            color="#127eb2"
                                                                                         />
                                                                                     </span>
                                                                                 </a>
-                                                                            )}
-                                                                        {item.socialLinks.instagram !== 'null' &&
-                                                                            item.socialLinks.instagram !== null && (
+                                                                            )
+                                                                        }
+                                                                        {item.socialLinks.instagram !== '' &&
+                                                                            (
                                                                                 <a
                                                                                     href={item.socialLinks.instagram}
                                                                                     target="_blank"
@@ -462,14 +463,14 @@ export default function Page() {
                                                                                 >
                                                                                     <span>
                                                                                         <FaInstagramSquare
-                                                                                            color="#000"
+                                                                                            color="#127eb2"
                                                                                             size={20}
                                                                                         />
                                                                                     </span>
                                                                                 </a>
                                                                             )}
-                                                                        {item.socialLinks.twitter !== 'null' &&
-                                                                            item.socialLinks.twitter !== null && (
+                                                                        {item.socialLinks.twitter !== '' &&
+                                                                            (
                                                                                 <a
                                                                                     href={item.socialLinks.twitter}
                                                                                     target="_blank"
@@ -484,7 +485,7 @@ export default function Page() {
                                                                                 </a>
                                                                             )}
                                                                         {item.socialLinks.likedIn !== 'null' &&
-                                                                            item.socialLinks.linkedin !== null && (
+                                                                            (
                                                                                 <a
                                                                                     href={item.socialLinks.linkedin}
                                                                                     target="_blank"
