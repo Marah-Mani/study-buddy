@@ -1,7 +1,9 @@
 // utils/getFileIcon.js
 import React from 'react';
+import { FaRegFile, FaRegFileAudio, FaRegFileImage, FaRegFileVideo } from 'react-icons/fa6';
 import { FcDocument, FcAudioFile, FcVideoFile, FcImageFile, FcFile } from 'react-icons/fc';
 import { PiFileZipFill } from 'react-icons/pi';
+import './style.css';
 
 interface Props {
     fileType: any;
@@ -9,13 +11,22 @@ interface Props {
 }
 
 const GetFileTypeIcon = ({ fileType, size }: Props) => {
+
     switch (fileType) {
         case 'audio/mpeg':
         case 'audio/mp3':
-            return <FcAudioFile style={{ fontSize: `${size}` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFileAudio style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'video/mp4':
         case 'video/x-matroska':
-            return <FcVideoFile style={{ fontSize: `${size}` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFileVideo style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'application/pdf':
         case 'application/msword':
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
@@ -23,26 +34,58 @@ const GetFileTypeIcon = ({ fileType, size }: Props) => {
         case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
         case 'application/vnd.ms-powerpoint':
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-            return <FcDocument style={{ fontSize: `${size}` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFile style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'application/zip':
-            return <PiFileZipFill style={{ fontSize: `${size}` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <PiFileZipFill style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'image/png':
         case 'image/jpeg':
         case 'image/jpg':
         case 'image/webp':
-            return <FcImageFile style={{ fontSize: `${size}` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFileImage color='#f1a638' style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'Audio/Video':
-            return <FcAudioFile style={{ fontSize: `${size}px` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFileAudio style={{ fontSize: `${size}px` }} />
+                </div>
+            );
         case 'Document':
-            return <FcDocument style={{ fontSize: `${size}px` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFile style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'Image':
-            return <FcImageFile style={{ fontSize: `${size}px` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FcImageFile style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'Zip':
-            return <PiFileZipFill style={{ fontSize: `${size}px` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <PiFileZipFill style={{ fontSize: `${size}px` }} />
+                </div>
+            )
         case 'Other':
 
         default:
-            return <FcFile style={{ fontSize: `${size}px` }} />;
+            return (
+                <div className='CustomClassForICon'>
+                    <FaRegFile style={{ fontSize: `${size}px` }} />
+                </div>
+            )
     }
 };
 

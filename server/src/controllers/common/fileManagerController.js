@@ -155,21 +155,26 @@ async function deleteFolderAndContents(folderId) {
 		await FileManagerFolder.findByIdAndDelete(folderId);
 	}
 }
+const fetchSubfoldersRecursive = async (folderId, foldersMap = new Map()) => {
 
-const fetchSubfoldersRecursive = async (folderId) => {
-	// Find all folders that have parentFolderId equal to folderId
 	const folders = await FileManagerFolder.find({ parentFolder: folderId });
 
-	// Array to hold promises for fetching subfolders recursively
-	const subFoldersPromises = folders.map(async (folder) => {
-		// Recursively fetch subfolders of the current folder
-		const subfolders = await fetchSubfoldersRecursive(folder._id);
-		return { ...folder.toObject(), subfolders }; // Append fetched subfolders to current folder
-	});
+	// Add fetched folders to the map to avoid redundant queries
+	folders.forEach((folder) => foldersMap.set(folder._id.toString(), folder));
 
-	// Immediately return the result of Promise.all
-	return await Promise.all(subFoldersPromises);
+	// Recursively fetch subfolders of the current folder
+	for (const folder of folders) {
+		await fetchSubfoldersRecursive(folder._id, foldersMap);
+	}
+
+	return foldersMap;
+
 };
+
+const getAllFilesInFolder = async (folderIds) => {
+	return await FileManagerFile.find({ folderId: { $in: folderIds } }).populate('createdBy', 'name image');
+};
+
 
 const fileManagerController = {
 	addOrRemoveFileToFavorite: async (req, res) => {
@@ -288,32 +293,24 @@ const fileManagerController = {
 		try {
 			const { folderId } = req.params;
 
-			const folderStructure = await fetchSubfoldersRecursive(folderId);
+			// Fetch all folders and subfolders recursively
+			const foldersMap = await fetchSubfoldersRecursive(folderId);
+			foldersMap.set(folderId, { _id: folderId }); // Include the main folder
 
-			// Function to get all files in a folder and its subfolders recursively
-			const getAllFilesInFolder = async (folderId) => {
-				const files = await FileManagerFile.find({ folderId }); // Adjust as per your file model
+			// Get all folder IDs from the map
+			const folderIds = Array.from(foldersMap.keys());
 
-				let subFolderFiles = [];
-				for (const subFolder of folderStructure) {
-					const subFolderFilesRecursive = await getAllFilesInFolder(subFolder._id);
-					subFolderFiles = [...subFolderFiles, ...subFolderFilesRecursive];
-				}
-
-				return [...files, ...subFolderFiles];
-			};
-
-			const files = await getAllFilesInFolder(folderId);
+			// Get all files in the folder and its subfolders recursively
+			const files = await getAllFilesInFolder(folderIds);
 
 			if (!files || files.length === 0) {
 				return res
-					.status(404)
-					.json({ status: false, message: 'No files found in the specified folder and its subfolders' });
+					.status(200)
+					.json({ status: false, data: { contributors: [] } });
 			}
 
 			// Extract distinct user details
 			const contributorsMap = new Map();
-
 			for (const file of files) {
 				if (file.createdBy) {
 					const userId = file.createdBy._id.toString();
@@ -321,16 +318,13 @@ const fileManagerController = {
 						contributorsMap.set(userId, {
 							_id: file.createdBy._id,
 							name: file.createdBy.name,
-							email: file.createdBy.email,
 							image: file.createdBy.image,
-							createdAt: file.createdAt
+							createdAt: file.createdAt,
 						});
 					}
 				}
 			}
-
 			const contributors = Array.from(contributorsMap.values());
-
 			res.status(200).json({ status: true, data: { contributors } });
 		} catch (error) {
 			console.error('Error fetching contributors:', error);
@@ -477,7 +471,6 @@ const fileManagerController = {
 
 			return res.status(200).json({ status: true, data: folders });
 		} catch (error) {
-			console.log(error);
 			errorLogger('Error fetching folders by user ID:', error);
 			return res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
@@ -855,6 +848,7 @@ const fileManagerController = {
 			let query = { status: 'active' };
 			let sortOption = { createdAt: -1 };
 			const isPublic = process.env.FILE_MANAGER_IS_PUBLIC;
+			let userID;
 
 			if (search) {
 				try {
@@ -862,6 +856,7 @@ const fileManagerController = {
 
 					// Extract the type from searchParams
 					const { userId, folderId, sorting, type } = searchParams;
+					userID = userId;
 
 					if (type === 'myFile') {
 						// Skip isPublic check if type is 'myFile'
@@ -893,7 +888,6 @@ const fileManagerController = {
 						}
 					}
 				} catch (e) {
-					console.log(e);
 					return res.status(400).json({ status: false, message: 'Invalid search parameters' });
 				}
 			}
@@ -940,7 +934,9 @@ const fileManagerController = {
 					const userFavorites = favoriteFilesMap.get(file.createdBy._id.toString());
 					formattedFile.isFavorite = userFavorites ? userFavorites.includes(formattedFile._id) : false;
 				} else {
-					formattedFile.isFavorite = favoriteFiles.some((fav) => fav.files.includes(formattedFile._id));
+					formattedFile.isFavorite = favoriteFiles.some(
+						(fav) => fav.userId.toString() === userID && fav.files.includes(formattedFile._id)
+					);
 				}
 
 				return formattedFile;

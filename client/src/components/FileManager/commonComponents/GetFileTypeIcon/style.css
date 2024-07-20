@@ -1,0 +1,4 @@
+.CustomClassForIcon svg path {
+    fill: red !important;
+    /* Ensures the paths within the SVG are filled with red */
+}

@@ -5,7 +5,7 @@ import { downloadZipFile } from './userApi';
 
 const ALLOWED_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 const ALLOWED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/jpg'];
-const ALLOWED_FILE_EXTENSIONS = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+const ALLOWED_FILE_EXTENSIONS = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'sql', 'mp3', 'mp4', 'mkv'];
 const ALLOWED_FILE_MIME_TYPES = [
     'application/pdf',
     'application/msword',
@@ -13,8 +13,14 @@ const ALLOWED_FILE_MIME_TYPES = [
     'application/vnd.ms-excel',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.ms-powerpoint',
-    'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'application/sql',
+    'audio/mpeg',
+    'audio/mp3',
+    'video/mp4',
+    'video/x-matroska'
 ];
+
 
 export const handleFileCompression = async (file: File, type: any): Promise<UploadFile<any>[]> => {
     try {
