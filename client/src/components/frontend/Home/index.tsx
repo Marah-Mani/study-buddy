@@ -28,14 +28,14 @@ export default function Home() {
 									<Titles level={2} color="primaryColor">
 										Find Your Perfect StudyBuddy Today!
 									</Titles>
-									<div className="gapPaddingTopOTwo"></div>
+									<div className="gapPaddingTopOne"></div>
 									<ParaText size="medium" color="primaryColor">
 										StudyBuddy is your one-stop platform designed to enhance your college
 										experience. Join our community of learners to connect with study partners who
 										share your interests and goals. Improve your skills, stay motivated, and make
 										learning more fun with a studyBuddy.
 									</ParaText>
-									<div className="gapPaddingTopOTwo"></div>
+									<div className="gapPaddingTopOne"></div>
 									<Link href={user?.role ? `/en/${user?.role}/dashboard` : 'en/login'}>
 										<button className="button-67" role="button">
 											Get Started
