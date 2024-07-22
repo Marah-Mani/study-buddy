@@ -26,7 +26,7 @@ export default function MarketPlace({ activeKey }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [searchInput, setSearchInput] = useState('');
     const [category, setCategory] = useState<any>([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<any>('');
     const [subCategory, setSubCategory] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -154,6 +154,17 @@ export default function MarketPlace({ activeKey }: Props) {
             });
         }
     };
+    const handleCategoryChange = (e: any) => {
+        if (e.key == 'all') {
+            setSelectedCategory('');
+            setSubCategory('');
+            return;
+        }
+        const selected: any = category.categories.find((item: any) => item._id === e.key);
+        console.log(selected)
+        setSelectedCategory(selected);
+    };
+
 
     return (
         <>
@@ -164,10 +175,15 @@ export default function MarketPlace({ activeKey }: Props) {
                         <Dropdown
                             overlay={
                                 <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                    <Menu >
+                                    <Menu onClick={handleCategoryChange} >
                                         <Menu.Item key="all" className="hovercolor">
                                             All
                                         </Menu.Item>
+                                        {category.categories?.map((item: any) => (
+                                            <Menu.Item key={item._id} className="hovercolor">
+                                                {item.name}
+                                            </Menu.Item>
+                                        ))}
                                     </Menu>
                                 </div>
                             }
@@ -187,21 +203,37 @@ export default function MarketPlace({ activeKey }: Props) {
                                         whiteSpace: 'nowrap'
                                     }}
                                 >
+
                                     <>
-                                        <span>Select a sub-category</span>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {selectedCategory
+                                                ?
+                                                selectedCategory.name
+                                                : 'Select Department'}
+                                        </span>
                                     </>
                                 </span>
                                 <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                             </Button>
                         </Dropdown>
-
                         <Dropdown
                             overlay={
                                 <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
                                     <Menu >
-                                        <Menu.Item key="all" className="hovercolor">
-                                            All
-                                        </Menu.Item>
+                                        {selectedCategory
+                                            ? category.subCategories
+                                                ?.filter((item: any) => item.categoryId == selectedCategory)
+                                                .map((item: any) => (
+                                                    <Menu.Item key={item._id} className="hovercolor">
+                                                        {item.name}
+                                                    </Menu.Item>
+                                                )) : []}
                                     </Menu>
                                 </div>
                             }
@@ -221,14 +253,22 @@ export default function MarketPlace({ activeKey }: Props) {
                                         whiteSpace: 'nowrap'
                                     }}
                                 >
-
                                     <>
-                                        <span>Select a sub-category</span>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >Select Sub-Category
+                                        </span>
                                     </>
                                 </span>
                                 <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                             </Button>
                         </Dropdown>
+
+
                         {/* <Select
                             style={{ height: '35px', borderRadius: '30px' }}
                             placeholder={'Select a category'}
