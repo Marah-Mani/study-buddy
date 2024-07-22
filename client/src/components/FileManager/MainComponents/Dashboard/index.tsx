@@ -116,11 +116,11 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                     />
 
                                     <div className='gapMarginTop'></div>
-                                    <Row align='middle'>
+                                    {/* <Row align='middle'>
                                         <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}><ParaText size='textGraf' color='black' fontWeightBold={600}>Recents  </ParaText></Col>
                                     </Row>
                                     <div className='gapMarginTopOne'></div>
-                                    <GetFiles userId={user?._id} fileType={undefined} type={''} onSelectedId={(data: any) => { setFileId(data), setFolder(null) }} />
+                                    <GetFiles userId={user?._id} fileType={undefined} type={''} onSelectedId={(data: any) => { setFileId(data), setFolder(null) }} /> */}
                                 </div>
                             </Content>
                         ) : (
@@ -135,6 +135,11 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                             getFolderData();
                                         setAction('');
                                     }}
+                                    onSelectedId={(data: any) => {
+                                        setFileId(data),
+                                            setFolder(null)
+                                    }
+                                    }
                                 />
                             </>
                         )}

@@ -1,5 +1,5 @@
 import ParaText from "@/app/commonUl/ParaText";
-import { Button, Col, message, Modal, Row } from "antd";
+import { Button, Col, message, Modal, Row, Image, Dropdown } from "antd";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -15,6 +15,7 @@ import GetFileSize from "../../commonComponents/GetFileSize";
 import GetFileTypeIcon from "../../commonComponents/GetFileTypeIcon";
 import GetFileTypeName from "../../commonComponents/GetFileTypeName";
 import ShortFileName from "../../commonComponents/ShortFileName";
+import { HiDotsVertical } from "react-icons/hi";
 
 
 interface props {
@@ -24,10 +25,11 @@ interface props {
     folderData?: any;
     fileWithFolderId?: any;
     getFilesWithId?: any;
-    onBack?: any
+    onBack?: any;
+    onSelectedId?: any;
 }
 
-export default function NewFolder({ newFolderName, getParent, onBack }: props) {
+export default function NewFolder({ newFolderName, getParent, onBack, onSelectedId }: props) {
     const [isModalOpenFile, setIsModalOpenFile] = useState(false);
     const [folderId, setFolderId] = useState(newFolderName._id)
     const [fileWithFolderId, setFileWithFolderId] = useState<any>([]);
@@ -36,6 +38,8 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
     const [singleFolder, setSingleFolder] = useState<any>();
     const [action, setAction] = useState("")
     const [folderRename, setFolderRename] = useState<any>();
+    const [previewVisible, setPreviewVisible] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
 
     useEffect(() => {
         getFilesWithId(newFolderName._id);
@@ -101,6 +105,41 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
             await downloadFolderInZipFile(folder);
         }
     };
+
+    const handlePreview = (imageUrl: any) => {
+        setPreviewImage(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${imageUrl}`);
+        setPreviewVisible(true);
+    };
+
+    const handleFile = (fileId: any) => {
+        onSelectedId(fileId)
+    };
+
+    const handleMenuClick = (e: any, file: any) => {
+        switch (e.key) {
+            case 'view':
+                if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+                    handlePreview(file.filePath);
+                } else {
+                    window.open(`${process.env.NEXT_PUBLIC_IMAGE_URL}/fileManager/${file.filePath}`, '_blank');
+                }
+                break;
+            case 'dow':
+                // Add your download logic here
+                break;
+            default:
+                break;
+        }
+    };
+
+
+    const menuItems = [
+        {
+            key: 'view',
+            label: 'View',
+        },
+        { key: 'dow', label: 'Download' },
+    ];
 
     return (
         <>
@@ -185,37 +224,79 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                 <Row gutter={[16, 16]}>
                     <>
                         {fileWithFolderId && fileWithFolderId.map((file: any, index: any) => (
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index}>
-                                <Link href='#'>
-                                    <div className='cardCommn' >
-                                        <div style={{ display: 'flex', gap: '10px' }}>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <GetFileTypeIcon fileType={file.fileType} size={30} />
-                                                </ParaText>
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index} onClick={() => { handleFile(file._id) }}>
+                                <div className='cardCommn'
+                                    onDoubleClick={() => {
+                                        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+                                            handlePreview(file.filePath);
+                                        } else {
+                                            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
+                                        }
+                                    }}
+                                    style={{ color: '#efa24b', cursor: 'pointer' }}
+                                >
+                                    <Row>
+                                        <Col md={23}>
+                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <GetFileTypeIcon fileType={file.fileType} size={30} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <ShortFileName fileName={file.fileName} short={50} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <GetFileTypeName fileType={file.fileType} />
+                                                    </ParaText>
+                                                </div>
+                                                <div style={{ padding: '2px' }}>
+                                                    <ParaText size='smallExtra' color='black' className='dBlock'>
+                                                        <GetFileSize fileSize={file.fileSize} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+
+                                                </div>
                                             </div>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <ShortFileName fileName={file.fileName} short={50} />
-                                                </ParaText>
-                                            </div>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <GetFileTypeName fileType={file.fileType} />
-                                                </ParaText>
-                                            </div>
-                                            <div style={{ padding: '2px' }}>
-                                                <ParaText size='smallExtra' color='black' className='dBlock'>
-                                                    <GetFileSize fileSize={file.fileSize} />
-                                                </ParaText>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
+                                        </Col>
+                                        <Col md={1}>
+                                            <Dropdown
+                                                menu={{ items: menuItems }}
+                                                trigger={['click']}
+                                                className='viewAll'
+                                            >
+                                                <a onClick={(e) => e.preventDefault()}>
+                                                    <HiDotsVertical />
+                                                </a>
+                                            </Dropdown>
+                                        </Col>
+                                    </Row>
+
+                                </div>
                             </Col>
                         ))}
                     </>
                 </Row>
+                <Image.PreviewGroup
+                    preview={{
+                        visible: previewVisible,
+                        onVisibleChange: (visible) => setPreviewVisible(visible),
+                    }}
+                >
+                    <Image
+                        src={previewImage}
+                        style={{ display: 'none' }}
+                        preview={{
+                            visible: previewVisible,
+                            src: previewImage,
+                            onVisibleChange: (visible) => setPreviewVisible(visible),
+                        }}
+                    />
+                </Image.PreviewGroup>
             </>
         </>
     )
