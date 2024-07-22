@@ -302,16 +302,16 @@ export default function Page() {
 
                         {allDataType ? (
                             <>
-                                <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
                                     {forums.length > 0 ? (
                                         <Row>
                                             {forums.map((forum: any) => {
                                                 return (
                                                     <>
-                                                        <Col xs={24} sm={24} md={12} lg={24} xl={24} xxl={24}>
+                                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                                             <div className="question">
-                                                                <Row>
-                                                                    <Col xs={24} sm={24} md={24} lg={2} xl={1} xxl={1}>
+                                                                <Row gutter={[16, 16]}>
+                                                                    <Col xs={24} sm={2} md={2} lg={2} xl={1} xxl={1}>
                                                                         <div>
                                                                             {forum.userId.attachment ? (
                                                                                 <Image
@@ -330,7 +330,7 @@ export default function Page() {
                                                                             )}
                                                                         </div>
                                                                     </Col>
-                                                                    <Col xs={24} sm={24} md={12} lg={22} xl={22} xxl={23}>
+                                                                    <Col xs={24} sm={22} md={22} lg={22} xl={22} xxl={23}>
                                                                         <div className="likeCommentRadius">
                                                                             <Link
                                                                                 style={{
@@ -454,7 +454,7 @@ export default function Page() {
                                         </div>
                                     )}
                                 </Col>
-                                <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
                                     <RightSection
                                         categoryId={''}
                                         onSearch={(data: any) => handleSearch(data)}

@@ -1,6 +1,26 @@
 .markitPlace .ant-select-selector {
   border-radius: 30px !important;
 }
+.menuStyle {
+  padding: 4px 0px;
+  width: 100%;
+}
+.menuStyle .ant-btn.ant-btn-default.ant-btn-compact-item.ant-btn-compact-first-item {
+  width: 220px;
+  text-align: left;
+}
+.menuStyle .ant-btn-default {
+  border-color: #f1f1f1 !important;
+  box-shadow: none;
+}
+body.dark-mode .menuStyle .ant-btn-default {
+  border-color: #343434 !important;
+  box-shadow: none;
+}
+.menuStyle .ant-btn {
+  border-radius: 30px;
+  box-shadow: none;
+}
 .product-grid {
   height: 100%;
   border: 2px solid #f1a058;

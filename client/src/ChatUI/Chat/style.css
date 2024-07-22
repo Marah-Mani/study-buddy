@@ -22,16 +22,16 @@ body.dark-mode .cs-conversation-header {
   border-bottom: solid 1px #393939;
 }
 
-body.dark-mode .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
-body.dark-mode .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
+body.dark-mode .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+body.dark-mode .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
   background: #2a2a2a;
   border: 1px solid #393939;
 }
 
-body.dark-mode .ant-tabs-top>.ant-tabs-nav::before,
-body.dark-mode .ant-tabs-bottom>.ant-tabs-nav::before,
-body.dark-mode .ant-tabs-top>div>.ant-tabs-nav::before,
-body.dark-mode .ant-tabs-bottom>div>.ant-tabs-nav::before {
+body.dark-mode .ant-tabs-top > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-top > div > .ant-tabs-nav::before,
+body.dark-mode .ant-tabs-bottom > div > .ant-tabs-nav::before {
   border-bottom: 1px solid #393939;
 }
 
@@ -71,7 +71,7 @@ body.dark-mode .colordarkMode svg {
   color: #fff !important;
 }
 
-body.dark-mode .cs-main-container>.cs-sidebar.cs-sidebar--left,
+body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--left,
 body.dark-mode .cs-expansion-panel {
   border: solid 1px #393939;
 }
@@ -103,7 +103,7 @@ body.dark-mode .cs-message-separator::after {
   background-color: #393939 !important;
 }
 
-body.dark-mode .cs-main-container>.cs-sidebar.cs-sidebar--right {
+body.dark-mode .cs-main-container > .cs-sidebar.cs-sidebar--right {
   border-left: solid 1px #393939;
 }
 
@@ -209,4 +209,21 @@ canvas.sound-wave {
 
 .cs-search {
   border: 1px solid #efa24b;
+}
+
+@media (min-width: 1440px) {
+  .headerMain {
+    height: 92vh;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .headerMain {
+    height: 91vh;
+  }
+}
+@media (min-width: 320px) and (max-width: 1199px) {
+  .headerMain {
+    height: 90vh;
+  }
 }
