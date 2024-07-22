@@ -91,7 +91,7 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 <div>
                                     <Row align='middle'>
                                         <Col xs={24} sm={14} md={14} lg={14} xl={14} xxl={14}>
-                                            <ParaText size='extraSmall' color='black' fontWeightBold={500}> You can download and upload the file in the particular folder </ParaText> <br />
+                                            <ParaText size='extraSmall' color='black' fontWeightBold={500}> Please enter one of the fields below to upload a le or create a folder </ParaText> <br />
                                         </Col>
                                         {user?.role == 'admin' &&
                                             <Col className='textEnd' xs={24} sm={9} md={9} lg={9} xl={9} xxl={9}>
@@ -110,7 +110,7 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                 </div>
                                 <div className="mediumTopMargin"></div>
                                 <div className='siteLayoutBackground'>
-                                    <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : "Folders"} </ParaText>
+                                    <ParaText size='textGraf' color='black' fontWeightBold={800}> {newFolderName ? newFolderName : ""} </ParaText>
                                     <Folders folderData={folderData} handleUpdate={handleUpdate}
                                         handleDoubleClick={handleDoubleClick} handleClick={handleClick}
                                     />

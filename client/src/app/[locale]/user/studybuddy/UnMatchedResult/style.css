@@ -1,0 +1,96 @@
+.menuStyle {
+  padding: 4px 0px;
+  width: 100%;
+}
+
+.menuStyle .ant-btn.ant-btn-default.ant-btn-compact-item.ant-btn-compact-first-item {
+  width: 220px;
+  text-align: left;
+}
+
+.menuStyle .ant-btn-default {
+  border-color: #f1f1f1 !important;
+  box-shadow: none;
+}
+
+body.dark-mode .menuStyle .ant-btn-default {
+  border-color: #343434 !important;
+  box-shadow: none;
+}
+
+.menuStyle .ant-btn {
+  border-radius: 30px;
+  box-shadow: none;
+}
+
+.floatRight .ant-btn-primary.ant-btn-icon-only.ant-input-search-button {
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.candidates {
+  border-radius: 7px;
+}
+
+.candidates-details {
+  padding: 10px;
+  border-radius: 16px;
+  width: 100%;
+  border: 2px solid #efa24b;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.floatRight .ant-input-outlined {
+  border-radius: 30px;
+}
+
+body.dark-mode .candidates-details {
+  border: 1px solid #343434;
+}
+
+.candidates-details .ant-typography ul li,
+.candidates-details .ant-typography ol li {
+  margin-inline: -6px 0;
+}
+
+.floatRight {
+  float: right;
+}
+
+.sectionPart .ant-divider-horizontal {
+  margin: 0px;
+  padding-bottom: 10px;
+}
+
+.candidates-details-chat {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  width: 100%;
+  border: 2px solid #000;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+body.dark-mode .candidates-details-chat {
+  border: 1px solid #343434;
+}
+
+@media (max-width: 767px) {
+  .dNone {
+    display: none;
+  }
+
+  .menuStyle {
+    padding: 2px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .custom-col {
+    padding-left: 20px;
+  }
+}
