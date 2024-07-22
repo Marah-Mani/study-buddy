@@ -81,7 +81,6 @@ const invoiceController = {
 					query.userId = search.userId;
 				}
 			}
-			console.log(query);
 			const forums = await Forum.find(query)
 				.sort({ createdAt: -1 })
 				.populate('userId')
@@ -166,7 +165,8 @@ const invoiceController = {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
-	}
+	},
+
 };
 
 module.exports = invoiceController;

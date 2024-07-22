@@ -20,20 +20,29 @@ interface Props {
     reload: boolean;
     onEdit: any;
     searchInput: any;
+    categoryId: any;
+    subCatId: any;
 }
 
-export default function TableData({ reload, searchInput }: Props) {
+export default function TableData({ reload, searchInput, categoryId, subCatId }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, [reload, searchInput]);
+    }, [reload, searchInput, categoryId, subCatId]);
+
+    console.log(subCatId);
 
     const fetchData = async () => {
         try {
             setLoading(true);
-            const res = await getAllUsersStudyBuddy({ search: searchInput });
+            const searchObject = {
+                catId: categoryId?._id,
+                subCatId: subCatId,
+                search: searchInput
+            };
+            const res = await getAllUsersStudyBuddy(searchObject);
             if (res.status === true) {
                 setAllProducts(res.data);
                 setLoading(false);

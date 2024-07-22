@@ -87,7 +87,7 @@ const chatController = {
 
 			const users = await User.find(query)
 				.select('-password')
-				.populate('departmentId', 'departmentName')
+				.populate('departmentId')
 				.sort({ createdAt: -1 })
 				.skip((page - 1) * parseInt(pageSize))
 				.limit(parseInt(pageSize));
@@ -154,20 +154,35 @@ const chatController = {
 	},
 	getAllUsersStudyBuddy: async (req, res) => {
 		try {
-			const { search } = req.query;
+			const { search, catId, subCatId } = req.query;
+
 			let query = {};
+
 			if (search) {
-				query = {
-					name: { $regex: search, $options: 'i' }
-				};
+				const sanitizedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+				query.name = { $regex: sanitizedSearch, $options: 'i' };
 			}
-			const users = await User.find(query).sort({ _id: -1 }).populate('departmentId', 'departmentName');
+
+			if (catId) {
+				query.departmentId = catId;
+			}
+
+			if (subCatId) {
+				query.subjects = { $in: [subCatId] };
+			}
+
+
+			const users = await User.find(query)
+				.sort({ _id: -1 })
+				.populate('departmentId', 'departmentName');
+
 			res.status(200).json({ status: true, data: users });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	}
+
 };
 
 module.exports = chatController;
