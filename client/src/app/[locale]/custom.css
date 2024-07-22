@@ -83,6 +83,20 @@
   }
 }
 
+@media (min-width: 992px) {
+  .gapMarginTop {
+    margin-top: 20px !important;
+  }
+  .layOutStyle {
+    padding: 4% 2%;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .layOutStyle {
+    padding: 6% 2%;
+  }
+}
+
 @media (max-width: 991px) {
   .gapMarginTop {
     margin-top: 20px !important;

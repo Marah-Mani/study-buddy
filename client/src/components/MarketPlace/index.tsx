@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
-import { Avatar, Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
+import { Avatar, Button, Col, Dropdown, Image, Input, Menu, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
@@ -16,6 +16,7 @@ import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
 import { CiSearch } from 'react-icons/ci';
 import Link from 'next/link';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import ShortFileTitleName from '@/app/commonUl/ShortFileTitleName';
 interface Props {
     activeKey: string;
@@ -159,8 +160,76 @@ export default function MarketPlace({ activeKey }: Props) {
             <Row>
                 <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12}></Col>
                 <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className="textEnd markitPlace">
-                    <Space wrap>
-                        <Select
+                    <Space wrap className="menuStyle">
+                        <Dropdown
+                            overlay={
+                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                    <Menu >
+                                        <Menu.Item key="all" className="hovercolor">
+                                            All
+                                        </Menu.Item>
+                                    </Menu>
+                                </div>
+                            }
+                        >
+                            <Button
+                                style={{
+                                    width: '250px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+                                    <>
+                                        <span>Select a sub-category</span>
+                                    </>
+                                </span>
+                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                            </Button>
+                        </Dropdown>
+
+                        <Dropdown
+                            overlay={
+                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                    <Menu >
+                                        <Menu.Item key="all" className="hovercolor">
+                                            All
+                                        </Menu.Item>
+                                    </Menu>
+                                </div>
+                            }
+                        >
+                            <Button
+                                style={{
+                                    width: '250px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+
+                                    <>
+                                        <span>Select a sub-category</span>
+                                    </>
+                                </span>
+                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                            </Button>
+                        </Dropdown>
+                        {/* <Select
                             style={{ height: '35px', borderRadius: '30px' }}
                             placeholder={'Select a category'}
                             showSearch
@@ -173,8 +242,8 @@ export default function MarketPlace({ activeKey }: Props) {
                                 };
                             })}
                             onChange={(value: string) => setSelectedCategory(value)}
-                        />
-                        <Select
+                        /> */}
+                        {/* <Select
                             style={{ height: '35px', borderRadius: '30px' }}
                             placeholder={'Select a sub-category'}
                             showSearch
@@ -191,7 +260,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     : []
                             }
                             onChange={(value: string) => setSubCategory(value)}
-                        />
+                        /> */}
                         <Input
                             allowClear
                             suffix={<CiSearch />}
@@ -200,6 +269,7 @@ export default function MarketPlace({ activeKey }: Props) {
                             className="buttonClass"
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
+
                     </Space>
                 </Col>
             </Row>

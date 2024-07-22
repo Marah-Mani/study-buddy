@@ -189,7 +189,7 @@ export default function Page() {
                         </Col>
                         <>
                             {allDataType ? (
-                                <Col xs={24} sm={24} md={18} lg={18} xl={18} xxl={18}>
+                                <Col xs={24} sm={24} md={18} lg={24} xl={18} xxl={18}>
                                     {forums.length > 0 ? (
                                         <Row>
                                             {forums.map((forum: any) => {
@@ -390,7 +390,7 @@ export default function Page() {
                                 </Col>
                             )}
                         </>
-                        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
                             <RightSection
                                 categoryId={''}
                                 onCallBack={(data: any) => {

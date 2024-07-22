@@ -109,6 +109,11 @@
             "date": 1721359527595,
             "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-07-19.log",
             "hash": "0e780a7f0091cb9ce5208656b171d064ad551d6a5fe1ae06b79afedfab2bafb0"
+        },
+        {
+            "date": 1721619624187,
+            "name": "/home/sunil-des/Documents/study-buddy/server/errorLogs/error-2024-07-22.log",
+            "hash": "2b559c39a89d9a238f2e4823bbaeec5a8033f99154d5069a5cbb46e908e02e06"
         }
     ],
     "hashType": "sha256"
