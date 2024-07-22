@@ -222,8 +222,13 @@ canvas.sound-wave {
     height: 91vh;
   }
 }
-@media (min-width: 320px) and (max-width: 1199px) {
+@media (min-width: 1024px) and (max-width: 1199px) {
   .headerMain {
-    height: 90vh;
+    height: 91vh;
+  }
+}
+@media (min-width: 320px) and (max-width: 1023px) {
+  .headerMain {
+    height: 91vh;
   }
 }
