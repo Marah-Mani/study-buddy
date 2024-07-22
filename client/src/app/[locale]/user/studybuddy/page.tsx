@@ -438,7 +438,7 @@ export default function Page() {
                                                                 </ParaText>
                                                                 <div>
                                                                     <br className="dNone" />
-                                                                    <Space size={[8, 16]} wrap>
+                                                                    <Flex gap={5}>
                                                                         {item.socialLinks.facebook !== '' &&
                                                                             (
                                                                                 <a
@@ -463,10 +463,12 @@ export default function Page() {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <FaInstagramSquare
-                                                                                            color="#127eb2"
+                                                                                        <Image src="/icons/instagram.svg" preview={false} width={20} alt="FaInstagramSquare" />
+                                                                                        {/* <FaInstagramSquare
+                                                                                            color=""
                                                                                             size={20}
-                                                                                        />
+                                                                                            className='instagramColor'
+                                                                                        /> */}
                                                                                     </span>
                                                                                 </a>
                                                                             )}
@@ -477,12 +479,13 @@ export default function Page() {
                                                                                     target="_blank"
                                                                                     rel="noopener noreferrer"
                                                                                 >
-                                                                                    <span>
+                                                                                    <Image src="/icons/icons8-twitter.svg" preview={false} width={25} alt="" />
+                                                                                    {/* <span>
                                                                                         <FaTwitter
                                                                                             size={20}
                                                                                             color="#127eb2"
                                                                                         />
-                                                                                    </span>
+                                                                                    </span> */}
                                                                                 </a>
                                                                             )}
                                                                         {item.socialLinks.likedIn !== 'null' &&
@@ -500,7 +503,7 @@ export default function Page() {
                                                                                     </span>
                                                                                 </a>
                                                                             )}
-                                                                    </Space>
+                                                                    </Flex>
                                                                 </div>
                                                             </Col>
                                                             <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
