@@ -70,7 +70,7 @@
   -webkit-overflow-scrolling: touch;
 }
 .layOutStyle.add-remove.chat-remove-padding {
-  padding: 42px 0px 0px 0px;
+  padding: 42px 0px 0px 14px;
 }
 @media (min-width: 1440px) {
   .customContainer {
@@ -101,6 +101,11 @@
     padding: 5% 2%;
   }
 }
+@media (max-width: 1200px) {
+  .layOutStyle.add-remove.chat-remove-padding {
+    padding: 12px 0px 0px 0px;
+  }
+}
 
 @media (max-width: 991px) {
   .layOutStyle {
@@ -110,7 +115,7 @@
     padding: 0% 2%;
   }
   .layOutStyle.add-remove.chat-remove-padding {
-    padding: 0px 0px 0px 0px;
+    padding: 9px 0px 0px 0px;
   }
 }
 
