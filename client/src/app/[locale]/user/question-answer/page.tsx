@@ -1,7 +1,7 @@
 'use client';
-import { getAllForums } from '@/lib/commonApi';
+import { getAllForums, getForumCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { Avatar, Badge, Button, Col, Divider, Empty, Image, Input, Row, Space } from 'antd';
+import { Avatar, Badge, Button, Col, Dropdown, Image, Menu, Result, Row, Space } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import RelativeTime from '@/app/commonUl/RelativeTime';
@@ -10,14 +10,11 @@ import RightSection from '@/components/Forums/SingleForum/RightSection';
 import Link from 'next/link';
 import {
     LikeOutlined,
-    DislikeOutlined,
     UserOutlined,
     LikeFilled,
-    DislikeFilled,
-    MessageOutlined,
-    EyeFilled
+    MessageOutlined
 } from '@ant-design/icons';
-import { IoIosEye } from "react-icons/io";
+import { IoIosEye, IoMdArrowDropdown } from "react-icons/io";
 import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
 import { FaPlus } from 'react-icons/fa6';
@@ -38,18 +35,26 @@ interface Forum {
 export default function Page() {
     const [forums, setForums] = useState<any[]>([]);
     const { user } = useContext(AuthContext);
-    const [modal, setModal] = useState(false);
-    const [forumResult, setForumResult] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState<any>();
     const [allDataType, setAllDataType] = useState(true);
     const [newRecord, setNewRecord] = useState(false);
+    const [category, setCategory] = useState<any>([]);
+    const [categoryId, setCategoryId] = useState<any>();
+    const [subCatId, setSubCatId] = useState<any>();
 
     useEffect(() => {
         fetchData(searchQuery);
-    }, [searchQuery]);
+    }, [searchQuery, categoryId, subCatId]);
+
+    useEffect(() => {
+        fetchCategories();
+    }, [])
+
     const fetchData = async (searchQuery: any) => {
         try {
             const searchObject = {
+                catId: categoryId?._id,
+                subCatId: subCatId,
                 search: searchQuery
             };
             const res = await getAllForums(searchObject);
@@ -84,7 +89,6 @@ export default function Page() {
     const handleVote = async (forumId: string, vote: any) => {
         try {
             if (!user) {
-                setModal(true);
                 return;
             }
             const data = {
@@ -141,8 +145,15 @@ export default function Page() {
         setSearchQuery(queryString);
     };
 
-    function handleCallback(data: any) {
-        throw new Error('Function not implemented.');
+    const fetchCategories = async () => {
+        try {
+            const res = await getForumCategories();
+            if (res.status == true) {
+                setCategory(res.data);
+            }
+        } catch (error) {
+            ErrorHandler.showNotification(error);
+        }
     }
 
     const handleQuestions = (type: string) => {
@@ -163,6 +174,21 @@ export default function Page() {
         }
     };
 
+    const capitalizeFirstLetterOfEachWord = (text: string) => {
+        if (!text) return text;
+        return text.replace(/\b\w/g, (char) => char.toUpperCase());
+    };
+
+    const handleDepartmentChange = (e: any) => {
+        const selected: any = category.categories.find((item: any) => item._id === e.key);
+        setCategoryId(selected);
+    };
+
+    const handleCourseChange = (e: any) => {
+        const selected: any = category.subCategories.find((item: any) => item._id === e.key);
+        setSubCatId(selected);
+    }
+
     return (
         <>
             <div className="boxInbox">
@@ -170,7 +196,92 @@ export default function Page() {
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <Space wrap className="floatEnd">
-                                {/* <Input type='search' placeholder='search' value={searchQuery} onChange={handleSearch} style={{ height: '40px' }} /> */}
+                                <Dropdown
+                                    overlay={
+                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                            <Menu
+                                                onClick={handleDepartmentChange}
+                                            >
+                                                {category.categories &&
+                                                    category.categories?.map((item: any) => (
+                                                        <Menu.Item key={item._id} className="hovercolor">
+                                                            {capitalizeFirstLetterOfEachWord(
+                                                                item?.name
+                                                            )}
+                                                        </Menu.Item>
+                                                    ))}
+                                            </Menu>
+                                        </div>
+                                    }
+                                >
+                                    <Button
+                                        style={{
+                                            width: '250px',
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {categoryId?.name
+                                                ? capitalizeFirstLetterOfEachWord(
+                                                    categoryId.name
+                                                )
+                                                : 'Select Department'}
+                                        </span>
+                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                    </Button>
+                                </Dropdown>
+                                <Dropdown
+                                    overlay={
+                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                            <Menu
+                                                onClick={handleCourseChange}
+                                            >
+                                                {categoryId?._id
+                                                    ? category.subCategories
+                                                        ?.filter((item: any) => item.categoryId === categoryId._id)
+                                                        .map((item: any) => (
+                                                            <Menu.Item key={item._id} className="hovercolor">
+                                                                {capitalizeFirstLetterOfEachWord(item.name)}
+                                                            </Menu.Item>
+                                                        ))
+                                                    : []}
+                                            </Menu>
+                                        </div>
+                                    }
+                                >
+                                    <Button
+                                        style={{
+                                            width: '250px',
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {subCatId?.name
+                                                ? capitalizeFirstLetterOfEachWord(
+                                                    subCatId.name
+                                                )
+                                                : 'Select Course'}
+                                        </span>
+                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                    </Button>
+                                </Dropdown>
+                                {category._id}
                                 <Button
                                     type="primary"
                                     onClick={() => handleQuestions('')}
@@ -336,14 +447,9 @@ export default function Page() {
                                         </Row>
                                     ) : (
                                         <div className="textCenter">
-                                            <Image
-                                                width={'50%'}
-                                                height={'100%'}
-                                                preview={false}
-                                                src={'http://localhost:3000/images/Nodata-amico.png'}
-                                                alt="card__image"
-                                                className="card__image"
-                                                fallback="/images/Nodata-amico.png"
+                                            <Result
+                                                status="404"
+                                                subTitle="Oops! We couldn't find any matching records."
                                             />
                                         </div>
                                     )}
@@ -351,9 +457,6 @@ export default function Page() {
                                 <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
                                     <RightSection
                                         categoryId={''}
-                                        onCallBack={(data: any) => {
-                                            handleCallback(data);
-                                        }}
                                         onSearch={(data: any) => handleSearch(data)}
                                     />
                                 </Col>
