@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 import {
     GetLanguages, //async functions
 } from "react-country-state-city";
+import { FaSquareXTwitter } from 'react-icons/fa6';
 
 interface Props {
     type: string;
@@ -396,11 +397,10 @@ export default function MatchedResult({ type }: Props) {
                                                                     <ParaText size="textGraf" color="primaryColor">
                                                                         {item.skills.map(
                                                                             (skill: string, index: number) => (
-                                                                                <Tag key={index}>
-                                                                                    {capitalizeFirstLetterOfEachWord(
-                                                                                        skill
-                                                                                    )}
-                                                                                </Tag>
+                                                                                <React.Fragment key={index}>
+                                                                                    {index > 0 && ', '}
+                                                                                    {capitalizeFirstLetterOfEachWord(skill)}
+                                                                                </React.Fragment>
                                                                             )
                                                                         )}
                                                                         {item.skills.length === 0 && (
@@ -449,7 +449,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                     <span>
                                                                                         <FaFacebookSquare
                                                                                             size={20}
-                                                                                            color="#127eb2"
+                                                                                            color="#1877F2"
                                                                                         />
                                                                                     </span>
                                                                                 </a>
@@ -464,7 +464,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                 >
                                                                                     <span>
                                                                                         <FaInstagramSquare
-                                                                                            color="#127eb2"
+                                                                                            color="rgb(225 48 108)"
                                                                                             size={20}
                                                                                         />
                                                                                     </span>
@@ -478,9 +478,9 @@ export default function MatchedResult({ type }: Props) {
                                                                                     rel="noopener noreferrer"
                                                                                 >
                                                                                     <span>
-                                                                                        <FaTwitter
+                                                                                        <FaSquareXTwitter
                                                                                             size={20}
-                                                                                            color="#127eb2"
+                                                                                            color="rgb(29 161 242)"
                                                                                         />
                                                                                     </span>
                                                                                 </a>
@@ -495,7 +495,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                     <span>
                                                                                         <IoLogoLinkedin
                                                                                             size={20}
-                                                                                            color="#127eb2"
+                                                                                            color="rgb(10, 102, 194)"
                                                                                         />
                                                                                     </span>
                                                                                 </a>
