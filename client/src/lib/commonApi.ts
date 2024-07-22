@@ -1056,3 +1056,18 @@ export const getAllUsersStudyBuddy = async (query: any = {}): Promise<any> => {
 	});
 };
 
+
+export const getFilterDepartment = async (): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/forum/getFilterDepartment`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}

@@ -354,6 +354,7 @@ export default function EditUser({ editData, onReload }: Props) {
                             </Col>
                             <Col lg={12} xl={12} md={12} sm={12} xs={12}>
                                 <Form.Item name={'image'} label='Profile Image'>
+                                    fdfff
                                     <Upload
                                         listType="picture-card"
                                         fileList={fileList}
