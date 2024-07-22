@@ -9,7 +9,7 @@ export default function ChatLayout({
 }) {
     return (
         <ChatContentProvider>
-            <div className="">{children}</div>
+            <div className="userLayOut">{children}</div>
         </ChatContentProvider>
     )
 }

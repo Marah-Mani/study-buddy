@@ -627,9 +627,6 @@ export default function Chat() {
         <div className="headerMain">
             <MainContainer
                 responsive
-                style={{
-                    height: '82vh'
-                }}
             >
                 <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} />
                 {selectedChat && (

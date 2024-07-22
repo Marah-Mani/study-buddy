@@ -109,7 +109,7 @@ li {
   border-bottom-color: #efa24b !important;
 }
 .ant-input-outlined:hover {
-  border: 1px solid #efa24b !important;
+  border: 2px solid #344734 !important;
 }
 .ant-select-selector {
   border-radius: 30px !important;
@@ -184,4 +184,86 @@ input.form-control {
 }
 .cs-conversation.cs-conversation--active {
   color: #344734 !important;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600,700');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table .ant-table {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+
+.rwd-table .ant-table-thead > tr {
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table .ant-table-thead > tr > th {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+
+.rwd-table .ant-table-tbody > tr {
+  background-color: #f5f9fc;
+}
+
+.rwd-table .ant-table-tbody > tr:nth-child(odd) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table .ant-table-tbody > tr:hover {
+  background-color: #d8e7f3;
+}
+
+@media screen and (max-width: 601px) {
+  .rwd-table .ant-table-thead {
+    display: none;
+  }
+
+  .rwd-table .ant-table-tbody > tr {
+    display: block;
+    margin-bottom: 1em;
+    border: 1px solid #ddd;
+  }
+
+  .rwd-table .ant-table-tbody > tr > td {
+    display: block;
+    text-align: left;
+    position: relative;
+    padding: 0.5em;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .rwd-table .ant-table-tbody > tr > td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    width: 120px;
+    display: inline-block;
+    color: #000;
+  }
+
+  .rwd-table .ant-table-tbody > tr > td:last-child {
+    border-bottom: none;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .rwd-table .ant-table-tbody > tr > td:before {
+    display: none;
+  }
 }
