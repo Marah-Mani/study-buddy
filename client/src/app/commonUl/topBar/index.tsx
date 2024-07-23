@@ -306,7 +306,7 @@ export default function TopBar() {
 					placement="left"
 					width="300"
 				>
-					{user?.role == 'admin' ? <MenuAdminMobile /> : <MenuUserMobile />}
+					{user?.role == 'admin' ? <MenuAdminMobile onBack={onClose} /> : <MenuUserMobile onBack={onClose} />}
 				</Drawer>
 			</div>
 		</>
