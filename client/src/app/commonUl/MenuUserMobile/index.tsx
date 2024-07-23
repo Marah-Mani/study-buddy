@@ -138,7 +138,7 @@ export default function MenuUserMobile() {
 		getItem(
 			'Q&A',
 			'5',
-			<Link href="/en/user/forums">
+			<Link href="/en/user/question-answer">
 				<QuestionCircleOutlined />
 			</Link>
 		),
