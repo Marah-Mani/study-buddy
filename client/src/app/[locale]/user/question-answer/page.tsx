@@ -19,6 +19,7 @@ import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
 import { FaPlus } from 'react-icons/fa6';
 import Forums from '@/components/Admin/Forums';
+import Loading from '@/app/commonUl/Loading';
 interface Forum {
     _id: string;
     title: string;
@@ -41,6 +42,7 @@ export default function Page() {
     const [category, setCategory] = useState<any>([]);
     const [categoryId, setCategoryId] = useState<any>();
     const [subCatId, setSubCatId] = useState<any>();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchData(searchQuery);
@@ -60,6 +62,7 @@ export default function Page() {
             const res = await getAllForums(searchObject);
             if (res.status == true) {
                 setForums(res.data);
+                setLoading(false);
             }
         } catch (error) {
             ErrorHandler.showNotification(error);
@@ -180,6 +183,11 @@ export default function Page() {
     };
 
     const handleDepartmentChange = (e: any) => {
+        if (e.key == 'all') {
+            setCategoryId(null);
+            setSubCatId(null);
+            fetchData(searchQuery);
+        }
         const selected: any = category.categories.find((item: any) => item._id === e.key);
         setCategoryId(selected);
     };
@@ -193,287 +201,292 @@ export default function Page() {
         <>
             <div className="boxInbox">
                 <div>
-                    <Row>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                            <Space wrap className="floatEnd">
-                                <Dropdown
-                                    overlay={
-                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                            <Menu
-                                                onClick={handleDepartmentChange}
-                                            >
-                                                {category.categories &&
-                                                    category.categories?.map((item: any) => (
-                                                        <Menu.Item key={item._id} className="hovercolor">
-                                                            {capitalizeFirstLetterOfEachWord(
-                                                                item?.name
-                                                            )}
-                                                        </Menu.Item>
-                                                    ))}
-                                            </Menu>
-                                        </div>
-                                    }
-                                >
-                                    <Button
-                                        style={{
-                                            width: '250px',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center'
-                                        }}
-                                    >
-                                        <span
-                                            style={{
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap'
-                                            }}
-                                        >
-                                            {categoryId?.name
-                                                ? capitalizeFirstLetterOfEachWord(
-                                                    categoryId.name
-                                                )
-                                                : 'Select Department'}
-                                        </span>
-                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                    </Button>
-                                </Dropdown>
-                                <Dropdown
-                                    overlay={
-                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                            <Menu
-                                                onClick={handleCourseChange}
-                                            >
-                                                {categoryId?._id
-                                                    ? category.subCategories
-                                                        ?.filter((item: any) => item.categoryId === categoryId._id)
-                                                        .map((item: any) => (
+                    {loading ? <Loading /> :
+                        <Row>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                <Space wrap className="floatEnd">
+                                    <Dropdown
+                                        overlay={
+                                            <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                <Menu
+                                                    onClick={handleDepartmentChange}
+                                                >
+                                                    <Menu.Item key={'all'} className='hovercolor'>
+                                                        All
+                                                    </Menu.Item>
+                                                    {category.categories &&
+                                                        category.categories?.map((item: any) => (
                                                             <Menu.Item key={item._id} className="hovercolor">
-                                                                {capitalizeFirstLetterOfEachWord(item.name)}
+                                                                {capitalizeFirstLetterOfEachWord(
+                                                                    item?.name
+                                                                )}
                                                             </Menu.Item>
-                                                        ))
-                                                    : []}
-                                            </Menu>
-                                        </div>
-                                    }
-                                >
-                                    <Button
-                                        style={{
-                                            width: '250px',
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center'
-                                        }}
+                                                        ))}
+                                                </Menu>
+                                            </div>
+                                        }
                                     >
-                                        <span
+                                        <Button
                                             style={{
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap'
+                                                width: '250px',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center'
                                             }}
                                         >
-                                            {subCatId?.name
-                                                ? capitalizeFirstLetterOfEachWord(
-                                                    subCatId.name
-                                                )
-                                                : 'Select Course'}
-                                        </span>
-                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                            <span
+                                                style={{
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            >
+                                                {categoryId?.name
+                                                    ? capitalizeFirstLetterOfEachWord(
+                                                        categoryId.name
+                                                    )
+                                                    : 'Select Department'}
+                                            </span>
+                                            <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                        </Button>
+                                    </Dropdown>
+                                    <Dropdown
+                                        overlay={
+                                            <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                <Menu
+                                                    onClick={handleCourseChange}
+                                                >
+                                                    {categoryId?._id
+                                                        && category.subCategories
+                                                            ?.filter((item: any) => item.categoryId === categoryId._id)
+                                                            .map((item: any) => (
+                                                                <Menu.Item key={item._id} className="hovercolor">
+                                                                    {capitalizeFirstLetterOfEachWord(item.name)}
+                                                                </Menu.Item>
+                                                            ))
+                                                    }
+                                                </Menu>
+                                            </div>
+                                        }
+                                    >
+                                        <Button
+                                            style={{
+                                                width: '250px',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <span
+                                                style={{
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            >
+                                                {subCatId?.name
+                                                    ? capitalizeFirstLetterOfEachWord(
+                                                        subCatId.name
+                                                    )
+                                                    : 'Select Course'}
+                                            </span>
+                                            <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                        </Button>
+                                    </Dropdown>
+                                    {category._id}
+                                    <Button
+                                        type="primary"
+                                        onClick={() => handleQuestions('')}
+                                        style={{ height: '40px', borderRadius: '30px' }}
+                                    >
+                                        {allDataType ? 'My Questions' : 'All Questions'}
                                     </Button>
-                                </Dropdown>
-                                {category._id}
-                                <Button
-                                    type="primary"
-                                    onClick={() => handleQuestions('')}
-                                    style={{ height: '40px', borderRadius: '30px' }}
-                                >
-                                    {allDataType ? 'My Questions' : 'All Questions'}
-                                </Button>
-                                <Button
-                                    icon={<FaPlus className='iconColorChange' />}
-                                    type={'primary'}
-                                    onClick={() => handleQuestionssss('new')}
-                                    style={{ height: '40px', borderRadius: '30px' }}
-                                >
-                                    Ask Question
-                                </Button>
-                            </Space>
-                        </Col>
+                                    <Button
+                                        icon={<FaPlus className='iconColorChange' />}
+                                        type={'primary'}
+                                        onClick={() => handleQuestionssss('new')}
+                                        style={{ height: '40px', borderRadius: '30px' }}
+                                    >
+                                        Ask Question
+                                    </Button>
+                                </Space>
+                            </Col>
 
-                        {allDataType ? (
-                            <>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
-                                    {forums.length > 0 ? (
-                                        <Row>
-                                            {forums.map((forum: any) => {
-                                                return (
-                                                    <>
-                                                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                                            <div className="question">
-                                                                <Row gutter={[16, 16]}>
-                                                                    <Col xs={24} sm={2} md={2} lg={2} xl={1} xxl={1}>
-                                                                        <div>
-                                                                            {forum.userId.attachment ? (
-                                                                                <Image
-                                                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${forum.userId.attachment}`}
-                                                                                    alt="Avatar"
-                                                                                    width={40}
-                                                                                    height={40}
-                                                                                    style={{ borderRadius: '50px' }}
-                                                                                    preview={false}
-                                                                                />
-                                                                            ) : (
-                                                                                <Avatar
-                                                                                    size={30}
-                                                                                    icon={<UserOutlined />}
-                                                                                />
-                                                                            )}
-                                                                        </div>
-                                                                    </Col>
-                                                                    <Col xs={24} sm={22} md={22} lg={22} xl={22} xxl={23}>
-                                                                        <div className="likeCommentRadius">
-                                                                            <Link
-                                                                                style={{
-                                                                                    display: 'flex', alignItems: 'center', float: 'right'
-                                                                                }}
-                                                                                href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
-                                                                            >
-                                                                                <IoIosEye size={20} />  &nbsp; {forum.viewCount}
-                                                                            </Link>
-                                                                        </div>
-                                                                        <div>
-                                                                            <span
-                                                                                style={{
-                                                                                    fontSize: '14px',
-                                                                                    gap: '5px',
-                                                                                    display: 'flex'
-                                                                                }}
-                                                                            >
-                                                                                <span>{forum.userId.name}</span>
-                                                                                <span>
-                                                                                    <Badge status="default" />
-                                                                                </span>
-                                                                            </span>
-                                                                            <div
-                                                                                style={{
-                                                                                    fontSize: '12px',
-                                                                                    color: '#efa24b'
-                                                                                }}
-                                                                            >
-                                                                                <RelativeTime
-                                                                                    date={forum.createdAt}
-                                                                                />
+                            {allDataType ? (
+                                <>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
+                                        {forums.length > 0 ? (
+                                            <Row>
+                                                {forums.map((forum: any) => {
+                                                    return (
+                                                        <>
+                                                            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                                                <div className="question">
+                                                                    <Row gutter={[16, 16]}>
+                                                                        <Col xs={24} sm={2} md={2} lg={2} xl={1} xxl={1}>
+                                                                            <div>
+                                                                                {forum.userId.attachment ? (
+                                                                                    <Image
+                                                                                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${forum.userId.attachment}`}
+                                                                                        alt="Avatar"
+                                                                                        width={40}
+                                                                                        height={40}
+                                                                                        style={{ borderRadius: '50px' }}
+                                                                                        preview={false}
+                                                                                    />
+                                                                                ) : (
+                                                                                    <Avatar
+                                                                                        size={30}
+                                                                                        icon={<UserOutlined />}
+                                                                                    />
+                                                                                )}
                                                                             </div>
-                                                                        </div>
-                                                                        <div >
-                                                                            <ParaText
-                                                                                size="small"
-                                                                                fontWeightBold={600}
-                                                                                color="black"
-                                                                            >
+                                                                        </Col>
+                                                                        <Col xs={24} sm={22} md={22} lg={22} xl={22} xxl={23}>
+                                                                            <div className="likeCommentRadius">
                                                                                 <Link
+                                                                                    style={{
+                                                                                        display: 'flex', alignItems: 'center', float: 'right'
+                                                                                    }}
                                                                                     href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                 >
-                                                                                    {forum.title.length > 95
-                                                                                        ? `${forum.title.slice(0, 95)}...`
-                                                                                        : forum.title}
+                                                                                    <IoIosEye size={20} />  &nbsp; {forum.viewCount}
                                                                                 </Link>
-                                                                            </ParaText>
-                                                                            <div className="smallTopMargin"></div>
-                                                                            {forum.attachment ? (
-                                                                                <img
-                                                                                    src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
-                                                                                    alt="Avatar"
-                                                                                    className='imageSize'
-                                                                                    style={{ borderRadius: '5px' }}
-
-                                                                                />
-                                                                            ) : null}
-                                                                            <div className="smallTopMargin"></div>
-                                                                            {!forum.attachment && (
-                                                                                <div
-                                                                                    dangerouslySetInnerHTML={{
-                                                                                        __html: truncateDescription(
-                                                                                            forum?.description,
-                                                                                            200
-                                                                                        )
+                                                                            </div>
+                                                                            <div>
+                                                                                <span
+                                                                                    style={{
+                                                                                        fontSize: '14px',
+                                                                                        gap: '5px',
+                                                                                        display: 'flex'
                                                                                     }}
-                                                                                ></div>
-                                                                            )}
-                                                                            <div className="smallTopMargin"></div>
-                                                                            <div style={{ display: 'flex', gap: '10px' }}>
-                                                                                <div
-                                                                                    style={{ display: 'flex', gap: '10px' }}
-                                                                                    className="likeCommentRadius"
                                                                                 >
-                                                                                    <div
-                                                                                        style={{ cursor: 'pointer' }}
-                                                                                        onClick={() =>
-                                                                                            handleVote(forum._id, 'like')
-                                                                                        }
-                                                                                    >
-                                                                                        {forum.likes.includes(user?._id) ? (
-                                                                                            <LikeFilled
-                                                                                                style={{ fontSize: '16px' }}
-                                                                                            />
-                                                                                        ) : (
-                                                                                            <LikeOutlined
-                                                                                                style={{ fontSize: '16px' }}
-                                                                                            />
-                                                                                        )}
-                                                                                        &nbsp;
-                                                                                        {forum.likes.length}
-                                                                                    </div>
+                                                                                    <span>{forum.userId.name}</span>
+                                                                                    <span>
+                                                                                        <Badge status="default" />
+                                                                                    </span>
+                                                                                </span>
+                                                                                <div
+                                                                                    style={{
+                                                                                        fontSize: '12px',
+                                                                                        color: '#efa24b'
+                                                                                    }}
+                                                                                >
+                                                                                    <RelativeTime
+                                                                                        date={forum.createdAt}
+                                                                                    />
                                                                                 </div>
-                                                                                <div className="likeCommentRadius">
+                                                                            </div>
+                                                                            <div >
+                                                                                <ParaText
+                                                                                    size="small"
+                                                                                    fontWeightBold={600}
+                                                                                    color="black"
+                                                                                >
                                                                                     <Link
                                                                                         href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
                                                                                     >
-                                                                                        <MessageOutlined
-                                                                                            style={{ fontSize: '16px' }}
-                                                                                        />{' '}
-                                                                                        {forum.comments.length}
+                                                                                        {forum.title.length > 95
+                                                                                            ? `${forum.title.slice(0, 95)}...`
+                                                                                            : forum.title}
                                                                                     </Link>
+                                                                                </ParaText>
+                                                                                <div className="smallTopMargin"></div>
+                                                                                {forum.attachment ? (
+                                                                                    <img
+                                                                                        src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
+                                                                                        alt="Avatar"
+                                                                                        className='imageSize'
+                                                                                        style={{ borderRadius: '5px' }}
+
+                                                                                    />
+                                                                                ) : null}
+                                                                                <div className="smallTopMargin"></div>
+                                                                                {!forum.attachment && (
+                                                                                    <div
+                                                                                        dangerouslySetInnerHTML={{
+                                                                                            __html: truncateDescription(
+                                                                                                forum?.description,
+                                                                                                200
+                                                                                            )
+                                                                                        }}
+                                                                                    ></div>
+                                                                                )}
+                                                                                <div className="smallTopMargin"></div>
+                                                                                <div style={{ display: 'flex', gap: '10px' }}>
+                                                                                    <div
+                                                                                        style={{ display: 'flex', gap: '10px' }}
+                                                                                        className="likeCommentRadius"
+                                                                                    >
+                                                                                        <div
+                                                                                            style={{ cursor: 'pointer' }}
+                                                                                            onClick={() =>
+                                                                                                handleVote(forum._id, 'like')
+                                                                                            }
+                                                                                        >
+                                                                                            {forum.likes.includes(user?._id) ? (
+                                                                                                <LikeFilled
+                                                                                                    style={{ fontSize: '16px' }}
+                                                                                                />
+                                                                                            ) : (
+                                                                                                <LikeOutlined
+                                                                                                    style={{ fontSize: '16px' }}
+                                                                                                />
+                                                                                            )}
+                                                                                            &nbsp;
+                                                                                            {forum.likes.length}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div className="likeCommentRadius">
+                                                                                        <Link
+                                                                                            href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
+                                                                                        >
+                                                                                            <MessageOutlined
+                                                                                                style={{ fontSize: '16px' }}
+                                                                                            />{' '}
+                                                                                            {forum.comments.length}
+                                                                                        </Link>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </Col>
-                                                                </Row>
-                                                            </div>
-                                                        </Col>
-                                                    </>
-                                                );
-                                            })}
-                                        </Row>
-                                    ) : (
-                                        <div className="textCenter">
-                                            <Result
-                                                status="404"
-                                                subTitle="Oops! We couldn't find any matching records."
-                                            />
-                                        </div>
-                                    )}
-                                </Col>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
-                                    <RightSection
-                                        categoryId={''}
-                                        onSearch={(data: any) => handleSearch(data)}
-                                    />
-                                </Col>
-                            </>
-                        ) : (
-                            <>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                    <Forums
-                                        activeKey={''}
-                                        newRecord={newRecord}
-                                        onBack={handleQuestions}
-                                        setNewRecord={setNewRecord}
-                                    />
-                                </Col>
-                            </>
-                        )}
-                    </Row>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </div>
+                                                            </Col>
+                                                        </>
+                                                    );
+                                                })}
+                                            </Row>
+                                        ) : (
+                                            <div className="textCenter">
+                                                <Result
+                                                    status="404"
+                                                    subTitle="Oops! We couldn't find any matching records."
+                                                />
+                                            </div>
+                                        )}
+                                    </Col>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
+                                        <RightSection
+                                            categoryId={''}
+                                            onSearch={(data: any) => handleSearch(data)}
+                                        />
+                                    </Col>
+                                </>
+                            ) : (
+                                <>
+                                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                                        <Forums
+                                            activeKey={''}
+                                            newRecord={newRecord}
+                                            onBack={handleQuestions}
+                                            setNewRecord={setNewRecord}
+                                        />
+                                    </Col>
+                                </>
+                            )}
+                        </Row>
+                    }
                 </div>
             </div>
         </>

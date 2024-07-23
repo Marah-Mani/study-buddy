@@ -2,6 +2,11 @@
   border-radius: 20px;
   color: #efa24b;
 }
+
+.boxInbox {
+  padding-top: 1%;
+}
+
 .question {
   border: 1px solid #f1a638;
   padding: 15px;
@@ -9,9 +14,11 @@
   border-radius: 16px;
   margin-top: 20px;
 }
+
 body.dark-mode .question {
   border: 2px solid #686868;
 }
+
 .imageSize {
   max-width: 200px;
   height: 200px;

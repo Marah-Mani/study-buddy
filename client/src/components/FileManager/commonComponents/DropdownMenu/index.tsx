@@ -11,7 +11,6 @@ interface DropdownMenuProps {
 
 export default function DropdownMenu({ onUpdate }: any) {
     const { user } = useContext(AuthContext);
-    console.log(user)
 
     const items: MenuProps['items'] = [
         {

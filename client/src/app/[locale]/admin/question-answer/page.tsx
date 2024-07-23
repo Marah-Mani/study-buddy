@@ -1,7 +1,7 @@
 'use client';
 import { getAllForums } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { Avatar, Badge, Button, Col, Divider, Empty, Image, Row, Space } from 'antd';
+import { Avatar, Badge, Button, Col, Image, Row, Space } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import RelativeTime from '@/app/commonUl/RelativeTime';
@@ -10,38 +10,22 @@ import RightSection from '@/components/Forums/SingleForum/RightSection';
 import Link from 'next/link';
 import {
     LikeOutlined,
-    DislikeOutlined,
     UserOutlined,
     LikeFilled,
-    DislikeFilled,
-    MessageOutlined,
-    EyeFilled
+    MessageOutlined
 } from '@ant-design/icons';
 import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
-import { FaPlus, FaRegEye } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import Forums from '@/components/Admin/Forums';
 import { IoIosEye } from 'react-icons/io';
-interface Forum {
-    _id: string;
-    title: string;
-    slug: string;
-    description: string;
-    attachment?: string;
-    likes: string[];
-    dislikes: string[]; // Corrected property name
-    comments: any[];
-    viewCount: number;
-    createdAt: string;
-}
 
 export default function Page() {
     const [forums, setForums] = useState<any[]>([]);
     const { user } = useContext(AuthContext);
     const [modal, setModal] = useState(false);
-    const [forumResult, setForumResult] = useState<any>([]);
     const [searchQuery, setSearchQuery] = useState<any>();
-    const [allDataType, setAllDataType] = useState(false);
+    const [allDataType, setAllDataType] = useState(true);
     const [newRecord, setNewRecord] = useState(false);
 
     useEffect(() => {

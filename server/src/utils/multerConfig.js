@@ -2,7 +2,6 @@
 const multer = require('multer');
 const fs = require('fs/promises');
 const sharp = require('sharp');
-const Settings = require('../models/adminSettings');
 
 const storage = (folderName) =>
 	multer.diskStorage({
@@ -20,67 +19,6 @@ const storage = (folderName) =>
 		}
 	});
 
-const addWatermark = async (imageBuffer, watermarkPath, gravity) => {
-	const { width, height } = await sharp(imageBuffer).metadata();
-	const watermarkSize = Math.round(Math.min(width, height) * 0.3);
-	const watermark = await sharp(watermarkPath).resize({ fit: 'contain', width: watermarkSize }).toBuffer();
-	return sharp(imageBuffer)
-		.composite([{ input: watermark, gravity }])
-		.toBuffer();
-};
-
-const createUploadWithWatermark = (folderName) => {
-	const upload = multer({ storage: storage(folderName) });
-
-	return {
-		single: (fieldName) => async (req, res, next) => {
-			upload.single(fieldName)(req, res, async (err) => {
-				console.log(err);
-				if (err) return res.status(500).json({ message: 'Error uploading file', status: false });
-
-				const sizes = [
-					{ suffix: 'extraSmall', width: 50, height: 50 },
-					{ suffix: 'small', width: 200 },
-					{ suffix: 'medium', width: 400 }
-				];
-				if (!req.file) return next();
-
-				const imagePath = req.file.path;
-				const fileName = req.file.filename;
-				const originalFilePath = `src/storage/${folderName}/original/${fileName}`;
-				const watermarkPath = 'src/storage/waterMark/Logo.png';
-
-				try {
-					// Watermark the original image
-					const originalImageBuffer = await sharp(imagePath).toBuffer();
-					const watermarkedOriginal = await addWatermark(originalImageBuffer, watermarkPath, 'southeast');
-					await fs.writeFile(originalFilePath, watermarkedOriginal);
-					console.log('Watermark added successfully to', originalFilePath);
-
-					// Process and watermark resized images
-					for (const size of sizes) {
-						const resizedImageBuffer = await sharp(originalFilePath)
-							.resize(size.width, size.height)
-							.toBuffer();
-						const watermarkedResized = await addWatermark(resizedImageBuffer, watermarkPath, 'southeast');
-						const folderPath = `src/storage/${folderName}/${size.suffix}`;
-						const filePath = `${folderPath}/${fileName}`;
-						await fs.mkdir(folderPath, { recursive: true });
-						await fs.writeFile(filePath, watermarkedResized);
-						console.log('Watermark added successfully to', filePath);
-					}
-
-					req.uploadedFilename = fileName;
-					next();
-				} catch (error) {
-					console.error(error);
-					return res.status(500).json({ message: 'Error processing image', status: false });
-				}
-			});
-		}
-	};
-};
-
 const processAndSaveImages = async (file, folderName) => {
 	const sizes = [
 		{ suffix: 'extraSmall', width: 50, height: 50 },
@@ -91,39 +29,21 @@ const processAndSaveImages = async (file, folderName) => {
 	const imagePath = file.path;
 	const fileName = file.filename;
 	const originalFilePath = `src/storage/${folderName}/original/${fileName}`;
-	const watermarkIconFile = await Settings.findOne();
-	if (watermarkIconFile && watermarkIconFile.waterMarkIcon) {
-		const watermarkPath = `src/storage/brandImage/original/${watermarkIconFile.waterMarkIcon}`;
-		const originalImageBuffer = await sharp(imagePath).toBuffer();
-		const watermarkedOriginal = await addWatermark(originalImageBuffer, watermarkPath, 'southeast');
-		await fs.writeFile(originalFilePath, watermarkedOriginal);
 
-		// Process and save resized images
-		for (const size of sizes) {
-			const resizedImageBuffer = await sharp(originalFilePath).resize(size.width, size.height).toBuffer();
-			const watermarkedResized = await addWatermark(resizedImageBuffer, watermarkPath, 'southeast');
-			const folderPath = `src/storage/${folderName}/${size.suffix}`;
-			const filePath = `${folderPath}/${fileName}`;
-			await fs.mkdir(folderPath, { recursive: true });
-			await fs.writeFile(filePath, watermarkedResized);
-		}
+	// Save the original image
+	const originalImageBuffer = await sharp(imagePath).toBuffer();
+	await fs.writeFile(originalFilePath, originalImageBuffer);
 
-		return fileName;
-	} else {
-		// Save the original image
-		const originalImageBuffer = await sharp(imagePath).toBuffer();
-		await fs.writeFile(originalFilePath, originalImageBuffer);
-		// Process and save resized images
-		for (const size of sizes) {
-			const resizedImageBuffer = await sharp(originalFilePath).resize(size.width, size.height).toBuffer();
-			const folderPath = `src/storage/${folderName}/${size.suffix}`;
-			const filePath = `${folderPath}/${fileName}`;
-			await fs.mkdir(folderPath, { recursive: true });
-			await fs.writeFile(filePath, resizedImageBuffer);
-		}
-
-		return fileName;
+	// Process and save resized images
+	for (const size of sizes) {
+		const resizedImageBuffer = await sharp(originalFilePath).resize(size.width, size.height).toBuffer();
+		const folderPath = `src/storage/${folderName}/${size.suffix}`;
+		const filePath = `${folderPath}/${fileName}`;
+		await fs.mkdir(folderPath, { recursive: true });
+		await fs.writeFile(filePath, resizedImageBuffer);
 	}
+
+	return fileName;
 };
 
 const createUpload = (folderName) => {
@@ -207,4 +127,4 @@ const createUpload = (folderName) => {
 	};
 };
 
-module.exports = { createUploadWithWatermark, createUpload };
+module.exports = { createUpload };

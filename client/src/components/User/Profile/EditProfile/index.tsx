@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
 import AuthContext from '@/contexts/AuthContext';
-import { updateProfileDetails } from '@/lib/userApi';
+import { updateProfileDetails } from '@/lib/adminApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
@@ -50,13 +50,15 @@ export default function Brands() {
                 interest: user.interestedIn,
                 gender: user.gender
             });
-            setFileList([{
-                uid: '-1',
-                name: user.image,
-                status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`
-                ,
-            }])
+            if (user.image) {
+                setFileList([{
+                    uid: '-1',
+                    name: user.image,
+                    status: 'done',
+                    url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`
+                    ,
+                }])
+            }
 
         }
     }, [user]);

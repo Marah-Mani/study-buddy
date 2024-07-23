@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Image, MenuTheme, Row, Space, Switch, Table } from 'antd';
+import { Col, Dropdown, Image, MenuTheme, Row, Space, Switch, Table } from 'antd';
 import type { TableProps } from 'antd';
 import { IoMdEye } from "react-icons/io";
 import { getFilesWithParams } from '@/lib/commonApi';
@@ -13,6 +13,8 @@ import CanDeleteFile from '../CanDeleteFile';
 import { getFavoriteFiles } from '@/lib/commonApi';
 import GetFileSize from '../GetFileSize';
 import ShortFileName from '../ShortFileName';
+import { HiDotsVertical } from 'react-icons/hi';
+import useDownloader from 'react-use-downloader';
 
 interface Props {
     userId: any;
@@ -29,6 +31,7 @@ interface DataType {
     fileSize: any;
     createdAt: any;
     isFavorite: boolean;
+    file: any;
 }
 
 export default function GetFiles({ userId, fileType, activeKey, onSelectedId, sorting, type }: Props) {
@@ -41,6 +44,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
+    const { download } = useDownloader();
 
     useEffect(() => {
         if (activeKey == '3' && user) {
@@ -98,6 +102,27 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
         }
     }
 
+    const viewSelectedFile = (file: any) => {
+        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+            handlePreview(file.filePath);
+        } else {
+            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
+        }
+    };
+
+    const getMenuItems = (file: any) => [
+        {
+            key: 'view',
+            label: 'View',
+            onClick: () => viewSelectedFile(file)
+        },
+        {
+            key: 'dow',
+            label: 'Download',
+            onClick: async () => download(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, file.fileName)
+        },
+    ];
+
 
     const columns: TableProps<DataType>['columns'] = [
         {
@@ -135,11 +160,19 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                                 fetchFiles(page, pageSize)
                             }
                         }} isFavorite={record?.isFavorite} userId={user?._id} fileId={record.key} />
+                    <Dropdown
+                        menu={{ items: getMenuItems(record?.file) }}
+                        trigger={['click']}
+                        className='viewAll'
+                    >
+                        <a onClick={(e) => e.preventDefault()}>
+                            <HiDotsVertical />
+                        </a>
+                    </Dropdown>
                 </Space>
             ),
         },
     ];
-    console.log(files)
 
     const handleFile = (fileId: any) => {
         setFileId(fileId);
@@ -163,13 +196,6 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                 <Col md={2}><GetFileTypeIcon fileType={items.fileType} size={30} /></Col>
                 <Col md={22}>
                     <div
-                        onDoubleClick={() => {
-                            if (items.fileType === 'image/png' || items.fileType === 'image/jpeg' || items.fileType === 'image/jpg' || items.fileType.startsWith('image/')) {
-                                handlePreview(items.filePath);
-                            } else {
-                                window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${items.filePath}`, 'blank');
-                            }
-                        }}
                         style={{ color: `${fileId}` === items._id ? '#efa24b' : 'inherit', cursor: 'pointer' }}
                     >
                         <ShortFileName fileName={items.fileName} short={30} />
@@ -185,6 +211,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     <DateFormat date={items.createdAt} />
                 </div>),
             isFavorite: items.isFavorite,
+            file: items
         }
     })
 

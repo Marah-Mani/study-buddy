@@ -19,6 +19,7 @@ interface Props {
 export default function FileInformation({ fileId, folder }: Props) {
     const [fileDetails, setFileDetails] = useState<any>([]);
     const [contributors, setContributors] = useState<any>([]);
+    const [isScrollable, setIsScrollable] = useState(false);
 
     useEffect(() => {
         if (fileId) {
@@ -33,6 +34,11 @@ export default function FileInformation({ fileId, folder }: Props) {
             const res = await getListOfContributors(folder._id);
             if (res.status === true) {
                 setContributors(res.data.contributors)
+                if (res.data.contributors.length > 3) {
+                    setIsScrollable(true);
+                } else {
+                    setIsScrollable(false);
+                }
             }
             if (res.status === false) {
                 setContributors([])
@@ -99,37 +105,39 @@ export default function FileInformation({ fileId, folder }: Props) {
                         <ParaText size='smallExtra' color='black'>{folder ? folder.folderPath : fileDetails?.filePath}</ParaText>
                         <Divider />
                         <ParaText size='textGraf' color='black' fontWeightBold={600} className='dBlock'>Contributors :</ParaText>
-                        {contributors.length > 0 ?
-                            contributors.map((contributor: any, index: any) => {
-                                return (
-                                    <div key={index} className='flexBar' style={{ justifyContent: 'space-between' }}>
-                                        <div className='flexBar'>
-                                            <div> {contributor?.image ?
-                                                <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${contributor?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} style={{ borderRadius: '50px' }} />
-                                                :
-                                                <Avatar size={40} icon={<UserOutlined />} />
-                                            }
+                        <div style={{ maxHeight: isScrollable ? '200px' : 'auto', overflowY: isScrollable ? 'scroll' : 'visible' }}>
+                            {contributors.length > 0 ?
+                                contributors.map((contributor: any, index: any) => {
+                                    return (
+                                        <div key={index} className='flexBar' style={{ justifyContent: 'space-between' }}>
+                                            <div className='flexBar'>
+                                                <div> {contributor?.image ?
+                                                    <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${contributor?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} style={{ borderRadius: '50px' }} />
+                                                    :
+                                                    <Avatar size={40} icon={<UserOutlined />} />
+                                                }
+                                                </div>
+                                                <div>  <ParaText size='smallExtra' color='black' fontWeightBold={600}>{contributor?.name}</ParaText></div>
                                             </div>
-                                            <div>  <ParaText size='smallExtra' color='black' fontWeightBold={600}>{contributor?.name}</ParaText></div>
+                                            <div> <ParaText size='minSmall' color='black' > <span className='badge'><DateFormat date={contributor?.createdAt} /></span> </ParaText></div>
                                         </div>
-                                        <div> <ParaText size='minSmall' color='black' > <span className='badge'><DateFormat date={contributor?.createdAt} /></span> </ParaText></div>
+                                    )
+                                })
+                                :
+                                <div className='flexBar' style={{ justifyContent: 'space-between' }}>
+                                    <div className='flexBar'>
+                                        <div> {fileDetails?.createdBy?.image ?
+                                            <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${fileDetails?.createdBy?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} style={{ borderRadius: '50px' }} />
+                                            :
+                                            <Avatar size={40} icon={<UserOutlined />} />
+                                        }
+                                        </div>
+                                        <div>  <ParaText size='smallExtra' color='black' fontWeightBold={600}>{fileDetails?.createdBy?.name}</ParaText></div>
                                     </div>
-                                )
-                            })
-                            :
-                            <div className='flexBar' style={{ justifyContent: 'space-between' }}>
-                                <div className='flexBar'>
-                                    <div> {fileDetails?.createdBy?.image ?
-                                        <Image src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${fileDetails?.createdBy?.image}`} className='profilePicRadius' preview={false} alt='Avatar' width={40} height={40} />
-                                        :
-                                        <Avatar size={40} icon={<UserOutlined />} />
-                                    }
-                                    </div>
-                                    <div>  <ParaText size='smallExtra' color='black' fontWeightBold={600}>{fileDetails?.createdBy?.name}</ParaText></div>
+                                    <div> <ParaText size='minSmall' color='black' > <span className='badge'><DateFormat date={fileDetails?.createdAt} /></span> </ParaText></div>
                                 </div>
-                                <div> <ParaText size='minSmall' color='black' > <span className='badge'><DateFormat date={fileDetails?.createdAt} /></span> </ParaText></div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
