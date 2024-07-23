@@ -42,12 +42,14 @@ export default function EditUser({ editData, onReload }: Props) {
                 higherEducation: editData.higherEducation,
                 gender: editData.gender,
             });
-            setFileList([{
-                uid: '-1',
-                name: editData.image,
-                status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${editData.image}`,
-            }])
+            if (editData.image) {
+                setFileList([{
+                    uid: '-1',
+                    name: editData.image,
+                    status: 'done',
+                    url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${editData.image}`,
+                }])
+            }
 
         }
     }, [editData]);

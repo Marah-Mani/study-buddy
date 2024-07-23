@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const archiver = require('archiver');
 const { getAdminDataByRole, trackUserActivity } = require('../../common/functions');
 const { createNotification } = require('../../common/notifications');
+const { promisify } = require('util');
+const unlinkAsync = promisify(fs.unlink);
 
 const getFileCount = async (folderId) => {
 	try {
@@ -153,6 +155,9 @@ async function deleteFolderAndContents(folderId) {
 
 		// Remove the folder from the database
 		await FileManagerFolder.findByIdAndDelete(folderId);
+		return true;
+	} else {
+		return false;
 	}
 }
 const fetchSubfoldersRecursive = async (folderId, foldersMap = new Map()) => {
@@ -1104,13 +1109,26 @@ const fileManagerController = {
 	deleteFolderPermanently: async (req, res) => {
 		try {
 			const { folderId } = req.body;
+			let folder = await FileManagerFolder.findById(folderId);
+
+			if (!folder) {
+				return res.status(404).json({ status: false, message: 'Folder not found' });
+			}
 
 			// Recursively delete folder and its contents
-			await deleteFolderAndContents(folderId);
-			// await trackUserActivity(file.createdBy, 'Your file has been recovered successfully!');
-			return res
-				.status(200)
-				.json({ status: true, message: 'Folder and its contents permanently deleted successfully' });
+			const data = await deleteFolderAndContents(folderId);
+
+			if (data) {
+				const folderPath = path.join(__dirname, '../../storage/fileManager', folder.folderPath);
+
+				fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+					if (err) {
+						errorLogger(err);
+						return res.status(500).json({ status: false, message: 'Error deleting folder' });
+					}
+					return res.status(200).json({ status: true, message: 'Folder and its contents permanently deleted successfully' });
+				});
+			}
 		} catch (error) {
 			// Log and handle error
 			errorLogger(error);
@@ -1127,8 +1145,14 @@ const fileManagerController = {
 				return res.status(404).json({ status: false, message: 'Folder not found' });
 			}
 
-			// Remove the folder from the database
-			await FileManagerFolder.findByIdAndDelete(fileId);
+			const filePath = path.join(__dirname, '../../storage/fileManager', folder.filePath);
+
+			// Use promisified version of fs.unlink
+			await unlinkAsync(filePath);
+
+			// Remove the file from the database
+			await FileManagerFile.findByIdAndDelete(fileId);
+
 			const AdminNotificationData = {
 				notification: `Your folder has been permanently deleted successfully!`,
 				notifyBy: folder.createdBy,

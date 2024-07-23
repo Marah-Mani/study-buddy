@@ -16,7 +16,7 @@
 
 @media (max-width: 767px) {
   .contact-text {
-    padding: 0%;
+    padding-top: 15%;
   }
 
   .contactUsSection {
@@ -39,7 +39,6 @@
 }
 
 @keyframes MoveUpDown {
-
   0%,
   100% {
     transform: translateY(0);
