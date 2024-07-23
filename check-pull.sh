@@ -6,16 +6,13 @@ git fetch origin
 # Get the current branch name
 branch=$(git rev-parse --abbrev-ref HEAD)
 
-# Check if the development branch exists locally
-if ! git show-ref --quiet refs/heads/development; then
-    echo -e "\e[31mThe development branch does not exist locally. Please pull the development branch.\e[0m"
-    exit 1
-fi
+# Compare the local branch with the remote development branch
+LOCAL=$(git rev-parse HEAD)
+REMOTE=$(git rev-parse origin/development)
 
-# Check if the current branch contains all changes from the remote development branch
-if ! git merge-base --is-ancestor origin/development HEAD; then
-    echo -e "\e[31mYour branch does not contain all changes from the development branch. Please pull the latest changes from development.\e[0m"
+if [ "$LOCAL" != "$REMOTE" ]; then
+    echo -e "\e[31mYour branch is not up to date with the development branch. Please pull the latest changes from development.\e[0m"
     exit 1
 else
-    echo -e "\e[32mYour branch contains all changes from the development branch.\e[0m"
+    echo -e "\e[32mYour branch is up to date with the development branch.\e[0m"
 fi

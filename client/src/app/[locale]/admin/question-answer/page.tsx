@@ -31,6 +31,7 @@ export default function Page() {
     useEffect(() => {
         fetchData(searchQuery);
     }, [searchQuery]);
+
     const fetchData = async (searchQuery: any) => {
         try {
             const searchObject = {
