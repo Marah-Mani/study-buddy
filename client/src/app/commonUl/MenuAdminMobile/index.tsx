@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { IoHome, IoSettings, IoDocumentText } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
 import ParaText from '../ParaText';
+import Titles from '../Titles';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -109,10 +110,11 @@ export default function MenuAdminMobile() {
 			<div id="menuIdMobile" className='adminSideMain'>
 				<div className="menuDashMobile darkMenuDashMobile">
 					<div className="textCenter">
-						<Link href="/">
+						<Link href="/about">
+							<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 						</Link>
 					</div>
-					<div className="gapMarginTop"></div>
+					<div className="gapPaddingTopOTwo"></div>
 					<Menu
 						selectedKeys={[defaultSelectedKey]}
 						mode="inline"

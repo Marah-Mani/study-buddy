@@ -272,7 +272,7 @@ export default function Page() {
                                                                                             ></div>
                                                                                         )}
                                                                                     </ParaText>}
-                                                                                <div style={{ display: 'flex', gap: '10px' }}>
+                                                                                <div style={{ display: 'flex', gap: '10px', paddingTop: '12px' }}>
                                                                                     <div
                                                                                         style={{ display: 'flex', gap: '10px' }}
                                                                                         className="likeCommentRadius"

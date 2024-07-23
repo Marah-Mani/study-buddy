@@ -12,7 +12,8 @@
 
 @media (max-width: 991px) {
   .about-info {
-    padding-top: 0%;
+    padding-bottom: 10%;
+    padding-top: 15%;
   }
 }
 
@@ -28,11 +29,9 @@
     animation: MoveUpDown 10s linear infinite;
     padding-top: 80px;
   }
-
 }
 
 @keyframes MoveUpDown {
-
   0%,
   100% {
     transform: translateY(0);
@@ -53,6 +52,5 @@
 
   .innerBannerAbout {
     padding: 2% 0px;
-
   }
 }

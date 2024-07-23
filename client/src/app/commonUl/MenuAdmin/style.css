@@ -2,8 +2,7 @@
   background-color: #344734;
   padding: 32px 15px;
   height: 100vh;
-  width: 15%;
-  max-width: 300px;
+  width: 17%;
   overflow-y: scroll;
   position: fixed;
 }
@@ -47,6 +46,11 @@ li.ant-menu-item.ant-menu-item-selected svg {
 @media (max-width: 1700px) {
   .menuDash {
     max-width: 220px;
+  }
+}
+@media (min-width: 1700px) {
+  .menuDash {
+    max-width: 320px;
   }
 }
 

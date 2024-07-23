@@ -49,16 +49,16 @@ export default function Page() {
             <div className="dashBody">
                 <div className='gapMarginTopTwo'></div>
                 <Row align='middle' gutter={[16, 16]}>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} >
+                    <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12} >
                         <ParaText size="large" fontWeightBold={600} color="primaryColor">
                             Users
                         </ParaText>
                     </Col>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
-                        <Space>
+                    <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className='textEnd'>
+                        <Space wrap>
                             <Dropdown
                                 overlay={
-                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px', marginBottom: '10px' }}>
                                         <Menu
                                             onClick={handleDepartmentChange}
                                         >

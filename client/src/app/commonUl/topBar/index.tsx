@@ -130,13 +130,13 @@ export default function TopBar() {
 				<Row align="middle" gutter={[10, 10]}>
 					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
 						<Link href={`${process.env['NEXT_PUBLIC_SITE_URL']}`} target="_blank">
-							<Link href="/about">
+							<Link href="/">
 								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Link>
 					</Col>
 					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
+						<div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'end' }}>
 							<div className="mobileMenu">
 								<div className="menuIcon" onClick={showDrawer}>
 									<IoMenuSharp color="#000" size={20} />
