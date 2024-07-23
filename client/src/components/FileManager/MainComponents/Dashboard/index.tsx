@@ -140,6 +140,9 @@ export default function Dashboard({ activeKey, initialState }: Props) {
                                             setFolder(null)
                                     }
                                     }
+                                    currentInnerFolderId={(data: any) => {
+                                        setFolder(data)
+                                    }}
                                 />
                             </>
                         )}

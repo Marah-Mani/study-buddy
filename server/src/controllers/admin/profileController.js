@@ -9,13 +9,21 @@ const profileController = {
 	updateProfileDetails: async (req, res) => {
 		try {
 			const upload = createUpload('userImage');
-			await upload.single('image')(req, res, async (err) => {
+			upload.single('image')(req, res, async (err) => {
 				if (err) {
 					errorLogger('Error uploading logo:', err);
 					return res.status(500).json({ message: 'Error uploading logo', status: false });
 				}
 
 				try {
+					let imageValue = null;
+					if (req.file && req.file.filename) {
+						imageValue = req.file.filename;
+					} else if (req.body.image && req.body.image !== 'null') {
+						imageValue = req.body.image;
+					} else {
+						imageValue = null; // Ensure imageValue is set to null if no image is provided
+					}
 					const profileData = {
 						name: req.body.name,
 						email: req.body.email,
@@ -24,20 +32,34 @@ const profileController = {
 							country: req.body.country,
 							state: req.body.state
 						},
-						image: req.file && req.file.filename ? req.file.filename : req.body.image || null
+						skills: req.body.skills ? req.body.skills.split(',').map((skill) => skill.trim()) : [],
+						languages: req.body.languages ? req.body.languages.split(',').map((lang) => lang.trim()) : [],
+						profileTitle: req.body.profileTitle,
+						higherEducation: req.body.higherEducation,
+						profileDescription: req.body.profileDescription,
+						interestedIn: req.body.interestedIn,
+						gender: req.body.gender,
+						socialLinks: {
+							twitter: req.body.twitter || '',
+							facebook: req.body.facebook || '',
+							linkedin: req.body.linkedIn || '',
+							instagram: req.body.instagram || '',
+							website: req.body.website || ''
+						},
+						image: imageValue
 					};
 
 					try {
 						const existingUser = await User.findByIdAndUpdate(req.body.userId, profileData, { new: true });
-						const AdminNotificationData = {
+						await trackUserActivity(req.body.userId, `Profile updated by ${req.body.name}`);
+						const UserNotificationData = {
 							notification: `Profile has been updated successfully`,
 							notifyBy: req.body.userId,
 							notifyTo: req.body.userId,
 							type: 'profile update',
-							url: '/admin/edit-profile'
+							url: '/user/edit-profile'
 						};
-						createNotification(AdminNotificationData);
-						await trackUserActivity(req.body.userId, 'Your profile has been updates successfully');
+						createNotification(UserNotificationData);
 						return res.status(200).json({
 							status: true,
 							message: 'Profile has been updated successfully',
@@ -54,7 +76,6 @@ const profileController = {
 			});
 		} catch (error) {
 			errorLogger(error);
-
 			return res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},

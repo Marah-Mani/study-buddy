@@ -82,7 +82,7 @@ const categories = [
 
 mongoose
 	.connect(
-		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy?retryWrites=true&w=majority',
+		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy-dev?retryWrites=true&w=majority',
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(async () => {

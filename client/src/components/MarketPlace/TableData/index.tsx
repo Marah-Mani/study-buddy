@@ -170,7 +170,7 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 </Tooltip>
             </Space >,
             title: data.title,
-            category: data.categoryId.name,
+            category: data.categoryId?.name,
             subCategory: data.subCategoryId?.name,
             price: <> <div style={{ display: 'flex', alignItems: 'center' }}> <span><BiShekel size={20} style={{ color: 'green', display: 'flex', alignItems: 'center' }} /></span>
                 <span>{data?.price}</span>

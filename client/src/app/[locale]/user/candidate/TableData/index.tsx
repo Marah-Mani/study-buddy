@@ -68,6 +68,10 @@ export default function TableData({ reload, searchInput, categoryId, subCatId }:
             dataIndex: 'department',
         },
         {
+            title: 'Course',
+            dataIndex: 'subCatId',
+        },
+        {
             title: 'Interested-In',
             dataIndex: 'interestedIn',
         },
@@ -91,6 +95,7 @@ export default function TableData({ reload, searchInput, categoryId, subCatId }:
         </Space>,
         email: data.email,
         department: data.departmentId?.departmentName || 'N/A',
+        subCatId: data.subjects.join(', '),
         interestedIn: <TextCapitalize text={data.interestedIn} />,
         gender: <TextCapitalize text={data.gender} />,
         status: data.status || 'N/A',
