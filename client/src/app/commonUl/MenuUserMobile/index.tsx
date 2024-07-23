@@ -45,7 +45,11 @@ function getItem(
 	} as MenuItem;
 }
 
-export default function MenuUserMobile() {
+interface Props {
+	onBack: () => void;
+}
+
+export default function MenuUserMobile({ onBack }: Props) {
 	const { logout } = useContext(AuthContext);
 	const [role, setAllRole] = useState<Roles[]>([]);
 	const { user } = useContext(AuthContext);
@@ -111,42 +115,42 @@ export default function MenuUserMobile() {
 		getItem(
 			'Dashboard',
 			'1',
-			<Link href="/en/user/dashboard">
+			<Link href="/en/user/dashboard" onClick={() => { onBack() }}>
 				<IoHome />
 			</Link>
 		),
 		getItem(
 			'Profile',
 			'2',
-			<Link href="/en/user/edit-profile">
+			<Link href="/en/user/edit-profile" onClick={() => { onBack() }}>
 				<AiOutlineProfile />
 			</Link>
 		),
 		getItem(
 			'Users',
 			'3',
-			<Link href="/en/user/candidate">
+			<Link href="/en/user/candidate" onClick={() => { onBack() }}>
 				<AiOutlineUser />
 			</Link>
 		),
 		getItem(
 			'File Manager',
 			'4',
-			<Link href="/en/user/file-manager">
+			<Link href="/en/user/file-manager" onClick={() => { onBack() }}>
 				<BiSolidFileArchive />
 			</Link>
 		),
 		getItem(
 			'Q&A',
 			'5',
-			<Link href="/en/user/question-answer">
+			<Link href="/en/user/question-answer" onClick={() => { onBack() }}>
 				<QuestionCircleOutlined />
 			</Link>
 		),
 		getItem(
 			'Market Place',
 			'6',
-			<Link href="/en/user/market-place">
+			<Link href="/en/user/market-place" onClick={() => { onBack() }}>
 				<IoDocumentText />
 			</Link>
 		)
