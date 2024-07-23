@@ -27,7 +27,7 @@ export default function MarketPlace({ activeKey }: Props) {
     const [searchInput, setSearchInput] = useState('');
     const [category, setCategory] = useState<any>([]);
     const [selectedCategory, setSelectedCategory] = useState<any>('');
-    const [subCategory, setSubCategory] = useState('');
+    const [subCategory, setSubCategory] = useState<any>('');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalProducts, setTotalProducts] = useState(0);
@@ -35,7 +35,6 @@ export default function MarketPlace({ activeKey }: Props) {
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const token = Cookies.get('session_token');
     const { user } = useContext(AuthContext);
-    const { setSelectedChat, chats, setChats }: any = useContext(ChatContext);
 
     useEffect(() => {
         fetchData();
@@ -61,7 +60,7 @@ export default function MarketPlace({ activeKey }: Props) {
             const searchObject = {
                 category: selectedCategory,
                 search: searchInput,
-                subCategory,
+                subCategory: subCategory._id,
                 page: currentPage,
                 pageSize
             };
@@ -106,13 +105,13 @@ export default function MarketPlace({ activeKey }: Props) {
             const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
             const selectedUsers = [
                 {
-                    _id: data.createdBy._id
+                    _id: data.createdBy._id,
                 }
-            ];
+            ]
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             };
             await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
@@ -124,36 +123,14 @@ export default function MarketPlace({ activeKey }: Props) {
                 config
             );
             router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
+
         } catch (error) {
             notification.error({
-                message: 'Failed to Create the Chat!'
+                message: "Failed to Create the Chat!"
             });
         }
     };
 
-    function handleChat(createdBy: any) {
-        accessChat(createdBy);
-    }
-
-    const accessChat = async (userId: any) => {
-        try {
-            const config = {
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
-
-            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
-            setSelectedChat(data);
-            router.push(`/en/${user?.role}/chat?${data._id}`);
-        } catch (error) {
-            notification.error({
-                message: 'Error fetching the chat'
-            });
-        }
-    };
     const handleCategoryChange = (e: any) => {
         if (e.key == 'all') {
             setSelectedCategory('');
@@ -161,8 +138,12 @@ export default function MarketPlace({ activeKey }: Props) {
             return;
         }
         const selected: any = category.categories.find((item: any) => item._id === e.key);
-        console.log(selected)
         setSelectedCategory(selected);
+    };
+
+    const handleSubCategory = (e: any) => {
+        const selected: any = category.subCategories.find((item: any) => item._id === e.key);
+        setSubCategory(selected);
     };
 
 
@@ -225,10 +206,10 @@ export default function MarketPlace({ activeKey }: Props) {
                         <Dropdown
                             overlay={
                                 <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                    <Menu >
+                                    <Menu onClick={handleSubCategory}>
                                         {selectedCategory
                                             ? category.subCategories
-                                                ?.filter((item: any) => item.categoryId == selectedCategory)
+                                                ?.filter((item: any) => item.categoryId == selectedCategory._id)
                                                 .map((item: any) => (
                                                     <Menu.Item key={item._id} className="hovercolor">
                                                         {item.name}
@@ -260,47 +241,17 @@ export default function MarketPlace({ activeKey }: Props) {
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                             }}
-                                        >Select Sub-Category
+                                        >
+                                            {subCategory
+                                                ?
+                                                subCategory.name
+                                                : 'Select Department'}
                                         </span>
                                     </>
                                 </span>
                                 <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                             </Button>
                         </Dropdown>
-
-
-                        {/* <Select
-                            style={{ height: '35px', borderRadius: '30px' }}
-                            placeholder={'Select a category'}
-                            showSearch
-                            allowClear
-                            optionFilterProp="children"
-                            options={category.categories?.map((item: any) => {
-                                return {
-                                    value: item._id,
-                                    label: item.name
-                                };
-                            })}
-                            onChange={(value: string) => setSelectedCategory(value)}
-                        /> */}
-                        {/* <Select
-                            style={{ height: '35px', borderRadius: '30px' }}
-                            placeholder={'Select a sub-category'}
-                            showSearch
-                            allowClear
-                            optionFilterProp="children"
-                            options={
-                                selectedCategory
-                                    ? category.subCategories
-                                        ?.filter((item: any) => item.categoryId == selectedCategory)
-                                        .map((item: any) => ({
-                                            value: item._id,
-                                            label: item.name
-                                        }))
-                                    : []
-                            }
-                            onChange={(value: string) => setSubCategory(value)}
-                        /> */}
                         <Input
                             allowClear
                             suffix={<CiSearch />}
@@ -362,7 +313,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     >
                                         Category :
                                         <ParaText size="extraSmall" color="primaryColor">
-                                            <span style={{ fontWeight: '400', fontSize: '14px' }}>  {data.categoryId.name}</span>
+                                            <span style={{ fontWeight: '400', fontSize: '14px' }}>  {data.categoryId?.name}</span>
                                         </ParaText>
                                     </ParaText>
                                 </Col>
@@ -446,14 +397,14 @@ export default function MarketPlace({ activeKey }: Props) {
                                         xl={data.discountPrice !== 'undefined' ? 12 : 12}
                                         xxl={data.discountPrice !== 'undefined' ? 12 : 12}
                                     >
-                                        <Link href="" onClick={() => handleChat(data.createdBy)} className="imageChat">
+                                        <div onClick={() => handleSubmit(data)} className="imageChat" style={{ cursor: 'pointer' }}>
                                             <Tooltip
                                                 title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
                                                 color={'#EDF1F5'}
                                             >
                                                 <img src="/icons/yellowbubble-chat.png" alt="" />
                                             </Tooltip>
-                                        </Link>
+                                        </div>
                                     </Col>
                                 </Row>
                             </div>

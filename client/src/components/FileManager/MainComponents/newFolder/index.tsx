@@ -16,7 +16,7 @@ import GetFileTypeIcon from "../../commonComponents/GetFileTypeIcon";
 import GetFileTypeName from "../../commonComponents/GetFileTypeName";
 import ShortFileName from "../../commonComponents/ShortFileName";
 import { HiDotsVertical } from "react-icons/hi";
-
+import useDownloader from "react-use-downloader";
 
 interface props {
     handleUpdate?: (folder: any, action: any) => void;
@@ -27,9 +27,10 @@ interface props {
     getFilesWithId?: any;
     onBack?: any;
     onSelectedId?: any;
+    currentInnerFolderId?: any;
 }
 
-export default function NewFolder({ newFolderName, getParent, onBack, onSelectedId }: props) {
+export default function NewFolder({ newFolderName, onBack, onSelectedId, currentInnerFolderId }: props) {
     const [isModalOpenFile, setIsModalOpenFile] = useState(false);
     const [folderId, setFolderId] = useState(newFolderName._id)
     const [fileWithFolderId, setFileWithFolderId] = useState<any>([]);
@@ -40,6 +41,9 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
     const [folderRename, setFolderRename] = useState<any>();
     const [previewVisible, setPreviewVisible] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
+    const { download } = useDownloader();
+    const [folderName, setFolderName] = useState(newFolderName.folderName);
+
 
     useEffect(() => {
         getFilesWithId(newFolderName._id);
@@ -54,13 +58,13 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
     const getFolderData = async (folderId: string) => {
         const data = { userId: user?._id, folderId }
         const response = await getFolder(data)
-        setFolderData(response.data)
+        setFolderData(response.data);
         if (response.data.length > 0) {
             setSingleFolder(response.data[0]);
         }
     }
 
-    const handleReload = (data: any) => {
+    const handleReload = () => {
         getFolderData(folderId);
         getFilesWithId(folderId);
     }
@@ -68,6 +72,7 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
 
     const handleDoubleClick = async (folder: any) => {
         setFolderId(folder._id);
+        setFolderName(folder.folderName);
         await getFolderData(folder._id);
         await getFilesWithId(folder._id);
     }
@@ -115,30 +120,25 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
         onSelectedId(fileId)
     };
 
-    const handleMenuClick = (e: any, file: any) => {
-        switch (e.key) {
-            case 'view':
-                if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
-                    handlePreview(file.filePath);
-                } else {
-                    window.open(`${process.env.NEXT_PUBLIC_IMAGE_URL}/fileManager/${file.filePath}`, '_blank');
-                }
-                break;
-            case 'dow':
-                // Add your download logic here
-                break;
-            default:
-                break;
+    const viewSelectedFile = (file: any) => {
+        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+            handlePreview(file.filePath);
+        } else {
+            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
         }
     };
 
-
-    const menuItems = [
+    const getMenuItems = (file: any) => [
         {
             key: 'view',
             label: 'View',
+            onClick: () => viewSelectedFile(file)
         },
-        { key: 'dow', label: 'Download' },
+        {
+            key: 'dow',
+            label: 'Download',
+            onClick: async () => download(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, file.fileName)
+        },
     ];
 
     return (
@@ -153,13 +153,15 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
                 <Col md={1}
                     onClick={() => {
                         setFolderId('')
-                        onBack()
+                        onBack(folderId)
                     }}
                 >
-                    <BackButton />
+                    <div>
+                        <BackButton />
+                    </div>
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
-                    <ParaText size='textGraf' color='black' fontWeightBold={600}>{newFolderName.folderName}  </ParaText>
+                    <ParaText size='textGraf' color='black' fontWeightBold={600}>{folderName}  </ParaText>
                 </Col>
                 <Col xs={24} sm={17} md={17} lg={17} xl={17} xxl={17}>
                     <div className='flexButton'>
@@ -193,7 +195,7 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
                         <Col xs={12} sm={12} md={12} lg={6} xl={6} xxl={6}
                             key={folder._id || index}
                         >
-                            <Link href='#'>
+                            <Link href='#' onClick={() => currentInnerFolderId(folder)}>
                                 <div className='cardCommn active'
                                     onDoubleClick={() => handleDoubleClick(folder)}
                                 >
@@ -226,13 +228,6 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
                         {fileWithFolderId && fileWithFolderId.map((file: any, index: any) => (
                             <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index} onClick={() => { handleFile(file._id) }}>
                                 <div className='cardCommn'
-                                    onDoubleClick={() => {
-                                        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
-                                            handlePreview(file.filePath);
-                                        } else {
-                                            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
-                                        }
-                                    }}
                                     style={{ color: '#efa24b', cursor: 'pointer' }}
                                 >
                                     <Row>
@@ -265,7 +260,7 @@ export default function NewFolder({ newFolderName, getParent, onBack, onSelected
                                         </Col>
                                         <Col md={1}>
                                             <Dropdown
-                                                menu={{ items: menuItems }}
+                                                menu={{ items: getMenuItems(file) }}
                                                 trigger={['click']}
                                                 className='viewAll'
                                             >
