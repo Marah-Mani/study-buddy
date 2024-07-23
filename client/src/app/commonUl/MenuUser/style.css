@@ -44,11 +44,11 @@ li.ant-menu-item.ant-menu-item-selected svg {
   font-size: 16px;
 } */
 
-@media (max-width: 1700px) {
+/* @media (max-width: 1700px) {
   .menuDash {
     max-width: 215px;
   }
-}
+} */
 @media (max-width: 1200px) {
   .menuDash {
     height: auto !important;
@@ -70,11 +70,6 @@ li.ant-menu-item.ant-menu-item-selected svg {
     max-width: 290px;
   }
 }
-@media (min-width: 1440px) and (max-width: 1600px) {
-  .menuDash {
-    max-width: 270px;
-  }
-}
 @media (min-width: 1366px) and (max-width: 1440px) {
   .menuDash {
     max-width: 240px;
@@ -82,6 +77,12 @@ li.ant-menu-item.ant-menu-item-selected svg {
 }
 @media (min-width: 1700px) {
   .menuDash {
-    max-width: 320px;
+    max-width: 330px;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1600px) {
+  .menuDash {
+    max-width: 270px;
   }
 }

@@ -17,6 +17,7 @@ import { Roles } from '@/lib/types';
 import { BiSolidFileArchive } from 'react-icons/bi';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import ParaText from '../ParaText';
+import Titles from '../Titles';
 type MenuItem = {
 	key: string;
 	link?: string; // Change to optional if not all items have link
@@ -186,10 +187,12 @@ export default function MenuUserMobile() {
 		<>
 			<div id="menuIdMobile" className='adminSideMain'>
 				<div className="menuDashMobile darkMenuDash">
-					<div className="textCenter">
-						<Link href="/"></Link>
+					<div className="">
+						<Link href="/about">
+							<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
+						</Link>
 					</div>
-					<div className="gapMarginTop"></div>
+					<div className='gapPaddingTopOTwo'></div>
 					<Menu
 						selectedKeys={[defaultSelectedKey]}
 						mode="inline"

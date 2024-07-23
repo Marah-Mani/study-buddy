@@ -25,7 +25,6 @@
 }
 
 @keyframes MoveUpDown {
-
   0%,
   100% {
     bottom: 0;
@@ -167,5 +166,14 @@
 
   .button-67 {
     margin-top: 0%;
+  }
+}
+@media (max-width: 991px) {
+  .textSection {
+    padding-top: 70px;
+    max-width: 800px;
+  }
+  .bannerImage {
+    padding-top: 0px;
   }
 }
