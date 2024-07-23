@@ -164,7 +164,7 @@ export default function Page() {
             setAllDataType(false);
         } else {
             setAllDataType(true);
-            fetchData(searchQuery);
+            // fetchData(searchQuery);
         }
     };
 
@@ -205,94 +205,98 @@ export default function Page() {
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                 <Space wrap className="floatEnd">
-                                    <Dropdown
-                                        overlay={
-                                            <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                <Menu
-                                                    onClick={handleDepartmentChange}
-                                                >
-                                                    <Menu.Item key={'all'} className='hovercolor'>
-                                                        All
-                                                    </Menu.Item>
-                                                    {category.categories &&
-                                                        category.categories?.map((item: any) => (
-                                                            <Menu.Item key={item._id} className="hovercolor">
-                                                                {capitalizeFirstLetterOfEachWord(
-                                                                    item?.name
-                                                                )}
+                                    {allDataType &&
+                                        <>
+                                            <Dropdown
+                                                overlay={
+                                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                        <Menu
+                                                            onClick={handleDepartmentChange}
+                                                        >
+                                                            <Menu.Item key={'all'} className='hovercolor'>
+                                                                All
                                                             </Menu.Item>
-                                                        ))}
-                                                </Menu>
-                                            </div>
-                                        }
-                                    >
-                                        <Button
-                                            style={{
-                                                width: '250px',
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center'
-                                            }}
-                                        >
-                                            <span
-                                                style={{
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap'
-                                                }}
+                                                            {category.categories &&
+                                                                category.categories?.map((item: any) => (
+                                                                    <Menu.Item key={item._id} className="hovercolor">
+                                                                        {capitalizeFirstLetterOfEachWord(
+                                                                            item?.name
+                                                                        )}
+                                                                    </Menu.Item>
+                                                                ))}
+                                                        </Menu>
+                                                    </div>
+                                                }
                                             >
-                                                {categoryId?.name
-                                                    ? capitalizeFirstLetterOfEachWord(
-                                                        categoryId.name
-                                                    )
-                                                    : 'Select Department'}
-                                            </span>
-                                            <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                        </Button>
-                                    </Dropdown>
-                                    <Dropdown
-                                        overlay={
-                                            <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                <Menu
-                                                    onClick={handleCourseChange}
+                                                <Button
+                                                    style={{
+                                                        width: '250px',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
                                                 >
-                                                    {categoryId?._id
-                                                        && category.subCategories
-                                                            ?.filter((item: any) => item.categoryId === categoryId._id)
-                                                            .map((item: any) => (
-                                                                <Menu.Item key={item._id} className="hovercolor">
-                                                                    {capitalizeFirstLetterOfEachWord(item.name)}
-                                                                </Menu.Item>
-                                                            ))
-                                                    }
-                                                </Menu>
-                                            </div>
-                                        }
-                                    >
-                                        <Button
-                                            style={{
-                                                width: '250px',
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center'
-                                            }}
-                                        >
-                                            <span
-                                                style={{
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap'
-                                                }}
+                                                    <span
+                                                        style={{
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            whiteSpace: 'nowrap'
+                                                        }}
+                                                    >
+                                                        {categoryId?.name
+                                                            ? capitalizeFirstLetterOfEachWord(
+                                                                categoryId.name
+                                                            )
+                                                            : 'Select Department'}
+                                                    </span>
+                                                    <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                                </Button>
+                                            </Dropdown>
+                                            <Dropdown
+                                                overlay={
+                                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                        <Menu
+                                                            onClick={handleCourseChange}
+                                                        >
+                                                            {categoryId?._id
+                                                                && category.subCategories
+                                                                    ?.filter((item: any) => item.categoryId === categoryId._id)
+                                                                    .map((item: any) => (
+                                                                        <Menu.Item key={item._id} className="hovercolor">
+                                                                            {capitalizeFirstLetterOfEachWord(item.name)}
+                                                                        </Menu.Item>
+                                                                    ))
+                                                            }
+                                                        </Menu>
+                                                    </div>
+                                                }
                                             >
-                                                {subCatId?.name
-                                                    ? capitalizeFirstLetterOfEachWord(
-                                                        subCatId.name
-                                                    )
-                                                    : 'Select Course'}
-                                            </span>
-                                            <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                        </Button>
-                                    </Dropdown>
+                                                <Button
+                                                    style={{
+                                                        width: '250px',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <span
+                                                        style={{
+                                                            overflow: 'hidden',
+                                                            textOverflow: 'ellipsis',
+                                                            whiteSpace: 'nowrap'
+                                                        }}
+                                                    >
+                                                        {subCatId?.name
+                                                            ? capitalizeFirstLetterOfEachWord(
+                                                                subCatId.name
+                                                            )
+                                                            : 'Select Course'}
+                                                    </span>
+                                                    <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                                </Button>
+                                            </Dropdown>
+                                        </>
+                                    }
                                     {category._id}
                                     <Button
                                         type="primary"

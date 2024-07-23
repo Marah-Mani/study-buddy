@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
 import AuthContext from '@/contexts/AuthContext';
-import { updateProfileDetails } from '@/lib/adminApi';
+import { updateProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
@@ -33,22 +33,22 @@ export default function Brands() {
     useEffect(() => {
         if (user) {
             form.setFieldsValue({
-                name: user.name,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                country: user?.address?.country,
-                state: user?.address?.state,
-                profileTitle: user.profileTitle,
-                profileDescription: user.profileDescription,
-                skills: user.skills,
-                languages: user.languages,
-                instagram: user.socialLinks?.instagram,
-                linkedIn: user.socialLinks?.linkedin,
-                facebook: user.socialLinks?.facebook,
-                twitter: user.socialLinks?.twitter,
-                higherEducation: user.higherEducation,
-                interest: user.interestedIn,
-                gender: user.gender
+                name: user.name ?? '',
+                email: user.email ?? '',
+                phoneNumber: user.phoneNumber ?? '',
+                country: user?.address?.country ?? '',
+                state: user?.address?.state ?? '',
+                profileTitle: user.profileTitle ?? '',
+                profileDescription: user.profileDescription ?? '',
+                skills: user.skills ?? '',
+                languages: user.languages ?? '',
+                instagram: user.socialLinks?.instagram ?? '',
+                linkedIn: user.socialLinks?.linkedin ?? '',
+                facebook: user.socialLinks?.facebook ?? '',
+                twitter: user.socialLinks?.twitter ?? '',
+                higherEducation: user.higherEducation ?? '',
+                interest: user.interestedIn ?? '',
+                gender: user.gender ?? ''
             });
             if (user.image) {
                 setFileList([{

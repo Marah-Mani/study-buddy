@@ -30,9 +30,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
     const [attachment, setAttachment] = useState<UploadFile[]>([]);
     const [data, setData] = useState<DataItem[]>([]);
     const [filteredData, setFilteredData] = useState<DataItem[]>([]);
-    const Getdata = (data: any) => {
-        setData(data)
-    }
+
 
     const [category, setCategory] = useState<any>([]);
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -155,7 +153,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
     return (
         <>
             <br />
-            <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={Getdata} filterData={filteredData} />
+            <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={setFilteredData} filterData={filteredData} />
             <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
                 <Form
                     layout='vertical'

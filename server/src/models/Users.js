@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
 	departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'department', default: null },
 	subjects: [{ type: String }],
 	profileTitle: { type: String, default: null },
-	profileDescription: { type: String, default: null },
+	profileDescription: { type: String, default: '' },
 	higherEducation: {
 		type: String,
 		enum: ['none', 'high school', 'associate degree', 'bachelor degree', 'master degree', 'doctorate'],
