@@ -13,6 +13,9 @@
   .about-info {
     padding-top: 16%;
   }
+  .about-info.about-remove {
+    padding: 10% 10%;
+  }
 }
 
 @media (max-width: 991px) {
@@ -37,6 +40,9 @@
   .bannerImage {
     animation: MoveUpDown 10s linear infinite;
     padding-top: 80px;
+  }
+  .about-info.about-remove {
+    padding: 10% 10%;
   }
 }
 
