@@ -37,7 +37,8 @@ interface ConversationItemProps {
     onReload: any;
     search: string;
     viewInfo: boolean;
-    changeInfo: any
+    changeInfo: any;
+    handleConversationClick: any
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
@@ -52,7 +53,8 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     onReload,
     search = '',
     viewInfo,
-    changeInfo
+    changeInfo,
+    handleConversationClick
 }) => {
     const [selectedChatId, setSelectedChatId] = useState<any>(null);
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
@@ -263,11 +265,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             >
                 <Conversation
                     key={key}
-                    onClick={() => { setSelectedChat(chat); handleSelectChat(chat) }}
+                    onClick={() => { setSelectedChat(chat); handleSelectChat(chat), handleConversationClick() }}
                     active={selectedChat?._id === chat._id}
                     unreadCnt={!chat?.isMute?.mute && chat.unreadCount}
                 >
-                    <Conversation.Content>
+                    <Conversation.Content style={{ display: 'block' }}>
                         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                             <div style={{ position: 'relative' }}>
                                 {chat.image ?
