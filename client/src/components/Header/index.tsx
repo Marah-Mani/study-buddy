@@ -143,10 +143,7 @@ export default function Header() {
 					<Row align='middle'>
 						<Col xl={0} md={0} xs={18} sm={12} >
 							<Link href="/">
-								<Link href="/">
-									{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
-									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
-								</Link>
+								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Col>
 						<Col xl={0} md={0} xs={6} sm={12} className='textEnd'>
@@ -155,9 +152,8 @@ export default function Header() {
 					</Row>
 
 					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
-						<Link href="/" onClick={onClose}>
-							{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
-							<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
+						<Link href="/">
+							<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 						</Link>
 						<br />
 						<br />

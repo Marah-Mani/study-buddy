@@ -25,7 +25,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Community connection</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <ParaText size='medium' color='black'>Join a supportive community of peers who share your academic journey and goals.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
@@ -33,7 +33,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Buy, sell, or trade textbooks, gadgets, and other college essentials within your community.</ParaText>
+                                    <ParaText size='medium' color='black'>Our smart algorithm pairs you with the perfect study partner or tutor based on your needs.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                 </div>
                             </Col>
@@ -43,7 +43,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Steamlined Learning</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <ParaText size='medium' color='black'>Access all your study needs in one place—chat, Q&A, marketplace, and file management.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
@@ -51,7 +51,7 @@ export default function FaqSection() {
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'> Security First</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Get answers to your academic questions from peers and experts. Share your knowledge to help others</ParaText>
+                                    <ParaText size='medium' color='black'>Your data privacy is our priority. StudyBuddy ensures a safe and secure learning environment.</ParaText>
                                 </div>
                             </Col>
                         </Row>

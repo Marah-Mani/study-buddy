@@ -397,14 +397,16 @@ export default function MarketPlace({ activeKey }: Props) {
                                         xl={data.discountPrice !== 'undefined' ? 12 : 12}
                                         xxl={data.discountPrice !== 'undefined' ? 12 : 12}
                                     >
-                                        <div onClick={() => handleSubmit(data)} className="imageChat" style={{ cursor: 'pointer' }}>
-                                            <Tooltip
-                                                title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
-                                                color={'#EDF1F5'}
-                                            >
-                                                <img src="/icons/yellowbubble-chat.png" alt="" />
-                                            </Tooltip>
-                                        </div>
+                                        {data.createdBy._id !== user?._id &&
+                                            <div onClick={() => handleSubmit(data)} className="imageChat" style={{ cursor: 'pointer' }}>
+                                                <Tooltip
+                                                    title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                                    color={'#EDF1F5'}
+                                                >
+                                                    <img src="/icons/yellowbubble-chat.png" alt="" />
+                                                </Tooltip>
+                                            </div>
+                                        }
                                     </Col>
                                 </Row>
                             </div>

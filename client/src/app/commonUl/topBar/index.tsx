@@ -303,6 +303,7 @@ export default function TopBar() {
 					className="paddingRemoveBody"
 					onClose={onClose}
 					open={open}
+					style={{ overflow: 'hidden' }}
 					placement="left"
 					width="300"
 				>

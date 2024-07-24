@@ -338,7 +338,7 @@ export default function FormType({ onSuccess, editData }: Props) {
                     }
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                         <Form.Item
-                            label="File Upload (Max 3 file to Upload)"
+                            label="File Upload (Max 3 files to Upload)"
                             name="images"
                         >
                             <UploadImage fileList={(data: any) => setFileList(data)} />

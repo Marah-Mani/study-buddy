@@ -89,7 +89,7 @@ span.anticon.anticon-close svg {
     object-fit: cover;
   }
   #customContainer {
-    padding: 8px 10px;
+    padding: 20px 10px;
     z-index: 9;
   }
 }
