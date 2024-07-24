@@ -19,8 +19,12 @@ export const isLastMessage = (messages: any, i: any, userId: any) => {
 };
 
 export const getSenderFull = (loggedUser: any, users: any) => {
+	if (!users || users.length < 2) {
+		return null; // or handle the error as appropriate for your application
+	}
 	return users[0]._id === loggedUser._id ? users[1] : users[0];
 };
+
 
 export const bannedWords = [
 	'abuse', 'abusive', 'bastard', 'bitch', 'bullshit', 'cocksucker', 'crap', 'cunt', 'damn', 'dick', 'douche', 'fag', 'faggot',
