@@ -171,10 +171,6 @@ canvas.sound-wave {
   .headerMain .cs-conversation-header {
     display: block;
   }
-  .chat-remove-padding {
-    padding: 10px 0px !important;
-  }
-
   .cs-input-toolbox {
     justify-content: left;
   }
