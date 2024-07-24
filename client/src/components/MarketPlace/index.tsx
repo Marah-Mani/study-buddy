@@ -256,7 +256,7 @@ export default function MarketPlace({ activeKey }: Props) {
                             allowClear
                             suffix={<CiSearch />}
                             placeholder="Search"
-                            style={{ height: '35px', width: '100%', borderRadius: '30px' }}
+                            style={{ width: '100%', borderRadius: '30px' }}
                             className="buttonClass"
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
