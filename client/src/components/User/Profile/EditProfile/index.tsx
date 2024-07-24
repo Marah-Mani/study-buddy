@@ -10,7 +10,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
 import {
     GetLanguages, //async functions
@@ -376,7 +376,7 @@ export default function Brands() {
                                                 placeholder='Enter Twitter link'
                                                 type='link'
                                                 maxLength={50}
-                                                suffix={<FaSquareXTwitter />}
+                                                suffix={<FaXTwitter />}
                                             />
                                         </Form.Item>
 

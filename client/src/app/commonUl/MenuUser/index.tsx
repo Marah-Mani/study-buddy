@@ -164,11 +164,11 @@ export default function MenuAUser() {
 			<Link href="/en/user/studybuddy">
 				<span onClick={() => setIsActive(true)} >
 					{defaultSelectedKey === '8' ? (
-						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+							<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 						)}
 				</span>
 			</Link>

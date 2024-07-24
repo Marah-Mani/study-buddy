@@ -7,7 +7,7 @@ import { validationRules } from '@/lib/validations';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from "react-icons/fa6";
 import { handleFileCompression } from '@/lib/commonServices';
 import { updateUserDetails } from '@/lib/adminApi';
 import {
@@ -319,7 +319,7 @@ export default function EditUser({ editData, onReload }: Props) {
                                         placeholder='Enter Twitter link'
                                         type='link'
                                         maxLength={50}
-                                        suffix={<FaSquareXTwitter />}
+                                        suffix={<FaXTwitter />}
                                     />
                                 </Form.Item>
 

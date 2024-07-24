@@ -4,7 +4,7 @@ import './style.css';
 import { notification, Tooltip } from 'antd';
 import { Button, Col, Input, Image, Row, Space, Divider, Dropdown, Menu, message, Skeleton } from 'antd';
 import { CiSearch } from 'react-icons/ci';
-import { FaTwitter } from 'react-icons/fa';
+import { FaXTwitter } from "react-icons/fa6";
 import ParaText from '@/app/commonUl/ParaText';
 import { FaFacebookSquare } from 'react-icons/fa';
 import { FaInstagramSquare } from 'react-icons/fa';
@@ -479,7 +479,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                         rel="noopener noreferrer"
                                                                                     >
                                                                                         <span>
-                                                                                            <FaSquareXTwitter
+                                                                                            <FaXTwitter
                                                                                                 size={20}
                                                                                                 color="rgb(29 161 242)"
                                                                                             />

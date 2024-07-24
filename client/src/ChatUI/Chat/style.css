@@ -220,12 +220,19 @@ canvas.sound-wave {
     left: 100px;
   }
 }
-@media (min-width: 1440px) {
+.headerMain {
+  height: calc(100vh - 0px);
+  padding-top: 74px;
+}
+
+@media (max-width: 1440px) {
   .headerMain {
-    height: 90vh;
+    height: calc(100vh - 0px);
+    padding-top: 70px;
   }
 }
 
+/*
 @media (min-width: 1200px) and (max-width: 1440px) {
   .headerMain {
     height: 91vh;
@@ -240,4 +247,4 @@ canvas.sound-wave {
   .headerMain {
     height: 88vh;
   }
-}
+} */

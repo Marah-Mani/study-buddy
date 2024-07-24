@@ -7,13 +7,22 @@
 }
 
 .about-info {
-  padding-top: 20%;
+  padding-top: 10%;
+}
+@media (max-width: 1200px) {
+  .about-info {
+    padding-top: 16%;
+  }
 }
 
 @media (max-width: 991px) {
   .about-info {
     padding-bottom: 10%;
     padding-top: 15%;
+  }
+  .about-info.about-remove {
+    padding: 0px;
+    padding-bottom: 10%;
   }
 }
 

@@ -21,7 +21,7 @@ export default function Features() {
                                     <ParaText size='medium' color='black'>Buy, sell, or trade textbooks, gadgets, and other college essentials within your community.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={4} color='secondaryColor'> Q&A Forum</Titles>
-                                    <ParaText size='medium' color='black'>Get answers to your academic questions from peers and experts. Share your knowledge to help others</ParaText>
+                                    <ParaText size='medium' color='black'>Get answers to your academic questions from peers and experts. Share your knowledge to help others.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                 </div>
 
@@ -37,7 +37,7 @@ export default function Features() {
                                     <ParaText size='medium' color='black'>Share and access study materials like exams, summaries, and notes based on your courses.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={4} color='secondaryColor'>Matching Algorithm</Titles>
-                                    <ParaText size='medium' color='black'>Pair with tutors or study partners based on your major and courses. Indicate if you need help or want to help others, and get matched ac</ParaText>
+                                    <ParaText size='medium' color='black'>Pair with tutors or study partners based on your major and courses. Indicate if you need help or want to help others and get matched according to your selection.</ParaText>
                                 </div>
                             </Col>
                         </Row>

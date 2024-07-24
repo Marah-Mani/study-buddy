@@ -87,3 +87,36 @@
     padding: 6% 2%;
   }
 }
+
+.chatMan {
+  display: flex;
+}
+.leftChatBar {
+  width: 16%;
+}
+.rightChatBar {
+  width: 86%;
+  padding-left: 25px;
+}
+@media (min-width: 1367px) and (max-width: 1800px) {
+  .rightChatBar {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .rightChatBar {
+    width: 86%;
+    padding-left: 18px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .leftChatBar {
+    width: unset;
+  }
+  .rightChatBar {
+    width: 100%;
+    padding-left: 0px;
+  }
+}
