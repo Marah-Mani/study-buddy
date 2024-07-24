@@ -301,7 +301,7 @@ export default function Page() {
                                     <Button
                                         type="primary"
                                         onClick={() => handleQuestions('')}
-                                        style={{ height: '40px', borderRadius: '30px' }}
+                                        style={{ borderRadius: '30px' }}
                                     >
                                         {allDataType ? 'My Questions' : 'All Questions'}
                                     </Button>
@@ -309,7 +309,7 @@ export default function Page() {
                                         icon={<FaPlus className='iconColorChange' />}
                                         type={'primary'}
                                         onClick={() => handleQuestionssss('new')}
-                                        style={{ height: '40px', borderRadius: '30px' }}
+                                        style={{ borderRadius: '30px' }}
                                     >
                                         Ask Question
                                     </Button>

@@ -158,7 +158,7 @@ export default function Page() {
                                 <Button
                                     type="primary"
                                     onClick={() => handleQuestions('')}
-                                    style={{ height: '40px', borderRadius: '30px' }}
+                                    style={{ borderRadius: '30px' }}
                                 >
                                     {allDataType ? 'My Questions' : 'All Questions'}
                                 </Button>
@@ -166,7 +166,7 @@ export default function Page() {
                                     icon={<FaPlus className='iconColorChange' />}
                                     type={'primary'}
                                     onClick={() => handleQuestionssss('new')}
-                                    style={{ height: '40px', borderRadius: '30px' }}
+                                    style={{ borderRadius: '30px' }}
                                 >
                                     Ask Question
                                 </Button>
@@ -250,8 +250,6 @@ export default function Page() {
                                                                                     <Image
                                                                                         src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
                                                                                         alt="Avatar"
-                                                                                        width={'30%'}
-                                                                                        height={'250px'}
                                                                                         style={{ borderRadius: '5px' }}
                                                                                         preview={false}
                                                                                     />
