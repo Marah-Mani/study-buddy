@@ -25,7 +25,7 @@ export default function Page() {
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='textEnd'>
                         <Space>
-                            <Input placeholder="Search" style={{ height: '38px', width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
+                            <Input placeholder="Search" style={{ width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                             {/* <Button icon={<FaPlus />} onClick={handleUser} type={'primary'} style={{ height: '40px' }}>
                                 Add Users
                             </Button> */}

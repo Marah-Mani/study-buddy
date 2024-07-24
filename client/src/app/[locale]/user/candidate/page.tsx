@@ -147,7 +147,7 @@ export default function Page() {
                                     <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                                 </Button>
                             </Dropdown>
-                            <Input allowClear placeholder="Search" style={{ height: '38px', width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
+                            <Input allowClear placeholder="Search" style={{ width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                         </Space>
 
                     </Col>

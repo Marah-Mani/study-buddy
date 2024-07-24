@@ -260,7 +260,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                                     theme="snow"
                                     onChange={handleQuillChange}
                                     placeholder="Enter forum description here"
-                                    height={200}
+
 
                                 />
                             </Form.Item>
