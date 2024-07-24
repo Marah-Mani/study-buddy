@@ -278,276 +278,277 @@ export default function UnMatchedResult({ type }: Props) {
                         loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
                         endMessage={!loading && <Divider plain></Divider>}
                     >
-                        {AllCandidates.map((item: any) => (
-                            <>
-                                <div style={{ padding: ' 15px 15px 25px 15px' }}>
-                                    <Row gutter={[16, 16]} justify="center">
-                                        <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
-                                            <div className="candidates-details">
-                                                <Row>
-                                                    <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1} className="">
-                                                        <Image
-                                                            src={
-                                                                item?.image
-                                                                    ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
-                                                                    : '/images/users.png'
-                                                            }
-                                                            width={50}
-                                                            height={50}
-                                                            alt="user"
-                                                            preview={false}
-                                                            style={{ borderRadius: '50px' }}
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xs={24}
-                                                        sm={24}
-                                                        md={24}
-                                                        lg={22}
-                                                        xl={22}
-                                                        xxl={23}
-                                                        className="custom-col"
-                                                    >
-                                                        <Row gutter={[16, 16]}>
-                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} style={{ paddingTop: '10px' }}>
-                                                                <Flex align="center">
-                                                                    <ParaText
-                                                                        size="small"
-                                                                        color="black"
-                                                                        className="dBlock"
-                                                                        fontWeightBold={600}
-                                                                    >
-                                                                        {`${item?.name} `}
-                                                                    </ParaText>
-                                                                    {/* <Tag color="success" style={{ marginLeft: '8px' }}>
+                        {AllCandidates.filter((item: any) => item._id !== user?._id)
+                            .map((item: any) => (
+                                <>
+                                    <div style={{ padding: ' 15px 15px 25px 15px' }}>
+                                        <Row gutter={[16, 16]} justify="center">
+                                            <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+                                                <div className="candidates-details">
+                                                    <Row>
+                                                        <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1} className="">
+                                                            <Image
+                                                                src={
+                                                                    item?.image
+                                                                        ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${item.image}`
+                                                                        : '/images/users.png'
+                                                                }
+                                                                width={50}
+                                                                height={50}
+                                                                alt="user"
+                                                                preview={false}
+                                                                style={{ borderRadius: '50px' }}
+                                                            />
+                                                        </Col>
+                                                        <Col
+                                                            xs={24}
+                                                            sm={24}
+                                                            md={24}
+                                                            lg={22}
+                                                            xl={22}
+                                                            xxl={23}
+                                                            className="custom-col"
+                                                        >
+                                                            <Row gutter={[16, 16]}>
+                                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} style={{ paddingTop: '10px' }}>
+                                                                    <Flex align="center">
+                                                                        <ParaText
+                                                                            size="small"
+                                                                            color="black"
+                                                                            className="dBlock"
+                                                                            fontWeightBold={600}
+                                                                        >
+                                                                            {`${item?.name} `}
+                                                                        </ParaText>
+                                                                        {/* <Tag color="success" style={{ marginLeft: '8px' }}>
                                                                     {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
                                                                 </Tag> */}
-                                                                </Flex>
-                                                                {/* <ParaText size="textGraf" fontWeightBold={600} color="black">
+                                                                    </Flex>
+                                                                    {/* <ParaText size="textGraf" fontWeightBold={600} color="black">
                                                                     {item?.profileTitle &&
                                                                         capitalizeFirstLetterOfEachWord(item?.profileTitle)}
                                                                 </ParaText> */}
-                                                                <div className="gapPaddingTopOne"></div>
-                                                                <ParaText
-                                                                    size="textGraf"
-                                                                    className="dBlock"
-                                                                    color="black"
-                                                                >
-                                                                    <span>
-                                                                        <strong style={{ fontWeight: '400' }}>
-                                                                            {' '}
-                                                                            Department :
-                                                                        </strong>
-                                                                    </span>
-                                                                    &nbsp;
-                                                                    <ParaText size="textGraf" color="primaryColor">
-                                                                        <span style={{ fontWeight: '400' }}>
-                                                                            {item?.departmentId?.departmentName}
+                                                                    <div className="gapPaddingTopOne"></div>
+                                                                    <ParaText
+                                                                        size="textGraf"
+                                                                        className="dBlock"
+                                                                        color="black"
+                                                                    >
+                                                                        <span>
+                                                                            <strong style={{ fontWeight: '400' }}>
+                                                                                {' '}
+                                                                                Department :
+                                                                            </strong>
                                                                         </span>
+                                                                        &nbsp;
+                                                                        <ParaText size="textGraf" color="primaryColor">
+                                                                            <span style={{ fontWeight: '400' }}>
+                                                                                {item?.departmentId?.departmentName}
+                                                                            </span>
+                                                                        </ParaText>
                                                                     </ParaText>
-                                                                </ParaText>
 
-                                                                <ParaText
-                                                                    size="textGraf"
-                                                                    color="black"
-                                                                    className="dBlock"
-                                                                >
-                                                                    <span>
-                                                                        <strong style={{ fontWeight: '400' }}>
-                                                                            {' '}
-                                                                            Subjects :
-                                                                        </strong>
-                                                                    </span>
-                                                                    &nbsp;
-                                                                    <ParaText size="textGraf" color="primaryColor">
-                                                                        <span style={{ fontWeight: '400' }}>
-                                                                            {item.subjects.length > 0
-                                                                                ? item.subjects.map(
-                                                                                    (
-                                                                                        subject: string,
-                                                                                        index: number
-                                                                                    ) => (
-                                                                                        <React.Fragment key={index}>
-                                                                                            {index > 0 && ', '}
-                                                                                            {subject}
-                                                                                        </React.Fragment>
+                                                                    <ParaText
+                                                                        size="textGraf"
+                                                                        color="black"
+                                                                        className="dBlock"
+                                                                    >
+                                                                        <span>
+                                                                            <strong style={{ fontWeight: '400' }}>
+                                                                                {' '}
+                                                                                Subjects :
+                                                                            </strong>
+                                                                        </span>
+                                                                        &nbsp;
+                                                                        <ParaText size="textGraf" color="primaryColor">
+                                                                            <span style={{ fontWeight: '400' }}>
+                                                                                {item.subjects.length > 0
+                                                                                    ? item.subjects.map(
+                                                                                        (
+                                                                                            subject: string,
+                                                                                            index: number
+                                                                                        ) => (
+                                                                                            <React.Fragment key={index}>
+                                                                                                {index > 0 && ', '}
+                                                                                                {subject}
+                                                                                            </React.Fragment>
+                                                                                        )
                                                                                     )
-                                                                                )
-                                                                                : 'N/A'}
-                                                                        </span>
+                                                                                    : 'N/A'}
+                                                                            </span>
+                                                                        </ParaText>
                                                                     </ParaText>
-                                                                </ParaText>
 
-                                                                <Flex gap="4px 0" wrap="wrap">
-                                                                    {/* <Tag icon={<FaUserGraduate />}>
+                                                                    <Flex gap="4px 0" wrap="wrap">
+                                                                        {/* <Tag icon={<FaUserGraduate />}>
                                                                     &nbsp;
                                                                     {item?.higherEducation &&
                                                                         capitalizeFirstLetterOfEachWord(item?.higherEducation)}
                                                                 </Tag> */}
+                                                                        <ParaText size="textGraf" color="black">
+                                                                            <span>
+                                                                                <strong style={{ fontWeight: '400' }}>
+                                                                                    {' '}
+                                                                                    Skills :
+                                                                                </strong>{' '}
+                                                                                &nbsp;
+                                                                            </span>
+                                                                        </ParaText>
+
+                                                                        <ParaText size="textGraf" color="primaryColor">
+                                                                            {item.skills.map(
+                                                                                (skill: string, index: number) => (
+                                                                                    <React.Fragment key={index}>
+                                                                                        {index > 0 && ', '}
+                                                                                        {capitalizeFirstLetterOfEachWord(skill)}
+                                                                                    </React.Fragment>
+                                                                                )
+                                                                            )}
+                                                                            {item.skills.length === 0 && (
+                                                                                <span style={{ fontWeight: '400' }}>
+                                                                                    No skills specified
+                                                                                </span>
+                                                                            )}
+                                                                        </ParaText>
+                                                                    </Flex>
                                                                     <ParaText size="textGraf" color="black">
                                                                         <span>
                                                                             <strong style={{ fontWeight: '400' }}>
                                                                                 {' '}
-                                                                                Skills :
-                                                                            </strong>{' '}
-                                                                            &nbsp;
+                                                                                Languages :
+                                                                            </strong>
                                                                         </span>
-                                                                    </ParaText>
-
-                                                                    <ParaText size="textGraf" color="primaryColor">
-                                                                        {item.skills.map(
-                                                                            (skill: string, index: number) => (
-                                                                                <React.Fragment key={index}>
-                                                                                    {index > 0 && ', '}
-                                                                                    {capitalizeFirstLetterOfEachWord(skill)}
-                                                                                </React.Fragment>
-                                                                            )
-                                                                        )}
-                                                                        {item.skills.length === 0 && (
+                                                                        &nbsp;
+                                                                        <ParaText size="textGraf" color="primaryColor">
                                                                             <span style={{ fontWeight: '400' }}>
-                                                                                No skills specified
+                                                                                {item.languages.length > 0
+                                                                                    ? item.languages
+                                                                                        .filter((language: any) => languageList.some((lang) => lang.code.toLowerCase() === language.toLowerCase()))
+                                                                                        .map((language: any, index: any) => {
+                                                                                            const matchedLanguage = languageList.find((lang) => lang.code.toLowerCase() === language.toLowerCase());
+                                                                                            return (
+                                                                                                <React.Fragment key={index}>
+                                                                                                    {index > 0 && ', '}
+                                                                                                    {capitalizeFirstLetterOfEachWord(matchedLanguage.name)}
+                                                                                                </React.Fragment>
+                                                                                            );
+                                                                                        })
+                                                                                    : 'N/A'}
                                                                             </span>
-                                                                        )}
+                                                                        </ParaText>
                                                                     </ParaText>
-                                                                </Flex>
-                                                                <ParaText size="textGraf" color="black">
-                                                                    <span>
-                                                                        <strong style={{ fontWeight: '400' }}>
-                                                                            {' '}
-                                                                            Languages :
-                                                                        </strong>
-                                                                    </span>
-                                                                    &nbsp;
-                                                                    <ParaText size="textGraf" color="primaryColor">
-                                                                        <span style={{ fontWeight: '400' }}>
-                                                                            {item.languages.length > 0
-                                                                                ? item.languages
-                                                                                    .filter((language: any) => languageList.some((lang) => lang.code.toLowerCase() === language.toLowerCase()))
-                                                                                    .map((language: any, index: any) => {
-                                                                                        const matchedLanguage = languageList.find((lang) => lang.code.toLowerCase() === language.toLowerCase());
-                                                                                        return (
-                                                                                            <React.Fragment key={index}>
-                                                                                                {index > 0 && ', '}
-                                                                                                {capitalizeFirstLetterOfEachWord(matchedLanguage.name)}
-                                                                                            </React.Fragment>
-                                                                                        );
-                                                                                    })
-                                                                                : 'N/A'}
-                                                                        </span>
-                                                                    </ParaText>
-                                                                </ParaText>
-                                                                <div>
-                                                                    <br className="dNone" />
-                                                                    <Space size={[8, 16]} wrap>
-                                                                        {item.socialLinks.facebook !== '' &&
-                                                                            (
-                                                                                <a
-                                                                                    href={item.socialLinks.facebook}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
+                                                                    <div>
+                                                                        <br className="dNone" />
+                                                                        <Space size={[8, 16]} wrap>
+                                                                            {item.socialLinks.facebook !== '' &&
+                                                                                (
+                                                                                    <a
+                                                                                        href={item.socialLinks.facebook}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                    >
+                                                                                        <span>
+                                                                                            <FaFacebookSquare
+                                                                                                size={20}
+                                                                                                color="#1877F2"
+                                                                                            />
+                                                                                        </span>
+                                                                                    </a>
+                                                                                )
+                                                                            }
+                                                                            {item.socialLinks.instagram !== '' &&
+                                                                                (
+                                                                                    <a
+                                                                                        href={item.socialLinks.instagram}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                    >
+                                                                                        <span>
+                                                                                            <FaInstagramSquare
+                                                                                                color="rgb(225 48 108)"
+                                                                                                size={20}
+                                                                                            />
+                                                                                        </span>
+                                                                                    </a>
+                                                                                )}
+                                                                            {item.socialLinks.twitter !== '' &&
+                                                                                (
+                                                                                    <a
+                                                                                        href={item.socialLinks.twitter}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                    >
+                                                                                        <span>
+                                                                                            <FaSquareXTwitter
+                                                                                                size={20}
+                                                                                                color="rgb(29 161 242)"
+                                                                                            />
+                                                                                        </span>
+                                                                                    </a>
+                                                                                )}
+                                                                            {item.socialLinks.likedIn !== 'null' &&
+                                                                                (
+                                                                                    <a
+                                                                                        href={item.socialLinks.linkedin}
+                                                                                        target="_blank"
+                                                                                        rel="noopener noreferrer"
+                                                                                    >
+                                                                                        <span>
+                                                                                            <IoLogoLinkedin
+                                                                                                size={20}
+                                                                                                color="rgb(10, 102, 194)"
+                                                                                            />
+                                                                                        </span>
+                                                                                    </a>
+                                                                                )}
+                                                                        </Space>
+                                                                    </div>
+                                                                </Col>
+                                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                                                    <div className="textEnd">
+                                                                        <Tooltip
+                                                                            title={
+                                                                                <span
+                                                                                    style={{
+                                                                                        color: 'black',
+                                                                                        fontWeight: 600
+                                                                                    }}
                                                                                 >
-                                                                                    <span>
-                                                                                        <FaFacebookSquare
-                                                                                            size={20}
-                                                                                            color="#1877F2"
-                                                                                        />
-                                                                                    </span>
-                                                                                </a>
-                                                                            )
-                                                                        }
-                                                                        {item.socialLinks.instagram !== '' &&
-                                                                            (
-                                                                                <a
-                                                                                    href={item.socialLinks.instagram}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                >
-                                                                                    <span>
-                                                                                        <FaInstagramSquare
-                                                                                            color="rgb(225 48 108)"
-                                                                                            size={20}
-                                                                                        />
-                                                                                    </span>
-                                                                                </a>
-                                                                            )}
-                                                                        {item.socialLinks.twitter !== '' &&
-                                                                            (
-                                                                                <a
-                                                                                    href={item.socialLinks.twitter}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                >
-                                                                                    <span>
-                                                                                        <FaSquareXTwitter
-                                                                                            size={20}
-                                                                                            color="rgb(29 161 242)"
-                                                                                        />
-                                                                                    </span>
-                                                                                </a>
-                                                                            )}
-                                                                        {item.socialLinks.likedIn !== 'null' &&
-                                                                            (
-                                                                                <a
-                                                                                    href={item.socialLinks.linkedin}
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"
-                                                                                >
-                                                                                    <span>
-                                                                                        <IoLogoLinkedin
-                                                                                            size={20}
-                                                                                            color="rgb(10, 102, 194)"
-                                                                                        />
-                                                                                    </span>
-                                                                                </a>
-                                                                            )}
-                                                                    </Space>
-                                                                </div>
-                                                            </Col>
-                                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-                                                                <div className="textEnd">
-                                                                    <Tooltip
-                                                                        title={
-                                                                            <span
-                                                                                style={{
-                                                                                    color: 'black',
-                                                                                    fontWeight: 600
-                                                                                }}
-                                                                            >
-                                                                                Chat now
-                                                                            </span>
-                                                                        }
-                                                                        color={'#EDF1F5'}
-                                                                    >
-                                                                        <Image
-                                                                            style={{ cursor: 'pointer' }}
-                                                                            onClick={() => accessChat(item?._id)}
-                                                                            preview={false}
-                                                                            src="/icons/yellowbubble-chat.png"
-                                                                            alt="Active User"
-                                                                            width={20}
-                                                                            height={20}
-                                                                        />
-                                                                    </Tooltip>
-                                                                    &nbsp;
-                                                                    {/* <span>
+                                                                                    Chat now
+                                                                                </span>
+                                                                            }
+                                                                            color={'#EDF1F5'}
+                                                                        >
+                                                                            <Image
+                                                                                style={{ cursor: 'pointer' }}
+                                                                                onClick={() => accessChat(item?._id)}
+                                                                                preview={false}
+                                                                                src="/icons/yellowbubble-chat.png"
+                                                                                alt="Active User"
+                                                                                width={20}
+                                                                                height={20}
+                                                                            />
+                                                                        </Tooltip>
+                                                                        &nbsp;
+                                                                        {/* <span>
                                                                         <CiHeart size={30} />
                                                                     </span> */}
-                                                                </div>
-                                                                <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
-                                                                    <ParaText size="textGraf" color="black">
-                                                                        {item?.profileDescription}
-                                                                    </ParaText>
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </>
-                        ))}
+                                                                    </div>
+                                                                    <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
+                                                                        <ParaText size="textGraf" color="black">
+                                                                            {item?.profileDescription}
+                                                                        </ParaText>
+                                                                    </div>
+                                                                </Col>
+                                                            </Row>
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </>
+                            ))}
                         {loading && <Skeleton avatar paragraph={{ rows: 1 }} active />}
                     </InfiniteScroll>
                 </Col>

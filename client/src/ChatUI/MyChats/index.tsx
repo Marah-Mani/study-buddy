@@ -30,9 +30,10 @@ interface Props {
     hardRefresh: any;
     viewInfo: boolean;
     changeView: any;
+    conversationClick: any;
 }
 
-export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView }: Props) {
+export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView, conversationClick }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
     const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
@@ -138,6 +139,10 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
         changeView(data);
     }
 
+    const backProps = (chat: any) => {
+        conversationClick()
+    }
+
     const tabItems: TabsProps['items'] = [
         {
             key: '1',
@@ -159,6 +164,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
                         search={search}
                         viewInfo={viewInfo}
                         changeInfo={handleView}
+                        handleConversationClick={backProps}
                     />
                 ))}
                 {chats.length > 0 &&
@@ -177,7 +183,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
                         search={search}
                         viewInfo={viewInfo}
                         changeInfo={handleView}
-
+                        handleConversationClick={backProps}
                     />
                 ))}
             </div>,
@@ -265,7 +271,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
         <Sidebar
             position="left"
         >
-            <Flex justify='space-between' align='center' style={{ padding: '10px', backgroundColor: '#f6cc9c' }}>
+            <Flex justify='space-between' align='center' style={{ padding: '10px', backgroundColor: '#ffe9d1' }}>
                 <Conversation.Content>
                     <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
                         <div style={{ position: 'relative' }}>

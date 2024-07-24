@@ -10,13 +10,14 @@ interface StringAvatarProps {
     size?: string;
     round?: boolean;
     user?: any;
+    conversationAvatarStyle?: any;
 }
 
-export default function StringAvatar({ name = '', email = '', key, size = '40px', round = true, user }: StringAvatarProps) {
+export default function StringAvatar({ name = '', email = '', key, size = '40px', round = true, user, conversationAvatarStyle }: StringAvatarProps) {
     const { onlineUsers }: any = useContext(ChatContext)
     return (
         <div style={{ position: 'relative' }}>
-            <Avatar key={key} name={name} email={email} size={size} round={round} />
+            <Avatar key={key} name={name} email={email} size={size} round={round} style={conversationAvatarStyle} />
             <div
                 style={{
                     width: '13px',

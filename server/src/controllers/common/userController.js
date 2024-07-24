@@ -10,11 +10,11 @@ const chatController = {
 	allUsers: asyncHandler(async (req, res) => {
 		const keyword = req.query.search
 			? {
-				$or: [
-					{ name: { $regex: req.query.search, $options: 'i' } },
-					{ email: { $regex: req.query.search, $options: 'i' } }
-				]
-			}
+					$or: [
+						{ name: { $regex: req.query.search, $options: 'i' } },
+						{ email: { $regex: req.query.search, $options: 'i' } }
+					]
+				}
 			: {};
 
 		const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
@@ -48,7 +48,7 @@ const chatController = {
 			const findUser = await User.findById(userId);
 			let query = {
 				status: 'active',
-				role: { $ne: 'admin' },
+				role: { $ne: 'admin' }
 			};
 
 			if (interestedIn) {
@@ -58,6 +58,7 @@ const chatController = {
 			} else {
 				// When interestedIn is null, return the count of students and tutors
 				const studentCount = await User.countDocuments({
+					_id: { $ne: userId },
 					status: 'active',
 					interestedIn: 'student',
 					departmentId: findUser.departmentId,
@@ -65,6 +66,7 @@ const chatController = {
 				});
 
 				const tutorCount = await User.countDocuments({
+					_id: { $ne: userId },
 					status: 'active',
 					interestedIn: 'tutor',
 					departmentId: findUser.departmentId,
@@ -74,7 +76,7 @@ const chatController = {
 				return res.status(200).json({
 					status: true,
 					studentCount: studentCount,
-					tutorCount: tutorCount,
+					tutorCount: tutorCount
 				});
 			}
 
@@ -105,9 +107,6 @@ const chatController = {
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},
-
-
-
 
 	getAllDepartments: async (req, res) => {
 		try {
@@ -171,10 +170,7 @@ const chatController = {
 				query.subjects = { $in: [subCatId] };
 			}
 
-
-			const users = await User.find(query)
-				.sort({ _id: -1 })
-				.populate('departmentId', 'departmentName');
+			const users = await User.find(query).sort({ _id: -1 }).populate('departmentId', 'departmentName');
 
 			res.status(200).json({ status: true, data: users });
 		} catch (error) {
@@ -182,7 +178,6 @@ const chatController = {
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	}
-
 };
 
 module.exports = chatController;

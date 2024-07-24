@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-export const updateProfileDetails = async (formData: any): Promise<any> => {
+export const updateUserProfileDetails = async (formData: any): Promise<any> => {
     return new Promise((resolve, reject) => {
         const token = Cookies.get('session_token');
         const req = axios.post(`${process.env['NEXT_PUBLIC_API_URL']}/user/profile/update-profile-details`, formData, {
