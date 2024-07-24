@@ -21,22 +21,7 @@ import io from 'socket.io-client';
 import ErrorHandler from '@/lib/ErrorHandler';
 import MessageBox from '../MessageBox';
 import { TiPlus } from 'react-icons/ti';
-import {
-    Button,
-    Form,
-    Input,
-    Modal,
-    Dropdown,
-    MenuProps,
-    Typography,
-    Space,
-    Popover,
-    Row,
-    Col,
-    Image,
-    Popconfirm,
-    Tooltip
-} from 'antd';
+import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Popover, Row, Col, Image, Popconfirm, Tooltip } from 'antd';
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
@@ -110,7 +95,7 @@ export default function Chat() {
     const [plainFiles, setPlainFiles] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const ENDPOINT = `${process.env['NEXT_PUBLIC_SOCKET_ENDPOINT']}`;
-    const [sidebarVisible, setSidebarVisible] = useState(false);
+    const [sidebarVisible, setSidebarVisible] = useState(true);
     const [sidebarStyle, setSidebarStyle] = useState({});
     const [chatContainerStyle, setChatContainerStyle] = useState({});
     const [conversationContentStyle, setConversationContentStyle] = useState({});
@@ -122,44 +107,30 @@ export default function Chat() {
         if (sidebarVisible) {
             setSidebarVisible(false);
         }
+
     }, [sidebarVisible, setSidebarVisible]);
 
     useEffect(() => {
-        const handleResize = () => {
-            setSidebarVisible(window.innerWidth <= 767);
-        };
 
-        // Initial check
-        handleResize();
-
-        // Event listener for window resize
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup function to remove event listener
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    useEffect(() => {
         if (sidebarVisible) {
+
             setSidebarStyle({
-                display: 'flex',
-                flexBasis: 'auto',
-                width: '100%',
-                maxWidth: '100%'
+                display: "flex",
+                flexBasis: "auto",
+                width: "100%",
+                maxWidth: "100%"
             });
 
             setConversationContentStyle({
-                display: 'flex'
+                display: "flex"
             });
 
             setConversationAvatarStyle({
-                marginRight: '1em'
+                marginRight: "1em"
             });
 
             setChatContainerStyle({
-                display: 'none'
+                display: "none"
             });
         } else {
             setSidebarStyle({});
@@ -167,14 +138,8 @@ export default function Chat() {
             setConversationAvatarStyle({});
             setChatContainerStyle({});
         }
-    }, [
-        sidebarVisible,
-        setSidebarVisible,
-        setConversationContentStyle,
-        setConversationAvatarStyle,
-        setSidebarStyle,
-        setChatContainerStyle
-    ]);
+
+    }, [sidebarVisible, setSidebarVisible, setConversationContentStyle, setConversationAvatarStyle, setSidebarStyle, setChatContainerStyle]);
 
     const config = {
         headers: {
@@ -485,11 +450,14 @@ export default function Chat() {
     if (chatSettings?.allowClearChat) {
         items.push({
             label: (
-                <Popconfirm title="Are you sure you want to clear this chat?" onConfirm={() => handleClearChat()}>
+                <Popconfirm
+                    title='Are you sure you want to clear this chat?'
+                    onConfirm={() => handleClearChat()}
+                >
                     Clear chat
                 </Popconfirm>
             ),
-            key: '0'
+            key: '0',
             // onClick: () => {
             //     handleClearChat();
             // }
@@ -498,11 +466,14 @@ export default function Chat() {
     if (chatSettings?.allowDeleteChat) {
         items.push({
             label: (
-                <Popconfirm title="Are you sure you want to delete this chat?" onConfirm={() => handleDeleteChat()}>
+                <Popconfirm
+                    title='Are you sure you want to delete this chat?'
+                    onConfirm={() => handleDeleteChat()}
+                >
                     Delete chat
                 </Popconfirm>
             ),
-            key: '1'
+            key: '1',
             // onClick: () => {
             //     handleDeleteChat();
             // }
@@ -700,21 +671,17 @@ export default function Chat() {
 
     return (
         <div className="headerMain">
-            <MainContainer responsive>
+            <MainContainer
+                responsive
+            >
                 <Sidebar position="left" scrollable={false} style={sidebarStyle}>
-                    <MyChats
-                        handleRightClickOption={handleAction}
-                        hardRefresh={handleRefresh}
-                        viewInfo={viewInfo}
-                        changeView={(data: any) => setViewInfo(data)}
-                        conversationClick={handleConversationClick}
-                    />
+                    <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} conversationClick={handleConversationClick} />
                 </Sidebar>
                 {selectedChat && (
                     <ChatContainer data-message-list-container className="chatBox" style={chatContainerStyle}>
                         <ConversationHeader>
                             <ConversationHeader.Back onClick={handleBackClick} />
-                            <ConversationHeader.Content style={conversationContentStyle}>
+                            <ConversationHeader.Content style={conversationContentStyle} >
                                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                                     <div style={{ position: 'relative' }}>
                                         <StringAvatar
@@ -981,7 +948,7 @@ export default function Chat() {
                         </InputToolbox>
                     </ChatContainer>
                 )}
-                {viewInfo && (
+                {viewInfo &&
                     <Rightbar
                         selectedChat={selectedChat}
                         user={user}
@@ -996,22 +963,14 @@ export default function Chat() {
                         }}
                         sendMessage={sendMessage}
                     />
-                )}
-                {!selectedChat && (
+                }
+                {!selectedChat &&
                     <>
-                        <div
-                            style={{
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                height: '100vh',
-                                marginTop: '20%'
-                            }}
-                        >
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', height: '100vh', marginTop: '20%' }}>
                             <span>Select a chat to start the conversation.</span>
                         </div>
                     </>
-                )}
+                }
                 <Modal
                     footer=""
                     title={'Edit message'}
@@ -1081,7 +1040,7 @@ export default function Chat() {
                     </Button>
                 ]}
                 centered
-                width="auto"
+                width='auto'
             >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Row>
