@@ -196,11 +196,11 @@ export default function MenuUserMobile({ onBack }: Props) {
 			<Link href="/en/user/studybuddy" onClick={() => { setIsActive(true), onBack() }}>
 				<span onClick={() => setIsActive(true)} >
 					{defaultSelectedKey === '9' ? (
-						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+							<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 						)}
 				</span>
 			</Link>

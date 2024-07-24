@@ -6,15 +6,15 @@
   position: relative;
 }
 
-.contact-info {
+/* .contact-info {
   padding-top: 10%;
-}
+} */
 
 .contact-text {
   padding: 5%;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .contact-text {
     padding-top: 15%;
   }

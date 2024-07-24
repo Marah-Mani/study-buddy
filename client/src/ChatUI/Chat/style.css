@@ -171,10 +171,6 @@ canvas.sound-wave {
   .headerMain .cs-conversation-header {
     display: block;
   }
-  .chat-remove-padding {
-    padding: 10px 0px !important;
-  }
-
   .cs-input-toolbox {
     justify-content: left;
   }
@@ -224,12 +220,19 @@ canvas.sound-wave {
     left: 100px;
   }
 }
-@media (min-width: 1440px) {
+.headerMain {
+  height: calc(100vh - 0px);
+  padding-top: 74px;
+}
+
+@media (max-width: 1440px) {
   .headerMain {
-    height: 90vh;
+    height: calc(100vh - 0px);
+    padding-top: 70px;
   }
 }
 
+/*
 @media (min-width: 1200px) and (max-width: 1440px) {
   .headerMain {
     height: 91vh;
@@ -242,6 +245,6 @@ canvas.sound-wave {
 }
 @media (min-width: 320px) and (max-width: 991px) {
   .headerMain {
-    height: 90vh;
+    height: 88vh;
   }
-}
+} */

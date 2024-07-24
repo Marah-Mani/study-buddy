@@ -21,7 +21,7 @@ import { useRouter } from 'next/navigation';
 import {
     GetLanguages, //async functions
 } from "react-country-state-city";
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from 'react-icons/fa6';
 
 interface Props {
     type: string;
@@ -479,7 +479,7 @@ export default function UnMatchedResult({ type }: Props) {
                                                                                         rel="noopener noreferrer"
                                                                                     >
                                                                                         <span>
-                                                                                            <FaSquareXTwitter
+                                                                                            <FaXTwitter
                                                                                                 size={20}
                                                                                                 color="rgb(29 161 242)"
                                                                                             />
