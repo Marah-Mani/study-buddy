@@ -72,7 +72,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     };
 
     const handleSelectChatWithContext = (chat: any) => {
-        changeInfo(!viewInfo)
+        // changeInfo(!viewInfo)
         setSelectedChat(chat);
         handleSelectChat(chat);
         handleCloseContextMenu(); // Close context menu after selecting chat

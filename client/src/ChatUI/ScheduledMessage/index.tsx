@@ -57,7 +57,6 @@ export default function ScheduledMessage({ sendMessage, viewInfo }: ScheduledMes
         );
         setReload(!reload)
     }
-
     return (
         <ExpansionPanel
             title="Scheduled messages"
@@ -86,22 +85,24 @@ export default function ScheduledMessage({ sendMessage, viewInfo }: ScheduledMes
                     Save Scheduled message
                 </Button>
             </Form>
-            <List
-                className="demo-loadmore-list"
-                itemLayout="horizontal"
-                dataSource={ScheduledMessages}
-                renderItem={(item) => (
-                    <List.Item
-                        actions={[<Button type='link' key="list-loadmore-more" onClick={() => deleteScheduledMessage(item._id)}><BiTrash /></Button>]}
-                    >
-                        <List.Item.Meta
-                            title={item.content}
-                            description={dateFormat(item.sentTime, "dd/mm/yyyy, h:MM tt")}
-                        />
+            {ScheduledMessages.length > 0 &&
+                <List
+                    className="demo-loadmore-list"
+                    itemLayout="horizontal"
+                    dataSource={ScheduledMessages}
+                    renderItem={(item) => (
+                        <List.Item
+                            actions={[<Button type='link' key="list-loadmore-more" onClick={() => deleteScheduledMessage(item._id)}><BiTrash /></Button>]}
+                        >
+                            <List.Item.Meta
+                                title={item.content}
+                                description={dateFormat(item.sentTime, "dd/mm/yyyy, h:MM tt")}
+                            />
 
-                    </List.Item>
-                )}
-            />
+                        </List.Item>
+                    )}
+                />
+            }
         </ExpansionPanel>
     )
 }
