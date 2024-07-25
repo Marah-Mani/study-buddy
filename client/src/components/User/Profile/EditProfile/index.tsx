@@ -242,7 +242,7 @@ export default function Brands() {
                                         </Form.Item>
 
                                     </Col>
-                                    <Col lg={12} xl={12} md={12} sm={12} xs={12}>
+                                    <Col lg={12} xl={12} md={12} sm={0} xs={0}>
                                         <Form.Item name={'image'} label='Profile Image'>
                                             <Upload
                                                 listType="picture-card"
@@ -439,6 +439,22 @@ export default function Brands() {
                                                 },
                                             ]}>
                                             <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={0} xl={0} md={0} sm={12} xs={12}>
+                                        <Form.Item name={'image'} label='Profile Image'>
+                                            <Upload
+                                                listType="picture-card"
+                                                fileList={fileList}
+                                                beforeUpload={handleBeforeUpload}
+                                                onRemove={handleRemove}
+                                                accept=".jpg,.jpeg,.png"
+                                                headers={{ Authorization: `Bearer ${token}` }}
+                                                name='file'
+                                                action={`${process.env['NEXT_PUBLIC_API_URL']}/user/profile/update-profile-details`}
+                                            >
+                                                {fileList.length >= 1 ? null : uploadButton}
+                                            </Upload>
                                         </Form.Item>
                                     </Col>
                                 </Row>
