@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IoDocumentText, IoHome } from 'react-icons/io5';
+import { IoDocumentText, IoFolderOpenOutline, IoHome } from 'react-icons/io5';
 import { FaAppStore } from 'react-icons/fa';
 import AuthContext from '@/contexts/AuthContext';
 import ErrorHandler from '@/lib/ErrorHandler';
@@ -55,6 +55,7 @@ export default function MenuUserMobile({ onBack }: Props) {
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
 	const [defaultSelectedKey, setDefaultSelectedKey] = useState('1')
+	const [isActive, setIsActive] = useState(true);
 
 	useEffect(() => {
 		fetchData();
@@ -74,10 +75,138 @@ export default function MenuUserMobile({ onBack }: Props) {
 	};
 
 	function handleClick(href: any) {
-		if (href.key == 9) {
+		if (href.key == 12) {
 			logout();
 		}
 	}
+
+
+
+	const staticItems: MenuItem[] = [
+		getItem(
+			'Dashboard',
+			'1',
+			<Link href="/en/user/dashboard" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '1' ? (
+						<Image preview={false} src="/icons/yellowhome.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowhome.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'All Users',
+			'2',
+			<Link href="/en/user/candidate" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '2' ? (
+						<Image preview={false} src="/icons/yellowuser.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowuser.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'Market Place',
+			'3',
+			<Link href="/en/user/market-place" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '3' ? (
+						<Image preview={false} src="/icons/yellowmarket.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowmarket.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		getItem(
+			'Q&A',
+			'4',
+			<Link href="/en/user/question-answer" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '4' ? (
+						<Image preview={false} src="/icons/yellowchat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowchat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+
+		getItem(
+			'Profile',
+			'5',
+			<Link href="/en/user/edit-profile" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '5' ? (
+						<Image preview={false} src="/icons/yellowedit.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowedit.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'Chat',
+			'6',
+			<Link href="/en/user/chat" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '6' ? (
+						<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/yellowbubble-chat.png" alt="Inactive User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'File Manager',
+			'8',
+			<Link href="/en/user/file-manager" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '8' ? (
+						<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
+					)
+						:
+						(
+							<IoFolderOpenOutline style={{ color: '#d49737', width: '20px', height: '20px' }} />
+						)}
+				</span>
+			</Link>
+		),
+		getItem(
+			'StuddyBuddy',
+			'9',
+			<Link href="/en/user/studybuddy" onClick={() => { setIsActive(true), onBack() }}>
+				<span onClick={() => setIsActive(true)} >
+					{defaultSelectedKey === '9' ? (
+						<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
+					)
+						:
+						(
+							<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
+						)}
+				</span>
+			</Link>
+		)
+	];
+	let dynamicItems: MenuItem[] = [];
 
 	const pathname = usePathname();
 	useEffect(() => {
@@ -86,78 +215,35 @@ export default function MenuUserMobile({ onBack }: Props) {
 			case pathname === '/en/user/dashboard':
 				setDefaultSelectedKey('1');
 				break;
-			case pathname === '/en/user/edit-profile':
+			case pathname === '/en/user/candidate':
 				setDefaultSelectedKey('2');
 				break;
-			case pathname === '/en/user/candidate':
+			case pathname === '/en/user/market-place':
 				setDefaultSelectedKey('3');
 				break;
-			case pathname === '/en/user/file-manager':
+			case pathname.includes('/en/user/question-answer') || pathname.includes('/en/user/question'):
 				setDefaultSelectedKey('4');
 				break;
-			case pathname === '/en/user/forums':
-				setDefaultSelectedKey('5');
+			case pathname === '/en/user/edit-profile':
+				setDefaultSelectedKey('5'); // Redirect to Dashboard
 				break;
-			case pathname === '/en/user/market-place':
-				setDefaultSelectedKey('6');
+			case pathname === '/en/user/chat':
+				setDefaultSelectedKey('6'); // Redirect to Dashboard
 				break;
-			case pathname === '/en/user/notifications':
+			case pathname === '/en/login':
 				setDefaultSelectedKey('7'); // Redirect to Dashboard
+				break;
+			case pathname === '/en/user/file-manager':
+				setDefaultSelectedKey('8');
+				break;
+			case pathname === '/en/user/studybuddy':
+				setDefaultSelectedKey('9');
 				break;
 			default:
 				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');
 		}
 	}, [pathname])
-
-
-	const staticItems: MenuItem[] = [
-		getItem(
-			'Dashboard',
-			'1',
-			<Link href="/en/user/dashboard" onClick={() => { onBack() }}>
-				<IoHome />
-			</Link>
-		),
-		getItem(
-			'Profile',
-			'2',
-			<Link href="/en/user/edit-profile" onClick={() => { onBack() }}>
-				<AiOutlineProfile />
-			</Link>
-		),
-		getItem(
-			'Users',
-			'3',
-			<Link href="/en/user/candidate" onClick={() => { onBack() }}>
-				<AiOutlineUser />
-			</Link>
-		),
-		getItem(
-			'File Manager',
-			'4',
-			<Link href="/en/user/file-manager" onClick={() => { onBack() }}>
-				<BiSolidFileArchive />
-			</Link>
-		),
-		getItem(
-			'Q&A',
-			'5',
-			<Link href="/en/user/question-answer" onClick={() => { onBack() }}>
-				<QuestionCircleOutlined />
-			</Link>
-		),
-		getItem(
-			'Market Place',
-			'6',
-			<Link href="/en/user/market-place" onClick={() => { onBack() }}>
-				<IoDocumentText />
-			</Link>
-		)
-	];
-
-	let dynamicItems: MenuItem[] = [];
-
 	if (role) {
 		// dynamicItems = role
 		// 	.flatMap(item => {
@@ -183,9 +269,9 @@ export default function MenuUserMobile({ onBack }: Props) {
 		items = dynamicItems;
 	}
 
-	function setIsActive(arg0: boolean): void {
-		throw new Error('Function not implemented.');
-	}
+	// function setIsActive(arg0: boolean): void {
+	// 	throw new Error('Function not implemented.');
+	// }
 
 	return (
 		<>
@@ -207,7 +293,7 @@ export default function MenuUserMobile({ onBack }: Props) {
 					<div className='loginBottom'>
 						<Link href="/en/login" style={{ display: 'flex', gap: '5px' }}>
 							<span onClick={() => setIsActive(true)}>
-								{defaultSelectedKey === '7' ? (
+								{defaultSelectedKey === '12' ? (
 									<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
 								)
 									:

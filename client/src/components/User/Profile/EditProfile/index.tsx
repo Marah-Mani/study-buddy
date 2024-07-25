@@ -5,16 +5,17 @@ import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
 import AuthContext from '@/contexts/AuthContext';
-import { updateProfileDetails } from '@/lib/userApi';
+import { updateUserProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
 import {
     GetLanguages, //async functions
 } from "react-country-state-city";
+import { updateProfileDetails } from '@/lib/adminApi';
 
 export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -107,8 +108,12 @@ export default function Brands() {
             if (values.instagram) {
                 formData.append('instagram', values.instagram);
             }
-
-            const res = await updateProfileDetails(formData);
+            let res;
+            if (user?.role == 'admin') {
+                res = await updateProfileDetails(formData);
+            } else {
+                res = await updateUserProfileDetails(formData);
+            }
 
 
             if (res.status == true) {
@@ -371,7 +376,7 @@ export default function Brands() {
                                                 placeholder='Enter Twitter link'
                                                 type='link'
                                                 maxLength={50}
-                                                suffix={<FaSquareXTwitter />}
+                                                suffix={<FaXTwitter />}
                                             />
                                         </Form.Item>
 

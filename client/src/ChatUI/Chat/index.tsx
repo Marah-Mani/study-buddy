@@ -1,5 +1,5 @@
 'use client';
-import React, { lazy, Suspense, useContext, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import {
     MainContainer,
     ChatContainer,
@@ -8,7 +8,8 @@ import {
     ConversationHeader,
     TypingIndicator,
     InputToolbox,
-    Search
+    Search,
+    Sidebar
 } from '@chatscope/chat-ui-kit-react';
 import moment from 'moment-timezone';
 import MyChats from '../MyChats';
@@ -94,6 +95,51 @@ export default function Chat() {
     const [plainFiles, setPlainFiles] = useState<any>([]);
     const [loading, setLoading] = useState(false);
     const ENDPOINT = `${process.env['NEXT_PUBLIC_SOCKET_ENDPOINT']}`;
+    const [sidebarVisible, setSidebarVisible] = useState(true);
+    const [sidebarStyle, setSidebarStyle] = useState({});
+    const [chatContainerStyle, setChatContainerStyle] = useState({});
+    const [conversationContentStyle, setConversationContentStyle] = useState({});
+    const [conversationAvatarStyle, setConversationAvatarStyle] = useState({});
+
+    const handleBackClick = () => setSidebarVisible(!sidebarVisible);
+
+    const handleConversationClick = useCallback(() => {
+        if (sidebarVisible) {
+            setSidebarVisible(false);
+        }
+
+    }, [sidebarVisible, setSidebarVisible]);
+
+    useEffect(() => {
+
+        if (sidebarVisible) {
+
+            setSidebarStyle({
+                display: "flex",
+                flexBasis: "auto",
+                width: "100%",
+                maxWidth: "100%"
+            });
+
+            setConversationContentStyle({
+                display: "flex"
+            });
+
+            setConversationAvatarStyle({
+                marginRight: "1em"
+            });
+
+            setChatContainerStyle({
+                display: "none"
+            });
+        } else {
+            setSidebarStyle({});
+            setConversationContentStyle({});
+            setConversationAvatarStyle({});
+            setChatContainerStyle({});
+        }
+
+    }, [sidebarVisible, setSidebarVisible, setConversationContentStyle, setConversationAvatarStyle, setSidebarStyle, setChatContainerStyle]);
 
     const config = {
         headers: {
@@ -628,12 +674,14 @@ export default function Chat() {
             <MainContainer
                 responsive
             >
-                <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} />
+                <Sidebar position="left" scrollable={false} style={sidebarStyle}>
+                    <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} conversationClick={handleConversationClick} />
+                </Sidebar>
                 {selectedChat && (
-                    <ChatContainer data-message-list-container className="chatBox">
+                    <ChatContainer data-message-list-container className="chatBox" style={chatContainerStyle}>
                         <ConversationHeader>
-                            <ConversationHeader.Back />
-                            <ConversationHeader.Content>
+                            <ConversationHeader.Back onClick={handleBackClick} />
+                            <ConversationHeader.Content style={conversationContentStyle} >
                                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                                     <div style={{ position: 'relative' }}>
                                         <StringAvatar
@@ -644,6 +692,7 @@ export default function Chat() {
                                                 : selectedChat.chatName
                                                 }`}
                                             user={getSenderFull(user, selectedChat.users)}
+                                            conversationAvatarStyle={conversationAvatarStyle}
                                         />
                                     </div>
                                     <div className="userName">

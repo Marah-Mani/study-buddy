@@ -162,7 +162,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                     onFinish={onFinish}
                 >
                     <Row gutter={14}>
-                        <Col md={24}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <Form.Item
                                 label="Title"
                                 name="title"
@@ -185,7 +185,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                             </Form.Item>
 
                         </Col>
-                        <Col md={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Form.Item
                                 label="Category"
                                 name="category"
@@ -213,7 +213,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                                 />
                             </Form.Item>
                         </Col>
-                        <Col md={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Form.Item
                                 label="Sub-category"
                                 name="subCategory"
@@ -235,7 +235,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                                 />
                             </Form.Item>
                         </Col>
-                        <Col md={24}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <Form.Item
                                 label="Description"
                                 name="description"
@@ -260,12 +260,12 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                                     theme="snow"
                                     onChange={handleQuillChange}
                                     placeholder="Enter forum description here"
-                                    height={200}
+
 
                                 />
                             </Form.Item>
                         </Col>
-                        <Col md={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                             <Form.Item
                                 label='Image'
                                 name='attachment'
@@ -284,7 +284,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                                 </Upload>
                             </Form.Item>
                         </Col>
-                        <Col md={12} className={'textEnd'}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className={'textEnd'}>
                             <div style={{ textAlign: 'end', paddingTop: '50px' }}>
                                 <Button type='primary' loading={loading} htmlType='submit' style={{ borderRadius: '30px' }}>
                                     {loading ? 'Submitting' : 'Submit Item'}

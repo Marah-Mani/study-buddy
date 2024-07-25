@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 body {
   overflow-x: hidden !important;
 }
@@ -40,7 +40,7 @@ h5,
 h6 {
   margin: 0px !important;
   padding: 0px !important;
-  font-family: 'PT Serif', serif !important;
+  font-family: 'PT Serif', serif;
   font-weight: 900;
 }
 
@@ -63,7 +63,9 @@ li {
   list-style: none;
   font-family: 'PT Serif', serif !important;
 }
-
+.ant-btn {
+  border-radius: 30px !important;
+}
 .ant-btn-primary {
   color: #fff;
   background: #f1a638 !important;
@@ -108,9 +110,9 @@ li {
   border-bottom-width: 2px;
   border-bottom-color: #efa24b !important;
 }
-.ant-input-outlined:hover {
+/* .ant-input-outlined:hover {
   border: 2px solid #344734 !important;
-}
+} */
 .ant-select-selector {
   border-radius: 30px !important;
 }
@@ -144,7 +146,7 @@ li {
 .cs-search__input,
 .cs-message-separator::before,
 .cs-message-separator::after {
-  background-color: #f6cc9c !important;
+  background-color: #ffe9d1 !important;
 }
 
 svg {

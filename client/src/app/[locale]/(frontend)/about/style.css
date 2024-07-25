@@ -7,13 +7,25 @@
 }
 
 .about-info {
-  padding-top: 20%;
+  padding-top: 10%;
+}
+@media (max-width: 1200px) {
+  .about-info {
+    padding-top: 16%;
+  }
+  .about-info.about-remove {
+    padding: 10% 10%;
+  }
 }
 
 @media (max-width: 991px) {
   .about-info {
     padding-bottom: 10%;
     padding-top: 15%;
+  }
+  .about-info.about-remove {
+    padding: 0px;
+    padding-bottom: 10%;
   }
 }
 
@@ -28,6 +40,9 @@
   .bannerImage {
     animation: MoveUpDown 10s linear infinite;
     padding-top: 80px;
+  }
+  .about-info.about-remove {
+    padding: 10% 10%;
   }
 }
 

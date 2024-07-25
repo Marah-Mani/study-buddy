@@ -6,7 +6,7 @@ import ErrorHandler from '@/lib/ErrorHandler'
 import { validationRules } from '@/lib/validations'
 import { Button, Col, Form, Input, message, Row } from 'antd'
 import React, { useContext, useEffect, useState } from 'react'
-import { FaFacebook, FaInstagram, FaLinkedinIn, FaSquareXTwitter } from 'react-icons/fa6'
+import { FaFacebook, FaInstagram, FaLinkedinIn, FaXTwitter } from 'react-icons/fa6'
 
 interface Props {
     activeKey: string;
@@ -109,7 +109,7 @@ export default function SocialMedia({ activeKey }: Props) {
                                         placeholder='Enter Twitter link'
                                         type='text'
                                         maxLength={50}
-                                        suffix={<FaSquareXTwitter />}
+                                        suffix={<FaXTwitter />}
                                     />
                                 </Form.Item>
 
