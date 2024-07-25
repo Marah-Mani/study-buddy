@@ -194,6 +194,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
             children: <SearchUser
                 setShowGroupChatModal={setShowGroupChatModal}
                 showGroupChatModal={showGroupChatModal}
+                handleConversationClick={backProps}
             />,
         },
         {
