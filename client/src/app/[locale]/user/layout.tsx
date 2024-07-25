@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import TopBar from '@/app/commonUl/topBar';
 import MenuUser from '@/app/commonUl/MenuUser';
@@ -10,6 +10,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const pathname = usePathname();
 	const segments = pathname.split('/').filter(Boolean);
 	const desiredSegment = segments[segments.length - 1];
+
+	useEffect(() => {
+		if (pathname === '/chat') {
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			} else {
+				document.documentElement.requestFullscreen().catch(err => {
+					console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+				});
+			}
+		} else {
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			}
+		}
+	}, [pathname]);
+
 	return (
 
 		<>
