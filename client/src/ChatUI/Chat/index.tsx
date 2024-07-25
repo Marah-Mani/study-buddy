@@ -115,6 +115,7 @@ export default function Chat() {
     }, [sidebarVisible, setSidebarVisible]);
 
     useEffect(() => {
+        console.log(/Mobi|Android/i.test(navigator.userAgent));
         const handleResize = () => {
             setSidebarVisible(window.innerWidth <= 767);
             setIsMobile(window.innerWidth <= 767);
