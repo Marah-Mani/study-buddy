@@ -148,7 +148,11 @@ li {
 .cs-message-separator::after {
   background-color: #ffe9d1 !important;
 }
-
+section.cs-conversation-header__actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 svg {
   color: #efa24b;
 }

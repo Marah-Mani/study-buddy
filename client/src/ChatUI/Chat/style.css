@@ -221,13 +221,13 @@ canvas.sound-wave {
   }
 }
 .headerMain {
-  height: calc(100vh - 0px);
+  height: calc(100vh);
   padding-top: 74px;
 }
 
 @media (max-width: 1440px) {
   .headerMain {
-    height: calc(100vh - 0px);
+    height: calc(100vh);
     padding-top: 70px;
   }
 }
