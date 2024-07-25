@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import MenuAdmin from '@/app/commonUl/MenuAdmin';
 import TopBar from '@/app/commonUl/topBar';
@@ -10,7 +10,66 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const pathname = usePathname();
 	const segments = pathname.split('/').filter(Boolean);
 	const desiredSegment = segments[segments.length - 1]; // Get the last segment
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth <= 767);
+		};
+
+		// Initial check
+		handleResize();
+
+		// Event listener for window resize
+		window.addEventListener('resize', handleResize);
+
+		// Cleanup function to remove event listener
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	useEffect(() => {
+		const enterFullscreen = () => {
+			if (document.documentElement.requestFullscreen) {
+				document.documentElement.requestFullscreen().catch((err) => {
+					console.error("Error attempting to enable full-screen mode:", err);
+				});
+			} else {
+				console.log("Fullscreen API is not supported.");
+			}
+		};
+
+		const exitFullscreen = () => {
+			if (document.exitFullscreen) {
+				document.exitFullscreen().catch((err) => {
+					console.error("Error attempting to exit full-screen mode:", err);
+				});
+			} else {
+				console.log("Fullscreen API is not supported.");
+			}
+		};
+
+		if (desiredSegment === 'chat' && isMobile) {
+			// Ensure fullscreen request is handled with user interaction
+			const handleFullscreenRequest = () => {
+				setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
+			};
+
+			handleFullscreenRequest();
+
+			// Add event listener to handle user interaction
+			document.addEventListener('click', handleFullscreenRequest, { once: true });
+
+			// Cleanup event listener
+			return () => {
+				document.removeEventListener('click', handleFullscreenRequest);
+			};
+		} else if (desiredSegment !== 'chat') {
+			// Exit fullscreen if not 'chat'
+			exitFullscreen();
+		}
+	}, [desiredSegment, isMobile]);
 	return (
 		<>
 			{desiredSegment === 'chat' ? (
