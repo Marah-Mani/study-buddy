@@ -111,6 +111,23 @@ export default function Chat() {
     }, [sidebarVisible, setSidebarVisible]);
 
     useEffect(() => {
+        const handleResize = () => {
+            setSidebarVisible(window.innerWidth <= 767);
+        };
+
+        // Initial check
+        handleResize();
+
+        // Event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
 
         if (sidebarVisible) {
 
