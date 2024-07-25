@@ -70,6 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 			// Exit fullscreen if not 'chat'
 			exitFullscreen();
 		}
+		return undefined;
 	}, [desiredSegment, isMobile]);
 
 	return (
