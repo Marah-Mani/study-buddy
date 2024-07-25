@@ -71,7 +71,7 @@ export default function Chat() {
     const { user, setUser } = useContext(AuthContext);
     const [prevDate, setPrevDate] = useState<any>('');
     const [prevIndex, setPrevIndex] = useState<any>();
-    const [viewInfo, setViewInfo] = useState<boolean>(!!selectedChat);
+    const [viewInfo, setViewInfo] = useState<boolean>(false);
     const [viewProfile, setViewProfile] = useState(false);
     const [loadingComplete, setLoadingComplete] = useState(false);
     const [editMessage, setEditMessage] = useState<any>([]);
@@ -100,15 +100,37 @@ export default function Chat() {
     const [chatContainerStyle, setChatContainerStyle] = useState({});
     const [conversationContentStyle, setConversationContentStyle] = useState({});
     const [conversationAvatarStyle, setConversationAvatarStyle] = useState({});
+    const [viewChat, setViewChat] = useState(true)
+    const [isMobile, setIsMobile] = useState(false)
 
     const handleBackClick = () => setSidebarVisible(!sidebarVisible);
 
     const handleConversationClick = useCallback(() => {
         if (sidebarVisible) {
             setSidebarVisible(false);
+        } else {
+            setViewChat(true)
         }
 
     }, [sidebarVisible, setSidebarVisible]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setSidebarVisible(window.innerWidth <= 767);
+            setIsMobile(window.innerWidth <= 767);
+        };
+
+        // Initial check
+        handleResize();
+
+        // Event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
 
@@ -222,6 +244,7 @@ export default function Chat() {
     ) => {
         socket.emit('stop typing', selectedChat._id);
         try {
+            setLoading(true);
             // Prepare the configuration for the API request
             const config = {
                 headers: {
@@ -277,7 +300,9 @@ export default function Chat() {
 
             // Clear the input field after the message is successfully sent
             setNewMessage('');
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             new ErrorHandler(error);
         }
     };
@@ -500,6 +525,7 @@ export default function Chat() {
         try {
             const { data } = await axios.get(`${baseURL}${common.clearChat(selectedChat._id)}`, config);
             if (data) setMessages([]);
+            setFetchAgain(!fetchAgain);
         } catch (error) {
             new ErrorHandler(error);
         }
@@ -677,277 +703,288 @@ export default function Chat() {
                 <Sidebar position="left" scrollable={false} style={sidebarStyle}>
                     <MyChats handleRightClickOption={handleAction} hardRefresh={handleRefresh} viewInfo={viewInfo} changeView={(data: any) => setViewInfo(data)} conversationClick={handleConversationClick} />
                 </Sidebar>
-                {selectedChat && (
-                    <ChatContainer data-message-list-container className="chatBox" style={chatContainerStyle}>
-                        <ConversationHeader>
-                            <ConversationHeader.Back onClick={handleBackClick} />
-                            <ConversationHeader.Content style={conversationContentStyle} >
-                                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                                    <div style={{ position: 'relative' }}>
-                                        <StringAvatar
-                                            email={getSender(user, selectedChat.users).email}
-                                            key={`chat-${selectedChat._id}`}
-                                            name={`${selectedChat && !selectedChat.isGroupChat
-                                                ? getSender(user, selectedChat.users)
-                                                : selectedChat.chatName
-                                                }`}
-                                            user={getSenderFull(user, selectedChat.users)}
-                                            conversationAvatarStyle={conversationAvatarStyle}
-                                        />
-                                    </div>
-                                    <div className="userName">
-                                        <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
-                                            {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
-                                            &nbsp;
-                                            <span style={{ fontSize: '12px', fontWeight: '400' }}>
-                                                {onlineUsers.some(
-                                                    (userData: any) =>
-                                                        userData.userId == getSenderFull(user, selectedChat.users)._id
-                                                ) ? (
-                                                    'Online'
-                                                ) : (
-                                                    <>
-                                                        Online{' '}
-                                                        <TimeAgo
-                                                            date={getSenderFull(user, selectedChat.users)?.lastSeen}
-                                                        />
-                                                    </>
-                                                )}
-                                            </span>
-                                        </p>
-                                        <p style={{ fontSize: '12px', fontWeight: '400' }}>
-                                            {user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ? (
-                                                <p>You blocked this user.</p>
-                                            ) : (
-                                                !selectedChat.isGroupChat && (
-                                                    <span>
-                                                        <FieldTimeOutlined />{' '}
-                                                        {moment().tz(user?.timeZone).format('hh:mm a')}&nbsp;
-                                                        {selectedChat && (
-                                                            <TimeZoneDifference
-                                                                timeZone1={user?.timeZone}
-                                                                timeZone2={
-                                                                    getSenderFull(user, selectedChat.users).timeZone
-                                                                }
+                {selectedChat && viewChat &&
+                    (
+                        <ChatContainer data-message-list-container className="chatBox"
+                            style={{
+                                ...chatContainerStyle
+                                // display: `${viewInfo && sidebarVisible && 'none'}`
+                            }}
+                        >
+                            <ConversationHeader>
+                                <ConversationHeader.Back onClick={handleBackClick} />
+                                <ConversationHeader.Content style={conversationContentStyle} >
+                                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                                        <div style={{ position: 'relative' }}>
+                                            <StringAvatar
+                                                email={getSender(user, selectedChat.users).email}
+                                                key={`chat-${selectedChat._id}`}
+                                                name={`${selectedChat && !selectedChat.isGroupChat
+                                                    ? getSender(user, selectedChat.users)
+                                                    : selectedChat.chatName
+                                                    }`}
+                                                user={getSenderFull(user, selectedChat.users)}
+                                                conversationAvatarStyle={conversationAvatarStyle}
+                                            />
+                                        </div>
+                                        <div className="userName">
+                                            <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
+                                                {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
+                                                &nbsp;
+                                                <span style={{ fontSize: '12px', fontWeight: '400' }}>
+                                                    {onlineUsers.some(
+                                                        (userData: any) =>
+                                                            userData.userId == getSenderFull(user, selectedChat.users)._id
+                                                    ) ? (
+                                                        'Online'
+                                                    ) : (
+                                                        <>
+                                                            Online{' '}
+                                                            <TimeAgo
+                                                                date={getSenderFull(user, selectedChat.users)?.lastSeen}
                                                             />
-                                                        )}
-                                                    </span>
-                                                )
+                                                        </>
+                                                    )}
+                                                </span>
+                                            </p>
+                                            <p style={{ fontSize: '12px', fontWeight: '400' }}>
+                                                {user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ? (
+                                                    <p>You blocked this user.</p>
+                                                ) : (
+                                                    !selectedChat.isGroupChat && (
+                                                        <span>
+                                                            <FieldTimeOutlined />{' '}
+                                                            {moment().tz(user?.timeZone).format('hh:mm a')}&nbsp;
+                                                            {selectedChat && (
+                                                                <TimeZoneDifference
+                                                                    timeZone1={user?.timeZone}
+                                                                    timeZone2={
+                                                                        getSenderFull(user, selectedChat.users).timeZone
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {searchInput && (
+                                        <div style={{ marginTop: '15px' }}>
+                                            <Search
+                                                placeholder={'Find message in current conversation'}
+                                                onChange={(v) => setSearch(v)}
+                                                onClearClick={() => setSearch('')}
+                                            />
+                                        </div>
+                                    )}
+                                </ConversationHeader.Content>
+                                <ConversationHeader.Actions>
+                                    {enableSelect ? (
+                                        <>
+                                            <Button
+                                                icon={
+                                                    <FaRegArrowAltCircleRight
+                                                        color={idArray.length > 0 ? '#efa24b' : '#efa24b'}
+                                                    />
+                                                }
+                                                onClick={idArray.length > 0 ? handleUserModal : () => { }}
+                                            />
+                                            &nbsp;
+                                            <Button
+                                                icon={<FaTrash color={idArray.length > 0 ? '#efa24b' : '#efa24b'} />}
+                                                onClick={idArray.length > 0 ? handleDeleteMessage : () => { }}
+                                            />
+                                            &nbsp;
+                                            <Button icon={<CloseOutlined />} onClick={() => setEnableSelect(false)} />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button
+                                                icon={<FaSearch />}
+                                                onClick={() => {
+                                                    setSearchInput(!searchInput);
+                                                    setSearch('');
+                                                }}
+                                            />
+                                            &nbsp;
+                                            {chatSettings?.showInformation && (
+                                                <Button icon={<FaInfo />} onClick={() => {
+                                                    setViewInfo(!viewInfo)
+                                                    setSidebarVisible(false)
+                                                    isMobile && setViewChat(false)
+
+                                                }} />
                                             )}
-                                        </p>
-                                    </div>
-                                </div>
-                                {searchInput && (
-                                    <div style={{ marginTop: '15px' }}>
-                                        <Search
-                                            placeholder={'Find message in current conversation'}
-                                            onChange={(v) => setSearch(v)}
-                                            onClearClick={() => setSearch('')}
-                                        />
-                                    </div>
-                                )}
-                            </ConversationHeader.Content>
-                            <ConversationHeader.Actions>
-                                {enableSelect ? (
-                                    <>
-                                        <Button
-                                            icon={
-                                                <FaRegArrowAltCircleRight
-                                                    color={idArray.length > 0 ? '#efa24b' : '#efa24b'}
+                                            &nbsp;
+                                            {chatSettings?.showZoomCall && (
+                                                <Button
+                                                    onClick={() => {
+                                                        if (selectedChat.isApproved) {
+                                                            setShowCreateMeetingForm(true);
+                                                        }
+                                                    }}
+                                                    icon={
+                                                        <FaVideo color={selectedChat.isApproved ? '#efa24b' : '#efa24b'} />
+                                                    }
                                                 />
-                                            }
-                                            onClick={idArray.length > 0 ? handleUserModal : () => { }}
+                                            )}
+                                            &nbsp;
+                                            {chatSettings.showFavorite && (
+                                                <Tooltip
+                                                    title={
+                                                        <span>
+                                                            {`${selectedChat.favourites.includes(user?._id) ? 'Remove from favorites' : 'Add to favorites'}`}
+                                                        </span>
+                                                    }
+                                                >
+                                                    <Button
+                                                        icon={
+                                                            <FaStar
+                                                                color={`${selectedChat.favourites.includes(user?._id) ? '#efa24b' : 'rgb(255 210 158)'}`}
+                                                            />
+                                                        }
+                                                        onClick={handleFavourite}
+                                                    />
+                                                </Tooltip>
+                                            )}
+                                            &nbsp;
+                                            <Dropdown menu={{ items }} placement="bottomRight" trigger={['click']}>
+                                                <Button icon={<FaEllipsisV />} />
+                                            </Dropdown>
+                                        </>
+                                    )}
+                                </ConversationHeader.Actions>
+                            </ConversationHeader>
+
+                            <MessageList
+                                loadingMore={loadingMore}
+                                typingIndicator={
+                                    isTyping && (
+                                        <TypingIndicator
+                                            content={`${getSenderFull(user, selectedChat.users).name} is typing`}
                                         />
-                                        &nbsp;
-                                        <Button
-                                            icon={<FaTrash color={idArray.length > 0 ? '#efa24b' : '#efa24b'} />}
-                                            onClick={idArray.length > 0 ? handleDeleteMessage : () => { }}
-                                        />
-                                        &nbsp;
-                                        <Button icon={<CloseOutlined />} onClick={() => setEnableSelect(false)} />
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button
-                                            icon={<FaSearch />}
-                                            onClick={() => {
-                                                setSearchInput(!searchInput);
-                                                setSearch('');
+                                    )
+                                }
+                            >
+                                {messages &&
+                                    messages.map(
+                                        (m: any, i: number) =>
+                                            !m.deleteFor.includes(user?._id) &&
+                                            !m.deleteForEveryone && (
+                                                <MessageBox
+                                                    key={m._id}
+                                                    messages={messages}
+                                                    message={m}
+                                                    index={i}
+                                                    user={user}
+                                                    prevDate={prevDate}
+                                                    setPrevDate={setPrevDate}
+                                                    prevIndex={prevIndex}
+                                                    setPrevIndex={setPrevIndex}
+                                                    selectedChat={selectedChat}
+                                                    setEditMessage={setEditMessage}
+                                                    setShowEditMessage={setShowEditMessage}
+                                                    handleDeleteForMe={handleDeleteForMe}
+                                                    search={search}
+                                                    onReload={handleRefresh}
+                                                    enableSelect={enableSelect}
+                                                    onEnableCheck={() => setEnableSelect(true)}
+                                                    onCheckedId={handleCheckedId}
+                                                />
+                                            )
+                                    )}
+                                {selectedChat &&
+                                    user &&
+                                    selectedChat.createdBy !== user?._id &&
+                                    !selectedChat.isApproved && (
+                                        <div
+                                            className="chat-not-approved"
+                                            style={{ textAlign: 'center', marginTop: '35%' }}
+                                        >
+                                            <Typography.Paragraph>This chat is not approved.</Typography.Paragraph>
+                                            <Space>
+                                                <Button
+                                                    loading={loading}
+                                                    disabled={loading}
+                                                    type="primary"
+                                                    className="continue-button"
+                                                    onClick={continueChat}
+                                                >
+                                                    Continue Message
+                                                </Button>
+                                                <Button className="block-button" onClick={handleBlockUser}>
+                                                    Block User
+                                                </Button>
+                                            </Space>
+                                        </div>
+                                    )}
+                            </MessageList>
+                            <MessageInput
+                                className="chatInput"
+                                onAttachClick={() => openFilePicker()}
+                                onChange={typingHandler}
+                                placeholder={
+                                    !selectedChat.isApproved && messages.length > 0
+                                        ? 'You cannot message before accept chat request.'
+                                        : user?.block?.includes(getSenderFull(user, selectedChat.users)._id)
+                                            ? 'You blocked this user'
+                                            : 'Type message here'
+                                }
+                                onSend={() => !loading && sendMessage(null, newMessage)}
+                                disabled={
+                                    (!selectedChat.isApproved && messages.length > 0) ||
+                                    user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ||
+                                    false
+                                }
+                                value={newMessage}
+                                autoFocus={true}
+                                sendDisabled={loading}
+                            />
+                            <InputToolbox>
+                                <Space>
+                                    <Popover
+                                        content={<VoiceRecorder onSendVoiceMessage={handleSendVoiceMessage} />}
+                                        trigger={selectedChat.isApproved && 'click'}
+                                        open={options}
+                                        onOpenChange={() => setOptions(!options)}
+                                    >
+                                        <TiPlus
+                                            style={{
+                                                cursor: 'pointer',
+                                                fontSize: '23px',
+                                                color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
                                             }}
                                         />
-                                        &nbsp;
-                                        {chatSettings?.showInformation && (
-                                            <Button icon={<FaInfo />} onClick={() => setViewInfo(!viewInfo)} />
-                                        )}
-                                        &nbsp;
-                                        {chatSettings?.showZoomCall && (
-                                            <Button
-                                                onClick={() => {
-                                                    if (selectedChat.isApproved) {
-                                                        setShowCreateMeetingForm(true);
-                                                    }
-                                                }}
-                                                icon={
-                                                    <FaVideo color={selectedChat.isApproved ? '#efa24b' : '#efa24b'} />
-                                                }
-                                            />
-                                        )}
-                                        &nbsp;
-                                        {chatSettings.showFavorite && (
-                                            <Tooltip
-                                                title={
-                                                    <span>
-                                                        {`${selectedChat.favourites.includes(user?._id) ? 'Remove from favorites' : 'Add to favorites'}`}
-                                                    </span>
-                                                }
-                                            >
-                                                <Button
-                                                    icon={
-                                                        <FaStar
-                                                            color={`${selectedChat.favourites.includes(user?._id) ? '#efa24b' : 'rgb(255 210 158)'}`}
-                                                        />
-                                                    }
-                                                    onClick={handleFavourite}
-                                                />
-                                            </Tooltip>
-                                        )}
-                                        &nbsp;
-                                        <Dropdown menu={{ items }} placement="bottomRight" trigger={['click']}>
-                                            <Button icon={<FaEllipsisV />} />
-                                        </Dropdown>
-                                    </>
-                                )}
-                            </ConversationHeader.Actions>
-                        </ConversationHeader>
-
-                        <MessageList
-                            loadingMore={loadingMore}
-                            typingIndicator={
-                                isTyping && (
-                                    <TypingIndicator
-                                        content={`${getSenderFull(user, selectedChat.users).name} is typing`}
-                                    />
-                                )
-                            }
-                        >
-                            {messages &&
-                                messages.map(
-                                    (m: any, i: number) =>
-                                        !m.deleteFor.includes(user?._id) &&
-                                        !m.deleteForEveryone && (
-                                            <MessageBox
-                                                key={m._id}
-                                                messages={messages}
-                                                message={m}
-                                                index={i}
-                                                user={user}
-                                                prevDate={prevDate}
-                                                setPrevDate={setPrevDate}
-                                                prevIndex={prevIndex}
-                                                setPrevIndex={setPrevIndex}
-                                                selectedChat={selectedChat}
-                                                setEditMessage={setEditMessage}
-                                                setShowEditMessage={setShowEditMessage}
-                                                handleDeleteForMe={handleDeleteForMe}
-                                                search={search}
-                                                onReload={handleRefresh}
-                                                enableSelect={enableSelect}
-                                                onEnableCheck={() => setEnableSelect(true)}
-                                                onCheckedId={handleCheckedId}
-                                            />
-                                        )
-                                )}
-                            {selectedChat &&
-                                user &&
-                                selectedChat.createdBy !== user?._id &&
-                                !selectedChat.isApproved && (
-                                    <div
-                                        className="chat-not-approved"
-                                        style={{ textAlign: 'center', marginTop: '35%' }}
+                                    </Popover>
+                                    <Popover
+                                        content={
+                                            <Suspense fallback={<div>Loading...</div>}>
+                                                <EmojiPicker onEmojiClick={onEmojiClick} width={300} height={390} />
+                                            </Suspense>
+                                        }
+                                        trigger={selectedChat.isApproved && 'click'}
+                                        open={emoji}
+                                        onOpenChange={() => setEmoji(!emoji)}
                                     >
-                                        <Typography.Paragraph>This chat is not approved.</Typography.Paragraph>
-                                        <Space>
-                                            <Button
-                                                loading={loading}
-                                                disabled={loading}
-                                                type="primary"
-                                                className="continue-button"
-                                                onClick={continueChat}
-                                            >
-                                                Continue Message
-                                            </Button>
-                                            <Button className="block-button" onClick={handleBlockUser}>
-                                                Block User
-                                            </Button>
-                                        </Space>
-                                    </div>
-                                )}
-                        </MessageList>
-                        <MessageInput
-                            className="chatInput"
-                            onAttachClick={() => openFilePicker()}
-                            onChange={typingHandler}
-                            placeholder={
-                                !selectedChat.isApproved && messages.length > 0
-                                    ? 'You cannot message before accept chat request.'
-                                    : user?.block?.includes(getSenderFull(user, selectedChat.users)._id)
-                                        ? 'You blocked this user'
-                                        : 'Type message here'
-                            }
-                            onSend={() => sendMessage(null, newMessage)}
-                            disabled={
-                                (!selectedChat.isApproved && messages.length > 0) ||
-                                user?.block?.includes(getSenderFull(user, selectedChat.users)._id) ||
-                                false
-                            }
-                            value={newMessage}
-                            autoFocus={true}
-                            sendDisabled={false}
-                        />
-                        <InputToolbox>
-                            <Space>
-                                <Popover
-                                    content={<VoiceRecorder onSendVoiceMessage={handleSendVoiceMessage} />}
-                                    trigger={selectedChat.isApproved && 'click'}
-                                    open={options}
-                                    onOpenChange={() => setOptions(!options)}
-                                >
-                                    <TiPlus
-                                        style={{
-                                            cursor: 'pointer',
-                                            fontSize: '23px',
-                                            color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
+                                        <BsEmojiSmile
+                                            style={{
+                                                cursor: 'pointer',
+                                                fontSize: '20px',
+                                                color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
+                                            }}
+                                        />
+                                    </Popover>
+                                    <VoiceToText
+                                        selectedChat={selectedChat}
+                                        onSetMessage={(data: any) => {
+                                            typingHandler(data);
                                         }}
                                     />
-                                </Popover>
-                                <Popover
-                                    content={
-                                        <Suspense fallback={<div>Loading...</div>}>
-                                            <EmojiPicker onEmojiClick={onEmojiClick} width={300} height={390} />
-                                        </Suspense>
-                                    }
-                                    trigger={selectedChat.isApproved && 'click'}
-                                    open={emoji}
-                                    onOpenChange={() => setEmoji(!emoji)}
-                                >
-                                    <BsEmojiSmile
-                                        style={{
-                                            cursor: 'pointer',
-                                            fontSize: '20px',
-                                            color: selectedChat.isApproved ? '#efa24b' : '#f9dcbb'
-                                        }}
-                                    />
-                                </Popover>
-                                <VoiceToText
-                                    selectedChat={selectedChat}
-                                    onSetMessage={(data: any) => {
-                                        typingHandler(data);
-                                    }}
-                                />
-                            </Space>
-                        </InputToolbox>
-                    </ChatContainer>
-                )}
+                                </Space>
+                            </InputToolbox>
+                        </ChatContainer>
+                    )}
                 {viewInfo &&
                     <Rightbar
                         selectedChat={selectedChat}
@@ -960,8 +997,10 @@ export default function Chat() {
                         onClose={() => {
                             setViewInfo(false);
                             setSearch('');
+                            setViewChat(true);
                         }}
                         sendMessage={sendMessage}
+                        isMobile={isMobile}
                     />
                 }
                 {!selectedChat &&

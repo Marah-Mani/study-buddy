@@ -191,7 +191,7 @@ export default function MessageBox({
                                 <br />
                             </>
                         )}
-                        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }} className="textEnd">
+                        <div style={{ display: 'flex', flexDirection: `${message.content.length > 500 ? 'column' : 'row'}`, alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: '660px' }} className="textEnd">
                             <div
                                 style={{ fontSize: '12px' }}
                                 dangerouslySetInnerHTML={{ __html: highlightText(message.content, search) }}
@@ -207,7 +207,7 @@ export default function MessageBox({
                             </p>
                         </div>
                     </Message.CustomContent>
-                    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: '660px' }} className="textEnd">
+                    <div style={{ display: 'flex', flexDirection: `${message.content.length > 500 ? 'column' : 'row'}`, alignItems: 'flex-end', justifyContent: 'space-between', maxWidth: '660px' }} className="textEnd">
                         <div
                             style={{ fontSize: '12px' }}
                             dangerouslySetInnerHTML={{ __html: highlightText(message.content, search) }}

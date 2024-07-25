@@ -79,7 +79,7 @@ const chatController = {
 					const meetings = await Message.find({
 						chat: chat._id,
 						meetingId: { $ne: null },
-						meetingStartTime: { $gte: new Date() }
+						meetingStartTime: { $lte: new Date() }
 					});
 
 					const stickyMessage = await StickyMessage.findOne({ chatId: chat._id });
