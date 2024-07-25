@@ -39,7 +39,7 @@ export default function FaqSection() {
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={8} xl={9} xxl={9}>
                                 <div className='faqSection-text'>
-                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='StudyBuddy Banner' width={80} height={80} />
+                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='StudyBuddy Banner' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
