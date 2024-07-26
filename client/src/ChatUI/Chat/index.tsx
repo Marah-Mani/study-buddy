@@ -1,5 +1,5 @@
 'use client';
-import React, { lazy, Suspense, useCallback, useContext, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import {
     MainContainer,
     ChatContainer,
@@ -45,6 +45,7 @@ import VoiceRecorder from '../VoiceRecorder';
 import { CHAT } from '@/constants/API/chatApi';
 import { API_BASE_URL } from '@/constants/ENV';
 import GetFileTypeIcon from '@/components/FileManager/commonComponents/GetFileTypeIcon';
+import EmojiPicker from '../EmojiPicker';
 
 const baseURL = API_BASE_URL;
 const { common, chat } = CHAT;
@@ -124,7 +125,7 @@ export default function Chat() {
         handleResize();
 
         // Event listener for window resize
-        window.addEventListener('resize', handleResize);
+        // window.addEventListener('resize', handleResize);
 
         // Cleanup function to remove event listener
         return () => {
@@ -581,6 +582,7 @@ export default function Chat() {
     };
 
     const onEmojiClick = (emojiObject: any, event: any) => {
+        console.log(emojiObject);
         setNewMessage((prevInput: string) => prevInput + emojiObject.emoji);
     };
 
@@ -692,8 +694,9 @@ export default function Chat() {
         return fileContent.startsWith('data:image/');
     };
 
-    // Lazy load the EmojiPicker component
-    const EmojiPicker = lazy(() => import('emoji-picker-react'));
+    const handleEmojiSelect = (emoji: any) => {
+        setNewMessage((prevInput: string) => prevInput + emoji);
+    };
 
     return (
         <div className="headerMain">
@@ -960,7 +963,7 @@ export default function Chat() {
                                     <Popover
                                         content={
                                             <Suspense fallback={<div>Loading...</div>}>
-                                                <EmojiPicker onEmojiClick={onEmojiClick} width={300} height={390} />
+                                                <EmojiPicker onEmojiSelect={handleEmojiSelect} />
                                             </Suspense>
                                         }
                                         trigger={selectedChat.isApproved && 'click'}
