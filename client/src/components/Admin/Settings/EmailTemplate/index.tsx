@@ -28,7 +28,7 @@ const EmailTemplate = ({ activeKey }: Props) => {
     };
 
     useEffect(() => {
-        if (activeKey == '6') {
+        if (activeKey == '2') {
             if (user) fetchTemplate();
         }
     }, [activeKey, user?._id]);
