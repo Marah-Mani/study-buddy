@@ -23,7 +23,7 @@ export default function EmailSignature({ activeKey }: Props) {
         });
     };
     useEffect(() => {
-        if (activeKey == '5') {
+        if (activeKey == '1') {
             if (user) fetchEmailSignature(user?._id || '');
         }
     }, [activeKey, user?._id])

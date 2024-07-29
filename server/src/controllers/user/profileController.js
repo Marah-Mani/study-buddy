@@ -38,6 +38,8 @@ const profileController = {
 						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
 						interestedIn: req.body.interestedIn,
+						departmentId: req.body.departments,
+						subjects: req.body.subjects,
 						gender: req.body.gender,
 						socialLinks: {
 							twitter: req.body.twitter || '',

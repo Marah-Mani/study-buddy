@@ -1,8 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-// import './style.css';
 import { Tabs } from 'antd';
-import ParaText from '@/app/commonUl/ParaText';
 import EditProfile from '@/components/User/Profile/EditProfile';
 import ResetPassword from '@/components/User/Profile/ResetPassword';
 
