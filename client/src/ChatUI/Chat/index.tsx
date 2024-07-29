@@ -124,9 +124,6 @@ export default function Chat() {
         // Initial check
         handleResize();
 
-        // Event listener for window resize
-        // window.addEventListener('resize', handleResize);
-
         // Cleanup function to remove event listener
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -711,7 +708,6 @@ export default function Chat() {
                         <ChatContainer data-message-list-container className="chatBox"
                             style={{
                                 ...chatContainerStyle
-                                // display: `${viewInfo && sidebarVisible && 'none'}`
                             }}
                         >
                             <ConversationHeader>

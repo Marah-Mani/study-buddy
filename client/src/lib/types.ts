@@ -183,6 +183,7 @@ export interface User {
 	image: string;
 	chatStatus: string;
 	block?: string | null;
+	subjects?: any;
 }
 
 export type Country = {

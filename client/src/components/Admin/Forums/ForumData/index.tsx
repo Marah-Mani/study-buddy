@@ -109,19 +109,6 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
 
     return (
         <>
-            {/* {selectedRowKeys.length > 0 && <Popconfirm
-                style={{ height: '40px' }}
-                title="Are you sure to delete selected Forums?"
-                onConfirm={confirmDelete}
-                okText="Yes"
-                cancelText="No"
-            >
-                <Button
-                    danger
-                    ghost>
-                    Delete
-                </Button>
-            </Popconfirm>} */}
             <Table columns={columns} loading={loading} bordered dataSource={data} />
         </>
     )

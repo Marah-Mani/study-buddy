@@ -52,26 +52,25 @@ export default function ChatSetting({ activeKey }: Props) {
 
     return (
         <>
-            <div className="smallTopMargin"></div>
             <ParaText size="large" fontWeightBold={600}
-            // color="PrimaryColor"
+                color='primaryColor'
             >
                 Chat Settings
             </ParaText>
-            <Row style={{ marginTop: '12px' }}>
+            <Row style={{ marginTop: '12px' }} gutter={[15, 15]}>
                 {Object.entries(chatSettings[0] || {})
                     .filter(([key]) => !filteredKeys.includes(key))
                     .map(([key, value]: any) => (
-                        <Col sm={12} md={12} lg={12} xl={12} xxl={12} key={key} >
-                            <Row >
-                                <Col md={12}>
+                        <Col xs={22} sm={24} md={12} lg={12} xl={12} xxl={12} key={key} >
+                            <Row>
+                                <Col xs={22} sm={22} md={12} lg={12} xl={12} xxl={12}>
                                     <ParaText size="extraSmall" fontWeightBold={600}
                                     // color="PrimaryColor"
                                     >
                                         {formatKeyName(key)}
                                     </ParaText>
                                 </Col>
-                                <Col md={2}>
+                                <Col xs={2} sm={2} md={2} lg={2} xl={2} xxl={2}>
                                     <Switch
                                         checkedChildren="On"
                                         unCheckedChildren="Off"
@@ -81,8 +80,6 @@ export default function ChatSetting({ activeKey }: Props) {
                                 </Col>
                                 <Divider />
                             </Row>
-
-
                         </Col>
                     ))}
             </Row>

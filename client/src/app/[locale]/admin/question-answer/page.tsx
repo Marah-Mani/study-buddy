@@ -1,7 +1,7 @@
 'use client';
-import { getAllForums } from '@/lib/commonApi';
+import { deleteForum, getAllForums } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
-import { Avatar, Badge, Button, Col, Image, Row, Space } from 'antd';
+import { Avatar, Badge, Button, Col, Image, Input, message, Popconfirm, Result, Row, Space, Tooltip } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
 import RelativeTime from '@/app/commonUl/RelativeTime';
@@ -19,12 +19,13 @@ import { submitForumVote } from '@/lib/frontendApi';
 import { FaPlus } from "react-icons/fa6";
 import Forums from '@/components/Admin/Forums';
 import { IoIosEye } from 'react-icons/io';
+import { DeleteOutlined } from '@ant-design/icons';
 
 export default function Page() {
     const [forums, setForums] = useState<any[]>([]);
     const { user } = useContext(AuthContext);
     const [modal, setModal] = useState(false);
-    const [searchQuery, setSearchQuery] = useState<any>();
+    const [searchQuery, setSearchQuery] = useState('');
     const [allDataType, setAllDataType] = useState(true);
     const [newRecord, setNewRecord] = useState(false);
 
@@ -118,12 +119,8 @@ export default function Page() {
         }
     };
 
-    const handleSearch = (data: any) => {
-        const query = {
-            search: data
-        };
-        const queryString = JSON.stringify(query);
-        setSearchQuery(queryString);
+    const handleSearch = (e: any) => {
+        setSearchQuery(e.target.value);
     };
 
     function handleCallback(data: any) {
@@ -138,12 +135,27 @@ export default function Page() {
         }
     };
 
-    const handleQuestionssss = (type: string) => {
+    const handleQuestionss = (type: string) => {
         if (type === 'new') {
             setNewRecord(true);
         }
         if (allDataType) {
             setAllDataType(false);
+        }
+    };
+
+    const handleDelete = async (item: any) => {
+        try {
+            const data = {
+                forumId: item
+            };
+            const res = await deleteForum(data);
+            if (res.status === true) {
+                message.success(res.message);
+                fetchData(searchQuery);
+            }
+        } catch (error) {
+            ErrorHandler.showNotification(error);
         }
     };
 
@@ -154,7 +166,7 @@ export default function Page() {
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <Space wrap className="floatEnd">
-                                {/* <Input type='search' placeholder='search' value={searchQuery} onChange={handleSearch} style={{ height: '40px' }} /> */}
+                                <Input type='search' allowClear placeholder='Search...' onChange={handleSearch} style={{ height: '35px' }} />
                                 <Button
                                     type="primary"
                                     onClick={() => handleQuestions('')}
@@ -165,7 +177,7 @@ export default function Page() {
                                 <Button
                                     icon={<FaPlus className='iconColorChange' />}
                                     type={'primary'}
-                                    onClick={() => handleQuestionssss('new')}
+                                    onClick={() => handleQuestionss('new')}
                                     style={{ borderRadius: '30px' }}
                                 >
                                     Ask Question
@@ -299,13 +311,6 @@ export default function Page() {
                                                                                                 &nbsp; {forum.likes.length}
                                                                                             </span>
                                                                                         </div>
-                                                                                        {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote(forum._id, 'dislike')}>
-                                                                            {
-                                                                                forum.dislikes.includes(user?._id)
-                                                                                    ? <DislikeFilled style={{ fontSize: '16px' }} />
-                                                                                    : <DislikeOutlined style={{ fontSize: '16px' }} />
-                                                                            } {forum.dislikes.length}
-                                                                        </div> */}
                                                                                     </div>
                                                                                     <div className="likeCommentRadius">
                                                                                         <Link
@@ -327,17 +332,28 @@ export default function Page() {
                                                                                 </div>
                                                                             </Col>
                                                                             <Col xs={24} sm={24} md={2} lg={2} xl={2} xxl={2} className='textEnd'>
-                                                                                {' '}
-                                                                                <div className="likeCommentRadius">
-                                                                                    <Link
-                                                                                        style={{
-                                                                                            display: 'flex', alignItems: 'center', float: 'right'
-                                                                                        }}
-                                                                                        href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
-                                                                                    >
-                                                                                        <IoIosEye size={20} />  &nbsp; {forum.viewCount}
-                                                                                    </Link>
-                                                                                </div>
+                                                                                <Space>
+                                                                                    <div className="likeCommentRadius">
+                                                                                        <Link
+                                                                                            style={{
+                                                                                                display: 'flex', alignItems: 'center', float: 'right'
+                                                                                            }}
+                                                                                            href={`${process.env.NEXT_PUBLIC_SITE_URL}/${user?.role}/questions/${forum.slug}`}
+                                                                                        >
+                                                                                            <IoIosEye size={20} />  &nbsp; {forum.viewCount}
+                                                                                        </Link>
+                                                                                    </div>
+                                                                                    {user?.role == 'admin' &&
+                                                                                        <Popconfirm
+                                                                                            title="Are you sure you want to delete this forum?"
+                                                                                            onConfirm={() => { handleDelete(forum._id) }}
+                                                                                            okText="Yes"
+                                                                                            cancelText="No"
+                                                                                        >
+                                                                                            <DeleteOutlined />
+                                                                                        </Popconfirm>
+                                                                                    }
+                                                                                </Space>
                                                                             </Col>
                                                                         </Row>
                                                                     </Col>
@@ -350,14 +366,9 @@ export default function Page() {
                                         </Row>
                                     ) : (
                                         <div className="textCenter">
-                                            <Image
-                                                width={'50%'}
-                                                height={'100%'}
-                                                preview={false}
-                                                src={'http://localhost:3000/images/Nodata-amico.png'}
-                                                alt="card__image"
-                                                className="card__image"
-                                                fallback="/images/Nodata-amico.png"
+                                            <Result
+                                                status="404"
+                                                subTitle="Oops! We couldn't find any matching records."
                                             />
                                         </div>
                                     )}
