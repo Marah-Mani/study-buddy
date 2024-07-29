@@ -65,7 +65,7 @@ export default function ChatSetting({ activeKey }: Props) {
                             <Row>
                                 <Col xs={22} sm={22} md={12} lg={12} xl={12} xxl={12}>
                                     <ParaText size="extraSmall" fontWeightBold={600}
-                                    // color="PrimaryColor"
+                                        color='primaryColor'
                                     >
                                         {formatKeyName(key)}
                                     </ParaText>
