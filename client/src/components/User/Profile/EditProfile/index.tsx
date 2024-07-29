@@ -16,6 +16,8 @@ import {
     GetLanguages, //async functions
 } from "react-country-state-city";
 import { updateProfileDetails } from '@/lib/adminApi';
+import './style.css';
+import { getDepartments } from '@/lib/ApiAdapter';
 
 export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -25,6 +27,8 @@ export default function Brands() {
     const [phone, setPhone] = useState('');
     const token = Cookies.get('session_token');
     const [languageList, setLanguageList] = useState<any[]>([]);
+    const [departments, setDepartments] = useState<any>([]);
+    const [selectedDepartment, setSelectedDepartment] = useState<any | null>(null);
 
     const handlePhoneChange = (value: any, countryData: any) => {
         setPhone(value);
@@ -33,6 +37,8 @@ export default function Brands() {
 
     useEffect(() => {
         if (user) {
+            setSelectedDepartment(user.departmentId);
+            const subjectsArray = user?.subjects?.length ? user.subjects[0].split(',') : [];
             form.setFieldsValue({
                 name: user.name ?? '',
                 email: user.email ?? '',
@@ -49,7 +55,9 @@ export default function Brands() {
                 twitter: user.socialLinks?.twitter ?? '',
                 higherEducation: user.higherEducation ?? '',
                 interest: user.interestedIn ?? '',
-                gender: user.gender ?? ''
+                gender: user.gender ?? '',
+                departments: user.departmentId ?? '',
+                subjects: subjectsArray,
             });
             if (user.image) {
                 setFileList([{
@@ -67,6 +75,11 @@ export default function Brands() {
     useEffect(() => {
         GetLanguages().then((result: any) => {
             setLanguageList(result);
+        });
+        getDepartments().then((res) => {
+            if (res.status === true) {
+                setDepartments(res.data);
+            }
         });
     }, [])
 
@@ -96,6 +109,8 @@ export default function Brands() {
             formData.append('profileDescription', values.profileDescription);
             formData.append('interestedIn', values.interest);
             formData.append('gender', values.gender);
+            formData.append('departments', values.departments);
+            formData.append('subjects', values.subjects);
             if (values.facebook) {
                 formData.append('facebook', values.facebook);
             }
@@ -149,13 +164,23 @@ export default function Brands() {
         }
     };
 
+    const handleDepartmentChange = (value: string) => {
+        setSelectedDepartment(value);
+        form.setFieldsValue({ subjects: [] }); // Reset subjects field in the form
+    };
+
+    const getSubjectsForDepartment = (departmentName: string): string[] => {
+        const selectedDept = departments.find((dept: any) => dept._id === departmentName); // Assuming _id is used as the unique identifier
+        return selectedDept ? selectedDept.subjects : [];
+    };
+
     return (
         <>
             {loading ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                 <Spin style={{ marginTop: '-20vh' }} />
             </div>
                 :
-                <div className='mainSection'>
+                <div className='mainSection editProfileForm'>
                     <div className="smallTopMargin"></div>
                     <Form layout='vertical' form={form} size='large' onFinish={onfinish} className='ant-items-mar'>
                         <Row gutter={24}>
@@ -260,20 +285,102 @@ export default function Brands() {
                                     </Col>
                                 </Row>
                             </Col>
+                            {user?.role !== 'admin' &&
+                                <>
+                                    <Col xl={8} lg={8} md={8} sm={24} xs={24}>
+                                        <Row gutter={24}>
+                                            <Col span={24}>
+                                                <Form.Item name={'profileTitle'} label={'Profile Title'}>
+                                                    <Input placeholder='Enter profile title' style={{ height: '35px' }} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24}>
+                                                <Form.Item name={'skills'} label={'Skills'}>
+                                                    <Input
+                                                        placeholder='Enter skills separated by comma'
+                                                    />
+                                                </Form.Item>
+                                            </Col>
+
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    name='higherEducation'
+                                                    label='Higher Education'
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'Please select your highest education level'
+                                                        }
+                                                    ]}
+                                                >
+                                                    <Select placeholder='Select your highest education level' style={{ height: '35px' }}>
+                                                        <Select.Option value='none'>None</Select.Option>
+                                                        <Select.Option value='high school'>High School</Select.Option>
+                                                        <Select.Option value='associate degree'>Associate Degree</Select.Option>
+                                                        <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
+                                                        <Select.Option value='master degree'>Master Degree</Select.Option>
+                                                        <Select.Option value='doctorate'>Doctorate</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    label='Interest'
+                                                    name="interest"
+                                                    rules={[{ required: true, message: 'Please select your interest!' }]}
+                                                >
+                                                    <Select placeholder="Select interest" style={{ height: '35px', borderRadius: '30px' }}>
+                                                        <Select.Option value="tutor">Tutor</Select.Option>
+                                                        <Select.Option value="student">Student</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    label='Department'
+                                                    name="departments"
+                                                    rules={[{ required: true, message: 'Please select departments!' }]}
+                                                >
+                                                    <Select
+                                                        placeholder="Select departments"
+                                                        onChange={handleDepartmentChange}
+                                                        style={{ height: '35px', borderRadius: '30px' }}
+                                                    >
+                                                        {departments &&
+                                                            departments.map((department: any) => (
+                                                                <Select.Option key={department._id} value={department._id}>
+                                                                    {department.departmentName}
+                                                                </Select.Option>
+                                                            ))}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item label='Subjects' name="subjects" rules={[{ required: true, message: 'Please select subjects!' }]}>
+                                                    <Select
+                                                        mode="multiple"
+                                                        placeholder="Select subjects"
+                                                        maxTagCount="responsive"
+                                                        disabled={!selectedDepartment}
+                                                        style={{ height: '35px', borderRadius: '30px' }}
+                                                    >
+                                                        {selectedDepartment &&
+                                                            getSubjectsForDepartment(selectedDepartment).map(
+                                                                (subject: string, index: number) => (
+                                                                    <Select.Option key={index} value={subject}>
+                                                                        {subject}
+                                                                    </Select.Option>
+                                                                )
+                                                            )}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </>
+                            }
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
                                 <Row gutter={24}>
-                                    <Col span={24}>
-                                        <Form.Item name={'profileTitle'} label={'Profile Title'}>
-                                            <Input placeholder='Enter profile title' style={{ height: '35px' }} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={24}>
-                                        <Form.Item name={'skills'} label={'Skills'}>
-                                            <Input
-                                                placeholder='Enter skills separated by comma'
-                                            />
-                                        </Form.Item>
-                                    </Col>
                                     <Col span={24}>
                                         <Form.Item name={'languages'} label={'Languages'}>
                                             <Select
@@ -284,8 +391,7 @@ export default function Brands() {
                                                         <span>...</span>
                                                     </Tooltip>
                                                 )}
-
-                                                style={{ width: '100%' }}
+                                                style={{ width: '100%', height: '35px' }}
                                             >
                                                 {languageList.map((item, index) => (
                                                     <option key={index} value={item.code}>
@@ -295,43 +401,6 @@ export default function Brands() {
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item
-                                            name='higherEducation'
-                                            label='Higher Education'
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please select your highest education level'
-                                                }
-                                            ]}
-                                        >
-                                            <Select placeholder='Select your highest education level' style={{ height: '35px' }}>
-                                                <Select.Option value='none'>None</Select.Option>
-                                                <Select.Option value='high school'>High School</Select.Option>
-                                                <Select.Option value='associate degree'>Associate Degree</Select.Option>
-                                                <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
-                                                <Select.Option value='master degree'>Master Degree</Select.Option>
-                                                <Select.Option value='doctorate'>Doctorate</Select.Option>
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item
-                                            label='Interest'
-                                            name="interest"
-                                            rules={[{ required: true, message: 'Please select your interest!' }]}
-                                        >
-                                            <Select placeholder="Select interest" style={{ height: '40px', borderRadius: '30px' }}>
-                                                <Select.Option value="tutor">Tutor</Select.Option>
-                                                <Select.Option value="student">Student</Select.Option>
-                                            </Select>
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col xl={8} lg={8} md={8} sm={24} xs={24}>
-                                <Row gutter={24}>
                                     <Col xl={24} lg={24} md={24} sm={24} xs={24}>
                                         <Form.Item
                                             name={'facebook'}

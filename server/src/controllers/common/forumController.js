@@ -131,7 +131,7 @@ const invoiceController = {
 
 	deleteForum: async (req, res) => {
 		try {
-			const forumId = req.body;
+			const { forumId } = req.body;
 			if (!forumId) {
 				return res.status(400).json({ status: false, message: 'Forums ID is required' });
 			}
