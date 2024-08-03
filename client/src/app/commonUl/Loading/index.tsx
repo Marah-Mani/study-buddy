@@ -1,6 +1,5 @@
 import { Flex, Spin } from 'antd';
 import React from 'react';
-import { DNA } from 'react-loader-spinner';
 
 interface LoadingProps {
 	height?: string;
