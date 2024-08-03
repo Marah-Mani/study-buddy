@@ -84,6 +84,21 @@
             "date": 1722229171631,
             "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-29.log",
             "hash": "17bc8fb11dd63865b909be80917991b22b77c279007149b1d849c3d01b1d3f15"
+        },
+        {
+            "date": 1722311510806,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-30.log",
+            "hash": "32e5bf8f7bbe2438f258711c0d6f46ba730c01b2c6caadfb620ec6ab438d68a3"
+        },
+        {
+            "date": 1722399621216,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-31.log",
+            "hash": "c6223125387ee29329449e25480afdb9bb2cf24099517e7e877e3877d4634e07"
+        },
+        {
+            "date": 1722685808419,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-08-03.log",
+            "hash": "3f4aceae63a3847d6c51d88979781bf20985930f64d1a4ca8b63deaeac3ac626"
         }
     ],
     "hashType": "sha256"

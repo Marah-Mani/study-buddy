@@ -1,16 +1,20 @@
 .headerSection {
   background-color: #344734;
 }
+
 #customContainer {
   padding: 28px 10px;
   z-index: 9;
 }
+
 .nav li {
   display: inline-block;
   padding: 0px 20px 0px 0px;
 }
+
 .nav li a.active {
-  border-bottom: 2px solid #f1a638; /* Change #000 to your desired color */
+  border-bottom: 2px solid #f1a638;
+  /* Change #000 to your desired color */
 }
 
 .logoMain h2 {
@@ -26,49 +30,18 @@
   text-decoration: none;
   font-size: 20px;
 }
+
 .logoSite {
   max-width: 55%;
   height: 102px;
   object-fit: cover;
 }
-/*
-.nav a::before,
-.nav a::after {
-  content: '';
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  transition: all 0.35s ease;
-  opacity: 0;
-}
 
-.nav a::before {
-  content: '';
-  right: 0;
-  top: 0;
-  border-top: 3px solid #f1a638;
-  border-right: 3px solid #f1a638;
-  transform: translate(-100%, 50%);
-}
-
-.nav a:after {
-  content: '';
-  left: 0;
-  bottom: 0;
-  border-bottom: 3px solid #f1a638;
-  border-left: 3px solid #f1a638;
-  transform: translate(100%, -50%);
-}
-
-.nav a:hover:before,
-.nav a:hover:after {
-  transform: translate(0, 0);
-  opacity: 1;
-} */
 
 .nav a:hover {
   color: #3da35d;
 }
+
 /* .ant-drawer-header {
   background-color: #344734 !important;
 }
@@ -78,6 +51,7 @@
 span.anticon.anticon-close svg {
   color: rgb(241, 166, 56);
 }
+
 .ant-drawer .ant-drawer-header {
   border-bottom: none !important;
 }
@@ -88,6 +62,7 @@ span.anticon.anticon-close svg {
     height: auto;
     object-fit: cover;
   }
+
   #customContainer {
     padding: 20px 10px;
     z-index: 9;
