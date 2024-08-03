@@ -11,7 +11,6 @@ const { common } = CHAT;
 export default function Media() {
     const [files, setFiles] = useState<any>([]);
     const { config, selectedChat }: any = useContext(ChatContext);
-    console.log(files);
     const chatFiles = async (chatId: string) => {
         const { data } = await axios.get(
             `${baseURL}${common.chatFiles(chatId)}`,

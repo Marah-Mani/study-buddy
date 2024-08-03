@@ -101,10 +101,10 @@ const chatController = {
 
 	createGroupChat: asyncHandler(async (req, res) => {
 		if (!req.body.users || !req.body.name) {
-			return res.status(400).send({ message: 'Please Fill all the feilds' });
+			return res.status(400).send({ message: 'Please fill all the fields' });
 		}
 
-		var users = JSON.parse(req.body.users);
+		let users = JSON.parse(req.body.users);
 		users.push(req.user);
 		const adminId = await getAdminDataByRole('users');
 		users.push(adminId);
@@ -113,8 +113,26 @@ const chatController = {
 			return res.status(400).send('More than 2 users are required to form a group chat');
 		}
 
+		// Extract user IDs from the users array
+		const userIds = users.map(user => user._id ? user._id : user);
 
 		try {
+			// Check if the type is 'marketChat'
+			if (req.body.type == 'marketChat') {
+
+				// Check if a chat with the same users already exists
+				const existingChat = await Chat.findOne({
+					isGroupChat: true,
+					users: { $all: userIds, $size: userIds.length },
+				}).populate('users', '-password').populate('groupAdmin', '-password');
+
+				// If the chat already exists, return the existing chat
+				if (existingChat) {
+					return res.status(200).json(existingChat);
+				}
+			}
+
+			// Create a new group chat if no existing chat is found
 			const groupChat = await Chat.create({
 				chatName: req.body.name,
 				users: users,
