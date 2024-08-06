@@ -11,10 +11,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const segments = pathname.split('/').filter(Boolean);
 	const desiredSegment = segments[segments.length - 1]; // Get the last segment
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+	const [isIPhone, setIsIPhone] = useState(false);
 
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth <= 767);
+			setIsIPhone(/iPhone/i.test(navigator.userAgent));
 		};
 
 		// Initial check
@@ -54,6 +56,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 			// Ensure fullscreen request is handled with user interaction
 			const handleFullscreenRequest = () => {
 				setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
+				if (isIPhone) {
+					// Hide browser toolbar on iPhone
+					window.scrollTo(0, 1);
+				}
 			};
 
 			handleFullscreenRequest();
@@ -70,7 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 			exitFullscreen();
 		}
 		return undefined;
-	}, [desiredSegment, isMobile]);
+	}, [desiredSegment, isMobile, isIPhone]);
 	return (
 		<>
 			{desiredSegment === 'chat' ? (
