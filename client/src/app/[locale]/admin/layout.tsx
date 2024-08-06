@@ -12,11 +12,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const desiredSegment = segments[segments.length - 1]; // Get the last segment
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
 	const [isIPhone, setIsIPhone] = useState(false);
-
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth <= 767);
 			setIsIPhone(/iPhone/i.test(navigator.userAgent));
+			console.log(`isMobile: ${window.innerWidth <= 767}`);
+			console.log(`isIPhone: ${/iPhone/i.test(navigator.userAgent)}`);
 		};
 
 		// Initial check
@@ -33,9 +34,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
 	useEffect(() => {
 		const enterFullscreen = () => {
+			console.log("Attempting to enter fullscreen...");
 			if (document.documentElement.requestFullscreen) {
 				document.documentElement.requestFullscreen().catch((err) => {
 					console.error("Error attempting to enable full-screen mode:", err);
+					if (isIPhone) {
+						console.log("Hiding Safari toolbar on iPhone...");
+						// Hide browser toolbar on iPhone
+						window.scrollTo(0, 1);
+					} else {
+						console.log("Hiding browser toolbar on desktop...");
+						// Hide browser toolbar on desktop
+						window.scrollTo(0, 0);
+					}
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
@@ -43,6 +54,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		};
 
 		const exitFullscreen = () => {
+			console.log("Attempting to exit fullscreen...");
 			if (document.exitFullscreen) {
 				document.exitFullscreen().catch((err) => {
 					console.error("Error attempting to exit full-screen mode:", err);
@@ -53,13 +65,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		};
 
 		if (desiredSegment === 'chat' && isMobile) {
+			console.log("Desired segment is 'chat' and is mobile.");
 			// Ensure fullscreen request is handled with user interaction
 			const handleFullscreenRequest = () => {
 				setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
-				if (isIPhone) {
-					// Hide browser toolbar on iPhone
-					window.scrollTo(0, 1);
-				}
 			};
 
 			handleFullscreenRequest();
@@ -72,11 +81,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				document.removeEventListener('click', handleFullscreenRequest);
 			};
 		} else if (desiredSegment !== 'chat') {
+			console.log("Desired segment is not 'chat'. Exiting fullscreen if needed.");
 			// Exit fullscreen if not 'chat'
 			exitFullscreen();
 		}
 		return undefined;
 	}, [desiredSegment, isMobile, isIPhone]);
+
 	return (
 		<>
 			{desiredSegment === 'chat' ? (
