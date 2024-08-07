@@ -43,6 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
+				hideToolbar();
 			}
 		};
 
@@ -60,8 +61,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		const hideToolbar = () => {
 			if (isIPhone) {
 				console.log("Hiding Safari toolbar on iPhone...");
+				// Add this code to hide the toolbar on iPhone
+				document.documentElement.style.height = '101vh'; // Slightly larger than the viewport
 				setTimeout(() => {
-					window.scrollTo(0, 1);
+					window.scrollTo(0, 1); // Scroll slightly down
+					setTimeout(() => {
+						document.documentElement.style.height = '100vh'; // Reset to the viewport height
+					}, 1000); // Allow time for the scroll to take effect
 				}, 100);
 			} else {
 				console.log("Hiding browser toolbar on desktop...");
