@@ -163,10 +163,13 @@ export default function Page() {
         <>
             <div className="">
                 <div>
-                    <Row>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                            <Space wrap className="floatEnd">
-                                <Input type='search' allowClear placeholder='Search...' onChange={handleSearch} style={{ height: '35px' }} />
+                    <Row gutter={[14, 14]}>
+                        <Col xs={0} sm={0} md={9} lg={11} xl={12} xxl={16}></Col>
+                        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={4}>
+                            <Input type='search' allowClear placeholder='Search...' onChange={handleSearch} style={{ height: '35px' }} />
+                        </Col>
+                        <Col xs={24} sm={24} md={9} lg={7} xl={6} xxl={4} className='textCenter'>
+                            <Space wrap>
                                 <Button
                                     type="primary"
                                     onClick={() => handleQuestions('')}

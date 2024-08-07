@@ -151,9 +151,9 @@ export default function Header() {
 						</Col>
 					</Row>
 
-					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
-						<Link href="/">
-							<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
+					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter" >
+						<Link href="/" onClick={onClose}>
+							<Titles level={4} color='primaryColor' >StudyBuddy</Titles>
 						</Link>
 						<br />
 						<br />
@@ -163,6 +163,16 @@ export default function Header() {
 									<ParaText size="small" color="primaryColor">Home</ParaText>
 								</Link>
 							</li>
+							{!user &&
+								<>
+									<br />
+									<br />
+									<li>
+										<Link href="/en/login" onClick={onClose}>
+											<ParaText size="small" color="primaryColor">Login</ParaText>
+										</Link>
+									</li>
+								</>}
 							<br />
 							<br />
 							<li>
@@ -180,20 +190,22 @@ export default function Header() {
 							<br />
 							{user?._id && (
 								<>
-									<Link style={{ cursor: 'pointer' }} href={`/en/${user.role}/dashboard`}>
-										Dashboard
-									</Link>
-									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href='/en/login'>
-										Logout
-									</Link>
+									<li>
+										<Link href={`/en/${user.role}/dashboard`} onClick={onClose}>
+											<ParaText size="small" color="primaryColor">Dashboard</ParaText>
+										</Link>
+									</li>
+									<br />
+									<br />
+									<li>
+										<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href='/en/login'>
+											<ParaText size="small" color="primaryColor">
+												Logout
+											</ParaText>
+										</Link>
+									</li>
 								</>
 							)}
-							{/*
-							{user?._id ? null : (
-								<>
-									<Link href="/en/login">Login</Link>
-								</>
-							)} */}
 							<br />
 							<br />
 						</ul>

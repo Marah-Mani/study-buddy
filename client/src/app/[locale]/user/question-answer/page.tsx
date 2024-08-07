@@ -17,7 +17,7 @@ import {
 import { IoIosEye, IoMdArrowDropdown } from "react-icons/io";
 import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
-import { FaPlus } from 'react-icons/fa6';
+import { FaCircleQuestion, FaPlus } from 'react-icons/fa6';
 import Forums from '@/components/Admin/Forums';
 import Loading from '@/app/commonUl/Loading';
 interface Forum {
@@ -202,106 +202,117 @@ export default function Page() {
             <div className="boxInbox">
                 <div>
                     {loading ? <Loading /> :
-                        <Row>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                                <Space wrap className="floatEnd">
-                                    {allDataType &&
-                                        <>
-                                            <Dropdown
-                                                overlay={
-                                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                        <Menu
-                                                            onClick={handleDepartmentChange}
-                                                        >
-                                                            <Menu.Item key={'all'} className='hovercolor'>
-                                                                All
-                                                            </Menu.Item>
-                                                            {category.categories &&
-                                                                category.categories?.map((item: any) => (
-                                                                    <Menu.Item key={item._id} className="hovercolor">
-                                                                        {capitalizeFirstLetterOfEachWord(
-                                                                            item?.name
-                                                                        )}
-                                                                    </Menu.Item>
-                                                                ))}
-                                                        </Menu>
-                                                    </div>
-                                                }
-                                            >
-                                                <Button
-                                                    style={{
-                                                        width: '250px',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        alignItems: 'center'
-                                                    }}
-                                                >
-                                                    <span
-                                                        style={{
-                                                            overflow: 'hidden',
-                                                            textOverflow: 'ellipsis',
-                                                            whiteSpace: 'nowrap'
-                                                        }}
-                                                    >
-                                                        {categoryId?.name
-                                                            ? capitalizeFirstLetterOfEachWord(
-                                                                categoryId.name
-                                                            )
-                                                            : 'Select Department'}
-                                                    </span>
-                                                    <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                                </Button>
-                                            </Dropdown>
-                                            <Dropdown
-                                                overlay={
-                                                    <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                        <Menu
-                                                            onClick={handleCourseChange}
-                                                        >
-                                                            {categoryId?._id
-                                                                && category.subCategories
-                                                                    ?.filter((item: any) => item.categoryId === categoryId._id)
-                                                                    .map((item: any) => (
+                        <Row gutter={[12, 12]}>
+                            <Col sm={0} xs={0} lg={6} xl={8} xxl={15}></Col>
+                            {allDataType &&
+                                <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={5} className='textCenter'>
+                                    <Space wrap>
+                                        {allDataType &&
+                                            <>
+                                                <Dropdown
+                                                    overlay={
+                                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                            <Menu
+                                                                onClick={handleDepartmentChange}
+                                                            >
+                                                                <Menu.Item key={'all'} className='hovercolor'>
+                                                                    All
+                                                                </Menu.Item>
+                                                                {category.categories &&
+                                                                    category.categories?.map((item: any) => (
                                                                         <Menu.Item key={item._id} className="hovercolor">
-                                                                            {capitalizeFirstLetterOfEachWord(item.name)}
+                                                                            {capitalizeFirstLetterOfEachWord(
+                                                                                item?.name
+                                                                            )}
                                                                         </Menu.Item>
-                                                                    ))
-                                                            }
-                                                        </Menu>
-                                                    </div>
-                                                }
-                                            >
-                                                <Button
-                                                    style={{
-                                                        width: '250px',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        alignItems: 'center'
-                                                    }}
+                                                                    ))}
+                                                            </Menu>
+                                                        </div>
+                                                    }
                                                 >
-                                                    <span
+                                                    <Button
                                                         style={{
-                                                            overflow: 'hidden',
-                                                            textOverflow: 'ellipsis',
-                                                            whiteSpace: 'nowrap'
+                                                            width: '180px',
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            alignItems: 'center'
                                                         }}
                                                     >
-                                                        {subCatId?.name
-                                                            ? capitalizeFirstLetterOfEachWord(
-                                                                subCatId.name
-                                                            )
-                                                            : 'Select Course'}
-                                                    </span>
-                                                    <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                                </Button>
-                                            </Dropdown>
-                                        </>
-                                    }
-                                    {category._id}
+                                                        <span
+                                                            style={{
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis',
+                                                                whiteSpace: 'nowrap'
+                                                            }}
+                                                        >
+                                                            {categoryId?.name
+                                                                ? capitalizeFirstLetterOfEachWord(
+                                                                    categoryId.name
+                                                                )
+                                                                : 'Select Department'}
+                                                        </span>
+                                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                                    </Button>
+                                                </Dropdown>
+                                            </>
+                                        }
+                                        {allDataType &&
+                                            <>
+                                                <Dropdown
+                                                    overlay={
+                                                        <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                                            <Menu
+                                                                onClick={handleCourseChange}
+                                                            >
+                                                                {categoryId?._id
+                                                                    && category.subCategories
+                                                                        ?.filter((item: any) => item.categoryId === categoryId._id)
+                                                                        .map((item: any) => (
+                                                                            <Menu.Item key={item._id} className="hovercolor">
+                                                                                {capitalizeFirstLetterOfEachWord(item.name)}
+                                                                            </Menu.Item>
+                                                                        ))
+                                                                }
+                                                            </Menu>
+                                                        </div>
+                                                    }
+                                                >
+                                                    <Button
+                                                        style={{
+                                                            width: '180px',
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            alignItems: 'center'
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis',
+                                                                whiteSpace: 'nowrap'
+                                                            }}
+                                                        >
+                                                            {subCatId?.name
+                                                                ? capitalizeFirstLetterOfEachWord(
+                                                                    subCatId.name
+                                                                )
+                                                                : 'Select Course'}
+                                                        </span>
+                                                        <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                                                    </Button>
+                                                </Dropdown>
+                                            </>
+                                        }
+                                    </Space>
+                                </Col>
+                            }
+                            <Col xs={24} sm={24} md={11} lg={8} xl={7} xxl={4} className='textCenter'>
+                                <Space wrap>
                                     <Button
                                         type="primary"
                                         onClick={() => handleQuestions('')}
                                         style={{ borderRadius: '30px' }}
+                                        icon={<FaCircleQuestion className='iconColorChange' />}
                                     >
                                         {allDataType ? 'My Questions' : 'All Questions'}
                                     </Button>
@@ -315,7 +326,6 @@ export default function Page() {
                                     </Button>
                                 </Space>
                             </Col>
-
                             {allDataType ? (
                                 <>
                                     <Col xs={24} sm={24} md={24} lg={24} xl={18} xxl={18}>
