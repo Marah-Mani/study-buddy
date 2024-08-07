@@ -11,7 +11,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const segments = pathname.split('/').filter(Boolean);
 	const desiredSegment = segments[segments.length - 1]; // Get the last segment
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
-	const [isIPhone, setIsIPhone] = useState(false);
+	const [isIPhone, setIsIPhone] = useState(/iPhone/i.test(navigator.userAgent));
+
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth <= 767);
@@ -38,15 +39,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 			if (document.documentElement.requestFullscreen) {
 				document.documentElement.requestFullscreen().catch((err) => {
 					console.error("Error attempting to enable full-screen mode:", err);
-					if (isIPhone) {
-						console.log("Hiding Safari toolbar on iPhone...");
-						// Hide browser toolbar on iPhone
-						window.scrollTo(0, 1);
-					} else {
-						console.log("Hiding browser toolbar on desktop...");
-						// Hide browser toolbar on desktop
-						window.scrollTo(0, 0);
-					}
+					hideToolbar();
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
@@ -61,6 +54,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
+			}
+		};
+
+		const hideToolbar = () => {
+			if (isIPhone) {
+				console.log("Hiding Safari toolbar on iPhone...");
+				setTimeout(() => {
+					window.scrollTo(0, 1);
+				}, 100);
+			} else {
+				console.log("Hiding browser toolbar on desktop...");
+				setTimeout(() => {
+					window.scrollTo(0, 0);
+				}, 100);
 			}
 		};
 
