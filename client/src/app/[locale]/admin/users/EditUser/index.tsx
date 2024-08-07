@@ -1,17 +1,18 @@
 'use client'
-import { Button, Col, Form, Input, message, Row, Select, Upload, UploadFile } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Tooltip, Upload, UploadFile } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
-import { updateProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from "react-icons/fa6";
 import { handleFileCompression } from '@/lib/commonServices';
 import { updateUserDetails } from '@/lib/adminApi';
-
+import {
+    GetLanguages, //async functions
+} from "react-country-state-city";
 interface Props {
     editData: any
     onReload: any
@@ -20,7 +21,8 @@ export default function EditUser({ editData, onReload }: Props) {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [phone, setPhone] = useState('');
-
+    const [languageList, setLanguageList] = useState<any[]>([]);
+    console.log(editData)
     useEffect(() => {
         if (editData) {
             form.setFieldsValue({
@@ -38,16 +40,25 @@ export default function EditUser({ editData, onReload }: Props) {
                 facebook: editData.socialLinks?.facebook,
                 twitter: editData.socialLinks?.twitter,
                 higherEducation: editData.higherEducation,
+                gender: editData.gender,
             });
-            setFileList([{
-                uid: '-1',
-                name: editData.image,
-                status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${editData.image}`,
-            }])
+            if (editData.image) {
+                setFileList([{
+                    uid: '-1',
+                    name: editData.image,
+                    status: 'done',
+                    url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${editData.image}`,
+                }])
+            }
 
         }
     }, [editData]);
+
+    useEffect(() => {
+        GetLanguages().then((result: any) => {
+            setLanguageList(result);
+        });
+    }, [])
 
     const onfinish = async (values: any) => {
         try {
@@ -77,6 +88,7 @@ export default function EditUser({ editData, onReload }: Props) {
             formData.append('linkedIn', values.linkedIn);
             formData.append('facebook', values.facebook);
             formData.append('twitter', values.twitter);
+            formData.append('gender', values.gender);
 
             const res = await updateUserDetails(formData);
             if (res.status == true) {
@@ -107,7 +119,7 @@ export default function EditUser({ editData, onReload }: Props) {
             return true;
         }
     };
-
+    console.log(languageList)
     const handleRemove = () => {
         setFileList([]);
     }
@@ -181,6 +193,23 @@ export default function EditUser({ editData, onReload }: Props) {
                                     />
                                 </Form.Item>
                             </Col>
+                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                <Form.Item name={'gender'} label='Gender'
+                                    rules={[{
+                                        required: true,
+                                        message: 'Please select a gender'
+                                    }]}
+                                >
+                                    <Select
+                                        placeholder='Select gender'
+                                        style={{ width: '100%' }}
+                                    >
+                                        <Select.Option value="male">Male</Select.Option>
+                                        <Select.Option value="female">Female</Select.Option>
+                                        <Select.Option value="other">Other</Select.Option>
+                                    </Select>
+                                </Form.Item>
+                            </Col>
                             <Col span={24}>
                                 <Form.Item name={'profileDescription'} label={'Profile Description'}>
                                     <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
@@ -197,22 +226,30 @@ export default function EditUser({ editData, onReload }: Props) {
                             </Col>
                             <Col span={24}>
                                 <Form.Item name={'skills'} label={'Skills'}>
-                                    <Select
-                                        mode="tags"
-                                        style={{ width: '100%' }}
-                                        tokenSeparators={[',']}
-                                        placeholder="Enter skills"
+                                    <Input
+                                        placeholder='Enter skills separated by comma'
                                     />
                                 </Form.Item>
                             </Col>
                             <Col span={24}>
                                 <Form.Item name={'languages'} label={'Languages'}>
                                     <Select
-                                        mode="tags"
+                                        mode='multiple'
+                                        maxTagCount="responsive"
+                                        maxTagPlaceholder={(omittedValues) => (
+                                            <Tooltip title={omittedValues.map(({ label }) => label).join(', ')}>
+                                                <span>...</span>
+                                            </Tooltip>
+                                        )}
+
                                         style={{ width: '100%' }}
-                                        tokenSeparators={[',']}
-                                        placeholder="Enter Languages"
-                                    />
+                                    >
+                                        {languageList.map((item, index) => (
+                                            <option key={index} value={item.code}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </Select>
                                 </Form.Item>
                             </Col>
                             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
@@ -282,7 +319,7 @@ export default function EditUser({ editData, onReload }: Props) {
                                         placeholder='Enter Twitter link'
                                         type='link'
                                         maxLength={50}
-                                        suffix={<FaSquareXTwitter />}
+                                        suffix={<FaXTwitter />}
                                     />
                                 </Form.Item>
 

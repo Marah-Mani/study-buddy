@@ -7,6 +7,7 @@ import moment from 'moment';
 import type { FormProps } from 'antd';
 import Cookies from 'js-cookie';
 import ChatContext from '@/contexts/ChatContext';
+import { useForm } from 'antd/es/form/Form';
 
 const { RangePicker } = DatePicker;
 
@@ -19,6 +20,7 @@ interface CreateMeetingModalProps {
 const CreateMeetingModal = ({ open, setOpen, sendMessage }: CreateMeetingModalProps) => {
     const { selectedChat }: any = useContext(ChatContext)
     const [loading, setLoading] = useState(false);
+    const [form] = useForm();
     type FieldType = {
         title: string;
         description: string;
@@ -45,6 +47,7 @@ const CreateMeetingModal = ({ open, setOpen, sendMessage }: CreateMeetingModalPr
                 }
                 sendMessage(null, meetingData.topic, messageData, 'meeting')
             }
+            form.resetFields();
             setOpen(false)
             setLoading(false);
         } catch (error) {
@@ -65,6 +68,7 @@ const CreateMeetingModal = ({ open, setOpen, sendMessage }: CreateMeetingModalPr
                 name="create_meeting"
                 onFinish={onFinish}
                 layout="vertical"
+                form={form}
             >
                 <Form.Item
                     name="title"

@@ -37,7 +37,7 @@ const Titles = ({ level = 1, content, children, className = '', color = 'default
 							: level === 4
 								? screenWidth > 767
 									? 30
-									: 25
+									: 20
 								: level === 5
 									? screenWidth > 767
 										? 24

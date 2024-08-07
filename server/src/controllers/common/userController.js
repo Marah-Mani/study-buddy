@@ -10,11 +10,11 @@ const chatController = {
 	allUsers: asyncHandler(async (req, res) => {
 		const keyword = req.query.search
 			? {
-					$or: [
-						{ name: { $regex: req.query.search, $options: 'i' } },
-						{ email: { $regex: req.query.search, $options: 'i' } }
-					]
-				}
+				$or: [
+					{ name: { $regex: req.query.search, $options: 'i' } },
+					{ email: { $regex: req.query.search, $options: 'i' } }
+				]
+			}
 			: {};
 
 		const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
@@ -42,24 +42,48 @@ const chatController = {
 	},
 
 	getAllCandidate: async (req, res) => {
-		const { interestedIn, department, searchQuery, subject, page = 1, pageSize = 10 } = req.query;
+		const { userId, interestedIn, searchQuery, page = 1, pageSize = 10 } = req.query;
 
 		try {
+			const findUser = await User.findById(userId);
 			let query = {
 				status: 'active',
 				role: { $ne: 'admin' },
-				interestedIn: interestedIn === 'student' ? 'tutor' : 'student'
+				_id: { $ne: userId }
 			};
 
-			if (department) query.departmentId = department;
+			if (interestedIn) {
+				query.interestedIn = interestedIn;
+				query.departmentId = findUser.departmentId;
+				query.subjects = { $in: findUser.subjects };
+			} else {
+				// When interestedIn is null, return the count of students and tutors
+				const studentCount = await User.countDocuments({
+					_id: { $ne: userId },
+					status: 'active',
+					interestedIn: 'student',
+					departmentId: findUser.departmentId,
+					subjects: { $in: findUser.subjects }
+				});
+
+				const tutorCount = await User.countDocuments({
+					_id: { $ne: userId },
+					status: 'active',
+					interestedIn: 'tutor',
+					departmentId: findUser.departmentId,
+					subjects: { $in: findUser.subjects }
+				});
+
+				return res.status(200).json({
+					status: true,
+					studentCount: studentCount,
+					tutorCount: tutorCount
+				});
+			}
 
 			if (searchQuery) {
 				const sanitizedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 				query.name = { $regex: sanitizedQuery, $options: 'i' };
-			}
-
-			if (subject) {
-				query.subjects = subject;
 			}
 
 			const totalCount = await User.countDocuments(query);
@@ -130,14 +154,25 @@ const chatController = {
 	},
 	getAllUsersStudyBuddy: async (req, res) => {
 		try {
-			const { search } = req.query;
+			const { search, catId, subCatId } = req.query;
+
 			let query = {};
+
 			if (search) {
-				query = {
-					name: { $regex: search, $options: 'i' }
-				};
+				const sanitizedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+				query.name = { $regex: sanitizedSearch, $options: 'i' };
 			}
+
+			if (catId) {
+				query.departmentId = catId;
+			}
+
+			if (subCatId) {
+				query.subjects = { $in: [subCatId] };
+			}
+
 			const users = await User.find(query).sort({ _id: -1 }).populate('departmentId', 'departmentName');
+
 			res.status(200).json({ status: true, data: users });
 		} catch (error) {
 			errorLogger(error);

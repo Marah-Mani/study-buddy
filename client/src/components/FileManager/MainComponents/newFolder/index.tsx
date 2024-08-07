@@ -1,5 +1,5 @@
 import ParaText from "@/app/commonUl/ParaText";
-import { Button, Col, message, Modal, Row } from "antd";
+import { Button, Col, message, Modal, Row, Image, Dropdown } from "antd";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -15,7 +15,8 @@ import GetFileSize from "../../commonComponents/GetFileSize";
 import GetFileTypeIcon from "../../commonComponents/GetFileTypeIcon";
 import GetFileTypeName from "../../commonComponents/GetFileTypeName";
 import ShortFileName from "../../commonComponents/ShortFileName";
-
+import { HiDotsVertical } from "react-icons/hi";
+import useDownloader from "react-use-downloader";
 
 interface props {
     handleUpdate?: (folder: any, action: any) => void;
@@ -24,10 +25,12 @@ interface props {
     folderData?: any;
     fileWithFolderId?: any;
     getFilesWithId?: any;
-    onBack?: any
+    onBack?: any;
+    onSelectedId?: any;
+    currentInnerFolderId?: any;
 }
 
-export default function NewFolder({ newFolderName, getParent, onBack }: props) {
+export default function NewFolder({ newFolderName, onBack, onSelectedId, currentInnerFolderId }: props) {
     const [isModalOpenFile, setIsModalOpenFile] = useState(false);
     const [folderId, setFolderId] = useState(newFolderName._id)
     const [fileWithFolderId, setFileWithFolderId] = useState<any>([]);
@@ -36,6 +39,11 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
     const [singleFolder, setSingleFolder] = useState<any>();
     const [action, setAction] = useState("")
     const [folderRename, setFolderRename] = useState<any>();
+    const [previewVisible, setPreviewVisible] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
+    const { download } = useDownloader();
+    const [folderName, setFolderName] = useState(newFolderName.folderName);
+
 
     useEffect(() => {
         getFilesWithId(newFolderName._id);
@@ -50,13 +58,13 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
     const getFolderData = async (folderId: string) => {
         const data = { userId: user?._id, folderId }
         const response = await getFolder(data)
-        setFolderData(response.data)
+        setFolderData(response.data);
         if (response.data.length > 0) {
             setSingleFolder(response.data[0]);
         }
     }
 
-    const handleReload = (data: any) => {
+    const handleReload = () => {
         getFolderData(folderId);
         getFilesWithId(folderId);
     }
@@ -64,6 +72,7 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
 
     const handleDoubleClick = async (folder: any) => {
         setFolderId(folder._id);
+        setFolderName(folder.folderName);
         await getFolderData(folder._id);
         await getFilesWithId(folder._id);
     }
@@ -102,6 +111,36 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
         }
     };
 
+    const handlePreview = (imageUrl: any) => {
+        setPreviewImage(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${imageUrl}`);
+        setPreviewVisible(true);
+    };
+
+    const handleFile = (fileId: any) => {
+        onSelectedId(fileId)
+    };
+
+    const viewSelectedFile = (file: any) => {
+        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+            handlePreview(file.filePath);
+        } else {
+            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
+        }
+    };
+
+    const getMenuItems = (file: any) => [
+        {
+            key: 'view',
+            label: 'View',
+            onClick: () => viewSelectedFile(file)
+        },
+        {
+            key: 'dow',
+            label: 'Download',
+            onClick: async () => download(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, file.fileName)
+        },
+    ];
+
     return (
         <>
             <Row align='middle'>
@@ -114,13 +153,15 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                 <Col md={1}
                     onClick={() => {
                         setFolderId('')
-                        onBack()
+                        onBack(folderId)
                     }}
                 >
-                    <BackButton />
+                    <div>
+                        <BackButton />
+                    </div>
                 </Col>
                 <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
-                    <ParaText size='textGraf' color='black' fontWeightBold={600}>{newFolderName.folderName}  </ParaText>
+                    <ParaText size='textGraf' color='black' fontWeightBold={600}>{folderName}  </ParaText>
                 </Col>
                 <Col xs={24} sm={17} md={17} lg={17} xl={17} xxl={17}>
                     <div className='flexButton'>
@@ -145,9 +186,6 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                         </div>
                     </div>
                 </Col>
-                {/* <Col xs={12} sm={2} md={2} lg={2} xl={2} xxl={2} className='textEnd'>
-                    <span className='viewAll'>View All</span>
-                </Col> */}
             </Row >
             <div className='gapMarginTopOne'></div>
 
@@ -157,7 +195,7 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                         <Col xs={12} sm={12} md={12} lg={6} xl={6} xxl={6}
                             key={folder._id || index}
                         >
-                            <Link href='#'>
+                            <Link href='#' onClick={() => currentInnerFolderId(folder)}>
                                 <div className='cardCommn active'
                                     onDoubleClick={() => handleDoubleClick(folder)}
                                 >
@@ -188,37 +226,72 @@ export default function NewFolder({ newFolderName, getParent, onBack }: props) {
                 <Row gutter={[16, 16]}>
                     <>
                         {fileWithFolderId && fileWithFolderId.map((file: any, index: any) => (
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index}>
-                                <Link href='#'>
-                                    <div className='cardCommn' >
-                                        <div style={{ display: 'flex', gap: '10px' }}>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <GetFileTypeIcon fileType={file.fileType} size={30} />
-                                                </ParaText>
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index} onClick={() => { handleFile(file._id) }}>
+                                <div className='cardCommn'
+                                    style={{ color: '#efa24b', cursor: 'pointer' }}
+                                >
+                                    <Row>
+                                        <Col md={23}>
+                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <GetFileTypeIcon fileType={file.fileType} size={30} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <ShortFileName fileName={file.fileName} short={50} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+                                                    <ParaText size='textGraf' color='black' fontWeightBold={600}>
+                                                        <GetFileTypeName fileType={file.fileType} />
+                                                    </ParaText>
+                                                </div>
+                                                <div style={{ padding: '2px' }}>
+                                                    <ParaText size='smallExtra' color='black' className='dBlock'>
+                                                        <GetFileSize fileSize={file.fileSize} />
+                                                    </ParaText>
+                                                </div>
+                                                <div>
+
+                                                </div>
                                             </div>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <ShortFileName fileName={file.fileName} short={50} />
-                                                </ParaText>
-                                            </div>
-                                            <div>
-                                                <ParaText size='textGraf' color='black' fontWeightBold={600}>
-                                                    <GetFileTypeName fileType={file.fileType} />
-                                                </ParaText>
-                                            </div>
-                                            <div style={{ padding: '2px' }}>
-                                                <ParaText size='smallExtra' color='black' className='dBlock'>
-                                                    <GetFileSize fileSize={file.fileSize} />
-                                                </ParaText>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
+                                        </Col>
+                                        <Col md={1}>
+                                            <Dropdown
+                                                menu={{ items: getMenuItems(file) }}
+                                                trigger={['click']}
+                                                className='viewAll'
+                                            >
+                                                <a onClick={(e) => e.preventDefault()}>
+                                                    <HiDotsVertical />
+                                                </a>
+                                            </Dropdown>
+                                        </Col>
+                                    </Row>
+
+                                </div>
                             </Col>
                         ))}
                     </>
                 </Row>
+                <Image.PreviewGroup
+                    preview={{
+                        visible: previewVisible,
+                        onVisibleChange: (visible) => setPreviewVisible(visible),
+                    }}
+                >
+                    <Image
+                        src={previewImage}
+                        style={{ display: 'none' }}
+                        preview={{
+                            visible: previewVisible,
+                            src: previewImage,
+                            onVisibleChange: (visible) => setPreviewVisible(visible),
+                        }}
+                    />
+                </Image.PreviewGroup>
             </>
         </>
     )

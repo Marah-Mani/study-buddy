@@ -6,9 +6,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoFolderOpenOutline } from 'react-icons/io5';
 import AuthContext from '@/contexts/AuthContext';
-import ErrorHandler from '@/lib/ErrorHandler';
-import { getAllRoles } from '@/lib/commonApi';
-import { Roles } from '@/lib/types';
 import ParaText from '../ParaText';
 
 type MenuItem = {
@@ -42,37 +39,15 @@ function getItem(
 export default function MenuAUser() {
 	const [isActive, setIsActive] = useState(true);
 	const { logout } = useContext(AuthContext);
-	const [role, setAllRole] = useState<Roles[]>([]);
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
 	const [defaultSelectedKey, setDefaultSelectedKey] = useState('1')
 
-	useEffect(() => {
-		fetchData();
-	}, [user]);
-
-	const fetchData = async () => {
-		try {
-			const res = await getAllRoles();
-			if (res.status === true) {
-				setAllRole(res.data);
-				setLoading(false);
-			}
-		} catch (error) {
-			setLoading(false);
-			ErrorHandler.showNotification(error);
-		}
-	};
 
 	function handleClick(href: any) {
 		if (href.key == 10) {
 			logout();
 		}
-	}
-
-	function handleLogout(e: any) {
-		e.preventDefault();
-		logout();
 	}
 
 	const staticItems: MenuItem[] = [
@@ -189,33 +164,15 @@ export default function MenuAUser() {
 			<Link href="/en/user/studybuddy">
 				<span onClick={() => setIsActive(true)} >
 					{defaultSelectedKey === '8' ? (
-						<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+						<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 					)
 						:
 						(
-							<Image preview={false} src="/icons/logo.png" alt="Active User" width={20} height={20} />
+							<Image preview={false} src="/icons/study.png" alt="Active User" width={20} height={20} />
 						)}
 				</span>
 			</Link>
-		),
-		// getItem(
-		// 	'Logout',
-		// 	'7',
-		// 	<Link href="/en/login">
-		// 		<span onClick={() => setIsActive(true)}>
-		// 			{defaultSelectedKey === '7' ? (
-		// 				<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
-		// 			)
-		// 				:
-		// 				(
-		// 					<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
-		// 				)}
-		// 		</span>
-		// 	</Link>,
-		// 	undefined,
-		// 	undefined,
-		// 	'logout-bottom',
-		// ),
+		)
 	];
 
 	const pathname = usePathname();

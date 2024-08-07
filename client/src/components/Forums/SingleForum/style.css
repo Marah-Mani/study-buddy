@@ -7,13 +7,22 @@
 }
 
 .replyDivBorder {
-  border: 1px solid #f1a638 !important;
+  border: 2px solid #344734 !important;
   border-radius: 16px !important;
   padding: 10px !important;
   margin-bottom: 16px !important;
   margin-top: 16px !important;
 }
-
+.replyDivBorder svg {
+  color: #344734;
+}
+.pLeft {
+  padding-left: 20px !important;
+}
+.commentsFlex {
+  display: flex;
+  gap: 8px;
+}
 .backArrowIcon {
   font-size: 17px;
   border-radius: 50%;
@@ -31,7 +40,6 @@
 }
 .likeCommentRadius {
   border-radius: 20px;
-  padding: 9px;
   color: #f1a638;
 }
 
@@ -44,4 +52,22 @@
 
 .body.dark-mode .question {
   border: 2px solid #686868;
+}
+
+@media (max-width: 991px) {
+  .question {
+    margin-top: 10px;
+  }
+  .commentsFlex {
+    display: block;
+  }
+  .pLeft {
+    padding-left: 12px !important;
+  }
+  .descriptionMargin {
+    margin-left: 0px;
+  }
+  .gapSection {
+    margin-bottom: 10px;
+  }
 }

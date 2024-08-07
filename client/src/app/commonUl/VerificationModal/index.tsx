@@ -114,17 +114,7 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 			setIsLoadingTwo(false);
 		}, 60000); // 60 seconds = 60000 milliseconds
 	};
-	const handleCancel = () => {
-		onCancel();
-		setInputValues({
-			input1: '',
-			input2: '',
-			input3: '',
-			input4: ''
-		});
-		setIsLoading(false);
-		setIsLoadingTwo(false);
-	};
+
 
 	const formatCountdown = (seconds: any) => {
 		const minutes = Math.floor(seconds / 60);
@@ -134,9 +124,6 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 		return `${formattedMinutes}:${formattedSeconds}`;
 	};
 
-	const handleSkip = () => {
-		onSkip();
-	}
 
 	return (
 		<>
@@ -197,7 +184,7 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 				<div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
 					<div className="mt-4">
 						<SecondaryButton
-							label={isLoading ? 'Please wait verifying email address' : 'my email address'}
+							label={isLoading ? 'Please wait verifying email address' : 'My email address'}
 							type="primary"
 							onClick={handleSubmit}
 							disabled={isLoading}
@@ -213,9 +200,6 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 						{isLoadingTwo ? `Resend code in: ${formatCountdown(countdown)}` : 'Resend OTP'}
 					</span>
 				</p>
-				<span style={{ cursor: 'pointer', color: '#0091f7' }} onClick={handleSkip}>
-					Continue without OTP
-				</span>
 			</div>
 		</>
 	);

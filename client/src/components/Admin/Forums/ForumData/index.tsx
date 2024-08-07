@@ -24,9 +24,9 @@ interface DataType {
     tags: string[];
 }
 export default function ForumData({ activeKey, onEdit, reload, getData, filterData }: Props) {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const [selectedforumId, setSelectedforumId] = useState<string[]>([]);
+
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchData();
@@ -41,8 +41,10 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
             const res = await getAllForums(searchObject);
             if (res.status == true) {
                 getData(res.data)
+                setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             ErrorHandler.showNotification(error);
         }
     }
@@ -103,40 +105,11 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
         { title: 'Views', dataIndex: 'views' },
         { title: 'Action', dataIndex: 'action' }
     ];
-    const rowSelection = {
-        onChange: (selectedRowKeys: any) => {
-            if (selectedRowKeys) {
-                setSelectedRowKeys(selectedRowKeys);
-            }
-            setSelectedforumId(selectedRowKeys);
-        }
-    };
 
 
-
-    const confirmDelete = async () => {
-        const response = await deleteForum(selectedforumId);
-        if (response) {
-            getAllForums();
-            setSelectedRowKeys([])
-        }
-    }
     return (
         <>
-            {/* {selectedRowKeys.length > 0 && <Popconfirm
-                style={{ height: '40px' }}
-                title="Are you sure to delete selected Forums?"
-                onConfirm={confirmDelete}
-                okText="Yes"
-                cancelText="No"
-            >
-                <Button
-                    danger
-                    ghost>
-                    Delete
-                </Button>
-            </Popconfirm>} */}
-            <Table columns={columns} bordered dataSource={data} />
+            <Table columns={columns} loading={loading} bordered dataSource={data} />
         </>
     )
 }

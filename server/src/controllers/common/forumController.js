@@ -81,7 +81,6 @@ const invoiceController = {
 					query.userId = search.userId;
 				}
 			}
-
 			const forums = await Forum.find(query)
 				.sort({ createdAt: -1 })
 				.populate('userId')
@@ -132,7 +131,7 @@ const invoiceController = {
 
 	deleteForum: async (req, res) => {
 		try {
-			const forumId = req.body;
+			const { forumId } = req.body;
 			if (!forumId) {
 				return res.status(400).json({ status: false, message: 'Forums ID is required' });
 			}
@@ -166,7 +165,8 @@ const invoiceController = {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
-	}
+	},
+
 };
 
 module.exports = invoiceController;

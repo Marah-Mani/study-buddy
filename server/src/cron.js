@@ -5,7 +5,7 @@ const { sendNotification } = require('./utils/subscribeNotification');
 const importantEventPayload = {
 	title: 'Important Event',
 	description: 'Something important happened!',
-	image: 'https://rentstayable.com/wp-content/uploads/2023/05/cropped-fav-192x192.png'
+	image: ''
 };
 
 cron.schedule('*/10 * * * * *', async () => {

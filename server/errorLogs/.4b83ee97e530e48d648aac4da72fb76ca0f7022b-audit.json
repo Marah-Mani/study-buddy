@@ -46,9 +46,69 @@
             "hash": "3091702e8b68acb72ef908d1377cc8217c0c57476818e8f73e57f75697e1b22f"
         },
         {
-            "date": 1723005396397,
+            "date": 1721276260396,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-18.log",
+            "hash": "5e0206fd4acc314ad4324842b8bb047e7b6ae9620eb57b4e08123847cd2ef845"
+        },
+        {
+            "date": 1721362840335,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-19.log",
+            "hash": "5d0bff03cccede5990e9e9b6820279088a204f22969665ddae92adf486ea9c40"
+        },
+        {
+            "date": 1721446885530,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-20.log",
+            "hash": "95cad01d4237784728de49f4267beb435b78211cb4ea99b2d43faddfd49eac7a"
+        },
+        {
+            "date": 1721621304799,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-22.log",
+            "hash": "d93902f6bee7b5ccf5d019f9c010cc78065c72c4876c14591a0cae34102afa3c"
+        },
+        {
+            "date": 1721706614366,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-23.log",
+            "hash": "29e295aeed2387aaa39553a146dab21dc361fe8de5af5635755338d4b232530a"
+        },
+        {
+            "date": 1721883618773,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-25.log",
+            "hash": "bca0ee335965a2f6f628dfc8d23b2398b5719b27e930c7284092a40f4c705876"
+        },
+        {
+            "date": 1721965730157,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-26.log",
+            "hash": "ec3d2874153f2133a8b727fc800984f9d419179502ee65495b2749bcd49ac542"
+        },
+        {
+            "date": 1722229171631,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-29.log",
+            "hash": "17bc8fb11dd63865b909be80917991b22b77c279007149b1d849c3d01b1d3f15"
+        },
+        {
+            "date": 1722311510806,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-30.log",
+            "hash": "32e5bf8f7bbe2438f258711c0d6f46ba730c01b2c6caadfb620ec6ab438d68a3"
+        },
+        {
+            "date": 1722399621216,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-07-31.log",
+            "hash": "c6223125387ee29329449e25480afdb9bb2cf24099517e7e877e3877d4634e07"
+        },
+        {
+            "date": 1722685808419,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-08-03.log",
+            "hash": "3f4aceae63a3847d6c51d88979781bf20985930f64d1a4ca8b63deaeac3ac626"
+        },
+        {
+            "date": 1722940314010,
+            "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-08-06.log",
+            "hash": "654dde7963879289f84608a96d7bbb9ed5bf18cf5935c8cf8588236cfe7cdd14"
+        },
+        {
+            "date": 1723002766431,
             "name": "/opt/lampp/htdocs/study-buddy/server/errorLogs/error-2024-08-07.log",
-            "hash": "ba2491316ea1bdb7405a657b0d60f5480baffeb6d243763386063e42aaa3a6b1"
+            "hash": "ddae24a87c90fab4b72cb924887a9ba2a47c2a4bd0259224ec4c5c7dbcf5b2a4"
         }
     ],
     "hashType": "sha256"

@@ -3,7 +3,7 @@ import { Conversation } from '@chatscope/chat-ui-kit-react';
 import Avatar from 'react-avatar';
 import StringAvatar from '@/app/commonUl/StringAvatar';
 import { getSender, getSenderFull } from '@/lib/chatLogics';
-import { Dropdown, Menu, Popconfirm, Tooltip } from 'antd';
+import { Dropdown, Menu, Popconfirm } from 'antd';
 import {
     InfoCircleOutlined,
     VideoCameraOutlined,
@@ -36,6 +36,9 @@ interface ConversationItemProps {
     handleRightClick: any;
     onReload: any;
     search: string;
+    viewInfo: boolean;
+    changeInfo: any;
+    handleConversationClick: any
 }
 
 const ConversationItem: React.FC<ConversationItemProps> = ({
@@ -48,7 +51,10 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     user,
     handleRightClick,
     onReload,
-    search = ''
+    search = '',
+    viewInfo,
+    changeInfo,
+    handleConversationClick
 }) => {
     const [selectedChatId, setSelectedChatId] = useState<any>(null);
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
@@ -66,6 +72,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
     };
 
     const handleSelectChatWithContext = (chat: any) => {
+        // changeInfo(!viewInfo)
         setSelectedChat(chat);
         handleSelectChat(chat);
         handleCloseContextMenu(); // Close context menu after selecting chat
@@ -258,22 +265,11 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
             >
                 <Conversation
                     key={key}
-                    onClick={() => { setSelectedChat(chat); handleSelectChat(chat) }}
+                    onClick={() => { setSelectedChat(chat); handleSelectChat(chat), handleConversationClick() }}
                     active={selectedChat?._id === chat._id}
                     unreadCnt={!chat?.isMute?.mute && chat.unreadCount}
-                    lastActivityTime={
-                        <>
-                            <span style={{ color: 'teal' }}>
-                                {onlineUsers.some((userData: any) => userData.userId === getSenderFull(user, chat.users)._id) ? 'Online' : ''}
-                                <Tooltip title={'Muted'}>
-                                    <div className='textEnd'>
-                                        {chat?.isMute?.mute && <MdOutlineVolumeOff style={{ fontSize: '18px', color: '#000' }} />}
-                                    </div>
-                                </Tooltip>
-                            </span>
-                        </>}
                 >
-                    <Conversation.Content>
+                    <Conversation.Content style={{ display: 'block' }}>
                         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                             <div style={{ position: 'relative' }}>
                                 {chat.image ?
@@ -291,13 +287,6 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                                 }
                             </div>
                             <div className='userName'>
-                                <p
-                                    style={{
-                                        fontWeight: '600',
-                                        textTransform: 'capitalize'
-                                    }}>
-                                    {!chat.isGroupChat ? getSender(user, chat.users) : chat.chatName}
-                                </p>
                                 <p style={{
                                     fontSize: '12px',
                                     fontWeight: '400'
@@ -307,12 +296,12 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                                         :
                                         !chat.isGroupChat ? getSender(user, chat.users) : chat.chatName
                                     }
-                                    <span dangerouslySetInnerHTML={{
+                                    <p dangerouslySetInnerHTML={{
                                         __html: !user.block.includes(getSenderFull(user, chat.users)._id) && chat.latestMessage &&
-                                            `: ${chat.latestMessage.content.length > 50
+                                            ` ${chat.latestMessage.content.length > 50
                                                 ? `${chat.latestMessage.content.substring(0, 51)}...`
                                                 : chat.latestMessage.content}`
-                                    }}></span>
+                                    }}></p>
                                 </p>
                             </div>
                         </div>

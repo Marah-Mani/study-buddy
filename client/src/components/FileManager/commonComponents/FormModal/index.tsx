@@ -57,16 +57,7 @@ export default function FormModal({ folderRename, onClose, currentInnerFolderId 
                 >
                     <Input type='text' placeholder='folderName' />
                 </FormItem>
-                <FormItem label="Description" name="description"
-                    rules={[
-                        {
-                            max: validationRules.textLength.maxLength,
-                            message: `Description must be at most ${validationRules.textLength.maxLength} characters`
-                        }
-                    ]}
-                >
-                    <Input.TextArea placeholder='folderName' />
-                </FormItem>
+
                 <Row align="stretch" gutter={[16, 16]}>
                     <Col lg={4} md={4} sm={12} xs={12}>
                         <Button type="primary" htmlType="submit" className="w100" style={{ borderRadius: '30px' }}>

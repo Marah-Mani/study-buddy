@@ -1,5 +1,5 @@
+import { Flex, Spin } from 'antd';
 import React from 'react';
-import { DNA } from 'react-loader-spinner';
 
 interface LoadingProps {
 	height?: string;
@@ -7,23 +7,8 @@ interface LoadingProps {
 
 export default function Loading({ height = '80vh' }: LoadingProps) {
 	return (
-		<div
-			style={{
-				width: '100%',
-				height: `${height}`,
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center'
-			}}
-		>
-			<DNA
-				visible={true}
-				height="100"
-				width="200"
-				ariaLabel="dna-loading"
-				wrapperStyle={{}}
-				wrapperClass="dna-wrapper"
-			/>
-		</div>
+		<Flex style={{ height: `${height}` }} gap="large" justify={'center'} align={'center'} vertical>
+			<Spin tip="Loading..." size="large"></Spin>
+		</Flex>
 	);
 }

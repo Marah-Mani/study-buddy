@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './style.css';
 import { Tabs } from 'antd';
 import ParaText from '@/app/commonUl/ParaText';
@@ -12,11 +12,13 @@ import FavoriteFiles from '@/components/FileManager/MainComponents/FavoriteFiles
 import RecycleBin from '@/components/FileManager/MainComponents/RecycleBin';
 import RecentFiles from '@/components/FileManager/MainComponents/RecentFiles';
 import MyFiles from '@/components/FileManager/MainComponents/MyFiles';
+import AuthContext from '@/contexts/AuthContext';
+import Loading from '@/app/commonUl/Loading';
 
 export default function Page() {
     const [initialState, setInitialState] = useState('');
     const [key, setKey] = useState('1');
-
+    const { user } = useContext(AuthContext);
     const items = [
         {
             label: (
@@ -32,7 +34,7 @@ export default function Page() {
         {
             label: (
                 <p><HomeOutlined /> My Files</p>
-            ), component: <MyFiles activeKey={key} />
+            ), component: <MyFiles activeKey={key} type={'myFile'} />
         },
         {
             label: (
@@ -54,6 +56,12 @@ export default function Page() {
         key: String(index + 1),
         children: item.component
     }));
+
+    if (!user) {
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <>

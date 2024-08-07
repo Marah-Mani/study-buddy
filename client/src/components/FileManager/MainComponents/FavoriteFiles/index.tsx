@@ -19,7 +19,7 @@ export default function FavoriteFiles({ activeKey }: Props) {
             <div id='favoriteFiles'>
                 <Row gutter={16}>
                     <Col md={fileId ? 18 : 24}>
-                        <GetFiles userId={user?._id} fileType={undefined} activeKey={activeKey} onSelectedId={(id: any) => { setFileId(id) }} />
+                        <GetFiles userId={user?._id} type={''} fileType={undefined} activeKey={activeKey} onSelectedId={(id: any) => { setFileId(id) }} />
                     </Col>
                     {fileId &&
                         <Col md={6}>

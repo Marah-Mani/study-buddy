@@ -22,9 +22,11 @@ export default function RecycleBin({ activeKey }: any) {
     }, [user, activeKey])
 
     const getFolderData = async () => {
-        const response = await GetRecycledFilesAndFolders(user?._id)
-        setFolderData(response.data.recycledFolders)
-        setFileData(response.data.recycledFiles)
+        const response = await GetRecycledFilesAndFolders(user?._id);
+        if (response.status === true) {
+            setFolderData(response.data.recycledFolders)
+            setFileData(response.data.recycledFiles)
+        }
     }
 
     const handleMenuClick = async (action: string, folderId: string) => {
@@ -39,11 +41,20 @@ export default function RecycleBin({ activeKey }: any) {
 
     const handlefileMenuClick = async (action: string, fileId: string) => {
         if (action === 'restore') {
-            await RecoverFile({ fileId });
-            getFolderData();
+            const res = await RecoverFile({ fileId });
+            if (res.status === true) {
+                getFolderData();
+            }
         } else if (action === 'delete') {
-            await deleteFilePermanently({ fileId });
-            getFolderData();
+            try {
+                const res = await deleteFilePermanently({ fileId });
+                if (res.status === true) {
+                    getFolderData();
+                }
+            } catch (err) {
+                console.log(err);
+            }
+
         }
     };
 

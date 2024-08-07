@@ -11,7 +11,6 @@ const { common } = CHAT;
 export default function Media() {
     const [files, setFiles] = useState<any>([]);
     const { config, selectedChat }: any = useContext(ChatContext);
-
     const chatFiles = async (chatId: string) => {
         const { data } = await axios.get(
             `${baseURL}${common.chatFiles(chatId)}`,
@@ -37,9 +36,10 @@ export default function Media() {
                 width: '100%',
             }}
         >
-            {files.length > 0 &&
+            {
+                files.length > 0 &&
                 files.map((file: any) => (
-                    file.type === 'image/jpeg' && (
+                    (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') && (
                         <div
                             key={file._id}
                             style={{
@@ -56,7 +56,9 @@ export default function Media() {
                             />
                         </div>
                     )
-                ))}
+                ))
+            }
+
         </div>
     );
 }

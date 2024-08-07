@@ -22,9 +22,10 @@ interface SearchUserProps {
     showGroupChatModal: boolean;
     setShowGroupChatModal: React.Dispatch<React.SetStateAction<boolean>>;
     selectedChat?: any;
+    handleConversationClick: any;
 }
 
-export default function SearchUser({ setShowGroupChatModal, selectedChat }: SearchUserProps) {
+export default function SearchUser({ setShowGroupChatModal, selectedChat, handleConversationClick }: SearchUserProps) {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState<any>([]);
     const { setSelectedChat, user, chats, setChats }: any = useContext(ChatContext);
@@ -80,32 +81,65 @@ export default function SearchUser({ setShowGroupChatModal, selectedChat }: Sear
             />
             <ConversationList>
                 <Conversation
-                    info={'Click to create a new group'}
-                    name={'Create group'}
                     key={'create-group'}
                     onClick={() => setShowGroupChatModal(true)}
                 >
-                    <Avatar
-                        name={'Create group'}
-                        src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROB8wXTaA21zUONrcL0oh-zhlNVdxqFMA5EQ&s'}
-                    />
+                    <Conversation.Content style={{ display: 'block' }}>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <div style={{ position: 'relative' }}>
+                                <Avatar
+                                    name={'Create group'}
+                                    src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROB8wXTaA21zUONrcL0oh-zhlNVdxqFMA5EQ&s'}
+                                />
+                            </div>
+                            <div
+                                className='userName'
+                            >
+                                <p style={{
+                                    fontSize: '12px',
+                                    fontWeight: '400'
+                                }}>
+                                    <p style={{ fontSize: '12px', fontWeight: '400' }}>
+                                        Create group
+                                    </p>
+                                    Click to create a new group
+                                </p>
+                            </div>
+                        </div>
+                    </Conversation.Content>
                 </Conversation>
                 {searchResult.length > 0 && searchResult.map((result: User) => (
                     <Conversation
-                        info={user.block.includes(result._id) ? (
-                            <p>You blocked this user.</p>
-                        ) : 'Click to a new start chat'}
-                        name={result.name}
                         key={result._id}
-                        onClick={() => accessChat(result._id)}
+                        onClick={() => { accessChat(result._id), handleConversationClick() }}
                         active={selectedChat && getSenderFull(user, selectedChat?.users)._id === result._id}
                     >
-                        <Avatar
-                            name={result.name}
-                            src={'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'}
-                            // src={chat.image}
-                            status="available"
-                        />
+                        <Conversation.Content style={{ display: 'block' }}>
+                            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                                <div style={{ position: 'relative' }}>
+                                    <Avatar
+                                        name={result.name}
+                                        src={'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'}
+                                        status="available"
+                                    />
+                                </div>
+                                <div
+                                    className='userName'
+                                >
+                                    <p style={{
+                                        fontSize: '12px',
+                                        fontWeight: '400'
+                                    }}>
+                                        <p style={{ fontSize: '12px', fontWeight: '400' }}>
+                                            {result.name}
+                                        </p>
+                                        {user.block.includes(result._id) ? (
+                                            <p>You blocked this user.</p>
+                                        ) : 'Click to a new start chat'}
+                                    </p>
+                                </div>
+                            </div>
+                        </Conversation.Content>
                     </Conversation>
                 ))}
             </ConversationList>

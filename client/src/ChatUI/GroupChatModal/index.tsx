@@ -28,8 +28,8 @@ const GroupChatModal = ({ open, setOpen }: GroupChatModalProps) => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const token = Cookies.get('session_token');
-
-    const { user, chats, setChats } = useContext(ChatContext);
+    const [form] = Form.useForm();
+    const { user, chats, setChats, setFetchAgain, fetchAgain } = useContext(ChatContext);
 
     const handleGroup = (userToAdd: any) => {
         if (selectedUsers.includes(userToAdd)) {
@@ -94,6 +94,8 @@ const GroupChatModal = ({ open, setOpen }: GroupChatModalProps) => {
             notification.success({
                 message: 'New Group Chat Created!'
             });
+            setFetchAgain(!fetchAgain);
+            form.resetFields();
         } catch (error) {
             notification.error({
                 message: 'Failed to Create the Chat!'
@@ -113,7 +115,7 @@ const GroupChatModal = ({ open, setOpen }: GroupChatModalProps) => {
                 </Button>,
             ]}
         >
-            <Form layout='vertical'>
+            <Form layout='vertical' form={form}>
                 <Form.Item>
                     <Input
                         placeholder='Chat Name'
@@ -142,7 +144,9 @@ const GroupChatModal = ({ open, setOpen }: GroupChatModalProps) => {
                 <Spin tip='Loading...' />
             ) : (
                 <Row gutter={[16, 16]}>
-                    {searchResult?.slice(0, 4).map((user: User) => (
+                    {searchResult?.filter((user: User) =>
+                        !selectedUsers.some((selectedUser: { _id: string | null | undefined; }) => selectedUser._id === user._id)
+                    ).slice(0, 4).map((user: User) => (
                         <Col key={user._id}>
                             <UserListItem
                                 user={user}

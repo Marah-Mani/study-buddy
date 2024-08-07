@@ -1,69 +1,63 @@
 'use client';
 import React, { useState, useEffect, useContext } from 'react';
 import './style.css';
-import { Col, Divider, Drawer, Image, Row, Badge, Avatar, Button } from 'antd';
+import { Col, Divider, Drawer, Image, Row, Avatar, Button } from 'antd';
 import { FaRegBell } from 'react-icons/fa6';
 import AuthContext from '@/contexts/AuthContext';
-import ErrorHandler from '@/lib/ErrorHandler';
 import Link from 'next/link';
 import ParaText from '../ParaText';
 import { UserOutlined } from '@ant-design/icons';
 import { IoNotificationsOffOutline } from 'react-icons/io5';
 import { usePathname, useRouter } from 'next/navigation';
-import { getUserNotification, updateReadStatus } from '@/lib/commonApi';
+import { getUserNotification, updateAllReadStatus, updateReadStatus } from '@/lib/commonApi';
 import UserAvatarForHeader from '../UserAvatarForHeader';
 import LastLoginDateTime from '@/components/frontend/LastLoginDateTime';
-import { getHeaderMenus } from '@/lib/frontendApi';
 import { CiDark } from 'react-icons/ci';
 import { MdDarkMode } from 'react-icons/md';
 import { IoMenuSharp } from 'react-icons/io5';
 import MenuUserMobile from '../MenuUserMobile';
 import MenuAdminMobile from '../MenuAdminMobile';
 import Titles from '../Titles';
+import ErrorHandler from '@/lib/ErrorHandler';
 
 export default function TopBar() {
 	const [showNotificationBell, setShowNotificationBell] = useState(false);
 	const { user } = useContext(AuthContext);
 	const [notificationData, setNotificationData] = useState<any[]>([]);
-	const [latestBell, setLatestBell]: any = useState('');
-	const [headerMenu, setHeaderMenu] = useState<any>([]);
 	const pathName = usePathname();
+	const [showIcon, setShowIcon] = useState(0);
 
 	const router = useRouter();
-	const handleDivClickBell = (event: any) => {
+	const handleDivClickBell = async (event: any) => {
 		event.stopPropagation();
 		if (user) {
 			fetchAllNotifications();
 		}
 		setShowNotificationBell(true);
-	};
-
-	useEffect(() => {
-		fetchAllNotifications();
-		fetchHeaderMenu();
-	}, []);
-
-	const fetchHeaderMenu = async () => {
 		try {
-			const res = await getHeaderMenus();
-			if (res.status === true) {
-				setHeaderMenu(res.data);
+			const data = {
+				userId: user?._id,
+				isRead: 'yes'
+			};
+			const res = await updateAllReadStatus(data);
+			if (res.success == true) {
+				fetchAllNotifications();
 			}
 		} catch (error) {
 			ErrorHandler.showNotification(error);
 		}
 	};
 
+	useEffect(() => {
+		if (user) fetchAllNotifications();
+	}, [user]);
+
 	const fetchAllNotifications = async () => {
 		try {
-			if (user) {
-				const res = await getUserNotification(user?._id);
-				if (res.status === true) {
-					setNotificationData(res.data);
-					if (res.data.length > 0) {
-						setLatestBell(res.data[0]);
-					}
-				}
+			const res = await getUserNotification(user?._id);
+			if (res.status === true) {
+				setNotificationData(res.data);
+				setShowIcon(res.unreadCount);
 			}
 		} catch (error) { }
 	};
@@ -141,21 +135,8 @@ export default function TopBar() {
 							</Link>
 						</Link>
 					</Col>
-					{/* <Col xs={0} sm={0} md={16} lg={16} xl={16} xxl={16} className={'textCenter'}>
-						{headerMenu.length > 0 &&
-							headerMenu.map((menu: any, index: any) => {
-								return (
-									<Link style={{ paddingLeft: '10px' }} key={index} href={`${menu.link}`}>
-										<ParaText size="small" color="secondaryColor">
-											{menu.title}
-										</ParaText>
-									</Link>
-								);
-							})}
-						<div></div>
-					</Col> */}
 					<Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-						<div style={{ display: 'flex', alignItems: 'center', gap: '15px', justifyContent: 'end' }}>
+						<div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'end' }}>
 							<div className="mobileMenu">
 								<div className="menuIcon" onClick={showDrawer}>
 									<IoMenuSharp color="#000" size={20} />
@@ -177,18 +158,14 @@ export default function TopBar() {
 								/>
 							</div>
 							<div onClick={handleDivClickBell}>
-								{latestBell.isRead === '' ? (
-									<FaRegBell size={20} color="#fff" />
-								) : (
-									<div
-										className="bell"
-										onClick={(e) => {
-											handleDivClickBell(e);
-										}}
-									>
-										<FaRegBell color="#fff" size={20} />
-									</div>
-								)}
+								<div
+									className={`${showIcon == 0 ? '' : 'bell'}`}
+									onClick={(e) => {
+										handleDivClickBell(e);
+									}}
+								>
+									<FaRegBell color="#fff" size={20} />
+								</div>
 							</div>
 
 							{showNotificationBell && (
@@ -289,15 +266,6 @@ export default function TopBar() {
 																	)}
 																</span>
 															</Col>
-															<Col xs={1} sm={1} md={2} lg={2} xl={2} xxl={2}>
-																<div>
-																	{notification?.isRead == 'no' ? (
-																		<Badge status="processing" text="" />
-																	) : (
-																		''
-																	)}
-																</div>
-															</Col>
 															<Divider />
 														</Row>
 													);
@@ -335,10 +303,11 @@ export default function TopBar() {
 					className="paddingRemoveBody"
 					onClose={onClose}
 					open={open}
+					style={{ overflow: 'hidden' }}
 					placement="left"
 					width="300"
 				>
-					{user?.role == 'admin' ? <MenuAdminMobile /> : <MenuUserMobile />}
+					{user?.role == 'admin' ? <MenuAdminMobile onBack={onClose} /> : <MenuUserMobile onBack={onClose} />}
 				</Drawer>
 			</div>
 		</>

@@ -20,8 +20,8 @@ export const getUserNotification = async (userId: any): Promise<any> => {
 };
 
 export const updateReadStatus = async (data: any): Promise<any> => {
-	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
+		const token = Cookies.get('session_token');
 		const req = axios.request({
 			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/notification/mark-all-as-read`,
 			method: 'post',
@@ -39,14 +39,14 @@ export const updateReadStatus = async (data: any): Promise<any> => {
 };
 
 export const updateAllReadStatus = async (data: any): Promise<any> => {
-	const token = Cookies.get('session_token');
 	return new Promise((resolve, reject) => {
+		const token = Cookies.get('session_token');
 		const req = axios.request({
 			url: `${process.env['NEXT_PUBLIC_API_URL']}/common/notification/mark-all-as-read`,
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
-				Authorization: `${token}`
+				Authorization: `Bearer ${token}`
 			},
 			data: {
 				...data
@@ -1056,3 +1056,18 @@ export const getAllUsersStudyBuddy = async (query: any = {}): Promise<any> => {
 	});
 };
 
+
+export const getFilterDepartment = async (): Promise<any> => {
+	const token = Cookies.get('session_token');
+	return new Promise((resolve, reject) => {
+		const req = axios.request({
+			url: `${process.env.NEXT_PUBLIC_API_URL}/common/forum/getFilterDepartment`,
+			method: 'get',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
+			}
+		});
+		req.then((res) => resolve(res.data)).catch((err) => reject(err));
+	})
+}

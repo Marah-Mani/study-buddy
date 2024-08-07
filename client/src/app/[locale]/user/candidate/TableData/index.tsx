@@ -20,20 +20,29 @@ interface Props {
     reload: boolean;
     onEdit: any;
     searchInput: any;
+    categoryId: any;
+    subCatId: any;
 }
 
-export default function TableData({ reload, searchInput }: Props) {
+export default function TableData({ reload, searchInput, categoryId, subCatId }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchData();
-    }, [reload, searchInput]);
+    }, [reload, searchInput, categoryId, subCatId]);
+
+    console.log(subCatId);
 
     const fetchData = async () => {
         try {
             setLoading(true);
-            const res = await getAllUsersStudyBuddy({ search: searchInput });
+            const searchObject = {
+                catId: categoryId?._id,
+                subCatId: subCatId,
+                search: searchInput
+            };
+            const res = await getAllUsersStudyBuddy(searchObject);
             if (res.status === true) {
                 setAllProducts(res.data);
                 setLoading(false);
@@ -59,6 +68,10 @@ export default function TableData({ reload, searchInput }: Props) {
             dataIndex: 'department',
         },
         {
+            title: 'Course',
+            dataIndex: 'subCatId',
+        },
+        {
             title: 'Interested-In',
             dataIndex: 'interestedIn',
         },
@@ -78,10 +91,11 @@ export default function TableData({ reload, searchInput }: Props) {
             <Image
                 src={data?.image ?
                     `${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${data?.image}`
-                    : `/images/avatar.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
+                    : `/images/users.png`} width={30} height={30} alt={data.name} style={{ borderRadius: '5px' }} /><span>{data.name}</span>
         </Space>,
         email: data.email,
         department: data.departmentId?.departmentName || 'N/A',
+        subCatId: data.subjects.join(', '),
         interestedIn: <TextCapitalize text={data.interestedIn} />,
         gender: <TextCapitalize text={data.gender} />,
         status: data.status || 'N/A',

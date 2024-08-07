@@ -9,15 +9,12 @@ import ParaText from '@/app/commonUl/ParaText';
 import { useParams, usePathname } from 'next/navigation';
 import Titles from '@/app/commonUl/Titles';
 import AuthContext from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
 	const params = usePathname();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const { user, logout } = useContext(AuthContext);
-	const [url, setUrl] = useState('');
-	const router = useRouter();
 
 	const showDrawer = () => {
 		setOpen(true);
@@ -31,22 +28,6 @@ export default function Header() {
 			// Handle error, if any
 		}
 	};
-
-	const redirectBasedOnRole = (role: string) => {
-
-		switch (role) {
-			case 'admin':
-				setUrl('/en/admin/dashboard')
-				break;
-			case 'user':
-				setUrl('/en/user/dashboard')
-				break;
-			default:
-				router.push('/en/login');
-				break;
-		}
-	};
-
 	const onClose = () => {
 		setOpen(false);
 	};
@@ -132,8 +113,8 @@ export default function Header() {
 							</li> */}
 
 							{user?._id && (
-								<><li style={{ padding: '0px' }}>
-									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+								<><li style={{ padding: '0px' }} >
+									<Link style={{ cursor: 'pointer' }} href={`/en/${user.role}/dashboard`}>
 										<ParaText size="small" fontWeightBold={500} color="primaryColor">Dashboard</ParaText>
 									</Link>
 								</li>
@@ -162,10 +143,7 @@ export default function Header() {
 					<Row align='middle'>
 						<Col xl={0} md={0} xs={18} sm={12} >
 							<Link href="/">
-								<Link href="/">
-									{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
-									<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
-								</Link>
+								<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 							</Link>
 						</Col>
 						<Col xl={0} md={0} xs={6} sm={12} className='textEnd'>
@@ -174,9 +152,8 @@ export default function Header() {
 					</Row>
 
 					<Drawer title="" onClose={onClose} open={open} placement='left' className="textCenter">
-						<Link href="/" onClick={onClose}>
-							{/* <Titles level={3} color="primaryColor">StudyBuddy</Titles> */}
-							<img src='/images/logo.png' alt='Logo Site' className='logoSite' />
+						<Link href="/">
+							<Titles level={4} color='primaryColor'>StudyBuddy</Titles>
 						</Link>
 						<br />
 						<br />
@@ -203,20 +180,20 @@ export default function Header() {
 							<br />
 							{user?._id && (
 								<>
-									<Link onClick={() => redirectBasedOnRole(user?.role)} style={{ cursor: 'pointer' }} href={url}>
+									<Link style={{ cursor: 'pointer' }} href={`/en/${user.role}/dashboard`}>
 										Dashboard
 									</Link>
-									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href={''}>
+									<Link onClick={handleLogout} style={{ cursor: 'pointer' }} href='/en/login'>
 										Logout
 									</Link>
 								</>
 							)}
-
+							{/*
 							{user?._id ? null : (
 								<>
-									<Link href="/en/login">Loginss</Link>
+									<Link href="/en/login">Login</Link>
 								</>
-							)}
+							)} */}
 							<br />
 							<br />
 						</ul>

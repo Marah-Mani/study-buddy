@@ -2,8 +2,7 @@
   background-color: #344734;
   padding: 32px 15px;
   height: 100vh;
-  width: 100%;
-  max-width: 300px;
+  width: 17%;
   overflow-y: scroll;
   position: fixed;
 }
@@ -39,28 +38,15 @@ li.ant-menu-item.ant-menu-item-selected svg {
   bottom: 60px;
   left: 30px;
 }
-/* span.ant-menu-title-content {
-  color: #fff;
-  font-size: 16px;
-} */
-
-@media (max-width: 1700px) {
-  .menuDash {
-    max-width: 220px;
-  }
-}
 @media (max-width: 1200px) {
   .menuDash {
+    display: none;
     height: auto !important;
   }
 }
 
 @media (max-width: 1200px) {
   .userMenuLogo {
-    display: none;
-  }
-
-  .darkMenuDashUser {
     display: none;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ParaText from '@/app/commonUl/ParaText';
 import ShortFileName from '@/app/commonUl/ShortFileName';
-import { Col, Image, Input, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
+import { Avatar, Button, Col, Dropdown, Image, Input, Menu, Modal, notification, Pagination, Row, Select, Space, Tag, Tooltip } from 'antd';
 import { getProductCategories } from '@/lib/commonApi';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { WechatOutlined } from '@ant-design/icons';
@@ -16,6 +16,7 @@ import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
 import { CiSearch } from 'react-icons/ci';
 import Link from 'next/link';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import ShortFileTitleName from '@/app/commonUl/ShortFileTitleName';
 interface Props {
     activeKey: string;
@@ -25,8 +26,8 @@ export default function MarketPlace({ activeKey }: Props) {
     const [allProducts, setAllProducts] = useState<any>([]);
     const [searchInput, setSearchInput] = useState('');
     const [category, setCategory] = useState<any>([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [subCategory, setSubCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<any>('');
+    const [subCategory, setSubCategory] = useState<any>('');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [totalProducts, setTotalProducts] = useState(0);
@@ -34,7 +35,6 @@ export default function MarketPlace({ activeKey }: Props) {
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const token = Cookies.get('session_token');
     const { user } = useContext(AuthContext);
-    const { setSelectedChat, chats, setChats }: any = useContext(ChatContext);
 
     useEffect(() => {
         fetchData();
@@ -60,7 +60,7 @@ export default function MarketPlace({ activeKey }: Props) {
             const searchObject = {
                 category: selectedCategory,
                 search: searchInput,
-                subCategory,
+                subCategory: subCategory._id,
                 page: currentPage,
                 pageSize
             };
@@ -105,13 +105,13 @@ export default function MarketPlace({ activeKey }: Props) {
             const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
             const selectedUsers = [
                 {
-                    _id: data.createdBy._id
+                    _id: data.createdBy._id,
                 }
-            ];
+            ]
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             };
             await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
@@ -123,83 +123,144 @@ export default function MarketPlace({ activeKey }: Props) {
                 config
             );
             router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
+
         } catch (error) {
             notification.error({
-                message: 'Failed to Create the Chat!'
+                message: "Failed to Create the Chat!"
             });
         }
     };
 
-    function handleChat(createdBy: any) {
-        accessChat(createdBy);
-    }
-
-    const accessChat = async (userId: any) => {
-        try {
-            const config = {
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
-
-            if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
-            setSelectedChat(data);
-            router.push(`/en/${user?.role}/chat?${data._id}`);
-        } catch (error) {
-            notification.error({
-                message: 'Error fetching the chat'
-            });
+    const handleCategoryChange = (e: any) => {
+        if (e.key == 'all') {
+            setSelectedCategory('');
+            setSubCategory('');
+            return;
         }
+        const selected: any = category.categories.find((item: any) => item._id === e.key);
+        setSelectedCategory(selected);
     };
+
+    const handleSubCategory = (e: any) => {
+        const selected: any = category.subCategories.find((item: any) => item._id === e.key);
+        setSubCategory(selected);
+    };
+
 
     return (
         <>
             <Row>
                 <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12}></Col>
                 <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className="textEnd markitPlace">
-                    <Space wrap>
-                        <Select
-                            style={{ height: '35px', borderRadius: '30px' }}
-                            placeholder={'Select a category'}
-                            showSearch
-                            allowClear
-                            optionFilterProp="children"
-                            options={category.categories?.map((item: any) => {
-                                return {
-                                    value: item._id,
-                                    label: item.name
-                                };
-                            })}
-                            onChange={(value: string) => setSelectedCategory(value)}
-                        />
-                        <Select
-                            style={{ height: '35px', borderRadius: '30px' }}
-                            placeholder={'Select a sub-category'}
-                            showSearch
-                            allowClear
-                            optionFilterProp="children"
-                            options={
-                                selectedCategory
-                                    ? category.subCategories
-                                        ?.filter((item: any) => item.categoryId == selectedCategory)
-                                        .map((item: any) => ({
-                                            value: item._id,
-                                            label: item.name
-                                        }))
-                                    : []
+                    <Space wrap className="menuStyle">
+                        <Dropdown
+                            overlay={
+                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                    <Menu onClick={handleCategoryChange} >
+                                        <Menu.Item key="all" className="hovercolor">
+                                            All
+                                        </Menu.Item>
+                                        {category.categories?.map((item: any) => (
+                                            <Menu.Item key={item._id} className="hovercolor">
+                                                {item.name}
+                                            </Menu.Item>
+                                        ))}
+                                    </Menu>
+                                </div>
                             }
-                            onChange={(value: string) => setSubCategory(value)}
-                        />
+                        >
+                            <Button
+                                style={{
+                                    width: '250px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+
+                                    <>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {selectedCategory
+                                                ?
+                                                selectedCategory.name
+                                                : 'Select Department'}
+                                        </span>
+                                    </>
+                                </span>
+                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                            </Button>
+                        </Dropdown>
+                        <Dropdown
+                            overlay={
+                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
+                                    <Menu onClick={handleSubCategory}>
+                                        {selectedCategory
+                                            ? category.subCategories
+                                                ?.filter((item: any) => item.categoryId == selectedCategory._id)
+                                                .map((item: any) => (
+                                                    <Menu.Item key={item._id} className="hovercolor">
+                                                        {item.name}
+                                                    </Menu.Item>
+                                                )) : []}
+                                    </Menu>
+                                </div>
+                            }
+                        >
+                            <Button
+                                style={{
+                                    width: '250px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <span
+                                    style={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}
+                                >
+                                    <>
+                                        <span
+                                            style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap'
+                                            }}
+                                        >
+                                            {subCategory
+                                                ?
+                                                subCategory.name
+                                                : 'Select Department'}
+                                        </span>
+                                    </>
+                                </span>
+                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
+                            </Button>
+                        </Dropdown>
                         <Input
                             allowClear
                             suffix={<CiSearch />}
                             placeholder="Search"
-                            style={{ height: '35px', width: '100%', borderRadius: '30px' }}
+                            style={{ width: '100%', borderRadius: '30px' }}
                             className="buttonClass"
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
+
                     </Space>
                 </Col>
             </Row>
@@ -210,13 +271,15 @@ export default function MarketPlace({ activeKey }: Props) {
                         <div className="product-grid">
                             <div className="product-image">
                                 <a className="image" onClick={() => handleDetail(data)}>
-                                    <Image
-                                        src={
-                                            data?.images.length > 0
-                                                ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
-                                                : `/images/avatar.png`
-                                        }
-                                    />
+                                    {data?.images.length ?
+                                        <Image
+                                            src={
+
+                                                `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
+                                            }
+                                        />
+                                        :
+                                        <Avatar shape={'square'} size={200} style={{ width: '100%' }}>Product</Avatar>}
                                 </a>
                             </div>
                             <br />
@@ -235,7 +298,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                                     <ParaText size="textGraf" color="black" className="title" fontWeightBold={600}>
-                                        <span style={{ color: '#344734' }}> description :</span>  &nbsp;
+                                        <span className='description'> description :</span>  &nbsp;
                                         <span style={{ color: 'rgb(241, 166, 56)', fontWeight: '400' }}>
                                             <ShortFileName fileName={data.description} short={90} />
                                         </span>
@@ -250,7 +313,7 @@ export default function MarketPlace({ activeKey }: Props) {
                                     >
                                         Category :
                                         <ParaText size="extraSmall" color="primaryColor">
-                                            <span style={{ fontWeight: '400', fontSize: '14px' }}>  {data.categoryId.name}</span>
+                                            <span style={{ fontWeight: '400', fontSize: '14px' }}>  {data.categoryId?.name}</span>
                                         </ParaText>
                                     </ParaText>
                                 </Col>
@@ -300,7 +363,8 @@ export default function MarketPlace({ activeKey }: Props) {
                                                                 </span>
                                                             </>
                                                         ) : (
-                                                            `$${data.price}`
+
+                                                            `${data.price}`
                                                         )}
                                                     </div>
                                                 </div>
@@ -333,14 +397,16 @@ export default function MarketPlace({ activeKey }: Props) {
                                         xl={data.discountPrice !== 'undefined' ? 12 : 12}
                                         xxl={data.discountPrice !== 'undefined' ? 12 : 12}
                                     >
-                                        <Link href="" onClick={() => handleChat(data.createdBy)} className="imageChat">
-                                            <Tooltip
-                                                title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
-                                                color={'#EDF1F5'}
-                                            >
-                                                <img src="/icons/yellowbubble-chat.png" alt="" />
-                                            </Tooltip>
-                                        </Link>
+                                        {data.createdBy._id !== user?._id &&
+                                            <div onClick={() => handleSubmit(data)} className="imageChat" style={{ cursor: 'pointer' }}>
+                                                <Tooltip
+                                                    title={<span style={{ color: 'black', fontWeight: 600 }}>Chat now</span>}
+                                                    color={'#EDF1F5'}
+                                                >
+                                                    <img src="/icons/yellowbubble-chat.png" alt="" />
+                                                </Tooltip>
+                                            </div>
+                                        }
                                     </Col>
                                 </Row>
                             </div>

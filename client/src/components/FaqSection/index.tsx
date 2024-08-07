@@ -16,42 +16,42 @@ export default function FaqSection() {
                 <div className="customContainer">
                     <div className='faqSection-main'>
                         <Row>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>
+                            <Col xs={24} sm={24} md={24} lg={8} xl={6} xxl={6}>
                                 <div className='mainHeading'> <Titles level={2} color='black'>Why Choose <br /> StudyBuddy?</Titles></div>
                             </Col>
-                            <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
+                            <Col xs={24} sm={24} md={12} lg={8} xl={9} xxl={9}>
                                 <div className='faqSection-text add-padding-new'>
                                     <Image src='/images/imgpsh_fullsize_anim (3).png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Titles level={5} color='secondaryColor'>Community connection</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <ParaText size='medium' color='black'>Join a supportive community of peers who share your academic journey and goals.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Image src='/images/imgpsh_fullsize_anim.png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
+                                    <Titles level={5} color='secondaryColor'> Security First</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Buy, sell, or trade textbooks, gadgets, and other college essentials within your community.</ParaText>
+                                    <ParaText size='medium' color='black'>Your data privacy is our priority. StudyBuddy ensures a safe and secure learning environment.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                 </div>
                             </Col>
-                            <Col xs={24} sm={24} md={12} lg={9} xl={9} xxl={9}>
+                            <Col xs={24} sm={24} md={12} lg={8} xl={9} xxl={9}>
                                 <div className='faqSection-text'>
-                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='StudyBuddy Banner' width={80} height={80} />
+                                    <Image src='/images/imgpsh_fullsize_anim (2).png' alt='StudyBuddy Banner' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <Titles level={5} color='secondaryColor'>Steamlined Learning</Titles>
+                                    <Titles level={5} color='secondaryColor'>Personalized Matches</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Connect with fellow students in real-time. Join study groups, discuss assignments, and share insights through our integrated chat system.</ParaText>
+                                    <ParaText size='medium' color='black'>Our smart algorithm pairs you with the perfect study partner or tutor based on your needs.</ParaText>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <div className='gapPaddingTopOTwo'></div>
                                     <Image src='/images/imgpsh_fullsize_anim (1).png' alt='' width={60} height={60} />
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <Titles level={5} color='secondaryColor'> Security First</Titles>
+                                    <Titles level={5} color='secondaryColor'>Steamlined Learning</Titles>
                                     <div className='gapPaddingTopOTwo'></div>
-                                    <ParaText size='medium' color='black'>Get answers to your academic questions from peers and experts. Share your knowledge to help others</ParaText>
+                                    <ParaText size='medium' color='black'>Access all your study needs in one place—chat, Q&A, marketplace, and file management.</ParaText>
                                 </div>
                             </Col>
                         </Row>

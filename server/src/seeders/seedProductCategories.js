@@ -7,36 +7,82 @@ const categories = [
 		name: 'Textbooks',
 		description: 'Books for study across various subjects and levels.',
 		subcategories: [
-			{ name: 'Textbooks', description: 'Academic textbooks for schools and colleges.' },
-			{ name: 'Reference Books', description: 'Books for reference and further reading.' },
-			{ name: 'E-books', description: 'Digital format books for easy access.' }
+			{
+				name: 'Study Guides',
+				description: 'Study guides to help understand and prepare for academic subjects or exams.'
+			},
+			{
+				name: 'Notes',
+				description: 'Notes compiled to summarize and review key information from lectures or textbooks.'
+			},
+			{
+				name: 'New Textbooks',
+				description: 'New textbooks for learning and studying various academic subjects.'
+			},
+			{
+				name: 'Used Textbooks',
+				description:
+					'Used textbooks that have been previously owned and may show signs of use, often available at a lower cost.'
+			}
 		]
 	},
 	{
 		name: 'Dorm and apartment essentials',
 		description: 'Essential stationery items for students.',
 		subcategories: [
-			{ name: 'Notebooks', description: 'Notebooks for taking notes and writing assignments.' },
-			{ name: 'Pens & Pencils', description: 'Writing instruments including pens, pencils, and markers.' },
-			{ name: 'Erasers & Sharpeners', description: 'Erasers and sharpeners for correction and maintenance.' },
-			{ name: 'Files & Folders', description: 'Organizational tools for keeping documents and papers.' }
+			{
+				name: 'Furniture',
+				description:
+					'Furniture for creating comfortable living and working spaces, including chairs, desks, and shelves.'
+			},
+			{
+				name: 'Kitchen Appliances',
+				description:
+					'Kitchen appliances for cooking, baking, and food preparation, including ovens, blenders, and refrigerators.'
+			},
+			{
+				name: 'Decoration',
+				description:
+					'Decoration items for enhancing aesthetic appeal and personalizing spaces, including art pieces, vases, and decorative accents.'
+			},
+			{
+				name: 'Storage Solutions',
+				description:
+					'Storage solutions for organizing and storing belongings efficiently, including cabinets, shelves, and storage boxes.'
+			}
 		]
 	},
 	{
 		name: 'Electronics',
 		description: 'Electronic devices useful for study purposes.',
 		subcategories: [
-			{ name: 'Laptops', description: 'Portable computers for studying and assignments.' },
-			{ name: 'Tablets', description: 'Handheld devices for reading and note-taking.' },
-			{ name: 'Calculators', description: 'Electronic calculators for mathematical calculations.' },
-			{ name: 'Accessories', description: 'Electronic accessories like chargers, headphones, etc.' }
+			{
+				name: 'Tablets',
+				description: 'Tablets for digital note-taking, browsing, and multimedia consumption.'
+			},
+			{
+				name: 'Headphones',
+				description: 'Headphones for immersive audio experience and private listening.'
+			},
+			{
+				name: 'Earphones',
+				description: 'Earphones for convenient and portable personal audio.'
+			},
+			{
+				name: 'Calculators',
+				description: 'Calculators for mathematical computations and problem-solving.'
+			},
+			{
+				name: 'USB Drives',
+				description: 'USB drives for storing and transferring files between devices.'
+			}
 		]
 	}
 ];
 
 mongoose
 	.connect(
-		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy?retryWrites=true&w=majority',
+		'mongodb+srv://studyBuddy:CxbBCXJqdiK59ZRY@cluster0.dyl8mzf.mongodb.net/study-buddy-dev?retryWrites=true&w=majority',
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(async () => {

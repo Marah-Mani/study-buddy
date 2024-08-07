@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Image, MenuTheme, Row, Space, Switch, Table } from 'antd';
+import { Col, Dropdown, Image, MenuTheme, Row, Space, Switch, Table } from 'antd';
 import type { TableProps } from 'antd';
 import { IoMdEye } from "react-icons/io";
 import { getFilesWithParams } from '@/lib/commonApi';
@@ -13,6 +13,8 @@ import CanDeleteFile from '../CanDeleteFile';
 import { getFavoriteFiles } from '@/lib/commonApi';
 import GetFileSize from '../GetFileSize';
 import ShortFileName from '../ShortFileName';
+import { HiDotsVertical } from 'react-icons/hi';
+import useDownloader from 'react-use-downloader';
 
 interface Props {
     userId: any;
@@ -20,6 +22,7 @@ interface Props {
     activeKey?: any;
     onSelectedId?: any;
     sorting?: string;
+    type?: string;
 }
 
 interface DataType {
@@ -28,9 +31,10 @@ interface DataType {
     fileSize: any;
     createdAt: any;
     isFavorite: boolean;
+    file: any;
 }
 
-export default function GetFiles({ userId, fileType, activeKey, onSelectedId, sorting }: Props) {
+export default function GetFiles({ userId, fileType, activeKey, onSelectedId, sorting, type }: Props) {
     const [files, setFiles] = useState<any>([]);
     const { user } = useContext(AuthContext);
     const [fileId, setFileId] = useState('');
@@ -40,15 +44,16 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
+    const { download } = useDownloader();
 
     useEffect(() => {
         if (activeKey == '3' && user) {
             fetchFavoriteFiles();
         } else {
-            fetchFiles(page, pageSize);
+            if (userId) fetchFiles(page, pageSize);
         }
         setFileId('');
-    }, [activeKey, user, page, pageSize]);
+    }, [activeKey, userId, page, pageSize]);
 
     const fetchFiles = async (page: any, pageSize: any) => {
         try {
@@ -56,10 +61,11 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             const search = {
                 ...(userId && { userId }),
                 ...(fileType && { fileType }),
+                ...(type == 'myFile' && { type }),
                 role: user?.role,
                 sorting: sorting,
                 page,
-                pageSize
+                pageSize,
             }
             const queryString = JSON.stringify(search);
             const res = await getFilesWithParams(queryString);
@@ -96,6 +102,27 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
         }
     }
 
+    const viewSelectedFile = (file: any) => {
+        if (file.fileType === 'image/png' || file.fileType === 'image/jpeg' || file.fileType === 'image/jpg' || file.fileType.startsWith('image/')) {
+            handlePreview(file.filePath);
+        } else {
+            window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, 'blank');
+        }
+    };
+
+    const getMenuItems = (file: any) => [
+        {
+            key: 'view',
+            label: 'View',
+            onClick: () => viewSelectedFile(file)
+        },
+        {
+            key: 'dow',
+            label: 'Download',
+            onClick: async () => download(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${file.filePath}`, file.fileName)
+        },
+    ];
+
 
     const columns: TableProps<DataType>['columns'] = [
         {
@@ -122,7 +149,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     {user?.role !== 'user' && (
                         <span className='eyes' onClick={() => { handleFile(record.key) }}> <IoMdEye /></span>
                     )}
-                    {!user?.role || user?.role !== 'user' ? (
+                    {!user?.role || user?.role !== 'user' || type == 'myFile' ? (
                         <CanDeleteFile userId={user?._id} fileId={record.key} reload={() => { fetchFiles(page, pageSize) }} />
                     ) : null}
                     <IsFavoriteFile activeKey={activeKey}
@@ -133,6 +160,15 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                                 fetchFiles(page, pageSize)
                             }
                         }} isFavorite={record?.isFavorite} userId={user?._id} fileId={record.key} />
+                    <Dropdown
+                        menu={{ items: getMenuItems(record?.file) }}
+                        trigger={['click']}
+                        className='viewAll'
+                    >
+                        <a onClick={(e) => e.preventDefault()}>
+                            <HiDotsVertical />
+                        </a>
+                    </Dropdown>
                 </Space>
             ),
         },
@@ -159,25 +195,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
             fileName: <Row align='middle' onClick={() => { handleFile(items._id) }}>
                 <Col md={2}><GetFileTypeIcon fileType={items.fileType} size={30} /></Col>
                 <Col md={22}>
-                    <Image.PreviewGroup>
-                        <Image
-                            src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${items.filePath}`}
-                            style={{ display: 'none' }}
-                            preview={{
-                                visible: false,
-                                mask: null,
-                                maskClassName: null as any,
-                            }}
-                        />
-                    </Image.PreviewGroup>
                     <div
-                        onDoubleClick={() => {
-                            if (items.fileType === 'image/png' || items.fileType === 'image/jpeg' || items.fileType === 'image/jpg' || items.fileType.startsWith('image/')) {
-                                handlePreview(items.filePath);
-                            } else {
-                                window.open(`${process.env['NEXT_PUBLIC_IMAGE_URL']}/fileManager/${items.filePath}`, 'blank');
-                            }
-                        }}
                         style={{ color: `${fileId}` === items._id ? '#efa24b' : 'inherit', cursor: 'pointer' }}
                     >
                         <ShortFileName fileName={items.fileName} short={30} />
@@ -193,6 +211,7 @@ export default function GetFiles({ userId, fileType, activeKey, onSelectedId, so
                     <DateFormat date={items.createdAt} />
                 </div>),
             isFavorite: items.isFavorite,
+            file: items
         }
     })
 

@@ -42,6 +42,7 @@ export default function SingleForum({ forumData }: Props) {
    const [reply, setReply] = useState<any>();
    const [forumId, setForumId] = useState('');
    const [modal, setModal] = useState(false);
+   const [loading, setLoading] = useState(false);
    const router = useRouter();
 
    useEffect(() => {
@@ -167,8 +168,10 @@ export default function SingleForum({ forumData }: Props) {
 
    const handleSubmitReply = async (commentId: string) => {
       try {
+         setLoading(true);
          if (!user) {
             setModal(true);
+            setLoading(false);
             return;
          }
          const data = {
@@ -183,8 +186,10 @@ export default function SingleForum({ forumData }: Props) {
             setForumResult(res.data);
             setReply('');
             form.resetFields();
+            setLoading(false);
          }
       } catch (error) {
+         setLoading(false);
          ErrorHandler.showNotification(error);
       }
    };
@@ -227,7 +232,7 @@ export default function SingleForum({ forumData }: Props) {
                <Col xs={24} sm={24} md={24} lg={15} xl={15} xxl={15}>
                   <div className="question">
                      <Row gutter={[16, 16]}>
-                        <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1}>
+                        <Col xs={24} sm={2} md={2} lg={2} xl={2} xxl={1}>
                            <div style={{ display: 'flex', gap: '8px' }}>
                               <div>
                                  {forumData.userId.image ? (
@@ -245,7 +250,7 @@ export default function SingleForum({ forumData }: Props) {
                               </div>
                            </div>
                         </Col>
-                        <Col xs={24} sm={24} md={23} lg={22} xl={22} xxl={23}>
+                        <Col xs={24} sm={22} md={22} lg={22} xl={22} xxl={23} className='pLeft'>
                            <div>
                               <span style={{ fontSize: '14px' }}>{forumData.userId.name}</span>
                               <br />
@@ -290,7 +295,7 @@ export default function SingleForum({ forumData }: Props) {
                            </div>
 
                            {/* COMMENT TEXTBOX */}
-                           <div>
+                           {/* <div>
                               {comment && (
                                  <div style={{ paddingTop: '4px' }}>
                                     <div
@@ -320,7 +325,7 @@ export default function SingleForum({ forumData }: Props) {
                                     </div>
                                  </div>
                               )}
-                           </div>
+                           </div> */}
                         </Col>
                      </Row>
                   </div>
@@ -334,10 +339,10 @@ export default function SingleForum({ forumData }: Props) {
                         }
                         setComment(e.target.value);
                      }}
-                     placeholder="Add a comment ..."
+                     placeholder="Type Your Answer ..."
                      maxLength={validationRules.textEditor.maxLength}
                      minLength={validationRules.textEditor.minLength}
-                     suffix={<IoSendSharp onClick={() => handleSubmit()} />} />
+                     suffix={<IoSendSharp size={25} onClick={() => handleSubmit()} />} />
                   {/* COMMENTS LOOP */}
 
                   <div>
@@ -349,6 +354,7 @@ export default function SingleForum({ forumData }: Props) {
                      >
                         Comments
                      </ParaText>
+                     <br />
                      {dataSource?.comments?.map((comment: any, index: any) => {
                         return (
                            <>
@@ -356,102 +362,92 @@ export default function SingleForum({ forumData }: Props) {
                                  <></>
                               )}
                               <Col md={24} key={index}>
-                                 <div
-                                    style={{ display: 'flex', gap: '8px', marginTop: '20px' }}
-                                    className=""
-                                 >
-                                    <div>
-                                       {comment.userId.image ? (
-                                          <Image
-                                             src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${comment.userId.image}`}
-                                             alt="Avatar"
-                                             width="40px"
-                                             height="40px"
-                                             style={{ borderRadius: '50px' }}
-                                             preview={false}
-                                          />
-                                       ) : (
-                                          <Avatar icon={<UserOutlined />} />
-                                       )}
-                                    </div>
-                                    <div>
-                                       <span style={{ fontSize: '14px' }}>{comment.userId.name}</span>
-                                       <br />
-                                       <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
-                                          <RelativeTime date={comment.createdAt} />
-                                       </span>
-                                    </div>
-                                 </div>
-                                 <div className="smallTopMargin"></div>
-                                 {/* COMMENT MESSAGE */}
-                                 <div className="descriptionMargin">
-                                    <div dangerouslySetInnerHTML={{ __html: comment?.message }}></div>
-                                    {/* <Button onClick={() => deleteUserComments(comment._id)}>Delete</Button> */}
+                                 <div className='question'>
+                                    <div
 
+                                       className="commentsFlex"
+                                    >
+                                       <div className='gapSection'>
+                                          {comment.userId.image ? (
+                                             <Image
+                                                src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${comment.userId.image}`}
+                                                alt="Avatar"
+                                                width="40px"
+                                                height="40px"
+                                                style={{ borderRadius: '50px' }}
+                                                preview={false}
+                                             />
+                                          ) : (
+                                             <Avatar icon={<UserOutlined />} />
+                                          )}
+                                       </div>
+                                       <div>
+                                          <span style={{ fontSize: '14px' }}>{comment.userId.name}</span>
+                                          <br />
+                                          <span style={{ color: '#F2A638', fontSize: '12px', fontWeight: '400' }}>
+                                             <RelativeTime date={comment.createdAt} />
+                                          </span>
+                                       </div>
+                                    </div>
                                     <div className="smallTopMargin"></div>
-                                    <div style={{ display: 'flex', gap: '10px' }}>
-                                       <div
-                                          style={{
-                                             cursor: 'pointer',
-                                             display: 'flex',
-                                             alignItems: 'center'
-                                          }}
-                                          onClick={() => handleVote(comment._id, '', 'like')}
-                                       >
-                                          <span className="orange-color">
-                                             {comment.likes.includes(user?._id) ? (
-                                                <LikeFilled />
-                                             ) : (
-                                                <LikeOutlined />
-                                             )}
-                                          </span>
-                                          &nbsp; {comment.likes.length}
-                                       </div>
-                                       {/* <div style={{ cursor: 'pointer' }} onClick={() => handleVote(comment._id, '', 'dislike')}>
-                                          <span className='orange-color'>
-                                             {
-                                                comment.dislikes.includes(user?._id)
-                                                   ? <DislikeFilled />
-                                                   : <DislikeOutlined />
-                                             }</span> {comment.dislikes.length}
-                                       </div> */}
-                                       <div
-                                          style={{
-                                             cursor: 'pointer',
-                                             display: 'flex',
-                                             alignItems: 'center'
-                                          }}
-                                          onClick={() => handleComment(comment._id)}
-                                       >
-                                          <span className="orange-color">
-                                             <MessageOutlined />
-                                          </span>
-                                          &nbsp; {comment.replies.length}
-                                       </div>
-                                       <br />
-
-                                       {!commentBox && forumId == comment._id && (
+                                    {/* COMMENT MESSAGE */}
+                                    <div className="descriptionMargin">
+                                       <div dangerouslySetInnerHTML={{ __html: comment?.message }}></div>
+                                       <div className="smallTopMargin"></div>
+                                       <div style={{ display: 'flex', gap: '10px' }}>
                                           <div
-                                             style={{ cursor: 'pointer' }}
-                                             onClick={() => setCommentBox(true)}
+                                             style={{
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center'
+                                             }}
+                                             onClick={() => handleVote(comment._id, '', 'like')}
                                           >
-                                             <Button type="link">Add reply</Button>
+                                             <span className="orange-color">
+                                                {comment.likes.includes(user?._id) ? (
+                                                   <LikeFilled />
+                                                ) : (
+                                                   <LikeOutlined />
+                                                )}
+                                             </span>
+                                             &nbsp; {comment.likes.length}
                                           </div>
-                                       )}
+                                          <div
+                                             style={{
+                                                cursor: 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center'
+                                             }}
+                                             onClick={() => handleComment(comment._id)}
+                                          >
+                                             <span className="orange-color">
+                                                <MessageOutlined />
+                                             </span>
+                                             &nbsp; {comment.replies.length}
+                                          </div>
+                                          <br />
+
+                                          {!commentBox && forumId == comment._id && (
+                                             <div
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => setCommentBox(true)}
+                                             >
+                                                <Button className="replyDivBorder" type="link">Add reply</Button>
+                                             </div>
+                                          )}
+                                       </div>
                                     </div>
+                                    <div className="mediumTopMargin"></div>
                                  </div>
-                                 <div className="mediumTopMargin"></div>
                               </Col>
                               <br />
                               {/* REPLY TEXTAREA */}
                               {commentBox && forumId == comment._id ? (
                                  <>
-                                    <Col md={3}></Col>
-                                    <Col md={21}>
+                                    <Col md={24}>
                                        {commentBox && (
                                           <div className="">
-                                             <TextArea
-                                                rows={1}
+                                             <Input className="replyDivBorder"
                                                 value={reply}
                                                 onChange={(e) => {
                                                    if (!user) {
@@ -460,16 +456,17 @@ export default function SingleForum({ forumData }: Props) {
                                                    }
                                                    setReply(e.target.value);
                                                 }}
-                                                placeholder="Add a reply ..."
+                                                placeholder="Add Your reply ..."
                                                 maxLength={validationRules.textEditor.maxLength}
                                                 minLength={validationRules.textEditor.minLength}
+                                                suffix={<IoSendSharp size={25} onClick={() => handleSubmit()} />}
                                              />
                                           </div>
                                        )}
                                     </Col>
                                     <div>
                                        {reply && (
-                                          <div style={{ paddingTop: '4px', marginTop: '10px' }}>
+                                          <div style={{ paddingTop: '4px', marginBottom: '40px' }}>
                                              <div
                                                 style={{
                                                    display: 'flex',
@@ -484,6 +481,8 @@ export default function SingleForum({ forumData }: Props) {
                                                       htmlType="submit"
                                                       color="primary"
                                                       onClick={() => handleSubmitReply(comment._id)}
+                                                      loading={loading}
+                                                      disabled={loading}
                                                    >
                                                       Submit
                                                    </Button>
@@ -505,185 +504,187 @@ export default function SingleForum({ forumData }: Props) {
                                  </>
                               ) : null}
                               {/* REPLIES LOOP */}
-                              {forumId == comment._id && (
+                              {forumId == comment._id && forumResult?.comments?.length > 0 && (
                                  <>
-                                    <Col md={3}></Col>
-                                    <Col md={21}>
-                                       {comment?.replies?.length > 0 && (
-                                          <ParaText
-                                             size="extraSmall"
-                                             fontWeightBold={600}
-                                             color="primaryColor"
-                                          >
-                                             Replies
-                                          </ParaText>
-                                       )}
-                                       <div className="smallTopMargin"></div>
-                                       {comment?.replies?.map((reply: any, index: any) => {
-                                          return (
-                                             <Timeline key={index}>
-                                                <Timeline.Item key={index}>
-                                                   <Row>
-                                                      <Col md={21}>
-                                                         <div
-                                                            style={{ display: 'flex', gap: '8px' }}
-                                                         >
-                                                            <div>
-                                                               <Tooltip
-                                                                  color={''}
-                                                                  title={
-                                                                     <div
-                                                                        style={{
-                                                                           display: 'flex',
-                                                                           gap: '8px'
-                                                                        }}
-                                                                     >
-                                                                        <div>
-                                                                           {reply.userId
-                                                                              ?.image ? (
-                                                                              <Image
-                                                                                 src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${reply.userId.image}`}
-                                                                                 alt="Avatar"
-                                                                                 width="40px"
-                                                                                 height="40px"
-                                                                                 style={{
-                                                                                    borderRadius:
-                                                                                       '50px'
-                                                                                 }}
-                                                                                 preview={
-                                                                                    false
-                                                                                 }
-                                                                              />
-                                                                           ) : (
-                                                                              <Avatar
-                                                                                 icon={
-                                                                                    <UserOutlined />
-                                                                                 }
-                                                                              />
-                                                                           )}
-                                                                        </div>
-                                                                        <div>
-                                                                           <span
-                                                                              style={{
-                                                                                 fontSize:
-                                                                                    '14px'
-                                                                              }}
-                                                                           >
-                                                                              {
-                                                                                 reply.userId
-                                                                                    ?.name
-                                                                              }
-                                                                           </span>
-                                                                           <br />
-                                                                           <span>
-                                                                              <RelativeTime
-                                                                                 date={
-                                                                                    reply.createdAt
-                                                                                 }
-                                                                              />
-                                                                           </span>
-                                                                           <br />
-                                                                           <span>
-                                                                              {
-                                                                                 reply.userId
-                                                                                    ?.email
-                                                                              }
-                                                                           </span>
-                                                                        </div>
-                                                                     </div>
-                                                                  }
-                                                               >
-                                                                  {reply.userId?.image ? (
-                                                                     <Image
-                                                                        src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${reply.userId.image}`}
-                                                                        alt="Avatar"
-                                                                        width="40px"
-                                                                        height="40px"
-                                                                        style={{
-                                                                           borderRadius: '50px'
-                                                                        }}
-                                                                        preview={false}
-                                                                     />
-                                                                  ) : (
-                                                                     <Avatar
-                                                                        size={40}
-                                                                        icon={<UserOutlined />}
-                                                                     />
-                                                                  )}
-                                                               </Tooltip>
-                                                            </div>
-                                                            <div>
-                                                               <span style={{ fontSize: '14px' }}>
-                                                                  {reply.userId?.name}
-                                                               </span>
-                                                               <br />
-                                                               <span className="orange-color">
-                                                                  <RelativeTime
-                                                                     date={reply.createdAt}
-                                                                  />
-                                                               </span>
-                                                            </div>
-                                                         </div>
-
-                                                         <div className="smallTopMargin"></div>
-                                                         <div className="descriptionMargin">
+                                    <Col md={24}>
+                                       <div className='question'>
+                                          {comment?.replies?.length > 0 && (
+                                             <ParaText
+                                                size="extraSmall"
+                                                fontWeightBold={600}
+                                                color="primaryColor"
+                                             >
+                                                Replies
+                                             </ParaText>
+                                          )}
+                                          <br />
+                                          <div className="smallTopMargin"></div>
+                                          {comment?.replies?.map((reply: any, index: any) => {
+                                             return (
+                                                <Timeline key={index}>
+                                                   <Timeline.Item key={index}>
+                                                      <Row>
+                                                         <Col md={21}>
                                                             <div
-                                                               dangerouslySetInnerHTML={{
-                                                                  __html: reply?.message
-                                                               }}
-                                                            ></div>
-                                                            <div className="smallTopMargin"></div>
-                                                            <div
-                                                               style={{
-                                                                  display: 'flex',
-                                                                  gap: '10px'
-                                                               }}
+                                                               style={{ display: 'flex', gap: '8px' }}
                                                             >
-                                                               <div
-                                                                  className="orange-color"
-                                                                  style={{ cursor: 'pointer' }}
-                                                                  onClick={() =>
-                                                                     handleVote(
-                                                                        comment._id,
-                                                                        reply._id,
-                                                                        'like'
-                                                                     )
-                                                                  }
-                                                               >
-                                                                  {reply.likes.includes(
-                                                                     user?._id
-                                                                  ) ? (
-                                                                     <LikeFilled />
-                                                                  ) : (
-                                                                     <LikeOutlined />
-                                                                  )}{' '}
-                                                                  <span style={{ color: '#424242' }}> {reply.likes.length}</span>
+                                                               <div>
+                                                                  <Tooltip
+                                                                     color={''}
+                                                                     title={
+                                                                        <div
+                                                                           style={{
+                                                                              display: 'flex',
+                                                                              gap: '8px'
+                                                                           }}
+                                                                        >
+                                                                           <div>
+                                                                              {reply.userId
+                                                                                 ?.image ? (
+                                                                                 <Image
+                                                                                    src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${reply.userId.image}`}
+                                                                                    alt="Avatar"
+                                                                                    width="40px"
+                                                                                    height="40px"
+                                                                                    style={{
+                                                                                       borderRadius:
+                                                                                          '50px'
+                                                                                    }}
+                                                                                    preview={
+                                                                                       false
+                                                                                    }
+                                                                                 />
+                                                                              ) : (
+                                                                                 <Avatar
+                                                                                    icon={
+                                                                                       <UserOutlined />
+                                                                                    }
+                                                                                 />
+                                                                              )}
+                                                                           </div>
+                                                                           <div>
+                                                                              <span
+                                                                                 style={{
+                                                                                    fontSize:
+                                                                                       '14px'
+                                                                                 }}
+                                                                              >
+                                                                                 {
+                                                                                    reply.userId
+                                                                                       ?.name
+                                                                                 }
+                                                                              </span>
+                                                                              <br />
+                                                                              <span>
+                                                                                 <RelativeTime
+                                                                                    date={
+                                                                                       reply.createdAt
+                                                                                    }
+                                                                                 />
+                                                                              </span>
+                                                                              <br />
+                                                                              <span>
+                                                                                 {
+                                                                                    reply.userId
+                                                                                       ?.email
+                                                                                 }
+                                                                              </span>
+                                                                           </div>
+                                                                        </div>
+                                                                     }
+                                                                  >
+                                                                     {reply.userId?.image ? (
+                                                                        <Image
+                                                                           src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/userImage/original/${reply.userId.image}`}
+                                                                           alt="Avatar"
+                                                                           width="40px"
+                                                                           height="40px"
+                                                                           style={{
+                                                                              borderRadius: '50px'
+                                                                           }}
+                                                                           preview={false}
+                                                                        />
+                                                                     ) : (
+                                                                        <Avatar
+                                                                           size={40}
+                                                                           icon={<UserOutlined />}
+                                                                        />
+                                                                     )}
+                                                                  </Tooltip>
                                                                </div>
-                                                               <div
-                                                                  style={{ cursor: 'pointer' }}
-                                                                  onClick={() =>
-                                                                     handleVote(
-                                                                        comment._id,
-                                                                        reply._id,
-                                                                        'dislike'
-                                                                     )
-                                                                  }
-                                                               >
-                                                                  <span className="orange-color">
-                                                                     <MessageOutlined />
+                                                               <div>
+                                                                  <span style={{ fontSize: '14px' }}>
+                                                                     {reply.userId?.name}
                                                                   </span>
-                                                                  &nbsp; {comment.replies.length}
-
+                                                                  <br />
+                                                                  <span className="orange-color">
+                                                                     <RelativeTime
+                                                                        date={reply.createdAt}
+                                                                     />
+                                                                  </span>
                                                                </div>
                                                             </div>
-                                                         </div>
-                                                         <div className="smallTopMargin"></div>
-                                                      </Col>
-                                                   </Row>
-                                                </Timeline.Item>
-                                             </Timeline>
-                                          );
-                                       })}
+
+                                                            <div className="smallTopMargin"></div>
+                                                            <div className="descriptionMargin">
+                                                               <div
+                                                                  dangerouslySetInnerHTML={{
+                                                                     __html: reply?.message
+                                                                  }}
+                                                               ></div>
+                                                               <div className="smallTopMargin"></div>
+                                                               <div
+                                                                  style={{
+                                                                     display: 'flex',
+                                                                     gap: '10px'
+                                                                  }}
+                                                               >
+                                                                  <div
+                                                                     className="orange-color"
+                                                                     style={{ cursor: 'pointer' }}
+                                                                     onClick={() =>
+                                                                        handleVote(
+                                                                           comment._id,
+                                                                           reply._id,
+                                                                           'like'
+                                                                        )
+                                                                     }
+                                                                  >
+                                                                     {reply.likes.includes(
+                                                                        user?._id
+                                                                     ) ? (
+                                                                        <LikeFilled />
+                                                                     ) : (
+                                                                        <LikeOutlined />
+                                                                     )}{' '}
+                                                                     <span style={{ color: '#424242' }}> {reply.likes.length}</span>
+                                                                  </div>
+                                                                  <div
+                                                                     style={{ cursor: 'pointer' }}
+                                                                     onClick={() =>
+                                                                        handleVote(
+                                                                           comment._id,
+                                                                           reply._id,
+                                                                           'dislike'
+                                                                        )
+                                                                     }
+                                                                  >
+                                                                     <span className="orange-color">
+                                                                        <MessageOutlined />
+                                                                     </span>
+                                                                     &nbsp; {comment.replies.length}
+
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                            <div className="smallTopMargin"></div>
+                                                         </Col>
+                                                      </Row>
+                                                   </Timeline.Item>
+                                                </Timeline>
+                                             );
+                                          })}
+                                       </div>
                                     </Col>
                                  </>
                               )}

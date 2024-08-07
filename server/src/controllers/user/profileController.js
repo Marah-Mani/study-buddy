@@ -16,6 +16,14 @@ const profileController = {
 				}
 
 				try {
+					let imageValue = null;
+					if (req.file && req.file.filename) {
+						imageValue = req.file.filename;
+					} else if (req.body.image && req.body.image !== 'null') {
+						imageValue = req.body.image;
+					} else {
+						imageValue = null; // Ensure imageValue is set to null if no image is provided
+					}
 					const profileData = {
 						name: req.body.name,
 						email: req.body.email,
@@ -29,14 +37,18 @@ const profileController = {
 						profileTitle: req.body.profileTitle,
 						higherEducation: req.body.higherEducation,
 						profileDescription: req.body.profileDescription,
+						interestedIn: req.body.interestedIn,
+						departmentId: req.body.departments,
+						subjects: req.body.subjects,
+						gender: req.body.gender,
 						socialLinks: {
-							twitter: req.body.twitter || null,
-							facebook: req.body.facebook || null,
-							linkedin: req.body.linkedIn || null,
-							instagram: req.body.instagram || null,
-							website: req.body.website || null
+							twitter: req.body.twitter || '',
+							facebook: req.body.facebook || '',
+							linkedin: req.body.linkedIn || '',
+							instagram: req.body.instagram || '',
+							website: req.body.website || ''
 						},
-						image: req.file && req.file.filename ? req.file.filename : req.body.image || null
+						image: imageValue
 					};
 
 					try {

@@ -6,7 +6,7 @@ import { Menu, Image } from 'antd';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AuthContext from '@/contexts/AuthContext';
-import { IoFolderOpenOutline } from 'react-icons/io5';
+import { IoFolderOpenOutline, IoSettings } from 'react-icons/io5';
 import ParaText from '../ParaText';
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -153,27 +153,25 @@ export default function MenuAdmin() {
 				</span>
 			</Link>
 		),
-		// getItem(
-		// 	'Logout',
-		// 	'7',
-		// 	<Link href="/en/login">
-		// 		<span onClick={() => setIsActive(true)}>
-		// 			{defaultSelectedKey === '7' ? (
-		// 				<Image preview={false} src="/icons/yellow-off.png" alt="Active User" width={20} height={20} />
-		// 			)
-		// 				:
-		// 				(
-		// 					<Image preview={false} src="/icons/yellow-off.png" alt="Inactive User" width={20} height={20} />
-		// 				)}
-		// 		</span>
-		// 	</Link>
-		// ),
-
+		getItem(
+			'Setting',
+			'11',
+			<Link href="/en/admin/settings">
+				<span onClick={() => setIsActive(true)}>
+					{defaultSelectedKey === '11' ? (
+						<IoSettings style={{ color: '#d49737', width: '20px', height: '20px' }} />
+					)
+						:
+						(
+							<IoSettings style={{ color: '#d49737', width: '20px', height: '20px' }} />
+						)}
+				</span>
+			</Link>
+		),
 	];
 
 	const pathname = usePathname();
 	useEffect(() => {
-		let defaultSelectedKey;
 		switch (true) {
 			case pathname === '/en/admin/dashboard':
 				setDefaultSelectedKey('1');
@@ -199,8 +197,10 @@ export default function MenuAdmin() {
 			case pathname === '/en/admin/file-manager':
 				setDefaultSelectedKey('8');
 				break;
+			case pathname === '/en/admin/settings':
+				setDefaultSelectedKey('11');
+				break;
 			default:
-				// if (!defaultSelectedKey) {
 				setDefaultSelectedKey('1');
 		}
 	}, [pathname])

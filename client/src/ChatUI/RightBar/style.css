@@ -11,6 +11,13 @@
   display: flex;
   cursor: pointer;
 }
+
 body.dark-mode .iconCall {
   background-color: #242231;
+}
+
+@media (max-width:767px) {
+  .headerMain .cs-main-container.cs-main-container--responsive {
+    display: block !important;
+  }
 }

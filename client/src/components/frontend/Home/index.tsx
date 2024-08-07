@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Row } from 'antd';
 import Image from 'next/image';
 import './style.css';
@@ -8,20 +8,9 @@ import ParaText from '@/app/commonUl/ParaText';
 import FaqSection from '@/components/FaqSection';
 import Features from '@/components/Features';
 import Link from 'next/link';
+import AuthContext from '@/contexts/AuthContext';
 export default function Home() {
-	// const { user, logout } = useContext(AuthContext);
-
-	// useEffect(() => {
-	// 	async function registerAndSubscribe() {
-	// 		try {
-	// 			const serviceWorkerReg = await regSw();
-	// 			await subscribe(serviceWorkerReg);
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	}
-	// 	registerAndSubscribe();
-	// }, []);
+	const { user } = useContext(AuthContext);
 
 	return (
 		<>
@@ -33,21 +22,21 @@ export default function Home() {
 						</svg>
 					</div>
 					<div className="customContainer">
-						<Row>
+						<Row align='middle'>
 							<Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
 								<div className="textSection">
-									<Titles level={2} color="primaryColor">
+									<Titles level={2} color="primaryColor" className={'homePageHeading'}>
 										Find Your Perfect StudyBuddy Today!
 									</Titles>
-									<div className="gapPaddingTopOTwo"></div>
-									<ParaText size="medium" color="primaryColor">
+									<div className="gapPaddingTopOne"></div>
+									<p>
 										StudyBuddy is your one-stop platform designed to enhance your college
 										experience. Join our community of learners to connect with study partners who
 										share your interests and goals. Improve your skills, stay motivated, and make
 										learning more fun with a studyBuddy.
-									</ParaText>
-									<div className="gapPaddingTopOTwo"></div>
-									<Link href="/en/login">
+									</p>
+									<div className="gapPaddingTopOne"></div>
+									<Link href={user?.role ? `/en/${user?.role}/dashboard` : 'en/login'}>
 										<button className="button-67" role="button">
 											Get Started
 										</button>

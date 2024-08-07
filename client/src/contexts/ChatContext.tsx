@@ -27,6 +27,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import Cookies from "js-cookie";
+import Loading from "@/app/commonUl/Loading";
 
 const api = axios.create({
     baseURL: process.env['NEXT_PUBLIC_API_URL'] || ''
@@ -69,7 +70,9 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
         },
     };
     if (!user) {
-        return 'Loading';
+        return (
+            <Loading />
+        );
     }
 
     return (

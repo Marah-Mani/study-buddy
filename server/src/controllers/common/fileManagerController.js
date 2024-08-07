@@ -7,8 +7,10 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const archiver = require('archiver');
-const { trackUserActivity } = require('../../common/functions');
+const { getAdminDataByRole, trackUserActivity } = require('../../common/functions');
 const { createNotification } = require('../../common/notifications');
+const { promisify } = require('util');
+const unlinkAsync = promisify(fs.unlink);
 
 const getFileCount = async (folderId) => {
 	try {
@@ -153,23 +155,31 @@ async function deleteFolderAndContents(folderId) {
 
 		// Remove the folder from the database
 		await FileManagerFolder.findByIdAndDelete(folderId);
+		return true;
+	} else {
+		return false;
 	}
 }
+const fetchSubfoldersRecursive = async (folderId, foldersMap = new Map()) => {
 
-const fetchSubfoldersRecursive = async (folderId) => {
-	// Find all folders that have parentFolderId equal to folderId
 	const folders = await FileManagerFolder.find({ parentFolder: folderId });
 
-	// Array to hold promises for fetching subfolders recursively
-	const subFoldersPromises = folders.map(async (folder) => {
-		// Recursively fetch subfolders of the current folder
-		const subfolders = await fetchSubfoldersRecursive(folder._id);
-		return { ...folder.toObject(), subfolders }; // Append fetched subfolders to current folder
-	});
+	// Add fetched folders to the map to avoid redundant queries
+	folders.forEach((folder) => foldersMap.set(folder._id.toString(), folder));
 
-	// Immediately return the result of Promise.all
-	return await Promise.all(subFoldersPromises);
+	// Recursively fetch subfolders of the current folder
+	for (const folder of folders) {
+		await fetchSubfoldersRecursive(folder._id, foldersMap);
+	}
+
+	return foldersMap;
+
 };
+
+const getAllFilesInFolder = async (folderIds) => {
+	return await FileManagerFile.find({ folderId: { $in: folderIds } }).populate('createdBy', 'name image');
+};
+
 
 const fileManagerController = {
 	addOrRemoveFileToFavorite: async (req, res) => {
@@ -239,7 +249,11 @@ const fileManagerController = {
 			if (!file) {
 				return res.status(404).json({ status: false, message: 'File not found' });
 			}
-			if (file.createdBy.toString() === userId) {
+
+			const adminId = await getAdminDataByRole('users');
+
+			if (adminId.toString() === userId) {
+				// If the user is an admin, delete the file directly
 				file.status = 'deleted';
 				file.deletedBy = userId;
 				await file.save();
@@ -253,7 +267,25 @@ const fileManagerController = {
 				createNotification(AdminNotificationData);
 				await trackUserActivity(userId, 'Your file has been deleted successfully.');
 				return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
+			}
+
+			if (file.createdBy.toString() === userId) {
+				// If the user is the creator of the file, delete the file
+				file.status = 'deleted';
+				file.deletedBy = userId;
+				await file.save();
+				const UserNotificationData = {
+					notification: `Your file has been deleted successfully.`,
+					notifyBy: userId,
+					notifyTo: userId,
+					type: 'File deleted',
+					url: ''
+				};
+				createNotification(UserNotificationData);
+				await trackUserActivity(userId, 'Your file has been deleted successfully.');
+				return res.status(200).json({ status: true, message: 'File deleted successfully', data: file });
 			} else {
+				// If the user is not the creator of the file or an admin, return a 403 error
 				return res.status(403).json({ status: false, message: 'User not authorized to delete this file' });
 			}
 		} catch (error) {
@@ -266,32 +298,24 @@ const fileManagerController = {
 		try {
 			const { folderId } = req.params;
 
-			const folderStructure = await fetchSubfoldersRecursive(folderId);
+			// Fetch all folders and subfolders recursively
+			const foldersMap = await fetchSubfoldersRecursive(folderId);
+			foldersMap.set(folderId, { _id: folderId }); // Include the main folder
 
-			// Function to get all files in a folder and its subfolders recursively
-			const getAllFilesInFolder = async (folderId) => {
-				const files = await FileManagerFile.find({ folderId }); // Adjust as per your file model
+			// Get all folder IDs from the map
+			const folderIds = Array.from(foldersMap.keys());
 
-				let subFolderFiles = [];
-				for (const subFolder of folderStructure) {
-					const subFolderFilesRecursive = await getAllFilesInFolder(subFolder._id);
-					subFolderFiles = [...subFolderFiles, ...subFolderFilesRecursive];
-				}
-
-				return [...files, ...subFolderFiles];
-			};
-
-			const files = await getAllFilesInFolder(folderId);
+			// Get all files in the folder and its subfolders recursively
+			const files = await getAllFilesInFolder(folderIds);
 
 			if (!files || files.length === 0) {
 				return res
-					.status(404)
-					.json({ status: false, message: 'No files found in the specified folder and its subfolders' });
+					.status(200)
+					.json({ status: false, data: { contributors: [] } });
 			}
 
 			// Extract distinct user details
 			const contributorsMap = new Map();
-
 			for (const file of files) {
 				if (file.createdBy) {
 					const userId = file.createdBy._id.toString();
@@ -299,16 +323,13 @@ const fileManagerController = {
 						contributorsMap.set(userId, {
 							_id: file.createdBy._id,
 							name: file.createdBy.name,
-							email: file.createdBy.email,
 							image: file.createdBy.image,
-							createdAt: file.createdAt
+							createdAt: file.createdAt,
 						});
 					}
 				}
 			}
-
 			const contributors = Array.from(contributorsMap.values());
-
 			res.status(200).json({ status: true, data: { contributors } });
 		} catch (error) {
 			console.error('Error fetching contributors:', error);
@@ -455,7 +476,6 @@ const fileManagerController = {
 
 			return res.status(200).json({ status: true, data: folders });
 		} catch (error) {
-			console.log(error);
 			errorLogger('Error fetching folders by user ID:', error);
 			return res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
@@ -833,28 +853,46 @@ const fileManagerController = {
 			let query = { status: 'active' };
 			let sortOption = { createdAt: -1 };
 			const isPublic = process.env.FILE_MANAGER_IS_PUBLIC;
+			let userID;
 
 			if (search) {
 				try {
 					const searchParams = JSON.parse(search);
 
-					if (isPublic) {
-						query = { status: 'active' };
+					// Extract the type from searchParams
+					const { userId, folderId, sorting, type } = searchParams;
+					userID = userId;
+
+					if (type === 'myFile') {
+						// Skip isPublic check if type is 'myFile'
+						if (userId) {
+							query.createdBy = userId;
+						}
+						if (folderId) {
+							query.folderId = folderId;
+						}
+						if (sorting === 'alphaBetically') {
+							sortOption = { fileName: 1 };
+						}
 					} else {
-						if (searchParams.userId || searchParams.folderId || searchParams.sorting) {
-							if (searchParams.userId) {
-								query.createdBy = searchParams.userId;
-							}
-							if (searchParams.folderId) {
-								query.folderId = searchParams.folderId;
-							}
-							if (searchParams.sorting === 'alphaBetically') {
-								sortOption = { fileName: 1 };
+						// Include isPublic check for other types
+						if (isPublic) {
+							query = { status: 'active' };
+						} else {
+							if (userId || folderId || sorting) {
+								if (userId) {
+									query.createdBy = userId;
+								}
+								if (folderId) {
+									query.folderId = folderId;
+								}
+								if (sorting === 'alphaBetically') {
+									sortOption = { fileName: 1 };
+								}
 							}
 						}
 					}
 				} catch (e) {
-					console.log(e);
 					return res.status(400).json({ status: false, message: 'Invalid search parameters' });
 				}
 			}
@@ -901,7 +939,9 @@ const fileManagerController = {
 					const userFavorites = favoriteFilesMap.get(file.createdBy._id.toString());
 					formattedFile.isFavorite = userFavorites ? userFavorites.includes(formattedFile._id) : false;
 				} else {
-					formattedFile.isFavorite = favoriteFiles.some((fav) => fav.files.includes(formattedFile._id));
+					formattedFile.isFavorite = favoriteFiles.some(
+						(fav) => fav.userId.toString() === userID && fav.files.includes(formattedFile._id)
+					);
 				}
 
 				return formattedFile;
@@ -1069,13 +1109,26 @@ const fileManagerController = {
 	deleteFolderPermanently: async (req, res) => {
 		try {
 			const { folderId } = req.body;
+			let folder = await FileManagerFolder.findById(folderId);
+
+			if (!folder) {
+				return res.status(404).json({ status: false, message: 'Folder not found' });
+			}
 
 			// Recursively delete folder and its contents
-			await deleteFolderAndContents(folderId);
-			// await trackUserActivity(file.createdBy, 'Your file has been recovered successfully!');
-			return res
-				.status(200)
-				.json({ status: true, message: 'Folder and its contents permanently deleted successfully' });
+			const data = await deleteFolderAndContents(folderId);
+
+			if (data) {
+				const folderPath = path.join(__dirname, '../../storage/fileManager', folder.folderPath);
+
+				fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+					if (err) {
+						errorLogger(err);
+						return res.status(500).json({ status: false, message: 'Error deleting folder' });
+					}
+					return res.status(200).json({ status: true, message: 'Folder and its contents permanently deleted successfully' });
+				});
+			}
 		} catch (error) {
 			// Log and handle error
 			errorLogger(error);
@@ -1092,8 +1145,14 @@ const fileManagerController = {
 				return res.status(404).json({ status: false, message: 'Folder not found' });
 			}
 
-			// Remove the folder from the database
-			await FileManagerFolder.findByIdAndDelete(fileId);
+			const filePath = path.join(__dirname, '../../storage/fileManager', folder.filePath);
+
+			// Use promisified version of fs.unlink
+			await unlinkAsync(filePath);
+
+			// Remove the file from the database
+			await FileManagerFile.findByIdAndDelete(fileId);
+
 			const AdminNotificationData = {
 				notification: `Your folder has been permanently deleted successfully!`,
 				notifyBy: folder.createdBy,

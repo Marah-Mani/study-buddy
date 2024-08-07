@@ -14,13 +14,13 @@ export default function page() {
 			</div>
 			<div className='customContainer'>
 				<Row gutter={[24, 24]} align='middle'>
-					<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='textCenter'>
+					<Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8} className='textCenter'>
 						<div className="about-info">
 							<img src="/images/logo.png" alt="" />
 						</div>
 					</Col>
-					<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-						<div className='about-info'>
+					<Col xs={24} sm={24} md={24} lg={16} xl={16} xxl={16}>
+						<div className='about-info about-remove'>
 							<Titles level={1} color='primaryColor'>Who we are</Titles>
 							<div className='gapPaddingTopOTwo'></div>
 							<ParaText size='medium' color='primaryColor'>Welcome to StudyBuddy, where college success meets community collaboration. Our platform simplifies your academic journey by offering real-time study groups, a marketplace for textbooks and gadgets, and expert help through our Q&A forum-all in one place. Created by students, for students, StudyBuddy fosters a supportive environment where you can connect with peers, share knowledge, and thrive together. Join us and experience how StudyBuddy enhances learning, simplifies study sessions, and connects you with a vibrant community of learners.

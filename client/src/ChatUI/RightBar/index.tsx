@@ -15,7 +15,6 @@ import moment from 'moment';
 import SharedFile from '../SharedFile';
 import Media from '../Media';
 import ScheduledMessage from '../ScheduledMessage';
-import Todo from '../Todo';
 import Meeting from '../Meeting';
 import BookmarkMessage from '../BookmarkMessage';
 import Note from '../Note';
@@ -34,16 +33,18 @@ interface RightBarProps {
     selectedChatCompare?: any;
     onRefresh: any;
     onClose: any;
+    isMobile: any;
 }
 
-export default function Rightbar({ selectedChat, user, onlineUsers, sendMessage, viewInfo, meetings, messages, selectedChatCompare, onRefresh, onClose }: RightBarProps) {
+export default function Rightbar({ selectedChat, user, onlineUsers, sendMessage, viewInfo, meetings, messages, selectedChatCompare, onRefresh, onClose, isMobile }: RightBarProps) {
     const { chatSettings } = useContext(AuthContext);
 
     const handleRefresh = () => {
         onRefresh()
     }
+
     return (
-        <Sidebar position="right">
+        <Sidebar position="right" className={`${isMobile && 'customWidth'}`} style={{ display: 'block', maxWidth: `${isMobile && '100%'}` }}>
             <div>
                 <div style={{ padding: '10px', cursor: 'pointer' }} onClick={onClose}>
                     <CloseOutlined />
@@ -126,14 +127,6 @@ export default function Rightbar({ selectedChat, user, onlineUsers, sendMessage,
                         ? getSender(user, selectedChat.users)
                         : selectedChat?.chatName}</h4>
                     <p style={{ fontSize: ' 0.82rem' }}>{selectedChat && !selectedChat.isGroupChat && getSenderFull(user, selectedChat.users).email}</p>
-                    <br />
-                    <div>
-                        <Space wrap>
-                            <span className='iconCall'> <MdCall /></span>
-                            <span className='iconCall'> <IoVideocamOutline /></span>
-                            <span className='iconCall'> <FaRocketchat /></span>
-                        </Space>
-                    </div>
 
                 </div>
 
@@ -170,9 +163,6 @@ export default function Rightbar({ selectedChat, user, onlineUsers, sendMessage,
                     <Meeting
                         meetings={meetings}
                     />
-                }
-                {chatSettings?.showTodo &&
-                    <Todo />
                 }
                 {chatSettings?.showSticky &&
                     <Note

@@ -28,9 +28,12 @@ const { common } = CHAT;
 interface Props {
     handleRightClickOption: any;
     hardRefresh: any;
+    viewInfo: boolean;
+    changeView: any;
+    conversationClick: any;
 }
 
-export default function MyChats({ handleRightClickOption, hardRefresh }: Props) {
+export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView, conversationClick }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
     const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
@@ -132,6 +135,14 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         hardRefresh()
     }
 
+    const handleView = (data: any) => {
+        changeView(data);
+    }
+
+    const backProps = (chat: any) => {
+        conversationClick()
+    }
+
     const tabItems: TabsProps['items'] = [
         {
             key: '1',
@@ -151,6 +162,9 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
                         user={user}
                         handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
                         search={search}
+                        viewInfo={viewInfo}
+                        changeInfo={handleView}
+                        handleConversationClick={backProps}
                     />
                 ))}
                 {chats.length > 0 &&
@@ -167,6 +181,9 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
                         user={user}
                         handleRightClick={(data: any) => handleAction(data)} onReload={handleRefresh}
                         search={search}
+                        viewInfo={viewInfo}
+                        changeInfo={handleView}
+                        handleConversationClick={backProps}
                     />
                 ))}
             </div>,
@@ -177,6 +194,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
             children: <SearchUser
                 setShowGroupChatModal={setShowGroupChatModal}
                 showGroupChatModal={showGroupChatModal}
+                handleConversationClick={backProps}
             />,
         },
         {
@@ -213,6 +231,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
 
             if (response.data) {
                 setReload(!reload)
+                setViewProfile(!viewProfile);
             }
         } catch (error) {
             new ErrorHandler(error);
@@ -223,7 +242,9 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         {
             key: '1',
             label: 'My account',
-            children: <MyAccount config={config} user={user} />
+            children: <MyAccount config={config} user={user} onSuccess={() => {
+                setViewProfile(!viewProfile)
+            }} />
         },
         {
             key: '2',
@@ -251,7 +272,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh }: Props) 
         <Sidebar
             position="left"
         >
-            <Flex justify='space-between' align='center' style={{ padding: '10px', backgroundColor: '#f6cc9c' }}>
+            <Flex justify='space-between' align='center' style={{ padding: '10px', backgroundColor: '#ffe9d1' }}>
                 <Conversation.Content>
                     <div style={{ display: 'flex', gap: "10px", alignItems: 'center' }}>
                         <div style={{ position: 'relative' }}>

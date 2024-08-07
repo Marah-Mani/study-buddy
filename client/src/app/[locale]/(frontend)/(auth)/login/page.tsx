@@ -14,7 +14,7 @@ export default function Page() {
 					</div>
 					<Row gutter={[0, 0]} align='middle' className='login-style' >
 						<Col xs={0} sm={0} md={0} lg={12} xl={12} xxl={12} className='textCenter'>
-							<div> <img src='/images/logo.png' alt='' /> </div></Col>
+							<div> <img src='/images/logo-.png' alt='' /> </div></Col>
 						<Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
 							<div className="login-container-login">
 								<div className="login-content">

@@ -1,31 +1,34 @@
 'use client'
-import { Button, Col, Form, Input, message, Row, Select, Spin, Upload, UploadFile } from 'antd';
+import { Button, Col, Form, Input, message, Row, Select, Spin, Tooltip, Upload, UploadFile } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { PlusOutlined } from '@ant-design/icons';
 import ErrorHandler from '@/lib/ErrorHandler';
 import { validationRules } from '@/lib/validations';
 import AuthContext from '@/contexts/AuthContext';
-import { updateProfileDetails } from '@/lib/userApi';
+import { updateUserProfileDetails } from '@/lib/userApi';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Cookies from 'js-cookie';
 import { FaFacebook, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import { FaSquareXTwitter } from 'react-icons/fa6';
+import { FaXTwitter } from 'react-icons/fa6';
 import { handleFileCompression } from '@/lib/commonServices';
-
+import {
+    GetLanguages, //async functions
+} from "react-country-state-city";
+import { updateProfileDetails } from '@/lib/adminApi';
+import './style.css';
+import { getDepartments } from '@/lib/ApiAdapter';
 
 export default function Brands() {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
-    const [value, setValue] = useState('')
     const [loading, setLoading] = useState(false)
     const { user, setUser } = useContext(AuthContext);
     const [form] = Form.useForm();
-    const [isEmailDisabled, setIsEmailDisabled] = useState(false);
     const [phone, setPhone] = useState('');
     const token = Cookies.get('session_token');
-
-
-
+    const [languageList, setLanguageList] = useState<any[]>([]);
+    const [departments, setDepartments] = useState<any>([]);
+    const [selectedDepartment, setSelectedDepartment] = useState<any | null>(null);
 
     const handlePhoneChange = (value: any, countryData: any) => {
         setPhone(value);
@@ -34,31 +37,52 @@ export default function Brands() {
 
     useEffect(() => {
         if (user) {
+            setSelectedDepartment(user.departmentId);
+            const subjectsArray = user?.subjects?.length ? user.subjects[0].split(',') : [];
             form.setFieldsValue({
-                name: user.name,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                country: user?.address?.country,
-                state: user?.address?.state,
-                profileTitle: user.profileTitle,
-                profileDescription: user.profileDescription,
-                skills: user.skills,
-                languages: user.languages,
-                instagram: user.socialLinks?.instagram,
-                linkedIn: user.socialLinks?.linkedin,
-                facebook: user.socialLinks?.facebook,
-                twitter: user.socialLinks?.twitter,
-                higherEducation: user.higherEducation,
+                name: user.name ?? '',
+                email: user.email ?? '',
+                phoneNumber: user.phoneNumber ?? '',
+                country: user?.address?.country ?? '',
+                state: user?.address?.state ?? '',
+                profileTitle: user.profileTitle ?? '',
+                profileDescription: user.profileDescription ?? '',
+                skills: user.skills ?? '',
+                languages: user.languages ?? '',
+                instagram: user.socialLinks?.instagram ?? '',
+                linkedIn: user.socialLinks?.linkedin ?? '',
+                facebook: user.socialLinks?.facebook ?? '',
+                twitter: user.socialLinks?.twitter ?? '',
+                higherEducation: user.higherEducation ?? '',
+                interest: user.interestedIn ?? '',
+                gender: user.gender ?? '',
+                departments: user.departmentId ?? '',
+                subjects: subjectsArray,
             });
-            setFileList([{
-                uid: '-1',
-                name: user.image,
-                status: 'done',
-                url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`,
-            }])
+            if (user.image) {
+                setFileList([{
+                    uid: '-1',
+                    name: user.image,
+                    status: 'done',
+                    url: `${process.env.NEXT_PUBLIC_IMAGE_URL}/userImage/original/${user.image}`
+                    ,
+                }])
+            }
 
         }
     }, [user]);
+
+    useEffect(() => {
+        GetLanguages().then((result: any) => {
+            setLanguageList(result);
+        });
+        getDepartments().then((res) => {
+            if (res.status === true) {
+                setDepartments(res.data);
+            }
+        });
+    }, [])
+
 
     const onfinish = async (values: any) => {
         try {
@@ -72,7 +96,6 @@ export default function Brands() {
                     formData.append('image', file as string);
                 }
             }
-
             formData.append('name', values.name);
             formData.append('email', values.email);
             formData.append('phoneNumber', values.phoneNumber);
@@ -84,12 +107,28 @@ export default function Brands() {
             formData.append('profileTitle', values.profileTitle);
             formData.append('higherEducation', values.higherEducation);
             formData.append('profileDescription', values.profileDescription);
-            formData.append('instagram', values.instagram);
-            formData.append('linkedIn', values.linkedIn);
-            formData.append('facebook', values.facebook);
-            formData.append('twitter', values.twitter);
-
-            const res = await updateProfileDetails(formData);
+            formData.append('interestedIn', values.interest);
+            formData.append('gender', values.gender);
+            formData.append('departments', values.departments);
+            formData.append('subjects', values.subjects);
+            if (values.facebook) {
+                formData.append('facebook', values.facebook);
+            }
+            if (values.twitter) {
+                formData.append('twitter', values.twitter);
+            }
+            if (values.linkedIn) {
+                formData.append('linkedIn', values.linkedIn);
+            }
+            if (values.instagram) {
+                formData.append('instagram', values.instagram);
+            }
+            let res;
+            if (user?.role == 'admin') {
+                res = await updateProfileDetails(formData);
+            } else {
+                res = await updateUserProfileDetails(formData);
+            }
 
 
             if (res.status == true) {
@@ -125,13 +164,23 @@ export default function Brands() {
         }
     };
 
+    const handleDepartmentChange = (value: string) => {
+        setSelectedDepartment(value);
+        form.setFieldsValue({ subjects: [] }); // Reset subjects field in the form
+    };
+
+    const getSubjectsForDepartment = (departmentName: string): string[] => {
+        const selectedDept = departments.find((dept: any) => dept._id === departmentName); // Assuming _id is used as the unique identifier
+        return selectedDept ? selectedDept.subjects : [];
+    };
+
     return (
         <>
             {loading ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                 <Spin style={{ marginTop: '-20vh' }} />
             </div>
                 :
-                <div className='mainSection'>
+                <div className='mainSection editProfileForm'>
                     <div className="smallTopMargin"></div>
                     <Form layout='vertical' form={form} size='large' onFinish={onfinish} className='ant-items-mar'>
                         <Row gutter={24}>
@@ -196,18 +245,33 @@ export default function Brands() {
                                             />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={24}>
-                                        <Form.Item name={'profileDescription'} label={'Profile Description'}>
-                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                    <Col lg={24} xl={24} md={24} sm={24} xs={24}>
+                                        <Form.Item name={'gender'} label='Gender'
+                                            rules={
+                                                [
+                                                    {
+                                                        required: true,
+                                                        message: 'Please select gender'
+                                                    },
+                                                ]
+                                            }
+                                        >
+                                            <Select
+                                                style={{ width: '100%', height: '35px' }}
+                                                placeholder="Select gender"
+                                            >
+                                                <Select.Option value="male">Male</Select.Option>
+                                                <Select.Option value="female">Female</Select.Option>
+                                                <Select.Option value="other">Other</Select.Option>
+                                            </Select>
                                         </Form.Item>
+
                                     </Col>
-                                    <Col lg={12} xl={12} md={12} sm={12} xs={12}>
+                                    <Col lg={12} xl={12} md={12} sm={0} xs={0}>
                                         <Form.Item name={'image'} label='Profile Image'>
                                             <Upload
                                                 listType="picture-card"
                                                 fileList={fileList}
-                                                // onPreview={handlePreview}
-                                                // onChange={handleChange}
                                                 beforeUpload={handleBeforeUpload}
                                                 onRemove={handleRemove}
                                                 accept=".jpg,.jpeg,.png"
@@ -219,63 +283,124 @@ export default function Brands() {
                                             </Upload>
                                         </Form.Item>
                                     </Col>
-
                                 </Row>
                             </Col>
+                            {user?.role !== 'admin' &&
+                                <>
+                                    <Col xl={8} lg={8} md={8} sm={24} xs={24}>
+                                        <Row gutter={24}>
+                                            <Col span={24}>
+                                                <Form.Item name={'profileTitle'} label={'Profile Title'}>
+                                                    <Input placeholder='Enter profile title' style={{ height: '35px' }} />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={24}>
+                                                <Form.Item name={'skills'} label={'Skills'}>
+                                                    <Input
+                                                        placeholder='Enter skills separated by comma'
+                                                    />
+                                                </Form.Item>
+                                            </Col>
+
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    name='higherEducation'
+                                                    label='Higher Education'
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'Please select your highest education level'
+                                                        }
+                                                    ]}
+                                                >
+                                                    <Select placeholder='Select your highest education level' style={{ height: '35px' }}>
+                                                        <Select.Option value='none'>None</Select.Option>
+                                                        <Select.Option value='high school'>High School</Select.Option>
+                                                        <Select.Option value='associate degree'>Associate Degree</Select.Option>
+                                                        <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
+                                                        <Select.Option value='master degree'>Master Degree</Select.Option>
+                                                        <Select.Option value='doctorate'>Doctorate</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    label='Interest'
+                                                    name="interest"
+                                                    rules={[{ required: true, message: 'Please select your interest!' }]}
+                                                >
+                                                    <Select placeholder="Select interest" style={{ height: '35px', borderRadius: '30px' }}>
+                                                        <Select.Option value="tutor">Tutor</Select.Option>
+                                                        <Select.Option value="student">Student</Select.Option>
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item
+                                                    label='Department'
+                                                    name="departments"
+                                                    rules={[{ required: true, message: 'Please select departments!' }]}
+                                                >
+                                                    <Select
+                                                        placeholder="Select departments"
+                                                        onChange={handleDepartmentChange}
+                                                        style={{ height: '35px', borderRadius: '30px' }}
+                                                    >
+                                                        {departments &&
+                                                            departments.map((department: any) => (
+                                                                <Select.Option key={department._id} value={department._id}>
+                                                                    {department.departmentName}
+                                                                </Select.Option>
+                                                            ))}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+                                                <Form.Item label='Subjects' name="subjects" rules={[{ required: true, message: 'Please select subjects!' }]}>
+                                                    <Select
+                                                        mode="multiple"
+                                                        placeholder="Select subjects"
+                                                        maxTagCount="responsive"
+                                                        disabled={!selectedDepartment}
+                                                        style={{ height: '35px', borderRadius: '30px' }}
+                                                    >
+                                                        {selectedDepartment &&
+                                                            getSubjectsForDepartment(selectedDepartment).map(
+                                                                (subject: string, index: number) => (
+                                                                    <Select.Option key={index} value={subject}>
+                                                                        {subject}
+                                                                    </Select.Option>
+                                                                )
+                                                            )}
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </>
+                            }
                             <Col xl={8} lg={8} md={8} sm={24} xs={24}>
                                 <Row gutter={24}>
-                                    <Col span={24}>
-                                        <Form.Item name={'profileTitle'} label={'Profile Title'}>
-                                            <Input placeholder='Enter profile title' style={{ height: '35px' }} />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={24}>
-                                        <Form.Item name={'skills'} label={'Skills'}>
-                                            <Select
-                                                mode="tags"
-                                                style={{ width: '100%', height: '35px' }}
-                                                tokenSeparators={[',']}
-                                                placeholder="Enter skills"
-                                            // options={options}
-                                            />
-                                        </Form.Item>
-                                    </Col>
                                     <Col span={24}>
                                         <Form.Item name={'languages'} label={'Languages'}>
                                             <Select
-                                                mode="tags"
+                                                mode='multiple'
+                                                maxTagCount="responsive"
+                                                maxTagPlaceholder={(omittedValues) => (
+                                                    <Tooltip title={omittedValues.map(({ label }) => label).join(', ')}>
+                                                        <span>...</span>
+                                                    </Tooltip>
+                                                )}
                                                 style={{ width: '100%', height: '35px' }}
-                                                tokenSeparators={[',']}
-                                                placeholder="Enter Languages"
-                                            // options={options}
-                                            />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col xl={24} lg={24} md={24} sm={24} xs={24}>
-                                        <Form.Item
-                                            name='higherEducation'
-                                            label='Higher Education'
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Please select your highest education level'
-                                                }
-                                            ]}
-                                        >
-                                            <Select placeholder='Select your highest education level' style={{ height: '35px' }}>
-                                                <Select.Option value='none'>None</Select.Option>
-                                                <Select.Option value='high school'>High School</Select.Option>
-                                                <Select.Option value='associate degree'>Associate Degree</Select.Option>
-                                                <Select.Option value='bachelor degree'>Bachelor Degree</Select.Option>
-                                                <Select.Option value='master degree'>Master Degree</Select.Option>
-                                                <Select.Option value='doctorate'>Doctorate</Select.Option>
+                                            >
+                                                {languageList.map((item, index) => (
+                                                    <option key={index} value={item.code}>
+                                                        {item.name}
+                                                    </option>
+                                                ))}
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                </Row>
-                            </Col>
-                            <Col xl={8} lg={8} md={8} sm={24} xs={24}>
-                                <Row gutter={24}>
                                     <Col xl={24} lg={24} md={24} sm={24} xs={24}>
                                         <Form.Item
                                             name={'facebook'}
@@ -320,7 +445,7 @@ export default function Brands() {
                                                 placeholder='Enter Twitter link'
                                                 type='link'
                                                 maxLength={50}
-                                                suffix={<FaSquareXTwitter />}
+                                                suffix={<FaXTwitter />}
                                             />
                                         </Form.Item>
 
@@ -372,6 +497,33 @@ export default function Brands() {
                                                 maxLength={50}
                                                 suffix={<FaInstagram />}
                                             />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={24}>
+                                        <Form.Item name={'profileDescription'} label={'Profile Description'}
+                                            rules={[
+                                                {
+                                                    max: 200, // Maximum 200 characters
+                                                    message: 'Profile description must be less than 200 characters',
+                                                },
+                                            ]}>
+                                            <Input.TextArea placeholder='Enter profile description' autoSize={{ minRows: 1, maxRows: 6 }} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={0} xl={0} md={0} sm={12} xs={12}>
+                                        <Form.Item name={'image'} label='Profile Image'>
+                                            <Upload
+                                                listType="picture-card"
+                                                fileList={fileList}
+                                                beforeUpload={handleBeforeUpload}
+                                                onRemove={handleRemove}
+                                                accept=".jpg,.jpeg,.png"
+                                                headers={{ Authorization: `Bearer ${token}` }}
+                                                name='file'
+                                                action={`${process.env['NEXT_PUBLIC_API_URL']}/user/profile/update-profile-details`}
+                                            >
+                                                {fileList.length >= 1 ? null : uploadButton}
+                                            </Upload>
                                         </Form.Item>
                                     </Col>
                                 </Row>

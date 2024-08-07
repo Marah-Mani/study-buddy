@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Space, Table, Image, message, Popconfirm, Tag, Col, Rate, Row, Tooltip } from 'antd';
+import { Space, Table, Image, message, Popconfirm, Tag, Col, Rate, Row, Tooltip, Avatar } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -10,6 +10,7 @@ import AuthContext from '@/contexts/AuthContext';
 import { getUserProducts } from '@/lib/commonApi';
 import { getAllProducts } from '@/lib/adminApi';
 import { BiShekel } from 'react-icons/bi';
+import { ProjectOutlined } from '@ant-design/icons'
 
 interface DataType {
     key: React.Key;
@@ -147,28 +148,29 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
                 <Tooltip
                     color={'#EDF3FA'}
                     title={
-                        <Image
-                            src={
-                                data?.images.length > 0
-                                    ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
-                                    : `/images/avatar.png`
-                            }
-                            width={235}
-                            height={235}
-                            alt='product'
-                            preview={false}
-                        />
+                        data?.images.length ?
+                            <Image
+                                src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`}
+                                width={235}
+                                height={235}
+                                alt='product'
+                                preview={false}
+                            />
+                            :
+                            <Avatar size={235} shape={'square'}>Product</Avatar>
                     }
                 >
-                    <Image src={
-                        data?.images.length > 0
-                            ? `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/small/${data?.images[0]?.name}`
-                            : `/images/avatar.png`
-                    } width={50} height={50} alt='product' preview={false} style={{ borderRadius: '5px' }} />
+                    {data?.images.length ?
+                        <Image src={
+                            `${process.env['NEXT_PUBLIC_IMAGE_URL']}/productImages/original/${data?.images[0]?.name}`
+
+                        } width={50} height={50} alt='product' preview={false} style={{ borderRadius: '5px' }} />
+                        :
+                        <Avatar size={40} shape={'square'}>Product</Avatar>}
                 </Tooltip>
-            </Space>,
+            </Space >,
             title: data.title,
-            category: data.categoryId.name,
+            category: data.categoryId?.name,
             subCategory: data.subCategoryId?.name,
             price: <> <div style={{ display: 'flex', alignItems: 'center' }}> <span><BiShekel size={20} style={{ color: 'green', display: 'flex', alignItems: 'center' }} /></span>
                 <span>{data?.price}</span>
@@ -189,13 +191,14 @@ export default function TableData({ reload, onEdit, searchInput }: Props) {
 
     return (
         <div>
-            <Table
-                columns={columns}
-                bordered
-                dataSource={data}
-                scroll={{ x: 1500 }}
-                loading={loading}
-            />
+            <div className="table-container">
+                <Table
+                    columns={columns}
+                    bordered
+                    dataSource={data}
+                    loading={loading}
+                />
+            </div>
         </div>
     );
 }
