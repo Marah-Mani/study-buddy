@@ -25,7 +25,7 @@ import { Button, Form, Input, Modal, Dropdown, MenuProps, Typography, Space, Pop
 import { useFilePicker } from 'use-file-picker';
 import ProfileModal from '../ProfileModal';
 import UpdateGroupChatModal from '../UpdateGroupChatModal';
-import { FaEllipsisV, FaInfo, FaSearch, FaStar, FaRegArrowAltCircleRight, FaVideo, FaTrash } from 'react-icons/fa';
+import { FaEllipsisV, FaInfo, FaSearch, FaStar, FaRegArrowAltCircleRight, FaVideo, FaTrash, FaArrowLeft } from 'react-icons/fa';
 import TimeAgo from 'react-timeago';
 var socket: any, selectedChatCompare: any;
 import StringAvatar from '@/app/commonUl/StringAvatar';
@@ -711,7 +711,9 @@ export default function Chat() {
                             }}
                         >
                             <ConversationHeader>
-                                <ConversationHeader.Back onClick={handleBackClick} />
+                                <ConversationHeader.Back>
+                                    <Button onClick={handleBackClick} icon={<FaArrowLeft />} />
+                                </ConversationHeader.Back>
                                 <ConversationHeader.Content style={conversationContentStyle} >
                                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                                         <div style={{ position: 'relative' }}>
@@ -728,7 +730,14 @@ export default function Chat() {
                                         </div>
                                         <div className="userName">
                                             <p style={{ fontWeight: '600', textTransform: 'capitalize' }}>
-                                                {`${selectedChat && (selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users))}`}
+                                                {selectedChat && (
+                                                    selectedChat.isGroupChat
+                                                        ? <>
+                                                            {selectedChat.chatName}
+                                                            <br />
+                                                        </>
+                                                        : getSender(user, selectedChat.users)
+                                                )}
                                                 &nbsp;
                                                 <span style={{ fontSize: '12px', fontWeight: '400' }}>
                                                     {onlineUsers.some(
@@ -937,7 +946,7 @@ export default function Chat() {
                                     false
                                 }
                                 value={newMessage}
-                                autoFocus={true}
+                                autoFocus={false}
                                 sendDisabled={loading}
                             />
                             <InputToolbox>

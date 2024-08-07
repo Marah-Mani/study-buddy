@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Props) {
 				<ConfigProvider
 					theme={{
 						token: {
-							fontFamily: 'Lato, sans-serif',
+							fontFamily: 'PT Serif, sans-serif',
 							colorPrimary: '#f1a638',
 							borderRadius: 7
 						}

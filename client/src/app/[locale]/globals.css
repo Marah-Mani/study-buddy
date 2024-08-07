@@ -310,11 +310,11 @@ input.form-control {
   input,
   textarea,
   select {
-    font-size: 17px !important;
+    font-size: 16px !important;
   }
 
   .headerMain .cs-message-input__content-editor {
     padding-left: 80px;
-    font-size: 17px !important;
+    font-size: 16px !important;
   }
 }

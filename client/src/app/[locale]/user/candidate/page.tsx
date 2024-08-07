@@ -47,14 +47,12 @@ export default function Page() {
     return (
         <>
             <div className="dashBody">
-                <div className='gapMarginTopTwo'></div>
                 <Row align='middle' gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12} >
-                        <ParaText size="large" fontWeightBold={600} color="primaryColor">
-                            Users
-                        </ParaText>
+                    <Col xs={0} sm={0} md={4} lg={9} xl={11} xxl={16}></Col>
+                    <Col xs={24} sm={24} md={6} lg={5} xl={4} xxl={3} className='textEnd'>
+                        <Input allowClear placeholder="Search" style={{ width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                     </Col>
-                    <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className='textEnd'>
+                    <Col xs={24} sm={24} md={14} lg={10} xl={9} xxl={5} className='textCenter'>
                         <Space wrap>
                             <Dropdown
                                 overlay={
@@ -79,7 +77,7 @@ export default function Page() {
                             >
                                 <Button
                                     style={{
-                                        width: '250px',
+                                        width: '196px',
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center'
@@ -125,7 +123,7 @@ export default function Page() {
                             >
                                 <Button
                                     style={{
-                                        width: '250px',
+                                        width: '196px',
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center'
@@ -147,7 +145,6 @@ export default function Page() {
                                     <IoMdArrowDropdown style={{ marginLeft: 8 }} />
                                 </Button>
                             </Dropdown>
-                            <Input allowClear placeholder="Search" style={{ width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                         </Space>
 
                     </Col>
