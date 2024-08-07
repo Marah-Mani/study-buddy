@@ -929,7 +929,7 @@ export default function Chat() {
                                     )}
                             </MessageList>
                             <MessageInput
-                                className="chatInput"
+                                // className="chatInput"
                                 onAttachClick={() => openFilePicker()}
                                 onChange={typingHandler}
                                 placeholder={

@@ -555,12 +555,32 @@ export default function UnMatchedResult({ type }: Props) {
                             {loading && <Skeleton avatar paragraph={{ rows: 1 }} active />}
                         </InfiniteScroll>
                         :
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} className='textCenter'>
-                            <Result
-                                status="404"
-                                subTitle="Currently, there are no users with matching interests. Please select additional courses or check back later as more users join."
-                            />
-                        </Col>
+                        <>
+                            <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0} className='textCenter'>
+                                <Image
+                                    src='/images/no-match.png'
+                                    width={'auto'}
+                                    height={'auto'}
+                                    preview={false}
+                                />
+                                <br />
+                                <ParaText size='extraSmall' color='black'>
+                                    Currently, there are no users with matching interests. Please select additional courses or check back later as more users join.
+                                </ParaText>
+                            </Col>
+                            <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24} className='textCenter'>
+                                <Image
+                                    src='/images/no-match.png'
+                                    width={500}
+                                    height={500}
+                                    preview={false}
+                                />
+                                <br />
+                                <ParaText size='extraSmall' color='black'>
+                                    Currently, there are no users with matching interests. Please select additional courses or check back later as more users join.
+                                </ParaText>
+                            </Col>
+                        </>
                     }
                 </Col>
             </div>

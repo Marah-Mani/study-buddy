@@ -203,9 +203,9 @@ export default function Page() {
                 <div>
                     {loading ? <Loading /> :
                         <Row gutter={[12, 12]}>
-                            <Col sm={0} xs={0} lg={6} xl={8} xxl={15}></Col>
+                            <Col sm={0} xs={0} lg={6} xl={8} xxl={13}></Col>
                             {allDataType &&
-                                <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={5} className='textCenter'>
+                                <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={6} className='textCenter'>
                                     <Space wrap>
                                         {allDataType &&
                                             <>
@@ -306,7 +306,7 @@ export default function Page() {
                                     </Space>
                                 </Col>
                             }
-                            <Col xs={24} sm={24} md={11} lg={8} xl={7} xxl={4} className='textCenter'>
+                            <Col xs={24} sm={24} md={11} lg={8} xl={7} xxl={5} className='textCenter'>
                                 <Space wrap>
                                     <Button
                                         type="primary"
