@@ -305,8 +305,16 @@ input.form-control {
 }
 
 
-input,
-textarea,
-select {
-  font-size: 17px;
+@media screen and (max-width: 767px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) {
+
+  input,
+  textarea,
+  select {
+    font-size: 17px !important;
+  }
+
+  .headerMain .cs-message-input__content-editor {
+    padding-left: 80px;
+    font-size: 17px !important;
+  }
 }
