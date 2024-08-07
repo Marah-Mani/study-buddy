@@ -48,11 +48,11 @@ export default function Page() {
         <>
             <div className="dashBody">
                 <Row align='middle' gutter={[16, 16]}>
-                    <Col xs={0} sm={0} md={4} lg={9} xl={11} xxl={16}></Col>
+                    <Col xs={0} sm={0} md={4} lg={9} xl={11} xxl={14}></Col>
                     <Col xs={24} sm={24} md={6} lg={5} xl={4} xxl={3} className='textEnd'>
                         <Input allowClear placeholder="Search" style={{ width: '100%', borderRadius: '30px' }} className='buttonClass' onChange={(e) => setSearchInput(e.target.value)} />
                     </Col>
-                    <Col xs={24} sm={24} md={14} lg={10} xl={9} xxl={5} className='textCenter'>
+                    <Col xs={24} sm={24} md={14} lg={10} xl={9} xxl={7} className='textCenter'>
                         <Space wrap>
                             <Dropdown
                                 overlay={
