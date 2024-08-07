@@ -319,7 +319,7 @@ input.form-control {
   }
 }
 
-
+/* styles/global.css */
 .full-viewport-height {
   height: 100vh;
 }
@@ -328,4 +328,11 @@ input.form-control {
   .full-viewport-height {
     height: 100dvh;
   }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }

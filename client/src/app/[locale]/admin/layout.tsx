@@ -34,6 +34,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	}, []);
 
 	useEffect(() => {
+		const hideToolbar = () => {
+			if (isIPhone) {
+				console.log("Hiding Safari toolbar on iPhone...");
+				document.documentElement.classList.add('full-viewport-height');
+				setTimeout(() => {
+					window.scrollTo(0, 1);
+				}, 100);
+			} else {
+				console.log("Hiding browser toolbar on desktop...");
+				setTimeout(() => {
+					window.scrollTo(0, 0);
+				}, 100);
+			}
+		};
+
 		const enterFullscreen = () => {
 			console.log("Attempting to enter fullscreen...");
 			if (document.documentElement.requestFullscreen) {
@@ -55,21 +70,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
-			}
-		};
-
-		const hideToolbar = () => {
-			if (isIPhone) {
-				console.log("Hiding Safari toolbar on iPhone...");
-				document.documentElement.classList.add('full-viewport-height');
-				setTimeout(() => {
-					window.scrollTo(0, 1);
-				}, 100);
-			} else {
-				console.log("Hiding browser toolbar on desktop...");
-				setTimeout(() => {
-					window.scrollTo(0, 0);
-				}, 100);
 			}
 		};
 
@@ -96,6 +96,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		}
 		return undefined;
 	}, [desiredSegment, isMobile, isIPhone]);
+
+	useEffect(() => {
+		const isStandalone = (navigator as any).standalone !== undefined ? (navigator as any).standalone : false;
+
+		if (isStandalone) {
+			window.addEventListener('load', function () {
+				if (!(navigator as any).standalone) {
+					setTimeout(function () {
+						window.scrollTo(window.scrollX, window.scrollY + 1);
+					}, 500);
+				}
+			});
+		}
+	}, []);
 
 	return (
 		<>
