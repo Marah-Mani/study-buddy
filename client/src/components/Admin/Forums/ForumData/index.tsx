@@ -51,7 +51,7 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
 
     const handleDelete = async (item: any) => {
         try {
-            const res = await deleteForum(item);
+            const res = await deleteForum({ forumId: item._id });
             if (res.status === true) {
                 message.success(res.message);
                 fetchData();
@@ -73,6 +73,8 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
             ),
             category: (data?.categoryId?.name),
             views: data.viewCount,
+            likes: data.likes.length ?? 0,
+            disLikes: data.dislikes.length ?? 0,
             action: (
                 <>
                     <div style={{ display: 'flex', gap: '10px' }}>
@@ -103,7 +105,9 @@ export default function ForumData({ activeKey, onEdit, reload, getData, filterDa
         { title: 'Title', dataIndex: 'title' },
         { title: 'Category', dataIndex: 'category' },
         { title: 'Views', dataIndex: 'views' },
-        { title: 'Action', dataIndex: 'action' }
+        { title: 'Likes', dataIndex: 'likes' },
+        { title: 'Dislikes', dataIndex: 'disLikes' },
+        { title: 'Action', dataIndex: 'action', width: '100px' }
     ];
 
 

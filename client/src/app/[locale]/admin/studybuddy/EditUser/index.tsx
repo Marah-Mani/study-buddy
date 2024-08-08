@@ -283,20 +283,20 @@ export default function EditUser({ editData, onReload }: Props) {
                             <Col xl={12} lg={12} md={12} sm={12} xs={12}>
                                 <Form.Item
                                     name={'twitter'}
-                                    label={'Twitter'}
+                                    label={'X'}
                                     rules={[
                                         {
                                             validator: (_, value) => {
                                                 if (!value || validationRules.twitterURL.pattern.test(value)) {
                                                     return Promise.resolve();
                                                 }
-                                                return Promise.reject('Please enter a valid Twitter URL');
+                                                return Promise.reject('Please enter a valid X URL');
                                             },
                                         },
                                     ]}
                                 >
                                     <Input
-                                        placeholder='Enter Twitter link'
+                                        placeholder='Enter X link'
                                         type='link'
                                         maxLength={50}
                                         suffix={<FaXTwitter />}

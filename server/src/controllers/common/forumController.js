@@ -117,6 +117,10 @@ const invoiceController = {
 				return res.status(404).json({ message: 'Forum not found', status: false });
 			}
 
+			if (!forum.attachment) {
+				return res.status(200).json({ status: true, message: 'Removed' });
+			}
+
 			await unlinkImage('forumImages', forum.attachment);
 
 			forum.attachment = null;

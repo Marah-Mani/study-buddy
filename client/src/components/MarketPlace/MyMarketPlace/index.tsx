@@ -72,7 +72,7 @@ export default function MyMarketPlace({ activeKey }: Props) {
                     handleEdit(id);
                 }}
             />
-            <Drawer title={editData ? 'Edit Item' : 'Add Item'} onClose={onClose} open={open} width={600}>
+            <Drawer title={editData ? 'Edit product' : 'Add product'} onClose={onClose} open={open} width={600}>
                 <FormType onSuccess={handleSuccess} editData={editData} />
             </Drawer>
         </>

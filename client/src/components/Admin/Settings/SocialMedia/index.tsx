@@ -93,20 +93,20 @@ export default function SocialMedia({ activeKey }: Props) {
                             <Col xl={24} lg={24} md={24} sm={24} xs={24}>
                                 <Form.Item
                                     name={'twitter'}
-                                    label={'Twitter'}
+                                    label={'X'}
                                     rules={[
                                         {
                                             validator: (_, value) => {
                                                 if (!value || validationRules.twitterURL.pattern.test(value)) {
                                                     return Promise.resolve();
                                                 }
-                                                return Promise.reject('Please enter a valid Twitter URL');
+                                                return Promise.reject('Please enter a valid X URL');
                                             },
                                         },
                                     ]}
                                 >
                                     <Input
-                                        placeholder='Enter Twitter link'
+                                        placeholder='Enter X link'
                                         type='text'
                                         maxLength={50}
                                         suffix={<FaXTwitter />}
