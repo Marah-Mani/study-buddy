@@ -288,12 +288,16 @@ export default function Page() {
                                                                                     </ParaText>
                                                                                     <div className="smallTopMargin"></div>
                                                                                     {forum.attachment ? (
-                                                                                        <Image
-                                                                                            src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
-                                                                                            alt="Avatar"
-                                                                                            style={{ borderRadius: '5px' }}
-                                                                                            preview={false}
-                                                                                        />
+                                                                                        <>
+                                                                                            <div className='questionImages'>
+                                                                                                <Image
+                                                                                                    src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
+                                                                                                    alt="Avatar"
+                                                                                                    style={{ borderRadius: '5px' }}
+                                                                                                    preview={false}
+                                                                                                />
+                                                                                            </div>
+                                                                                        </>
                                                                                     ) :
                                                                                         <ParaText
                                                                                             size="textGraf"

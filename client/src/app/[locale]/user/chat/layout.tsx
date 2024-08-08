@@ -8,8 +8,6 @@ export default function ChatLayout({
     children: React.ReactNode
 }) {
     return (
-        <ChatContentProvider>
-            <div className="userLayOut">{children}</div>
-        </ChatContentProvider>
+        <div className="userLayOut">{children}</div>
     )
 }

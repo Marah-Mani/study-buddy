@@ -65,7 +65,7 @@ export default function Dashboard() {
                                 >
                                     View all
                                 </Link>}
-                            title={<Title level={4}>My Market Place</Title>}
+                            title={<Title level={5}>My Market Place</Title>}
                             className='timelineCard'
                             style={{ borderTop: '2px solid rgb(132 90 223)', cursor: 'pointer', boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.1)' }}
                         >
@@ -87,7 +87,7 @@ export default function Dashboard() {
                                 >
                                     View all
                                 </Link>}
-                            title={<Title level={4}>My Forums</Title>}
+                            title={<Title level={5}>My Forums</Title>}
                             className='timelineCard'
                             style={{ borderTop: '2px solid rgb(230 83 60)', cursor: 'pointer', boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.1)' }}
                         >
@@ -105,7 +105,7 @@ export default function Dashboard() {
                     <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
                         <div className="gapMarginTopTwo"></div>
                         <Card
-                            title={<Title level={4}>Timeline</Title>}
+                            title={<Title level={5}>Timeline</Title>}
                             className='timelineCard'
                             style={{ borderTop: '2px solid  rgb(38 191 148)', cursor: 'pointer', boxShadow: ' 0 4px 8px rgba(0, 0, 0, 0.1)' }}
                         >

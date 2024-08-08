@@ -122,7 +122,7 @@ export default function MarketPlace({ activeKey }: Props) {
                 },
                 config
             );
-            if (response) {
+            if (response && response.data && response.data._id) {
                 setSelectedChatId(response.data._id);
             }
 
