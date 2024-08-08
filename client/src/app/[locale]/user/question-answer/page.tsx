@@ -501,7 +501,7 @@ export default function Page() {
                                                     />
                                                     <br />
                                                     <ParaText size='extraSmall' color='black'>
-                                                        Oops! We couldn't find any matching records.
+                                                        Oops! We couldn&apos;t find any matching records.
                                                     </ParaText>
                                                 </Col>
                                                 <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24} className='textCenter'>
@@ -513,7 +513,7 @@ export default function Page() {
                                                     />
                                                     <br />
                                                     <ParaText size='extraSmall' color='black'>
-                                                        Oops! We couldn't find any matching records.
+                                                        Oops! We couldn&apos;t find any matching records.
                                                     </ParaText>
                                                 </Col>
                                             </>
