@@ -36,13 +36,13 @@ interface Props {
 export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView, conversationClick }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
-    const { chats, selectedChatId, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
+    const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
     const token = Cookies.get('session_token')
     const [showGroupChatModal, setShowGroupChatModal] = useState(false)
     const [viewProfile, setViewProfile] = useState<boolean>(false)
     const [blocks, setBlocks] = useState<any>([])
     const [meetings, setMeetings] = useState<any>([])
-
+    const { selectedChatId } = useContext(ChatContext);
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -130,7 +130,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
             getBlockedUser();
         }
         // eslint-disable-next-line
-    }, [reload, fetchAgain]);
+    }, [reload, fetchAgain, selectedChatId]);
 
     const handleAction = async (data: any) => {
         handleRightClickOption(data)

@@ -53,7 +53,7 @@ const ChatContext = createContext<ChatContextDefaults>({
     favourites: [],
     setFavourite: () => { },
     config: null,
-    setSelectedChatId: () => { },
+    setSelectedChatId: () => { }, // Default function
     selectedChatId: undefined,
 });
 
@@ -66,7 +66,7 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
     const [onlineUsers, setOnlineUsers] = useState<any>([])
     const [fetchAgain, setFetchAgain] = useState(false)
     const [favourites, setFavourite] = useState<any>([])
-    const [selectedChatId, setSelectedChatId] = useState<any>(undefined)
+    const [selectedChatId, setSelectedChatId] = useState<any>('initial-value');
     const token = Cookies.get('session_token')
     const config = {
         headers: {
