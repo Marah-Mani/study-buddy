@@ -11,14 +11,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	const segments = pathname.split('/').filter(Boolean);
 	const desiredSegment = segments[segments.length - 1]; // Get the last segment
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
-	const [isIPhone, setIsIPhone] = useState(/iPhone/i.test(navigator.userAgent));
 
 	useEffect(() => {
 		const handleResize = () => {
 			setIsMobile(window.innerWidth <= 767);
-			setIsIPhone(/iPhone/i.test(navigator.userAgent));
-			console.log(`isMobile: ${window.innerWidth <= 767}`);
-			console.log(`isIPhone: ${/iPhone/i.test(navigator.userAgent)}`);
 		};
 
 		// Initial check
@@ -34,36 +30,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	}, []);
 
 	useEffect(() => {
-		const hideToolbar = () => {
-			if (isIPhone) {
-				console.log("Hiding Safari toolbar on iPhone...");
-				document.documentElement.classList.add('full-viewport-height');
-				setTimeout(() => {
-					window.scrollTo(0, 1);
-				}, 100);
-			} else {
-				console.log("Hiding browser toolbar on desktop...");
-				setTimeout(() => {
-					window.scrollTo(0, 0);
-				}, 100);
-			}
-		};
-
 		const enterFullscreen = () => {
-			console.log("Attempting to enter fullscreen...");
 			if (document.documentElement.requestFullscreen) {
 				document.documentElement.requestFullscreen().catch((err) => {
 					console.error("Error attempting to enable full-screen mode:", err);
-					hideToolbar();
 				});
 			} else {
 				console.log("Fullscreen API is not supported.");
-				hideToolbar();
 			}
 		};
 
 		const exitFullscreen = () => {
-			console.log("Attempting to exit fullscreen...");
 			if (document.exitFullscreen) {
 				document.exitFullscreen().catch((err) => {
 					console.error("Error attempting to exit full-screen mode:", err);
@@ -74,7 +51,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		};
 
 		if (desiredSegment === 'chat' && isMobile) {
-			console.log("Desired segment is 'chat' and is mobile.");
 			// Ensure fullscreen request is handled with user interaction
 			const handleFullscreenRequest = () => {
 				setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
@@ -90,25 +66,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 				document.removeEventListener('click', handleFullscreenRequest);
 			};
 		} else if (desiredSegment !== 'chat') {
-			console.log("Desired segment is not 'chat'. Exiting fullscreen if needed.");
 			// Exit fullscreen if not 'chat'
 			exitFullscreen();
 		}
 		return undefined;
-	}, [desiredSegment, isMobile, isIPhone]);
+	}, [desiredSegment, isMobile]);
 
 	useEffect(() => {
-		const isStandalone = (navigator as any).standalone !== undefined ? (navigator as any).standalone : false;
+		const hideToolbar = () => {
+			if ('scrollRestoration' in window.history) {
+				window.history.scrollRestoration = 'manual';
+			}
 
-		if (isStandalone) {
-			window.addEventListener('load', function () {
-				if (!(navigator as any).standalone) {
-					setTimeout(function () {
-						window.scrollTo(window.scrollX, window.scrollY + 1);
-					}, 500);
-				}
-			});
-		}
+			// Slight scroll to hide the toolbar
+			setTimeout(() => {
+				window.scrollTo(0, 1);
+			}, 100);
+		};
+
+		hideToolbar();
+
+		// Scroll back to top on cleanup or if necessary
+		return () => {
+			window.scrollTo(0, 0);
+		};
 	}, []);
 
 	return (
