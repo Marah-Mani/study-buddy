@@ -320,11 +320,11 @@ input.form-control {
 }
 
 .full-viewport-height {
-  height: 100vh;
+  height: calc(100vh - env(safe-area-inset-top));
 }
 
 @supports (height: 100dvh) {
   .full-viewport-height {
-    height: 100dvh;
+    height: calc(100dvh - env(safe-area-inset-top));
   }
 }

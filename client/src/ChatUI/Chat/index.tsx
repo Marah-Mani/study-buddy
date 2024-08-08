@@ -701,15 +701,18 @@ export default function Chat() {
                 window.history.scrollRestoration = 'manual';
             }
 
-            // Slight scroll to hide the toolbar
+            // Attempt a slight scroll to trigger toolbar hiding
+            window.scrollTo(0, 1);
+
+            // Scroll back to the top after a delay
             setTimeout(() => {
-                window.scrollTo(0, 1);
-            }, 100);
+                window.scrollTo(0, 0);
+            }, 200);
         };
 
         hideToolbar();
 
-        // Scroll back to top on cleanup or if necessary
+        // Scroll back to top on cleanup
         return () => {
             window.scrollTo(0, 0);
         };
