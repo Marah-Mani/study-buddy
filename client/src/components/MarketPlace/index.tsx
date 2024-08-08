@@ -150,8 +150,8 @@ export default function MarketPlace({ activeKey }: Props) {
     return (
         <>
             <Row>
-                <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={12}></Col>
-                <Col xs={24} sm={24} md={20} lg={20} xl={20} xxl={12} className="textEnd markitPlace">
+                <Col xs={24} sm={24} md={0} lg={4} xl={4} xxl={12}></Col>
+                <Col xs={24} sm={24} md={24} lg={20} xl={20} xxl={12} className="textEnd markitPlace">
                     <Space wrap className="menuStyle">
                         <Dropdown
                             overlay={

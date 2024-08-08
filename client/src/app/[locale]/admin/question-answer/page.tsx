@@ -16,7 +16,7 @@ import {
 } from '@ant-design/icons';
 import AuthContext from '@/contexts/AuthContext';
 import { submitForumVote } from '@/lib/frontendApi';
-import { FaPlus } from "react-icons/fa6";
+import { FaCircleQuestion, FaPlus } from "react-icons/fa6";
 import Forums from '@/components/Admin/Forums';
 import { IoIosEye } from 'react-icons/io';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -159,21 +159,42 @@ export default function Page() {
         }
     };
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 767);
+        };
+
+        // Initial check
+        handleResize();
+
+        // Event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <div className="">
                 <div>
                     <Row gutter={[14, 14]}>
-                        <Col xs={0} sm={0} md={9} lg={11} xl={12} xxl={15}></Col>
-                        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={4}>
+                        <Col xs={0} sm={0} md={8} lg={10} xl={11} xxl={15}></Col>
+                        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={4} className='textEnd'>
                             <Input type='search' allowClear placeholder='Search...' onChange={handleSearch} style={{ height: '35px' }} />
                         </Col>
-                        <Col xs={24} sm={24} md={9} lg={7} xl={6} xxl={5} className='textCenter'>
+                        <Col xs={24} sm={24} md={10} lg={8} xl={7} xxl={5} className={`${isMobile ? 'textCenter' : ''}`}>
                             <Space wrap>
                                 <Button
                                     type="primary"
                                     onClick={() => handleQuestions('')}
                                     style={{ borderRadius: '30px' }}
+                                    icon={<FaCircleQuestion className='iconColorChange' />}
                                 >
                                     {allDataType ? 'My Questions' : 'All Questions'}
                                 </Button>

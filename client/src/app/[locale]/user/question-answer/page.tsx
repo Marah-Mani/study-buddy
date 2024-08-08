@@ -197,6 +197,25 @@ export default function Page() {
         setSubCatId(selected);
     }
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 767);
+        };
+
+        // Initial check
+        handleResize();
+
+        // Event listener for window resize
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <div className="boxInbox">
@@ -205,7 +224,7 @@ export default function Page() {
                         <Row gutter={[12, 12]}>
                             <Col sm={0} xs={0} lg={6} xl={8} xxl={13}></Col>
                             {allDataType &&
-                                <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={6} className='textCenter'>
+                                <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={6} className={`${isMobile ? 'textCenter' : 'textEnd'}`}>
                                     <Space wrap>
                                         {allDataType &&
                                             <>
@@ -306,7 +325,7 @@ export default function Page() {
                                     </Space>
                                 </Col>
                             }
-                            <Col xs={24} sm={24} md={11} lg={8} xl={7} xxl={5} className='textCenter'>
+                            <Col xs={24} sm={24} md={11} lg={8} xl={7} xxl={5} className={`${isMobile ? 'textCenter' : ''}`}>
                                 <Space wrap>
                                     <Button
                                         type="primary"
