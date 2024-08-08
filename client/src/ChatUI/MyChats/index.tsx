@@ -36,7 +36,7 @@ interface Props {
 export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo, changeView, conversationClick }: Props) {
     const [reload, setReload] = useState(false)
     const [search, setSearch] = useState("");
-    const { chats, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
+    const { chats, selectedChatId, setChats, user, selectedChat, setSelectedChat, onlineUsers, fetchAgain, favourites, setFavourite }: any = useContext(ChatContext);
     const token = Cookies.get('session_token')
     const [showGroupChatModal, setShowGroupChatModal] = useState(false)
     const [viewProfile, setViewProfile] = useState<boolean>(false)
@@ -73,6 +73,7 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
             if (!selectedChat || !data.find((chat: any) => chat._id === selectedChat._id)) {
                 setSelectedChat(data.length > 0 ? data[0] : null);
             }
+
             const favouriteChats: any = [];
             const nonFavouriteChats: any = [];
             const allMeetings: any = [];
@@ -88,6 +89,10 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
                     favouriteChats.push(chatData)
                 } else {
                     nonFavouriteChats.push(chatData)
+                }
+
+                if (selectedChatId == chatData._id) {
+                    setSelectedChat(chatData);
                 }
             })
             setFavourite(favouriteChats);

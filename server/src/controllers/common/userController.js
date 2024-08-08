@@ -55,15 +55,21 @@ const chatController = {
 			if (interestedIn) {
 				query.interestedIn = interestedIn;
 				query.departmentId = findUser.departmentId;
-				query.subjects = { $in: findUser.subjects };
+
+				// Split subjects into individual items
+				const subjectsArray = findUser.subjects.flatMap(subject => subject.split(',').map(s => s.trim()));
+
+				query.subjects = { $in: subjectsArray.map(sub => new RegExp(sub, 'i')) };
 			} else {
 				// When interestedIn is null, return the count of students and tutors
+				const subjectsArray = findUser.subjects.flatMap(subject => subject.split(',').map(s => s.trim()));
+
 				const studentCount = await User.countDocuments({
 					_id: { $ne: userId },
 					status: 'active',
 					interestedIn: 'student',
 					departmentId: findUser.departmentId,
-					subjects: { $in: findUser.subjects }
+					subjects: { $in: subjectsArray.map(sub => new RegExp(sub, 'i')) }
 				});
 
 				const tutorCount = await User.countDocuments({
@@ -71,7 +77,7 @@ const chatController = {
 					status: 'active',
 					interestedIn: 'tutor',
 					departmentId: findUser.departmentId,
-					subjects: { $in: findUser.subjects }
+					subjects: { $in: subjectsArray.map(sub => new RegExp(sub, 'i')) }
 				});
 
 				return res.status(200).json({
@@ -108,6 +114,7 @@ const chatController = {
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},
+
 
 	getAllDepartments: async (req, res) => {
 		try {

@@ -35,6 +35,7 @@ export default function MarketPlace({ activeKey }: Props) {
     const [selectedProduct, setSelectedProduct] = useState<any>(null);
     const token = Cookies.get('session_token');
     const { user } = useContext(AuthContext);
+    const { setSelectedChatId } = useContext(ChatContext);
 
     useEffect(() => {
         fetchData();
@@ -113,8 +114,7 @@ export default function MarketPlace({ activeKey }: Props) {
                     Authorization: `Bearer ${token}`,
                 },
             };
-            await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
+            const response: any = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
                 {
                     name: groupChatName,
                     users: JSON.stringify(selectedUsers.map((u: any) => u._id)),
@@ -122,6 +122,11 @@ export default function MarketPlace({ activeKey }: Props) {
                 },
                 config
             );
+            if (response) {
+                setSelectedChatId(response.data._id);
+            }
+
+
             router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
 
         } catch (error) {

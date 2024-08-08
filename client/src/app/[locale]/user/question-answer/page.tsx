@@ -222,7 +222,7 @@ export default function Page() {
                 <div>
                     {loading ? <Loading /> :
                         <Row gutter={[12, 12]}>
-                            <Col sm={0} xs={0} lg={6} xl={8} xxl={13}></Col>
+                            <Col sm={0} xs={0} md={allDataType ? 0 : 13} lg={allDataType ? 6 : 16} xl={allDataType ? 8 : 17} xxl={allDataType ? 13 : 19}></Col>
                             {allDataType &&
                                 <Col xs={24} sm={24} md={13} lg={10} xl={9} xxl={6} className={`${isMobile ? 'textCenter' : 'textEnd'}`}>
                                     <Space wrap>
@@ -491,12 +491,32 @@ export default function Page() {
                                                 })}
                                             </Row>
                                         ) : (
-                                            <div className="textCenter">
-                                                <Result
-                                                    status="404"
-                                                    subTitle="Oops! We couldn't find any matching records."
-                                                />
-                                            </div>
+                                            <>
+                                                <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0} className='textCenter'>
+                                                    <Image
+                                                        src='/images/no-match.png'
+                                                        width={'auto'}
+                                                        height={'auto'}
+                                                        preview={false}
+                                                    />
+                                                    <br />
+                                                    <ParaText size='extraSmall' color='black'>
+                                                        Oops! We couldn't find any matching records.
+                                                    </ParaText>
+                                                </Col>
+                                                <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24} className='textCenter'>
+                                                    <Image
+                                                        src='/images/no-match.png'
+                                                        width={500}
+                                                        height={500}
+                                                        preview={false}
+                                                    />
+                                                    <br />
+                                                    <ParaText size='extraSmall' color='black'>
+                                                        Oops! We couldn't find any matching records.
+                                                    </ParaText>
+                                                </Col>
+                                            </>
                                         )}
                                     </Col>
                                     <Col xs={24} sm={24} md={24} lg={24} xl={6} xxl={6}>

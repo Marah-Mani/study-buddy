@@ -16,6 +16,8 @@ interface ChatContextDefaults {
     favourites?: any;
     setFavourite?: any;
     config?: any;
+    setSelectedChatId?: any;
+    selectedChatId?: any;
 }
 
 interface ChatContextProp {
@@ -50,7 +52,9 @@ const ChatContext = createContext<ChatContextDefaults>({
     setFetchAgain: () => { },
     favourites: [],
     setFavourite: () => { },
-    config: null
+    config: null,
+    setSelectedChatId: () => { },
+    selectedChatId: undefined,
 });
 
 const ChatContentProvider = ({ children }: ChatContextProp) => {
@@ -62,6 +66,7 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
     const [onlineUsers, setOnlineUsers] = useState<any>([])
     const [fetchAgain, setFetchAgain] = useState(false)
     const [favourites, setFavourite] = useState<any>([])
+    const [selectedChatId, setSelectedChatId] = useState<any>(undefined)
     const token = Cookies.get('session_token')
     const config = {
         headers: {
@@ -93,7 +98,9 @@ const ChatContentProvider = ({ children }: ChatContextProp) => {
                 setFetchAgain,
                 favourites,
                 setFavourite,
-                config
+                config,
+                setSelectedChatId,
+                selectedChatId,
             }}
         >
             {children}

@@ -41,7 +41,7 @@ export default function MatchedResult({ type }: Props) {
     const token = Cookies.get('session_token');
     const { chats, setChats }: any = useContext(ChatContext);
     const { user } = useContext(AuthContext);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [languageList, setLanguageList] = useState<any[]>([]);
 
     useEffect(() => {
@@ -61,8 +61,6 @@ export default function MatchedResult({ type }: Props) {
     }, [user]);
 
     const fetchAllCandidates = async () => {
-        setLoading(true);
-
         const query = {
             userId: user?._id,
             interestedIn: type,
@@ -93,8 +91,7 @@ export default function MatchedResult({ type }: Props) {
                 ...prev,
                 total: response.totalCount
             }));
-            setLoading(false);
-
+            // setLoading(false);
         } catch (error) {
             setLoading(false);
             console.error('Error fetching candidates:', error);
@@ -108,30 +105,6 @@ export default function MatchedResult({ type }: Props) {
         } catch (error) {
             console.error('Error fetching authors:', error);
         }
-    };
-
-    const handleDepartmentChange = (e: any) => {
-        setSelectedSubject('');
-        setAllSubjects([]);
-        const selected: any = AllDepartments.find((item: any) => item._id === e.key);
-        setSelectedDepartment(selected);
-        if (selected) setAllSubjects(selected?.subjects);
-        setPagination((prev) => ({
-            ...prev,
-            page: 1 // Reset page number when department changes
-        }));
-
-        fetchAllCandidates();
-    };
-
-    const handleSubjectsChange = (e: any) => {
-        const selectedKey = e.key;
-        setSelectedSubject(selectedKey === 'all' ? '' : selectedKey);
-        setPagination((prev) => ({
-            ...prev,
-            page: 1 // Reset page number when subjects change
-        }));
-        fetchAllCandidates();
     };
 
     const handleInputChange = (e: any) => {
@@ -180,89 +153,6 @@ export default function MatchedResult({ type }: Props) {
                                     <div className="floatRight">
                                         {AllCandidates.length > 0 &&
                                             <Space wrap>
-                                                {/* <Dropdown
-                                            overlay={
-                                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                    <Menu onClick={handleDepartmentChange}>
-                                                        <Menu.Item key="all" className="hovercolor">
-                                                            All
-                                                        </Menu.Item>
-                                                        {AllDepartments &&
-                                                            AllDepartments.map((item: any) => (
-                                                                <Menu.Item key={item._id} className="hovercolor">
-                                                                    {capitalizeFirstLetterOfEachWord(
-                                                                        item?.departmentName
-                                                                    )}
-                                                                </Menu.Item>
-                                                            ))}
-                                                    </Menu>
-                                                </div>
-                                            }
-                                        >
-                                            <Button
-                                                style={{
-                                                    width: '250px',
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center'
-                                                }}
-                                            >
-                                                <span
-                                                    style={{
-                                                        overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
-                                                        whiteSpace: 'nowrap'
-                                                    }}
-                                                >
-                                                    {selectedDepartment
-                                                        ? capitalizeFirstLetterOfEachWord(
-                                                            selectedDepartment.departmentName
-                                                        )
-                                                        : 'Select Department'}
-                                                </span>
-                                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                            </Button>
-                                        </Dropdown>
-                                        <Dropdown
-                                            overlay={
-                                                <div style={{ border: '2px solid #f1a638', borderRadius: '8px' }}>
-                                                    <Menu onClick={handleSubjectsChange}>
-                                                        <Menu.Item key="all" className="hovercolor">
-                                                            All
-                                                        </Menu.Item>
-                                                        {AllSubjects.map((subject) => (
-                                                            <Menu.Item key={subject} className="hovercolor">
-                                                                {subject}
-                                                            </Menu.Item>
-                                                        ))}
-                                                    </Menu>
-                                                </div>
-                                            }
-                                        >
-                                            <Button
-                                                style={{
-                                                    width: '250px',
-                                                    display: 'flex',
-                                                    justifyContent: 'space-between',
-                                                    alignItems: 'center',
-                                                    borderRadius: '30px 30px 30px 30px'
-                                                }}
-                                            >
-                                                <span
-                                                    style={{
-                                                        overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
-                                                        whiteSpace: 'nowrap'
-                                                    }}
-                                                >
-                                                    {selectedSubject
-                                                        ? capitalizeFirstLetterOfEachWord(selectedSubject)
-                                                        : 'Select subject'}
-                                                </span>
-                                                <IoMdArrowDropdown style={{ marginLeft: 8 }} />
-                                            </Button>
-                                        </Dropdown> */}
-
                                                 <Input
                                                     suffix={<CiSearch />}
                                                     placeholder="Search with name"
@@ -279,7 +169,6 @@ export default function MatchedResult({ type }: Props) {
 
                         <br />
                         {AllCandidates.length > 0 ?
-
                             <InfiniteScroll
                                 dataLength={AllCandidates.length}
                                 next={() => setPagination((prev) => ({ ...prev, page: pagination.page + 1 }))}
@@ -329,14 +218,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                 >
                                                                                     {`${item?.name} `}
                                                                                 </ParaText>
-                                                                                {/* <Tag color="success" style={{ marginLeft: '8px' }}>
-                                                                    {capitalizeFirstLetterOfEachWord(item?.interestedIn)}
-                                                                </Tag> */}
                                                                             </Flex>
-                                                                            {/* <ParaText size="textGraf" fontWeightBold={600} color="black">
-                                                                    {item?.profileTitle &&
-                                                                        capitalizeFirstLetterOfEachWord(item?.profileTitle)}
-                                                                </ParaText> */}
                                                                             <div className="gapPaddingTopOne"></div>
                                                                             <ParaText
                                                                                 size="textGraf"
@@ -389,11 +271,6 @@ export default function MatchedResult({ type }: Props) {
                                                                             </ParaText>
 
                                                                             <Flex gap="4px 0" wrap="wrap">
-                                                                                {/* <Tag icon={<FaUserGraduate />}>
-                                                                    &nbsp;
-                                                                    {item?.higherEducation &&
-                                                                        capitalizeFirstLetterOfEachWord(item?.higherEducation)}
-                                                                </Tag> */}
                                                                                 <ParaText size="textGraf" color="black">
                                                                                     <span>
                                                                                         <strong style={{ fontWeight: '400' }}>

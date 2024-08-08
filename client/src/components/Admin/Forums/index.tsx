@@ -68,6 +68,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                 setLoading(false);
                 setReload(!reload);
                 setAttachment([]);
+                setForumId('');
             }
         } catch (error) {
             setLoading(false);
@@ -77,6 +78,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
 
     const handleEdit = (data: any) => {
         setForumId(data._id);
+        setSelectedCategory(data.categoryId._id);
         setDrawer(true);
         form.setFieldsValue({
             title: data.title,
@@ -116,16 +118,20 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
 
     const handleRemoveAttachment = async () => {
         try {
-            const data = {
-                userId: user?._id,
-                logo: null,
-                forumId: forumId
-            }
-            const res = await deleteForumAttachment(data);
-            if (res.status == true) {
+            if (forumId) {
+                const data = {
+                    userId: user?._id,
+                    logo: null,
+                    forumId: forumId
+                }
+                const res = await deleteForumAttachment(data);
+                if (res.status == true) {
+                    setAttachment([]);
+                    message.success(res.message);
+                    setReload(!reload);
+                }
+            } else {
                 setAttachment([]);
-                message.success(res.message);
-                setReload(!reload);
             }
         } catch (error) {
             ErrorHandler.showNotification(error);
@@ -154,7 +160,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
         <>
             <br />
             <ForumData activeKey={activeKey} reload={reload} onEdit={(data: any) => handleEdit(data)} getData={setFilteredData} filterData={filteredData} />
-            <Drawer width={640} title="Add new item" onClose={() => setDrawer(false)} open={drawer}>
+            <Drawer width={640} title={forumId ? 'Edit question' : "Add new question"} onClose={() => setDrawer(false)} open={drawer}>
                 <Form
                     layout='vertical'
                     size='large'
@@ -286,7 +292,7 @@ export default function Forums({ activeKey, newRecord, onBack, setNewRecord }: P
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className={'textEnd'}>
                             <div style={{ textAlign: 'end', paddingTop: '50px' }}>
-                                <Button type='primary' loading={loading} htmlType='submit' style={{ borderRadius: '30px' }}>
+                                <Button type='primary' disabled={loading} loading={loading} htmlType='submit' style={{ borderRadius: '30px' }}>
                                     {loading ? 'Submitting' : 'Submit Item'}
                                 </Button>
                             </div>
