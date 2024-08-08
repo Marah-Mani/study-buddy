@@ -5,6 +5,7 @@ import { Col, Row } from 'antd';
 import TopBar from '@/app/commonUl/topBar';
 import MenuUser from '@/app/commonUl/MenuUser';
 import { usePathname } from 'next/navigation';
+import { ChatContentProvider } from '@/contexts/ChatContext';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
 	const pathname = usePathname();
@@ -74,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 	}, [desiredSegment, isMobile]);
 
 	return (
-		<>
+		<ChatContentProvider>
 			{desiredSegment === 'chat' ? (
 				<>
 					<TopBar />
@@ -103,6 +104,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 					</Row>
 				</section>
 			)}
-		</>
+		</ChatContentProvider>
 	);
 }

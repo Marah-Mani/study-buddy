@@ -94,6 +94,10 @@ export default function MyChats({ handleRightClickOption, hardRefresh, viewInfo,
                 if (selectedChatId == chatData._id) {
                     setSelectedChat(chatData);
                 }
+
+                if (selectedChat && selectedChat._id == chatData._id) {
+                    setSelectedChat(chatData);
+                }
             })
             setFavourite(favouriteChats);
             setChats(nonFavouriteChats);

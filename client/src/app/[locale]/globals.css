@@ -328,3 +328,7 @@ input.form-control {
     height: calc(100dvh - env(safe-area-inset-top));
   }
 }
+
+.questionImages .ant-image img {
+  height: 200px;
+}

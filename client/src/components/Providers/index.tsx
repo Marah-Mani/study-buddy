@@ -9,7 +9,6 @@ import { usePathname } from 'next/navigation';
 import { SessionProvider } from 'next-auth/react';
 import Header from '../Header';
 import Footer from '../Footer';
-import { ChatContentProvider } from '@/contexts/ChatContext';
 interface Props {
 	children: ReactNode;
 }
@@ -51,11 +50,9 @@ const Providers = (props: Props) => {
 
 	return (
 		<SessionProvider>
-			<ChatContentProvider>
-				{excludedPaths.some((path) => pathname.includes(path)) ? null : <Header />}
-				{props.children}
-				{excludedPaths.some((path) => pathname.includes(path)) ? '' : <Footer />}
-			</ChatContentProvider>
+			{excludedPaths.some((path) => pathname.includes(path)) ? null : <Header />}
+			{props.children}
+			{excludedPaths.some((path) => pathname.includes(path)) ? '' : <Footer />}
 		</SessionProvider>
 	);
 };

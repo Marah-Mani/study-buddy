@@ -426,13 +426,15 @@ export default function Page() {
                                                                                 </ParaText>
                                                                                 <div className="smallTopMargin"></div>
                                                                                 {forum.attachment ? (
-                                                                                    <img
-                                                                                        src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
-                                                                                        alt="Avatar"
-                                                                                        className='imageSize'
-                                                                                        style={{ borderRadius: '5px' }}
-
-                                                                                    />
+                                                                                    <div className='questionImages'>
+                                                                                        <Image
+                                                                                            src={`${process.env['NEXT_PUBLIC_IMAGE_URL']}/forumImages/original/${forum.attachment}`}
+                                                                                            alt="Avatar"
+                                                                                            className='imageSize'
+                                                                                            style={{ borderRadius: '5px' }}
+                                                                                            preview={false}
+                                                                                        />
+                                                                                    </div>
                                                                                 ) : null}
                                                                                 <div className="smallTopMargin"></div>
                                                                                 {!forum.attachment && (
