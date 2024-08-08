@@ -695,6 +695,26 @@ export default function Chat() {
         setNewMessage((prevInput: string) => prevInput + emoji);
     };
 
+    useEffect(() => {
+        const hideToolbar = () => {
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+            }
+
+            // Slight scroll to hide the toolbar
+            setTimeout(() => {
+                window.scrollTo(0, 1);
+            }, 100);
+        };
+
+        hideToolbar();
+
+        // Scroll back to top on cleanup or if necessary
+        return () => {
+            window.scrollTo(0, 0);
+        };
+    }, []);
+
     return (
         <div className="headerMain full-viewport-height">
             <MainContainer
