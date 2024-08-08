@@ -696,7 +696,7 @@ export default function Chat() {
     };
 
     return (
-        <div className="headerMain">
+        <div className="headerMain full-viewport-height">
             <MainContainer
                 responsive
             >
