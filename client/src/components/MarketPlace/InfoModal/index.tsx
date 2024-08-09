@@ -1,25 +1,20 @@
 import ParaText from '@/app/commonUl/ParaText';
-import { Col, Image, notification, Row, Tag, Tooltip } from 'antd';
-import React, { useContext } from 'react';
-import { WechatOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { Col, Image, Row, Tag, Tooltip } from 'antd';
+import React from 'react';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './style.css';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
-import AuthContext from '@/contexts/AuthContext';
 import { BiShekel } from 'react-icons/bi';
 import ShortFileTitleName from '@/app/commonUl/ShortFileTitleName';
 
 interface Props {
     product: any;
+    handleChat: any;
 }
 
-export default function InfoModal({ product }: Props) {
-    const token = Cookies.get('session_token');
-    const { user } = useContext(AuthContext);
+export default function InfoModal({ product, handleChat }: Props) {
 
     function calculatePercentageOff(originalPrice: number, discountedPrice: number) {
         const discount = originalPrice - discountedPrice;
@@ -39,61 +34,24 @@ export default function InfoModal({ product }: Props) {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        responsive: [
-            {
-                breakpoint: 768, // Adjust breakpoint for mobile devices
-                settings: {
-                    slidesToShow: 1, // Display one slide at once in mobile view
-                    slidesToScroll: 1,
-                    vertical: false // Disable vertical property for mobile view
-                }
-            },
-            {
-                breakpoint: 767, // Adjust breakpoint for mobile devices
-                settings: {
-                    slidesToShow: 1, // Display one slide at once in mobile view
-                    slidesToScroll: 1,
-                    vertical: false // Disable vertical property for mobile view
-                }
-            }
-        ]
-    };
-
-    const router = useRouter();
-
-    const getFirstName = (fullName: any) => {
-        const nameParts = fullName.trim().split(' ');
-        return nameParts[0];
-    };
-
-    const handleSubmit = async (data: any) => {
-        try {
-            const groupChatName = `${getFirstName(user?.name)}-${getFirstName(data.createdBy.name)}-Market Place`;
-            const selectedUsers = [
-                {
-                    _id: data.createdBy._id
-                }
-            ];
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            };
-            await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/common/chat/group`,
-                {
-                    name: groupChatName,
-                    users: JSON.stringify(selectedUsers.map((u: any) => u._id)),
-                    type: 'marketChat'
-                },
-                config
-            );
-            router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat`);
-        } catch (error) {
-            notification.error({
-                message: 'Failed to Create the Chat!'
-            });
-        }
+        // responsive: [
+        //     {
+        //         breakpoint: 768, // Adjust breakpoint for mobile devices
+        //         settings: {
+        //             slidesToShow: 1, // Display one slide at once in mobile view
+        //             slidesToScroll: 1,
+        //             vertical: false // Disable vertical property for mobile view
+        //         }
+        //     },
+        //     {
+        //         breakpoint: 767, // Adjust breakpoint for mobile devices
+        //         settings: {
+        //             slidesToShow: 1, // Display one slide at once in mobile view
+        //             slidesToScroll: 1,
+        //             vertical: false // Disable vertical property for mobile view
+        //         }
+        //     }
+        // ]
     };
 
     return (
@@ -198,7 +156,7 @@ export default function InfoModal({ product }: Props) {
                                 placement="left"
                             >
                                 <br />
-                                <img src="/icons/yellowbubble-chat.png" alt="chat" />
+                                <img src="/icons/yellowbubble-chat.png" alt="chat" onClick={() => handleChat(product)} />
                             </Tooltip>
                         </Col>
                     </Row>

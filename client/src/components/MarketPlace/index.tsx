@@ -430,7 +430,7 @@ export default function MarketPlace({ activeKey }: Props) {
                 />
             </div>
             <Modal title={' '} className='popupStyle' open={infoModal} onCancel={() => setInfoModal(false)} footer={null} width={890}>
-                <InfoModal product={selectedProduct} />
+                <InfoModal product={selectedProduct} handleChat={(data: any) => handleSubmit(data)} />
             </Modal>
         </>
     );
