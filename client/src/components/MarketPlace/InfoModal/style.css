@@ -42,3 +42,11 @@ span {
   width: 100%;
   height: auto;
 }
+
+@media (max-width:991px) {
+  .modalImage img {
+    width: 100%;
+    height: auto;
+  }
+
+}
