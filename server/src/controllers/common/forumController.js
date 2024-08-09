@@ -1,5 +1,6 @@
 const ForumViewCount = require('../../models/ForumViewCount');
 const Forum = require('../../models/forums');
+const User = require('../../models/Users');
 const ForumCategory = require('../../models/forumCategory');
 const ForumSubCategory = require('../../models/forumSubCategory');
 const errorLogger = require('../../../logger');
@@ -39,16 +40,18 @@ const invoiceController = {
 						forum = new Forum(forumData);
 						await forum.save();
 					}
+					const role = await User.findById(req.body.userId).select('name');
+
 					const adminId = await getAdminDataByRole('users');
 					const NotificationData = {
-						notification: `Forum data updated by admin`,
+						notification: `Forum data updated by ${role.name}`,
 						notifyBy: req.body.userId,
 						notifyTo: req.body.userId,
 						type: 'Forum',
 						url: ''
 					};
 					createNotification(NotificationData);
-					await trackUserActivity(adminId, 'Forum data updated by admin');
+					await trackUserActivity(adminId, `Forum data updated by ${role.name}`,);
 					res.status(200).json({ status: true, message: 'Forum data updated successfully', forum });
 				} catch (error) {
 					errorLogger(error);
