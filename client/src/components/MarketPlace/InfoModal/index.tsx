@@ -1,8 +1,6 @@
 import ParaText from '@/app/commonUl/ParaText';
-import { Col, Image, Row, Tag, Tooltip } from 'antd';
+import { Avatar, Carousel, Col, Row, Tag, Tooltip } from 'antd';
 import React from 'react';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './style.css';
@@ -22,62 +20,34 @@ export default function InfoModal({ product, handleChat }: Props) {
         return percentageOff.toFixed(2); // returns the percentage off rounded to 2 decimal places
     }
 
-    const settings = {
-        dots: true,
-        arrows: true, // Show arrows navigation
-        prevArrow: <ArrowLeftOutlined className="slick-prev" onClick={undefined} />,
-        nextArrow: <ArrowRightOutlined className="slick-next" onClick={undefined} />,
-        infinite: true,
-        speed: 500,
-        fade: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        // responsive: [
-        //     {
-        //         breakpoint: 768, // Adjust breakpoint for mobile devices
-        //         settings: {
-        //             slidesToShow: 1, // Display one slide at once in mobile view
-        //             slidesToScroll: 1,
-        //             vertical: false // Disable vertical property for mobile view
-        //         }
-        //     },
-        //     {
-        //         breakpoint: 767, // Adjust breakpoint for mobile devices
-        //         settings: {
-        //             slidesToShow: 1, // Display one slide at once in mobile view
-        //             slidesToScroll: 1,
-        //             vertical: false // Disable vertical property for mobile view
-        //         }
-        //     }
-        // ]
+    const onChange = (currentSlide: number) => {
+        console.log(currentSlide);
     };
 
     return (
         <>
             <Row gutter={18}>
-                <Col md={12}>
-                    <Slider {...settings}>
-                        {product.images.map((image: any, index: any) => (
-                            <div key={index} className='' >
-                                <Image
-                                    src={
-                                        product.images.length > 0
-                                            ? `${process.env.NEXT_PUBLIC_IMAGE_URL}/productImages/original/${image.name}`
-                                            : `/images/avatar.png`
-                                    }
-                                    alt="item-images"
-                                    preview={false}
-                                    height={300}
-                                    style={{ width: '100%', borderRadius: '10px', border: '2px solid #344734' }}
-                                />
+                <Col xs={24} sm={24} md={12}>
+                    <Carousel afterChange={onChange} dots={false} autoplay={true}>
+                        {product.images.length > 0 ? (
+                            product.images.map((image: any, index: any) => (
+                                <div key={index} className='modalImage'>
+                                    <img
+                                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/productImages/original/${image.name}`}
+                                        alt="item-images"
+                                        style={{ width: '100%', borderRadius: '10px', border: '2px solid #344734', height: '300px' }}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <div className='modalImage'>
+                                <Avatar shape={'square'} size={200} style={{ width: '100%' }}>Product</Avatar>
                             </div>
-                        ))}
-                    </Slider>
+                        )}
+                    </Carousel>
                     <div className="gapMarginTopOne"></div>
                 </Col>
-                <Col md={12}>
+                <Col xs={24} sm={24} md={12}>
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                             <div className="product-content">
