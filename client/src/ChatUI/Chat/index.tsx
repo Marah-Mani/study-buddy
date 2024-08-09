@@ -596,12 +596,15 @@ export default function Chat() {
         }
     };
 
+    const [key, setKey] = useState(0);
+
     const continueChat = async () => {
         try {
             setLoading(true);
             const response = await axios.get(`${baseURL}${common.continueChat(selectedChat._id)}`, config);
 
             if (response.data) {
+                setKey(prevKey => prevKey + 1);
                 setFetchAgain(!fetchAgain);
                 sendMessage(null, 'Request accepted.');
                 setLoading(false);
@@ -719,7 +722,7 @@ export default function Chat() {
     }, []);
 
     return (
-        <div className="headerMain full-viewport-height">
+        <div className="headerMain full-viewport-height" key={key}>
             <MainContainer
                 responsive
             >
