@@ -110,11 +110,16 @@ const userController = {
 	deleteUser: async (req, res) => {
 		try {
 			const { id } = req.params;
-			const deletedUser = await Users.deleteOne({ _id: id });
-			if (deletedUser.deletedCount === 0) {
+			const updatedUser = await Users.updateOne(
+				{ _id: id },
+				{ $set: { status: 'deleted' } } // Update the status field to 'deleted'
+			);
+
+			if (updatedUser.matchedCount === 0) {
 				return res.status(404).json({ message: 'User not found', status: false });
 			}
-			res.status(200).json({ message: 'User deleted successfully', status: true });
+
+			res.status(200).json({ message: 'User status updated to deleted', status: true });
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ message: 'Internal Server Error' });
