@@ -229,7 +229,7 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                     </>
                 )}
             </Menu.Item>
-            {chatSettings.allowDeleteChat &&
+            {chatSettings.allowDeleteChat && !chat.isGroupChat &&
                 <Popconfirm
                     title='Are you sure you want to delete this chat?'
                     onConfirm={() => handleMenuClick({ key: 'delete' })}
