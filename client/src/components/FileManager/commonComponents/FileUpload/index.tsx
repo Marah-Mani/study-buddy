@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { Button, message, Upload } from 'antd';
@@ -20,6 +20,7 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
 
     const [fileList, setFileList] = React.useState<any>([]);
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false)
 
     const handleBeforeUpload = async (file: File): Promise<boolean> => {
         try {
@@ -45,8 +46,10 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
     };
 
     const handleUploadFile = async () => {
+        setLoading(true);
         if (fileList.length <= 0) {
             message.error('Please upload at least one document.'); // Reset loading state
+            setLoading(false);
             return;
         }
         const formData = new FormData();
@@ -64,6 +67,7 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
             handleCancelFile()
             setFileList([])
             getFilesWithId()
+            setLoading(false)
         }
         return true
     }
@@ -80,8 +84,8 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
                 </p>
             </Dragger>
             <div className="smallTopMargin"></div>
-            <Button key="submit" type="primary" onClick={handleUploadFile} >
-                {/* {loading ? 'Uploading' : 'Upload Identity'} */}File upload
+            <Button key="submit" type="primary" loading={loading} disabled={loading} onClick={handleUploadFile} >
+                {loading ? 'Uploading' : 'File upload'}
             </Button>
         </>
     )

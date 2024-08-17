@@ -152,17 +152,17 @@ export default function UnMatchedResult({ type }: Props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={20} lg={20} xl={18} xxl={16}>
                                     <div className="floatRight">
-                                        {AllCandidates.length > 0 &&
-                                            <Space wrap>
-                                                <Input
-                                                    suffix={<CiSearch />}
-                                                    placeholder="Search with name"
-                                                    value={searchQuery}
-                                                    style={{ borderRadius: '0' }}
-                                                    onChange={handleInputChange}
-                                                />
-                                            </Space>
-                                        }
+                                        {/* {AllCandidates.length > 0 && */}
+                                        <Space wrap>
+                                            <Input
+                                                suffix={<CiSearch />}
+                                                placeholder="Search with name"
+                                                value={searchQuery}
+                                                style={{ borderRadius: '0' }}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Space>
+                                        {/* } */}
                                     </div>
                                 </Col>
                             </Row>

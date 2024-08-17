@@ -61,7 +61,7 @@ export default function FormModal({ folderRename, onClose, currentInnerFolderId 
                 <Row align="stretch" gutter={[16, 16]}>
                     <Col lg={4} md={4} sm={12} xs={12}>
                         <Button type="primary" htmlType="submit" className="w100" style={{ borderRadius: '30px' }}>
-                            Add Folder
+                            {folderRename ? 'Update Folder' : 'Add Folder'}
                         </Button>
                     </Col>
                 </Row>

@@ -486,7 +486,7 @@ export default function Chat() {
             // }
         });
     }
-    if (chatSettings?.allowDeleteChat) {
+    if (chatSettings?.allowDeleteChat && !selectedChat?.isGroupChat) {
         items.push({
             label: (
                 <Popconfirm

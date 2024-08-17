@@ -82,6 +82,7 @@ const Login = () => {
 		try {
 			await signIn('facebook');
 		} catch (error) {
+			debugger;
 			console.error('Facebook login failed:', error);
 		}
 	};

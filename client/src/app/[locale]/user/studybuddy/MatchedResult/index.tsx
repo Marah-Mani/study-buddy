@@ -72,7 +72,7 @@ export default function MatchedResult({ type }: Props) {
         };
 
         try {
-            setLoading(true);
+            // setLoading(true);
             const response = await getAllCandidate(query);
 
             if (pagination.page == 1) {
@@ -151,17 +151,17 @@ export default function MatchedResult({ type }: Props) {
                                 </Col>
                                 <Col xs={24} sm={24} md={20} lg={20} xl={18} xxl={16}>
                                     <div className="floatRight">
-                                        {AllCandidates.length > 0 &&
-                                            <Space wrap>
-                                                <Input
-                                                    suffix={<CiSearch />}
-                                                    placeholder="Search with name"
-                                                    value={searchQuery}
-                                                    style={{ borderRadius: '0' }}
-                                                    onChange={handleInputChange}
-                                                />
-                                            </Space>
-                                        }
+                                        {/* {AllCandidates.length > 0 && */}
+                                        <Space wrap>
+                                            <Input
+                                                suffix={<CiSearch />}
+                                                placeholder="Search with name"
+                                                value={searchQuery}
+                                                style={{ borderRadius: '0' }}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Space>
+                                        {/* } */}
                                     </div>
                                 </Col>
                             </Row>

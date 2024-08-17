@@ -34,7 +34,7 @@ export default function Page() {
                     </Col>
                 </Row>
                 <div className='gapMarginTopTwo'></div>
-                <TableData reload={false} onEdit={undefined} searchInput={undefined} />
+                <TableData reload={false} onEdit={undefined} searchInput={searchInput} />
             </div>
         </>
     )

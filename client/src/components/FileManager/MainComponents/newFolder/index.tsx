@@ -150,7 +150,7 @@ export default function NewFolder({ newFolderName, onBack, onSelectedId, current
             </Row>
             <div className='gapMarginTopOne'></div>
             <Row align='middle' >
-                <Col md={1}
+                <Col xs={2} sm={2} md={1} lg={1} xl={1} xxl={1}
                     onClick={() => {
                         setFolderId('')
                         onBack(folderId)
@@ -160,7 +160,7 @@ export default function NewFolder({ newFolderName, onBack, onSelectedId, current
                         <BackButton />
                     </div>
                 </Col>
-                <Col xs={12} sm={12} md={4} lg={4} xl={4} xxl={4}>
+                <Col xs={22} sm={22} md={4} lg={4} xl={4} xxl={4}>
                     <ParaText size='textGraf' color='black' fontWeightBold={600}>{folderName}  </ParaText>
                 </Col>
                 <Col xs={24} sm={17} md={17} lg={17} xl={17} xxl={17}>
@@ -226,12 +226,12 @@ export default function NewFolder({ newFolderName, onBack, onSelectedId, current
                 <Row gutter={[16, 16]}>
                     <>
                         {fileWithFolderId && fileWithFolderId.map((file: any, index: any) => (
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} key={index} onClick={() => { handleFile(file._id) }}>
+                            <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} key={index} onClick={() => { handleFile(file._id) }}>
                                 <div className='cardCommn'
                                     style={{ color: '#efa24b', cursor: 'pointer' }}
                                 >
                                     <Row>
-                                        <Col md={23}>
+                                        <Col xs={23} sm={23} md={23} lg={23} xl={23} xxl={23} >
                                             <div style={{ display: 'flex', gap: '10px' }}>
                                                 <div>
                                                     <ParaText size='textGraf' color='black' fontWeightBold={600}>
@@ -258,7 +258,7 @@ export default function NewFolder({ newFolderName, onBack, onSelectedId, current
                                                 </div>
                                             </div>
                                         </Col>
-                                        <Col md={1}>
+                                        <Col xs={1} sm={1} md={1} lg={1} xl={1} xxl={1} >
                                             <Dropdown
                                                 menu={{ items: getMenuItems(file) }}
                                                 trigger={['click']}

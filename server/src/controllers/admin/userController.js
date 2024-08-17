@@ -19,10 +19,19 @@ const userController = {
 
 	getAllUsers: async (req, res) => {
 		try {
-			const users = await Users.find({
+			const searchQuery = req.query.search || '';
+
+			// Create a MongoDB query object
+			const query = {
 				status: { $in: ['active', 'inactive'] },
 				role: { $ne: 'admin' }
-			})
+			};
+
+			if (searchQuery) {
+				query.name = { $regex: searchQuery, $options: 'i' };
+			}
+
+			const users = await Users.find(query)
 				.sort({ _id: -1 })
 				.populate('departmentId', 'departmentName');
 
@@ -32,6 +41,7 @@ const userController = {
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
 		}
 	},
+
 
 	updateUserDetails: async (req, res) => {
 		try {

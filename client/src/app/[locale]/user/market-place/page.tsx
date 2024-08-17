@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<>
 			<div className='boxInbox'>
-				<Tabs tabPosition='top' defaultActiveKey="2" items={items} onChange={(value) => setKey(value)} />
+				<Tabs tabPosition='top' defaultActiveKey="1" items={items} onChange={(value) => setKey(value)} />
 			</div>
 		</>
 	);
