@@ -239,7 +239,7 @@ canvas.sound-wave {
 
 @media (max-width: 767px) {
   .headerMain {
-    height: calc(90vh);
+    height: calc(93vh);
     padding-top: 70px;
   }
 }
