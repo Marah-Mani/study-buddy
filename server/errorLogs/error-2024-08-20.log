@@ -1,0 +1,6 @@
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:28.567Z"}
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:28.792Z"}
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:29.008Z"}
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:35.821Z"}
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:36.035Z"}
+{"level":"error","message":"Error: Can't use status","stack":"at getFavoriteFiles (/opt/lampp/htdocs/study-buddy/server/src/controllers/common/fileManagerController.js:350:4)","timestamp":"2024-08-20T10:00:36.248Z"}

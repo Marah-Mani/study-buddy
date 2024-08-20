@@ -344,8 +344,12 @@ const fileManagerController = {
 			if (!favoriteFiles) {
 				return res.status(200).json({ status: true, data: [] });
 			}
-			const files = await FileManagerFile.find({ _id: { $in: favoriteFiles.files } });
+			const files = await FileManagerFile.find({
+				_id: { $in: favoriteFiles.files },
+				status: 'active'
+			});
 			res.status(200).json({ status: true, data: files });
+
 		} catch (error) {
 			errorLogger(error);
 			res.status(500).json({ status: false, message: 'Internal Server Error' });
@@ -603,7 +607,7 @@ const fileManagerController = {
 		try {
 			const { folderId } = req.params;
 
-			const files = await FileManagerFile.find({ folderId: folderId, status: 'active' });
+			const files = await FileManagerFile.find({ folderId: folderId, status: 'active' }).sort({ createdAt: -1 });
 
 			return res.status(200).json({ status: true, data: files });
 		} catch (error) {
