@@ -740,7 +740,7 @@ export default function Chat() {
                         >
                             <ConversationHeader>
                                 <ConversationHeader.Back>
-                                    <Button onClick={handleBackClick} icon={<FaArrowLeft />} />
+                                    <Button style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={handleBackClick} icon={<FaArrowLeft />} />
                                 </ConversationHeader.Back>
                                 <ConversationHeader.Content style={conversationContentStyle} >
                                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>

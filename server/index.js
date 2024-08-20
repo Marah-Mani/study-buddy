@@ -57,8 +57,8 @@ const limiter = rateLimit({
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 // app.use(fileUpload());
 
 app.use(blockMiddleware); // Apply the block checking middleware to all requests
