@@ -184,7 +184,7 @@ const VerificationModal = ({ onClose, userEmail, onResend, onSkip, onCancel, use
 				<div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
 					<div className="mt-4">
 						<SecondaryButton
-							label={isLoading ? 'Please wait verifying email address' : 'My email address'}
+							label={isLoading ? 'Please wait verifying email address' : 'Submit OTP'}
 							type="primary"
 							onClick={handleSubmit}
 							disabled={isLoading}
