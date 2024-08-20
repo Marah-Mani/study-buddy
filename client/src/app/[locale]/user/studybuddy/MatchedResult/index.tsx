@@ -188,7 +188,7 @@ export default function MatchedResult({ type }: Props) {
                                                     <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
                                                         <div className="candidates-details">
                                                             <Row>
-                                                                <Col xs={24} sm={24} md={24} lg={2} xl={2} xxl={1} className="">
+                                                                <Col xs={22} sm={22} md={24} lg={2} xl={2} xxl={1} className="">
                                                                     <Image
                                                                         src={
                                                                             item?.image
@@ -201,6 +201,34 @@ export default function MatchedResult({ type }: Props) {
                                                                         preview={false}
                                                                         style={{ borderRadius: '50px' }}
                                                                     />
+                                                                </Col>
+                                                                <Col xs={2} sm={2} md={0} lg={0} xl={0} xxl={0}>
+                                                                    <div className="textEnd">
+                                                                        <Tooltip
+                                                                            title={
+                                                                                <span
+                                                                                    style={{
+                                                                                        color: 'black',
+                                                                                        fontWeight: 600
+                                                                                    }}
+                                                                                >
+                                                                                    Chat now
+                                                                                </span>
+                                                                            }
+                                                                            color={'#EDF1F5'}
+                                                                        >
+                                                                            <Image
+                                                                                style={{ cursor: 'pointer' }}
+                                                                                onClick={() => accessChat(item?._id)}
+                                                                                preview={false}
+                                                                                src="/icons/yellowbubble-chat.png"
+                                                                                alt="Active User"
+                                                                                width={20}
+                                                                                height={20}
+                                                                            />
+                                                                        </Tooltip>
+                                                                        &nbsp;
+                                                                    </div>
                                                                 </Col>
                                                                 <Col
                                                                     xs={24}
@@ -327,9 +355,25 @@ export default function MatchedResult({ type }: Props) {
                                                                                     </span>
                                                                                 </ParaText>
                                                                             </ParaText>
+                                                                            <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0}>
+                                                                                <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
+                                                                                    <ParaText size="textGraf" color="black">
+                                                                                        {item?.profileDescription}
+                                                                                    </ParaText>
+                                                                                </div>
+                                                                            </Col>
                                                                             <div>
                                                                                 <br className="dNone" />
                                                                                 <Space size={[8, 16]} wrap>
+                                                                                    {(item.socialLinks.facebook || item.socialLinks.instagram || item.socialLinks.linkedin || item.socialLinks.twitter) && (
+                                                                                        <span>
+                                                                                            <strong style={{ fontWeight: '400' }}>
+                                                                                                {' '}
+                                                                                                Social links :
+                                                                                            </strong>
+                                                                                        </span>
+                                                                                    )}
+
                                                                                     {(item.socialLinks.facebook !== '' && item.socialLinks.facebook !== null) &&
                                                                                         (
                                                                                             <a
@@ -393,7 +437,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                 </Space>
                                                                             </div>
                                                                         </Col>
-                                                                        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                                                                        <Col xs={0} sm={0} md={12} lg={12} xl={12} xxl={12}>
                                                                             <div className="textEnd">
                                                                                 <Tooltip
                                                                                     title={
@@ -419,9 +463,6 @@ export default function MatchedResult({ type }: Props) {
                                                                                     />
                                                                                 </Tooltip>
                                                                                 &nbsp;
-                                                                                {/* <span>
-                                                                        <CiHeart size={30} />
-                                                                    </span> */}
                                                                             </div>
                                                                             <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
                                                                                 <ParaText size="textGraf" color="black">

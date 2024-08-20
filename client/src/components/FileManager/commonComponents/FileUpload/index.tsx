@@ -94,8 +94,9 @@ export default function FileUpload({ handleCancelFile, folderId, getFilesWithId 
 
             <div className="smallTopMargin"></div>
             <Button key="submit" type="primary" loading={loading} disabled={loading || fileList.length === 0} onClick={handleUploadFile}>
-                {loading ? 'Uploading' : 'File upload'}
+                {loading ? 'Please wait, it will take a short time' : 'File Upload'}
             </Button>
+
         </>
     );
 }

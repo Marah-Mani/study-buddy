@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Dropdown, Image, MenuTheme, Row, Space, Switch, Table } from 'antd';
+import { Col, Dropdown, Image, Row, Space, Table } from 'antd';
 import type { TableProps } from 'antd';
 import { IoMdEye } from "react-icons/io";
 import { getFilesWithParams } from '@/lib/commonApi';

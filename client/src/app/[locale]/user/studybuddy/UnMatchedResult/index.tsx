@@ -203,6 +203,34 @@ export default function UnMatchedResult({ type }: Props) {
                                                                         style={{ borderRadius: '50px' }}
                                                                     />
                                                                 </Col>
+                                                                <Col xs={2} sm={2} md={0} lg={0} xl={0} xxl={0}>
+                                                                    <div className="textEnd">
+                                                                        <Tooltip
+                                                                            title={
+                                                                                <span
+                                                                                    style={{
+                                                                                        color: 'black',
+                                                                                        fontWeight: 600
+                                                                                    }}
+                                                                                >
+                                                                                    Chat now
+                                                                                </span>
+                                                                            }
+                                                                            color={'#EDF1F5'}
+                                                                        >
+                                                                            <Image
+                                                                                style={{ cursor: 'pointer' }}
+                                                                                onClick={() => accessChat(item?._id)}
+                                                                                preview={false}
+                                                                                src="/icons/yellowbubble-chat.png"
+                                                                                alt="Active User"
+                                                                                width={20}
+                                                                                height={20}
+                                                                            />
+                                                                        </Tooltip>
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </Col>
                                                                 <Col
                                                                     xs={24}
                                                                     sm={24}
@@ -328,9 +356,24 @@ export default function UnMatchedResult({ type }: Props) {
                                                                                     </span>
                                                                                 </ParaText>
                                                                             </ParaText>
+                                                                            <Col xs={24} sm={24} md={0} lg={0} xl={0} xxl={0}>
+                                                                                <div className={item?.profileDescription ? 'candidates-details-chat' : ''}>
+                                                                                    <ParaText size="textGraf" color="black">
+                                                                                        {item?.profileDescription}
+                                                                                    </ParaText>
+                                                                                </div>
+                                                                            </Col>
                                                                             <div>
                                                                                 <br className="dNone" />
                                                                                 <Space size={[8, 16]} wrap>
+                                                                                    {(item.socialLinks.facebook || item.socialLinks.instagram || item.socialLinks.linkedin || item.socialLinks.twitter) && (
+                                                                                        <span>
+                                                                                            <strong style={{ fontWeight: '400' }}>
+                                                                                                {' '}
+                                                                                                Social links :
+                                                                                            </strong>
+                                                                                        </span>
+                                                                                    )}
                                                                                     {(item.socialLinks.facebook !== '' && item.socialLinks.facebook !== null) &&
                                                                                         (
                                                                                             <a

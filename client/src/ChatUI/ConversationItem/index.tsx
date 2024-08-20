@@ -219,16 +219,21 @@ const ConversationItem: React.FC<ConversationItemProps> = ({
                 </Popconfirm>
             }
             <Menu.Item key='block'>
-                {user.block.includes(getSenderFull(user, selectedChat?.users)._id) ? (
-                    <>
-                        <UndoOutlined /> Unblock
-                    </>
-                ) : (
-                    <>
-                        <StopOutlined /> Block
-                    </>
-                )}
+                {selectedChat?.users && user.block.length > 0 &&
+                    (getSenderFull(user, selectedChat?.users) &&
+                        user.block.includes(getSenderFull(user, selectedChat?.users)._id)
+                        ? (
+                            <>
+                                <UndoOutlined /> Unblock
+                            </>
+                        ) : (
+                            <>
+                                <StopOutlined /> Block
+                            </>
+                        )
+                    )}
             </Menu.Item>
+
             {chatSettings.allowDeleteChat && !chat.isGroupChat &&
                 <Popconfirm
                     title='Are you sure you want to delete this chat?'
