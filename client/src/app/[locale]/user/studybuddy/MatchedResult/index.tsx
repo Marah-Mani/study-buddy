@@ -120,6 +120,7 @@ export default function MatchedResult({ type }: Props) {
         return text.replace(/\b\w/g, (char) => char.toUpperCase());
     };
     const router = useRouter();
+    const { setSelectedChatId } = useContext(ChatContext);
 
     const accessChat = async (userId: any) => {
         try {
@@ -132,6 +133,9 @@ export default function MatchedResult({ type }: Props) {
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/common/chat`, { userId }, config);
 
             if (!chats.find((c: any) => c._id === data._id)) setChats([data, ...chats]);
+            if (data && data._id) {
+                setSelectedChatId(data._id);
+            }
             router.push(`${process.env['NEXT_PUBLIC_SITE_URL']}/${user?.role}/chat?${data._id}`);
         } catch (error) {
             notification.error({
@@ -326,7 +330,7 @@ export default function MatchedResult({ type }: Props) {
                                                                             <div>
                                                                                 <br className="dNone" />
                                                                                 <Space size={[8, 16]} wrap>
-                                                                                    {item.socialLinks.facebook !== '' &&
+                                                                                    {(item.socialLinks.facebook !== '' && item.socialLinks.facebook !== null) &&
                                                                                         (
                                                                                             <a
                                                                                                 href={item.socialLinks.facebook}
@@ -342,22 +346,21 @@ export default function MatchedResult({ type }: Props) {
                                                                                             </a>
                                                                                         )
                                                                                     }
-                                                                                    {item.socialLinks.instagram !== '' &&
-                                                                                        (
-                                                                                            <a
-                                                                                                href={item.socialLinks.instagram}
-                                                                                                target="_blank"
-                                                                                                rel="noopener noreferrer"
-                                                                                            >
-                                                                                                <span>
-                                                                                                    <FaInstagramSquare
-                                                                                                        color="rgb(225 48 108)"
-                                                                                                        size={20}
-                                                                                                    />
-                                                                                                </span>
-                                                                                            </a>
-                                                                                        )}
-                                                                                    {item.socialLinks.twitter !== '' &&
+                                                                                    {(item.socialLinks.instagram !== '' && item.socialLinks.instagram !== null) && (
+                                                                                        <a
+                                                                                            href={item.socialLinks.instagram}
+                                                                                            target="_blank"
+                                                                                            rel="noopener noreferrer"
+                                                                                        >
+                                                                                            <span>
+                                                                                                <FaInstagramSquare
+                                                                                                    color="rgb(225 48 108)"
+                                                                                                    size={20}
+                                                                                                />
+                                                                                            </span>
+                                                                                        </a>
+                                                                                    )}
+                                                                                    {(item.socialLinks.twitter !== '' && item.socialLinks.twitter !== null) &&
                                                                                         (
                                                                                             <a
                                                                                                 href={item.socialLinks.twitter}
@@ -372,7 +375,7 @@ export default function MatchedResult({ type }: Props) {
                                                                                                 </span>
                                                                                             </a>
                                                                                         )}
-                                                                                    {item.socialLinks.likedIn !== 'null' &&
+                                                                                    {(item.socialLinks.linkedin !== '' && item.socialLinks.linkedin !== null) &&
                                                                                         (
                                                                                             <a
                                                                                                 href={item.socialLinks.linkedin}

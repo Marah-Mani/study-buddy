@@ -30,68 +30,68 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 		};
 	}, []);
 
-	useEffect(() => {
-		const enterFullscreen = () => {
-			if (document.documentElement.requestFullscreen) {
-				document.documentElement.requestFullscreen().catch((err) => {
-					console.error("Error attempting to enable full-screen mode:", err);
-				});
-			} else {
-				console.log("Fullscreen API is not supported.");
-			}
-		};
+	// useEffect(() => {
+	// 	const enterFullscreen = () => {
+	// 		if (document.documentElement.requestFullscreen) {
+	// 			document.documentElement.requestFullscreen().catch((err) => {
+	// 				console.error("Error attempting to enable full-screen mode:", err);
+	// 			});
+	// 		} else {
+	// 			console.log("Fullscreen API is not supported.");
+	// 		}
+	// 	};
 
-		const exitFullscreen = () => {
-			if (document.exitFullscreen) {
-				document.exitFullscreen().catch((err) => {
-					console.error("Error attempting to exit full-screen mode:", err);
-				});
-			} else {
-				console.log("Fullscreen API is not supported.");
-			}
-		};
+	// 	const exitFullscreen = () => {
+	// 		if (document.exitFullscreen) {
+	// 			document.exitFullscreen().catch((err) => {
+	// 				console.error("Error attempting to exit full-screen mode:", err);
+	// 			});
+	// 		} else {
+	// 			console.log("Fullscreen API is not supported.");
+	// 		}
+	// 	};
 
-		if (desiredSegment === 'chat' && isMobile) {
-			// Ensure fullscreen request is handled with user interaction
-			const handleFullscreenRequest = () => {
-				setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
-			};
+	// 	if (desiredSegment === 'chat' && isMobile) {
+	// 		// Ensure fullscreen request is handled with user interaction
+	// 		const handleFullscreenRequest = () => {
+	// 			setTimeout(enterFullscreen, 100); // Slight delay to ensure rendering
+	// 		};
 
-			handleFullscreenRequest();
+	// 		handleFullscreenRequest();
 
-			// Add event listener to handle user interaction
-			document.addEventListener('click', handleFullscreenRequest, { once: true });
+	// 		// Add event listener to handle user interaction
+	// 		document.addEventListener('click', handleFullscreenRequest, { once: true });
 
-			// Cleanup event listener
-			return () => {
-				document.removeEventListener('click', handleFullscreenRequest);
-			};
-		} else if (desiredSegment !== 'chat') {
-			// Exit fullscreen if not 'chat'
-			exitFullscreen();
-		}
-		return undefined;
-	}, [desiredSegment, isMobile]);
+	// 		// Cleanup event listener
+	// 		return () => {
+	// 			document.removeEventListener('click', handleFullscreenRequest);
+	// 		};
+	// 	} else if (desiredSegment !== 'chat') {
+	// 		// Exit fullscreen if not 'chat'
+	// 		exitFullscreen();
+	// 	}
+	// 	return undefined;
+	// }, [desiredSegment, isMobile]);
 
-	useEffect(() => {
-		const hideToolbar = () => {
-			if ('scrollRestoration' in window.history) {
-				window.history.scrollRestoration = 'manual';
-			}
+	// useEffect(() => {
+	// 	const hideToolbar = () => {
+	// 		if ('scrollRestoration' in window.history) {
+	// 			window.history.scrollRestoration = 'manual';
+	// 		}
 
-			// Slight scroll to hide the toolbar
-			setTimeout(() => {
-				window.scrollTo(0, 1);
-			}, 100);
-		};
+	// 		// Slight scroll to hide the toolbar
+	// 		setTimeout(() => {
+	// 			window.scrollTo(0, 1);
+	// 		}, 100);
+	// 	};
 
-		hideToolbar();
+	// 	hideToolbar();
 
-		// Scroll back to top on cleanup or if necessary
-		return () => {
-			window.scrollTo(0, 0);
-		};
-	}, []);
+	// 	// Scroll back to top on cleanup or if necessary
+	// 	return () => {
+	// 		window.scrollTo(0, 0);
+	// 	};
+	// }, []);
 
 	return (
 		<ChatContentProvider>

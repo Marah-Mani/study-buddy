@@ -179,6 +179,7 @@ export default function Chat() {
     });
 
     const handleUpload = async () => {
+        setLoading(true);
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -197,6 +198,7 @@ export default function Chat() {
             setPreviewModal(false);
             setPreviewFiles([]);
         } catch (error) {
+            setLoading(false);
             console.error('Error uploading files:', error);
         }
     };
@@ -1108,8 +1110,8 @@ export default function Chat() {
                     setPreviewFiles([]);
                 }}
                 footer={[
-                    <Button key="upload" type="primary" onClick={handleUpload}>
-                        Upload
+                    <Button key="upload" loading={loading} disabled={loading} type="primary" onClick={handleUpload}>
+                        {loading ? 'Uploading' : 'Upload'}
                     </Button>
                 ]}
                 centered
